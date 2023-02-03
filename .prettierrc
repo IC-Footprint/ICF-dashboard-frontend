@@ -1,0 +1,6 @@
+{
+  "singleQuote": true,
+  "proseWrap": "preserve",
+  "trailingComma": "none",
+  "semi": true
+}
