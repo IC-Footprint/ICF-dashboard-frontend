@@ -11,7 +11,20 @@
       "threeMonths": "3M"
     }
   },
+  "locations": {
+    "be": "Belgium",
+    "ch": "China",
+    "de": "Germany",
+    "fr": "France",
+    "jp": "Japan",
+    "ro": "Romania",
+    "sg": "Singapore",
+    "si": "Slovenia",
+    "us": "United States of America"
+  },
   "nodes": {
-    "networkEmissions": "Network Emissions (kgCo2e)"
+    "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
+    "networkEmissions": "Network Emissions (kgCo2e)",
+    "nodeEmissionsByRegion": "Node Emissions by Region (Wh)"
   }
 }

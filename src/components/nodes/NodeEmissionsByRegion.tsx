@@ -1,0 +1,52 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import type { RangeType } from '@/models/range-type';
+import type { ChartData } from 'chart.js';
+import type { FC } from 'react';
+
+import SelectTimeRange from '@/components/SelectTimeRange';
+import useNodes from '@/helpers/state/useNodes';
+import useChart from '@/helpers/useChart';
+import { ChartContainer, StyledChart } from '@/theme/styled-components';
+
+const NodeEmissionsByRegion: FC = () => {
+  const { t } = useTranslation();
+  const { chartOptions } = useChart();
+  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const {
+    actions: { getNodeEmissionsByRegion },
+    nodeEmissionsByRegion,
+    isNodeEmissionsByRegionLoading
+  } = useNodes();
+  const [nodeEmissionsByRegionData, setNodeEmissionsByRegionData] =
+    useState<ChartData>();
+
+  useEffect(() => {
+    getNodeEmissionsByRegion(range);
+  }, [range, getNodeEmissionsByRegion]);
+
+  useEffect(() => {
+    if (nodeEmissionsByRegion) {
+      setNodeEmissionsByRegionData(structuredClone(nodeEmissionsByRegion));
+    }
+  }, [nodeEmissionsByRegion]);
+
+  return (
+    <ChartContainer>
+      <span>{t('nodes.nodeEmissionsByRegion')}</span>
+      <StyledChart
+        type="line"
+        data={nodeEmissionsByRegionData}
+        options={chartOptions}
+      />
+      <SelectTimeRange
+        range={range}
+        setRange={setRange}
+        disabled={isNodeEmissionsByRegionLoading}
+      />
+    </ChartContainer>
+  );
+};
+
+export default NodeEmissionsByRegion;

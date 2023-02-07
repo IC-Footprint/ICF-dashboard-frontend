@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { Draft } from 'immer';
-import type { DatasetModel } from '@/models/dataset-model';
-import type { NodeModel } from '@/models/nodes/node-model';
 import type { ActionReducerMapBuilder } from '@reduxjs/toolkit';
+import type { NodeModel } from '@/models/nodes/node-model';
 import type { ChartData } from 'chart.js';
+import type { Draft } from 'immer';
 
 import {
+  getElectricityDrawByTechnologyTypeAction,
   getNetworkEmissionsAction,
+  getNodeEmissionsByRegionAction,
   getNodesLeaderboardAction
 } from '@/state/nodes/nodes-actions';
 
@@ -18,19 +19,27 @@ export interface NodesState {
   networkEmissions: ChartData | null;
   networkEmissionsLoading: boolean;
   networkEmissionsError: boolean;
-  nodeEmissionsByRegion: DatasetModel[] | null;
-  electricityDrawnByTechnologyType: DatasetModel[] | null;
+  nodeEmissionsByRegion: ChartData | null;
+  nodeEmissionsByRegionLoading: boolean;
+  nodeEmissionsByRegionError: boolean;
+  electricityDrawByTechnologyType: ChartData | null;
+  electricityDrawByTechnologyTypeLoading: boolean;
+  electricityDrawByTechnologyTypeError: boolean;
 }
 
 const initialState: () => NodesState = () => ({
-  electricityDrawnByTechnologyType: null,
+  electricityDrawByTechnologyType: null,
+  electricityDrawByTechnologyTypeLoading: false,
+  electricityDrawByTechnologyTypeError: false,
   leaderboardLoading: false,
   leaderboardError: false,
   leaderboard: null,
   networkEmissions: null,
   networkEmissionsLoading: false,
   networkEmissionsError: false,
-  nodeEmissionsByRegion: null
+  nodeEmissionsByRegion: null,
+  nodeEmissionsByRegionLoading: false,
+  nodeEmissionsByRegionError: false
 });
 
 const nodesSlice = createSlice({
@@ -78,9 +87,50 @@ const nodesSlice = createSlice({
         state.networkEmissionsLoading = false;
         state.networkEmissionsError = true;
       });
+
+    /** Get node emissions by region **/
+    builder
+      .addCase(getNodeEmissionsByRegionAction.pending, (state) => {
+        state.nodeEmissionsByRegionLoading = true;
+        state.nodeEmissionsByRegionError = false;
+      })
+      .addCase(
+        getNodeEmissionsByRegionAction.fulfilled,
+        (state, { payload }) => {
+          state.nodeEmissionsByRegionLoading = false;
+          state.nodeEmissionsByRegion = payload as Draft<ChartData>;
+        }
+      )
+      .addCase(getNodeEmissionsByRegionAction.rejected, (state) => {
+        state.nodeEmissionsByRegionLoading = false;
+        state.nodeEmissionsByRegionError = true;
+      });
+
+    /** Get electricity draw by technology type **/
+    builder
+      .addCase(getElectricityDrawByTechnologyTypeAction.pending, (state) => {
+        state.electricityDrawByTechnologyTypeLoading = true;
+        state.electricityDrawByTechnologyTypeError = false;
+      })
+      .addCase(
+        getElectricityDrawByTechnologyTypeAction.fulfilled,
+        (state, { payload }) => {
+          state.electricityDrawByTechnologyTypeLoading = false;
+          state.electricityDrawByTechnologyType = payload as Draft<ChartData>;
+        }
+      )
+      .addCase(getElectricityDrawByTechnologyTypeAction.rejected, (state) => {
+        state.electricityDrawByTechnologyTypeLoading = false;
+        state.electricityDrawByTechnologyTypeError = true;
+      });
   }
 });
 
-export { getNodesLeaderboardAction };
+export {
+  getNodesLeaderboardAction,
+  getNodeEmissionsByRegionAction,
+  getNetworkEmissionsAction,
+  getElectricityDrawByTechnologyTypeAction
+};
 
 export default nodesSlice.reducer;
