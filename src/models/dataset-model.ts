@@ -1,5 +1,5 @@
 export interface DatasetModel {
   dataSetName: string;
   labels: string[];
-  data: number[];
+  data: (number | null)[];
 }

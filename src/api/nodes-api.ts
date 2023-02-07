@@ -24,6 +24,34 @@ export class NodesApi {
     );
     return response.data;
   }
+
+  async getNodeEmissionsByRegion(
+    range: RangeType | null
+  ): Promise<DatasetModel[]> {
+    const response: AxiosResponse<DatasetModel[]> = await axios.get(
+      '/nodes/nodeEmissionsByRegion',
+      {
+        params: {
+          range: range
+        }
+      }
+    );
+    return response.data;
+  }
+
+  async getElectricityDrawByTechnologyType(
+    range: RangeType | null
+  ): Promise<DatasetModel[]> {
+    const response: AxiosResponse<DatasetModel[]> = await axios.get(
+      '/nodes/electricityDrawByTechnologyType',
+      {
+        params: {
+          range: range
+        }
+      }
+    );
+    return response.data;
+  }
 }
 
 const nodesApi: NodesApi = new NodesApi();

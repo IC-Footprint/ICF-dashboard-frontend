@@ -14,13 +14,13 @@ export class ChartUtils {
     options: BuildChartOptionsModel
   ): ChartOptions<'line'> {
     return {
-      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
       datasets: {
         line: {
           tension: 0.4
         }
       },
-      aspectRatio: 5,
       plugins: {
         tooltip: {
           mode: 'index',

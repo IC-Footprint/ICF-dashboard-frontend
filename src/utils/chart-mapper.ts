@@ -1,5 +1,6 @@
-import type { ChartData, ChartDataset } from 'chart.js';
 import type { DatasetModel } from '@/models/dataset-model';
+import type { RangeType } from '@/models/range-type';
+import type { ChartData, ChartDataset } from 'chart.js';
 
 const seriesPalette: string[] = [
   '#14B8A6',
@@ -16,10 +17,25 @@ const seriesPalette: string[] = [
 ];
 
 export class ChartMapper {
-  static mapChartData(datasets: DatasetModel[]): ChartData {
+  private static mapDateLabel(
+    dateString: string,
+    range: RangeType | null
+  ): string {
+    const date: Date = new Date(dateString);
+    if (range === 'HALF_AN_HOUR' || range === 'ONE_DAY') {
+      return date.toLocaleTimeString();
+    }
+    return date.toLocaleDateString();
+  }
+
+  static mapChartData(
+    datasets: DatasetModel[],
+    range: RangeType | null
+  ): ChartData {
     const mappedDatasets: ChartDataset[] = datasets.map(
       (dataset: DatasetModel, index: number) => {
         return {
+          label: dataset.dataSetName,
           data: dataset.data,
           backgroundColor: seriesPalette[index % seriesPalette.length],
           borderColor: seriesPalette[index % seriesPalette.length]
@@ -30,7 +46,7 @@ export class ChartMapper {
       labels:
         datasets.length > 0
           ? datasets[0].labels.map((label: string) =>
-              new Date(label).toLocaleDateString()
+              ChartMapper.mapDateLabel(label, range)
             )
           : [],
       datasets: mappedDatasets
