@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client';
 import App from '@/App';
 import '@/i18n';
 import initialSetup from '@/initial-setup';
+import '@/index.css';
 
 initialSetup();
 

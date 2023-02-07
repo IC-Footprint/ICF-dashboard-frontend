@@ -1,17 +1,9 @@
-import { Button } from 'primereact/button';
-import { useTranslation } from 'react-i18next';
-
 import type { FC } from 'react';
 
-const Nodes: FC = () => {
-  const { t } = useTranslation();
+import NetworkEmissions from '@/components/nodes/NetworkEmissions';
 
-  return (
-    <main>
-      <h1>{t('nodes')}</h1>
-      <Button label="Click me" />
-    </main>
-  );
+const Nodes: FC = () => {
+  return <NetworkEmissions />;
 };
 
 export default Nodes;

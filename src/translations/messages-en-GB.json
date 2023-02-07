@@ -1,3 +1,17 @@
 {
-  "nodes": "Nodes"
+  "common": {
+    "internetComputerFootprint": "Internet Computer Footprint",
+    "timeRange": {
+      "fiveYears": "5Y",
+      "halfAnHour": "30m",
+      "oneDay": "1D",
+      "oneMonth": "1M",
+      "oneYear": "1Y",
+      "sevenDays": "7D",
+      "threeMonths": "3M"
+    }
+  },
+  "nodes": {
+    "networkEmissions": "Network Emissions (kgCo2e)"
+  }
 }
