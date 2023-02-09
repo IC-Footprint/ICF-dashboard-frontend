@@ -1,6 +1,19 @@
 {
   "common": {
+    "co2Tonnes": "{{value}} tCO2e",
+    "gridTechnologyType": {
+      "hydro": "Hydro",
+      "nuclear": "Nuclear",
+      "solar": "Solar",
+      "wind": "Wind"
+    },
     "internetComputerFootprint": "Internet Computer Footprint",
+    "leaderboard": "Leaderboard",
+    "nodeStatus": {
+      "down": "Down",
+      "unassigned": "Unassigned",
+      "up": "Up"
+    },
     "timeRange": {
       "fiveYears": "5Y",
       "halfAnHour": "30m",
@@ -9,7 +22,11 @@
       "oneYear": "1Y",
       "sevenDays": "7D",
       "threeMonths": "3M"
-    }
+    },
+    "wattHour": "{{value}} Wh"
+  },
+  "datasets": {
+    "networkEmissions": "Network Emissions"
   },
   "locations": {
     "be": "Belgium",
@@ -25,6 +42,19 @@
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "networkEmissions": "Network Emissions (kgCo2e)",
-    "nodeEmissionsByRegion": "Node Emissions by Region (Wh)"
+    "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
+  },
+  "table": {
+    "headers": {
+      "carbonIntensity": "Carbon Intensity",
+      "electricityDraw": "Electricity Draw",
+      "emissions": "Emissions",
+      "gridTechnology": "Grid Mix",
+      "id": "ID",
+      "location": "Location",
+      "nodeProvider": "Node Provider",
+      "status": "Status"
+    },
+    "pageReport": "Showing {first} to {last} of {totalRecords} entries"
   }
 }

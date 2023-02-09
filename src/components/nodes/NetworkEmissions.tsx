@@ -9,7 +9,7 @@ import type { FC } from 'react';
 import SelectTimeRange from '@/components/SelectTimeRange';
 import useNodes from '@/helpers/state/useNodes';
 import useChart from '@/helpers/useChart';
-import { ChartContainer } from '@/theme/styled-components';
+import { FlexColumnCard } from '@/theme/styled-components';
 
 const NetworkEmissions: FC = () => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const NetworkEmissions: FC = () => {
   }, [networkEmissions]);
 
   return (
-    <ChartContainer>
+    <FlexColumnCard>
       <span>{t('nodes.networkEmissions')}</span>
       <Chart type="line" data={networkEmissionsData} options={chartOptions} />
       <SelectTimeRange
@@ -41,7 +41,7 @@ const NetworkEmissions: FC = () => {
         setRange={setRange}
         disabled={isNetworkEmissionsLoading}
       />
-    </ChartContainer>
+    </FlexColumnCard>
   );
 };
 

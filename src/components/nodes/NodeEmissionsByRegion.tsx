@@ -8,7 +8,7 @@ import type { FC } from 'react';
 import SelectTimeRange from '@/components/SelectTimeRange';
 import useNodes from '@/helpers/state/useNodes';
 import useChart from '@/helpers/useChart';
-import { ChartContainer, StyledChart } from '@/theme/styled-components';
+import { FlexColumnCard, StyledChart } from '@/theme/styled-components';
 
 const NodeEmissionsByRegion: FC = () => {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ const NodeEmissionsByRegion: FC = () => {
   }, [nodeEmissionsByRegion]);
 
   return (
-    <ChartContainer>
+    <FlexColumnCard>
       <span>{t('nodes.nodeEmissionsByRegion')}</span>
       <StyledChart
         type="line"
@@ -45,7 +45,7 @@ const NodeEmissionsByRegion: FC = () => {
         setRange={setRange}
         disabled={isNodeEmissionsByRegionLoading}
       />
-    </ChartContainer>
+    </FlexColumnCard>
   );
 };
 
