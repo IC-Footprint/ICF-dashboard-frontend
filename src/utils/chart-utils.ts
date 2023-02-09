@@ -15,7 +15,7 @@ export class ChartUtils {
   ): ChartOptions<'line'> {
     return {
       maintainAspectRatio: false,
-      aspectRatio: 1,
+      aspectRatio: 1.5,
       datasets: {
         line: {
           tension: 0.4

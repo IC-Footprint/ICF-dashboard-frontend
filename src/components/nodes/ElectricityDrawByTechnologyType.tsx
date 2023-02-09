@@ -8,7 +8,7 @@ import type { FC } from 'react';
 import useNodes from '@/helpers/state/useNodes';
 import useChart from '@/helpers/useChart';
 import SelectTimeRange from '@/components/SelectTimeRange';
-import { ChartContainer, StyledChart } from '@/theme/styled-components';
+import { FlexColumnCard, StyledChart } from '@/theme/styled-components';
 
 const ElectricityDrawByTechnologyType: FC = () => {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ const ElectricityDrawByTechnologyType: FC = () => {
   }, [electricityDrawByTechnologyType]);
 
   return (
-    <ChartContainer>
+    <FlexColumnCard>
       <span>{t('nodes.electricityDrawByTechnologyType')}</span>
       <StyledChart
         type="line"
@@ -49,7 +49,7 @@ const ElectricityDrawByTechnologyType: FC = () => {
         setRange={setRange}
         disabled={isElectricityDrawByTechnologyTypeLoading}
       />
-    </ChartContainer>
+    </FlexColumnCard>
   );
 };
 
