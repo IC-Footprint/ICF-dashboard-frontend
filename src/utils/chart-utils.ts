@@ -16,6 +16,7 @@ export class ChartUtils {
     return {
       maintainAspectRatio: false,
       aspectRatio: 1.5,
+      spanGaps: true,
       datasets: {
         line: {
           tension: 0.4

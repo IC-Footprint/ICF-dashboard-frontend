@@ -44,6 +44,10 @@
     "networkEmissions": "Network Emissions (kgCo2e)",
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
   },
+  "page": {
+    "home": "Home",
+    "nodes": "Nodes"
+  },
   "table": {
     "headers": {
       "carbonIntensity": "Carbon Intensity",

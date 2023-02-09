@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Card } from 'primereact/card';
 import { Chart } from 'primereact/chart';
 import { Chip } from 'primereact/chip';
+import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
@@ -28,6 +29,8 @@ export const SelectTimeRangeContainer = styled.div`
 
 export const PageContent = styled.main`
   ${FlexColumnStyle};
+  flex-grow: 1;
+  min-width: 0;
   padding: 1.75rem;
   row-gap: 1.75rem;
 
@@ -80,4 +83,31 @@ export const PaginatorStyle = css`
 export const NodesContainer = styled.div`
   ${FlexColumnStyle};
   row-gap: 1.75rem;
+`;
+
+export const LayoutContainer = styled.div`
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+`;
+
+export const SideMenuContainer = styled.nav`
+  ${FlexColumnStyle};
+  padding: 1.125rem 0.625rem;
+  row-gap: 1.5rem;
+
+  a.active.p-menuitem-link {
+    span.p-menuitem {
+      color: var(--primary-color);
+    }
+  }
+`;
+
+export const StyledMenu = styled(Menu)`
+  .p-menuitem a.p-menuitem-link.active {
+    & > span,
+    &:hover > span {
+      color: var(--primary-color);
+    }
+  }
 `;
