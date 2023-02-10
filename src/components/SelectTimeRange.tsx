@@ -41,7 +41,7 @@ const SelectTimeRange: FC<SelectTimeRangeProps> = ({
     <SelectTimeRangeContainer>
       <SelectButton
         value={range}
-        onChange={(e) => setRange(e.value)}
+        onChange={(e) => (e.value ? setRange(e.value) : null)}
         options={options}
         optionValue="value"
         disabled={disabled}

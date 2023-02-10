@@ -36,7 +36,7 @@ const NodesLeaderboard: FC = () => {
   }, [nodesLeaderboard, getNodesLeaderboard]);
 
   const electricityDrawTemplate = (rowData: NodeModel) => {
-    return t('common.wattHour', { value: rowData.electricityDraw });
+    return t('common.unit.wattHour', { value: rowData.electricityDraw });
   };
 
   const carbonIntensityTemplate = (rowData: NodeModel) => {
@@ -61,7 +61,9 @@ const NodesLeaderboard: FC = () => {
   };
 
   const emissionsTemplate = (rowData: NodeModel) => {
-    return t('common.co2Tonnes', { value: rowData.emissions.toPrecision(2) });
+    return t('common.unit.co2Tonnes', {
+      value: rowData.emissions.toPrecision(2)
+    });
   };
 
   const gridTechnologyTemplate = (rowData: NodeModel) => {

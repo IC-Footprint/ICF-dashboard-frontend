@@ -25,6 +25,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  ignorePatterns: ['src/theme/assets/icons/*.jsx'],
   rules: {
     'import/no-duplicates': 'error',
     'import/order': [
