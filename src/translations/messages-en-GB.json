@@ -64,6 +64,7 @@
       "carbonIntensity": "Carbon Intensity",
       "electricityDraw": "Electricity Draw",
       "emissions": "Emissions",
+      "emissionsLast30minutes": "Emissions (30 mins)",
       "gridTechnology": "Grid Mix",
       "id": "ID",
       "location": "Location",

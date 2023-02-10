@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Card } from 'primereact/card';
 import { Chart } from 'primereact/chart';
 import { Chip } from 'primereact/chip';
+import { DataTable } from 'primereact/datatable';
 import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
 
@@ -132,5 +133,34 @@ export const HeadlineFigureCardContainer = styled(FlexRowCard)`
   i {
     height: 2rem;
     color: var(--primary-color);
+  }
+`;
+
+export const DashboardContentContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  gap: 0.875rem;
+`;
+
+export const DashboardTablesSectionContainer = styled.div`
+  ${FlexColumnStyle};
+  flex-grow: 1;
+  row-gap: 0.875rem;
+`;
+
+export const GlobeContainer = styled.div`
+  flex-grow: 14;
+`;
+
+export const DashboardTable = styled(DataTable)`
+  table.p-datatable-table tr {
+    & > td {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    & > th {
+      font-size: 0.75rem;
+    }
   }
 `;

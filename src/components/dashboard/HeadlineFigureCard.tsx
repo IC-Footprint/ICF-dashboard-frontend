@@ -30,7 +30,7 @@ const HeadlineFigureCard: FC<HeadlineFigureProps> = ({
       <div className={css(FlexColumnStyle)}>
         <span>{label}</span>
         <h3>
-          {value
+          {value !== undefined
             ? t(`common.unit.${unit}`, {
                 value: value.toLocaleString(undefined, {
                   maximumFractionDigits: 0
