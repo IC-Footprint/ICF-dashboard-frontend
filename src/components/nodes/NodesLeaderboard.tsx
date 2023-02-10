@@ -23,7 +23,8 @@ const NodesLeaderboard: FC = () => {
   const { t } = useTranslation();
   const {
     actions: { getNodesLeaderboard },
-    nodesLeaderboard
+    nodesLeaderboard,
+    isNodesLeaderboardLoading
   } = useNodes();
   const paginatorOptions = useMemo(() => {
     return defaultPaginatorOptions();
@@ -62,7 +63,7 @@ const NodesLeaderboard: FC = () => {
 
   const emissionsTemplate = (rowData: NodeModel) => {
     return t('common.unit.co2Tonnes', {
-      value: rowData.emissions.toPrecision(2)
+      value: rowData.emissions.toFixed(1)
     });
   };
 
@@ -88,53 +89,49 @@ const NodesLeaderboard: FC = () => {
   return (
     <FlexColumnCard>
       <span>{t('common.leaderboard')}</span>
-      {nodesLeaderboard ? (
-        <DataTable
-          value={nodesLeaderboard}
-          paginator
-          rows={paginatorOptions.rows}
-          rowsPerPageOptions={paginatorOptions.rowsPerPage}
-          dataKey="id"
-          paginatorClassName={css(PaginatorStyle)}
-          paginatorTemplate={paginatorOptions.paginatorTemplate}
-          currentPageReportTemplate={t('table.pageReport').toString()}
-        >
-          <Column field="id" header={t('table.headers.id')}></Column>
-          <Column
-            field="nodeProvider"
-            header={t('table.headers.nodeProvider')}
-          ></Column>
-          <Column
-            field="electricityDraw"
-            header={t('table.headers.electricityDraw')}
-            body={electricityDrawTemplate}
-          ></Column>
-          <Column
-            field="carbonIntensity"
-            header={t('table.headers.carbonIntensity')}
-            body={carbonIntensityTemplate}
-          ></Column>
-          <Column
-            field="emissions"
-            header={t('table.headers.emissions')}
-            body={emissionsTemplate}
-          ></Column>
-          <Column
-            field="gridTechnology"
-            header={t('table.headers.gridTechnology')}
-            body={gridTechnologyTemplate}
-          ></Column>
-          <Column
-            field="location"
-            header={t('table.headers.location')}
-          ></Column>
-          <Column
-            field="status"
-            header={t('table.headers.status')}
-            body={statusTemplate}
-          ></Column>
-        </DataTable>
-      ) : null}
+      <DataTable
+        value={nodesLeaderboard ?? []}
+        paginator
+        rows={paginatorOptions.rows}
+        rowsPerPageOptions={paginatorOptions.rowsPerPage}
+        dataKey="id"
+        paginatorClassName={css(PaginatorStyle)}
+        paginatorTemplate={paginatorOptions.paginatorTemplate}
+        currentPageReportTemplate={t('table.pageReport').toString()}
+        loading={isNodesLeaderboardLoading}
+      >
+        <Column field="id" header={t('table.headers.id')}></Column>
+        <Column
+          field="nodeProvider"
+          header={t('table.headers.nodeProvider')}
+        ></Column>
+        <Column
+          field="electricityDraw"
+          header={t('table.headers.electricityDraw')}
+          body={electricityDrawTemplate}
+        ></Column>
+        <Column
+          field="carbonIntensity"
+          header={t('table.headers.carbonIntensity')}
+          body={carbonIntensityTemplate}
+        ></Column>
+        <Column
+          field="emissions"
+          header={t('table.headers.emissions')}
+          body={emissionsTemplate}
+        ></Column>
+        <Column
+          field="gridTechnology"
+          header={t('table.headers.gridTechnology')}
+          body={gridTechnologyTemplate}
+        ></Column>
+        <Column field="location" header={t('table.headers.location')}></Column>
+        <Column
+          field="status"
+          header={t('table.headers.status')}
+          body={statusTemplate}
+        ></Column>
+      </DataTable>
     </FlexColumnCard>
   );
 };

@@ -1,6 +1,9 @@
 import { useCallback } from 'react';
 
-import { getHeadlineFiguresAction } from '@/state/dashboard/dashboard-slice';
+import {
+  getHeadlineFiguresAction,
+  getLocationsLeaderboardAction
+} from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
 const useDashboard = () => {
@@ -23,13 +26,34 @@ const useDashboard = () => {
     (state) => state.dashboard.headlineFiguresError
   );
 
+  const getLocationsLeaderboard = useCallback(
+    () => dispatch(getLocationsLeaderboardAction()),
+    [dispatch]
+  );
+
+  const locationsLeaderboard = useAppSelector(
+    (state) => state.dashboard.locationsLeaderboard
+  );
+
+  const isLocationsLeaderboardLoading = useAppSelector(
+    (state) => state.dashboard.locationsLeaderboardLoading
+  );
+
+  const hasLocationsLeaderboardError = useAppSelector(
+    (state) => state.dashboard.locationsLeaderboardError
+  );
+
   return {
     actions: {
-      getHeadlineFigures
+      getHeadlineFigures,
+      getLocationsLeaderboard
     },
     headlineFigures,
     isHeadlineFiguresLoading,
-    hasHeadlineFiguresError
+    hasHeadlineFiguresError,
+    locationsLeaderboard,
+    isLocationsLeaderboardLoading,
+    hasLocationsLeaderboardError
   };
 };
 

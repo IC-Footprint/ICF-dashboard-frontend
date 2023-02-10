@@ -1,19 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 
-import { getHeadlineFiguresAction } from '@/state/dashboard/dashboard-actions';
-
+import {
+  getHeadlineFiguresAction,
+  getLocationsLeaderboardAction
+} from '@/state/dashboard/dashboard-actions';
 export interface DashboardState {
   headlineFigures: HeadlineFiguresModel | null;
   headlineFiguresLoading: boolean;
   headlineFiguresError: boolean;
+  locationsLeaderboard: LocationEmissionsModel[] | null;
+  locationsLeaderboardLoading: boolean;
+  locationsLeaderboardError: boolean;
 }
 
 const initialState: () => DashboardState = () => ({
   headlineFigures: null,
   headlineFiguresError: false,
-  headlineFiguresLoading: false
+  headlineFiguresLoading: false,
+  locationsLeaderboard: null,
+  locationsLeaderboardError: false,
+  locationsLeaderboardLoading: false
 });
 
 const dashboardSlice = createSlice({
@@ -35,9 +44,27 @@ const dashboardSlice = createSlice({
         state.headlineFiguresLoading = false;
         state.headlineFiguresError = true;
       });
+
+    /** Get locations leaderboard **/
+    builder
+      .addCase(getLocationsLeaderboardAction.pending, (state) => {
+        state.locationsLeaderboardLoading = true;
+        state.locationsLeaderboardError = false;
+      })
+      .addCase(
+        getLocationsLeaderboardAction.fulfilled,
+        (state, { payload }) => {
+          state.locationsLeaderboardLoading = false;
+          state.locationsLeaderboard = payload;
+        }
+      )
+      .addCase(getLocationsLeaderboardAction.rejected, (state) => {
+        state.locationsLeaderboardLoading = false;
+        state.locationsLeaderboardError = true;
+      });
   }
 });
 
-export { getHeadlineFiguresAction };
+export { getHeadlineFiguresAction, getLocationsLeaderboardAction };
 
 export default dashboardSlice.reducer;
