@@ -8,7 +8,7 @@ import { ProgressBar } from 'primereact/progressbar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 
-const FlexColumnStyle = css`
+export const FlexColumnStyle = css`
   display: flex;
   flex-direction: column;
 `;
@@ -18,6 +18,15 @@ export const FlexColumnCard = styled(Card)`
     ${FlexColumnStyle};
     row-gap: 0.875rem;
     padding: 0;
+  }
+`;
+
+export const FlexRowCard = styled(Card)`
+  .p-card-content {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    column-gap: 1.375rem;
   }
 `;
 
@@ -95,19 +104,33 @@ export const SideMenuContainer = styled.nav`
   ${FlexColumnStyle};
   padding: 1.125rem 0.625rem;
   row-gap: 1.5rem;
+`;
 
-  a.active.p-menuitem-link {
-    span.p-menuitem {
-      color: var(--primary-color);
+export const StyledMenu = styled(Menu)`
+  .menu-item-icon {
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .p-menuitem a.p-menuitem-link.active {
+    &,
+    &:hover {
+      & > * {
+        color: var(--primary-color);
+      }
     }
   }
 `;
 
-export const StyledMenu = styled(Menu)`
-  .p-menuitem a.p-menuitem-link.active {
-    & > span,
-    &:hover > span {
-      color: var(--primary-color);
-    }
+export const HeadlineFiguresContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+`;
+
+export const HeadlineFigureCardContainer = styled(FlexRowCard)`
+  i {
+    height: 2rem;
+    color: var(--primary-color);
   }
 `;

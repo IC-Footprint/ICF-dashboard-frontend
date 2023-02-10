@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import type { FC } from 'react';
 
 import Layout from '@/components/Layout';
-import Home from '@/pages/Home';
+import Dashboard from '@/pages/Dashboard';
 import Nodes from '@/pages/Nodes';
 import { appRoutes } from '@/router/app-routes';
 
@@ -11,7 +11,7 @@ const AppRoutes: FC = () => {
   return (
     <Layout>
       <Routes>
-        <Route path={appRoutes.home.root} element={<Home />}></Route>
+        <Route path={appRoutes.home.root} element={<Dashboard />}></Route>
         <Route path={appRoutes.nodes.root} element={<Nodes />}></Route>
         <Route
           path="/*"

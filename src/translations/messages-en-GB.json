@@ -1,6 +1,5 @@
 {
   "common": {
-    "co2Tonnes": "{{value}} tCO2e",
     "gridTechnologyType": {
       "hydro": "Hydro",
       "nuclear": "Nuclear",
@@ -23,7 +22,19 @@
       "sevenDays": "7D",
       "threeMonths": "3M"
     },
-    "wattHour": "{{value}} Wh"
+    "unit": {
+      "co2Kg": "{{value}} kgCO2",
+      "co2Tonnes": "{{value}} tCO2e",
+      "wattHour": "{{value}} Wh"
+    }
+  },
+  "dashboard": {
+    "headlineFigures": {
+      "avoidedEmissions":"Avoided Carbon Emissions",
+      "cumulativeElectricityDraw": "Cumulative Electricity Draw",
+      "cumulativeNetworkEmissions": "Cumulative Carbon Emissions",
+      "offsetEmissions": "Offset Carbon Emissions"
+    }
   },
   "datasets": {
     "networkEmissions": "Network Emissions"
