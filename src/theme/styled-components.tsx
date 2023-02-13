@@ -150,7 +150,9 @@ export const DashboardTablesSectionContainer = styled.div`
 `;
 
 export const GlobeContainer = styled.div`
-  flex-grow: 14;
+  canvas {
+    border-radius: 0.375rem;
+  }
 `;
 
 export const DashboardTable = styled(DataTable)`

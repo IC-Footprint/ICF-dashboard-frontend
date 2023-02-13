@@ -4,6 +4,7 @@ import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-m
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { NodesCountersModel } from '@/models/dashboard/nodes-counters-model';
 import type { AxiosResponse } from 'axios';
+import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 
 export class DashboardApi {
   async getDashboardHeadlineFigures(): Promise<HeadlineFiguresModel> {
@@ -23,6 +24,13 @@ export class DashboardApi {
   async getNodesCounters(): Promise<NodesCountersModel> {
     const response: AxiosResponse<NodesCountersModel> = await axios.get(
       '/dashboard/counters/nodes'
+    );
+    return response.data;
+  }
+
+  async getGlobePoints(): Promise<GlobePointModel[]> {
+    const response: AxiosResponse<GlobePointModel[]> = await axios.get(
+      '/dashboard/globePoints'
     );
     return response.data;
   }
