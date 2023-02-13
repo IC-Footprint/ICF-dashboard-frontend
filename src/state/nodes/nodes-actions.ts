@@ -11,7 +11,7 @@ import { ChartMapper } from '@/utils/chart-mapper';
 import locationMapper from '@/utils/location-mapper';
 
 export const getNodesLeaderboardAction = createAsyncThunk<NodeModel[], void>(
-  '/getNodesLeaderboard',
+  '/nodes/getNodesLeaderboard',
   async (_, { rejectWithValue }) => {
     try {
       const leaderboard = await nodesApi.getNodesLeaderboard();
@@ -28,7 +28,7 @@ export const getNodesLeaderboardAction = createAsyncThunk<NodeModel[], void>(
 export const getNetworkEmissionsAction = createAsyncThunk<
   ChartData,
   RangeType | null
->('/getNetworkEmissions', async (range, { rejectWithValue }) => {
+>('/nodes/getNetworkEmissions', async (range, { rejectWithValue }) => {
   try {
     const datasets: DatasetModel[] = await nodesApi.getNetworkEmissions(range);
     const datasetsWithMappedNames: DatasetModel[] = datasets.map(
@@ -46,7 +46,7 @@ export const getNetworkEmissionsAction = createAsyncThunk<
 export const getNodeEmissionsByRegionAction = createAsyncThunk<
   ChartData,
   RangeType | null
->('/getNodeEmissionsByRegion', async (range, { rejectWithValue }) => {
+>('/nodes/getNodeEmissionsByRegion', async (range, { rejectWithValue }) => {
   try {
     const datasets: DatasetModel[] = await nodesApi.getNodeEmissionsByRegion(
       range
@@ -66,12 +66,15 @@ export const getNodeEmissionsByRegionAction = createAsyncThunk<
 export const getElectricityDrawByTechnologyTypeAction = createAsyncThunk<
   ChartData,
   RangeType | null
->('/getElectricityDrawByTechnologyType', async (range, { rejectWithValue }) => {
-  try {
-    const datasets: DatasetModel[] =
-      await nodesApi.getElectricityDrawByTechnologyType(range);
-    return ChartMapper.mapChartData(datasets, range);
-  } catch (err) {
-    return rejectWithValue(null);
+>(
+  '/nodes/getElectricityDrawByTechnologyType',
+  async (range, { rejectWithValue }) => {
+    try {
+      const datasets: DatasetModel[] =
+        await nodesApi.getElectricityDrawByTechnologyType(range);
+      return ChartMapper.mapChartData(datasets, range);
+    } catch (err) {
+      return rejectWithValue(null);
+    }
   }
-});
+);

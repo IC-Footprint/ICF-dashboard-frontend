@@ -2,14 +2,17 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
+import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
 
-import locationMapper from '@/utils/location-mapper';
+import { DashboardMappers } from '@/state/dashboard/dashboard-mappers';
+
 import dashboardApi from '@/api/dashboard-api';
+import locationMapper from '@/utils/location-mapper';
 
 export const getHeadlineFiguresAction = createAsyncThunk<
   HeadlineFiguresModel,
   void
->('/getHeadlineFigures', async (_, { rejectWithValue }) => {
+>('/dashboard/getHeadlineFigures', async (_, { rejectWithValue }) => {
   try {
     return await dashboardApi.getDashboardHeadlineFigures();
   } catch (err) {
@@ -20,7 +23,7 @@ export const getHeadlineFiguresAction = createAsyncThunk<
 export const getLocationsLeaderboardAction = createAsyncThunk<
   LocationEmissionsModel[],
   void
->('/getLocationsLeaderboard', async (_, { rejectWithValue }) => {
+>('/dashboard/getLocationsLeaderboard', async (_, { rejectWithValue }) => {
   try {
     const locationsLeaderboard: LocationEmissionsModel[] =
       await dashboardApi.getLocationsLeaderboard();
@@ -30,6 +33,18 @@ export const getLocationsLeaderboardAction = createAsyncThunk<
         location: locationMapper.mapLocationName(locationEmissions.location)
       })
     );
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+
+export const getNodesCountersAction = createAsyncThunk<
+  NodesCounterViewModel[],
+  void
+>('/dashboard/getNodesCounters', async (_, { rejectWithValue }) => {
+  try {
+    const nodesCounters = await dashboardApi.getNodesCounters();
+    return DashboardMappers.mapDashboardNodesCounters(nodesCounters);
   } catch (err) {
     return rejectWithValue(null);
   }

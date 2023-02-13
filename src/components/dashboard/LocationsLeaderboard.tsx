@@ -44,6 +44,8 @@ const LocationsLeaderboard: FC = () => {
       <DashboardTable
         value={locationsLeaderboard ?? []}
         loading={isLocationsLeaderboardLoading}
+        scrollable
+        scrollHeight="20.5rem"
       >
         <Column field="location" header={t('table.headers.location')}></Column>
         <Column

@@ -144,6 +144,7 @@ export const DashboardContentContainer = styled.div`
 
 export const DashboardTablesSectionContainer = styled.div`
   ${FlexColumnStyle};
+  flex-basis: 26rem;
   flex-grow: 1;
   row-gap: 0.875rem;
 `;
@@ -162,5 +163,11 @@ export const DashboardTable = styled(DataTable)`
     & > th {
       font-size: 0.75rem;
     }
+  }
+`;
+
+export const HeadlessDashboardTable = styled(DashboardTable)`
+  table thead {
+    display: none;
   }
 `;
