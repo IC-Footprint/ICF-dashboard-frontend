@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
+import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 
 import {
+  getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodesCountersAction
@@ -19,6 +21,9 @@ export interface DashboardState {
   nodesCounters: NodesCounterViewModel[] | null;
   nodesCountersLoading: boolean;
   nodesCountersError: boolean;
+  globePoints: GlobePointModel[] | null;
+  globePointsLoading: boolean;
+  globePointsError: boolean;
 }
 
 const initialState: () => DashboardState = () => ({
@@ -30,7 +35,10 @@ const initialState: () => DashboardState = () => ({
   locationsLeaderboardLoading: false,
   nodesCounters: null,
   nodesCountersError: false,
-  nodesCountersLoading: false
+  nodesCountersLoading: false,
+  globePoints: null,
+  globePointsError: false,
+  globePointsLoading: false
 });
 
 const dashboardSlice = createSlice({
@@ -85,13 +93,29 @@ const dashboardSlice = createSlice({
         state.nodesCountersLoading = false;
         state.nodesCountersError = true;
       });
+
+    /** Get globe points **/
+    builder
+      .addCase(getGlobePointsAction.pending, (state) => {
+        state.globePointsLoading = true;
+        state.globePointsError = false;
+      })
+      .addCase(getGlobePointsAction.fulfilled, (state, { payload }) => {
+        state.globePointsLoading = false;
+        state.globePoints = payload;
+      })
+      .addCase(getGlobePointsAction.rejected, (state) => {
+        state.globePointsLoading = false;
+        state.globePointsError = true;
+      });
   }
 });
 
 export {
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
-  getNodesCountersAction
+  getNodesCountersAction,
+  getGlobePointsAction
 };
 
 export default dashboardSlice.reducer;

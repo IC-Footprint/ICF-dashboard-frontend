@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import {
+  getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodesCountersAction
@@ -61,11 +62,27 @@ const useDashboard = () => {
     (state) => state.dashboard.nodesCountersError
   );
 
+  const getGlobePoints = useCallback(
+    () => dispatch(getGlobePointsAction()),
+    [dispatch]
+  );
+
+  const globePoints = useAppSelector((state) => state.dashboard.globePoints);
+
+  const isGlobePointsLoading = useAppSelector(
+    (state) => state.dashboard.globePointsLoading
+  );
+
+  const hasGlobePointsError = useAppSelector(
+    (state) => state.dashboard.globePointsError
+  );
+
   return {
     actions: {
       getHeadlineFigures,
       getLocationsLeaderboard,
-      getNodesCounters
+      getNodesCounters,
+      getGlobePoints
     },
     headlineFigures,
     isHeadlineFiguresLoading,
@@ -75,7 +92,10 @@ const useDashboard = () => {
     hasLocationsLeaderboardError,
     nodesCounters,
     isNodesCountersLoading,
-    hasNodesCountersError
+    hasNodesCountersError,
+    globePoints,
+    isGlobePointsLoading,
+    hasGlobePointsError
   };
 };
 

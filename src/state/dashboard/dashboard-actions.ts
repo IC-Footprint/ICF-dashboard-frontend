@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
+import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 
 import { DashboardMappers } from '@/state/dashboard/dashboard-mappers';
-
 import dashboardApi from '@/api/dashboard-api';
 import locationMapper from '@/utils/location-mapper';
 
@@ -49,3 +49,19 @@ export const getNodesCountersAction = createAsyncThunk<
     return rejectWithValue(null);
   }
 });
+
+export const getGlobePointsAction = createAsyncThunk<GlobePointModel[], void>(
+  '/dashboard/getGlobePoints',
+  async (_, { rejectWithValue }) => {
+    try {
+      const globePoints: GlobePointModel[] =
+        await dashboardApi.getGlobePoints();
+      return globePoints.map((point: GlobePointModel) => ({
+        ...point,
+        location: locationMapper.mapLocationName(point.location)
+      }));
+    } catch (err) {
+      return rejectWithValue(null);
+    }
+  }
+);
