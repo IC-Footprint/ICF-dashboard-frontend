@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
+import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
 
 import {
   getHeadlineFiguresAction,
-  getLocationsLeaderboardAction
+  getLocationsLeaderboardAction,
+  getNodesCountersAction
 } from '@/state/dashboard/dashboard-actions';
 export interface DashboardState {
   headlineFigures: HeadlineFiguresModel | null;
@@ -14,6 +16,9 @@ export interface DashboardState {
   locationsLeaderboard: LocationEmissionsModel[] | null;
   locationsLeaderboardLoading: boolean;
   locationsLeaderboardError: boolean;
+  nodesCounters: NodesCounterViewModel[] | null;
+  nodesCountersLoading: boolean;
+  nodesCountersError: boolean;
 }
 
 const initialState: () => DashboardState = () => ({
@@ -22,7 +27,10 @@ const initialState: () => DashboardState = () => ({
   headlineFiguresLoading: false,
   locationsLeaderboard: null,
   locationsLeaderboardError: false,
-  locationsLeaderboardLoading: false
+  locationsLeaderboardLoading: false,
+  nodesCounters: null,
+  nodesCountersError: false,
+  nodesCountersLoading: false
 });
 
 const dashboardSlice = createSlice({
@@ -62,9 +70,28 @@ const dashboardSlice = createSlice({
         state.locationsLeaderboardLoading = false;
         state.locationsLeaderboardError = true;
       });
+
+    /** Get nodes counters **/
+    builder
+      .addCase(getNodesCountersAction.pending, (state) => {
+        state.nodesCountersLoading = true;
+        state.nodesCountersError = false;
+      })
+      .addCase(getNodesCountersAction.fulfilled, (state, { payload }) => {
+        state.nodesCountersLoading = false;
+        state.nodesCounters = payload;
+      })
+      .addCase(getNodesCountersAction.rejected, (state) => {
+        state.nodesCountersLoading = false;
+        state.nodesCountersError = true;
+      });
   }
 });
 
-export { getHeadlineFiguresAction, getLocationsLeaderboardAction };
+export {
+  getHeadlineFiguresAction,
+  getLocationsLeaderboardAction,
+  getNodesCountersAction
+};
 
 export default dashboardSlice.reducer;

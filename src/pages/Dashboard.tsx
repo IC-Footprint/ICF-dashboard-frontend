@@ -2,10 +2,10 @@ import type { FC } from 'react';
 
 import HeadlineFigures from '@/components/dashboard/HeadlineFigures';
 import LocationsLeaderboard from '@/components/dashboard/LocationsLeaderboard';
+import NodesCounters from '@/components/dashboard/NodesCounters';
 import {
   DashboardContentContainer,
   DashboardTablesSectionContainer,
-  FlexColumnCard,
   GlobeContainer
 } from '@/theme/styled-components';
 
@@ -17,9 +17,7 @@ const Dashboard: FC = () => {
         <GlobeContainer>Globe container</GlobeContainer>
         <DashboardTablesSectionContainer>
           <LocationsLeaderboard />
-          <FlexColumnCard>
-            <span>Data centers</span>
-          </FlexColumnCard>
+          <NodesCounters />
         </DashboardTablesSectionContainer>
       </DashboardContentContainer>
     </>

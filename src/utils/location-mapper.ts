@@ -1,6 +1,6 @@
 import type { LocationModel } from '@/models/location-model';
 
-import i18next from '@/i18n';
+import i18n from '@/i18n';
 
 export class LocationMapper {
   private readonly locations: LocationModel[];
@@ -26,7 +26,7 @@ export class LocationMapper {
   private createLocation(code: string): LocationModel {
     return {
       code,
-      name: i18next.t(`locations.${code.toLowerCase()}`)
+      name: i18n.t(`locations.${code.toLowerCase()}`)
     };
   }
 

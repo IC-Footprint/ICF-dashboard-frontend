@@ -34,6 +34,14 @@
       "cumulativeElectricityDraw": "Cumulative Electricity Draw",
       "cumulativeNetworkEmissions": "Cumulative Carbon Emissions",
       "offsetEmissions": "Offset Carbon Emissions"
+    },
+    "nodesCounters": {
+      "boundaryNodes": "Boundary Nodes",
+      "dataCentres": "Data Centres",
+      "nodeProviders": "Nodes Providers",
+      "nodesInSubnets": "Nodes in Subnets",
+      "subnets": "Subnets",
+      "totalNodes": "Total Nodes"
     }
   },
   "datasets": {

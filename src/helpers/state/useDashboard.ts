@@ -2,7 +2,8 @@ import { useCallback } from 'react';
 
 import {
   getHeadlineFiguresAction,
-  getLocationsLeaderboardAction
+  getLocationsLeaderboardAction,
+  getNodesCountersAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -43,17 +44,38 @@ const useDashboard = () => {
     (state) => state.dashboard.locationsLeaderboardError
   );
 
+  const getNodesCounters = useCallback(
+    () => dispatch(getNodesCountersAction()),
+    [dispatch]
+  );
+
+  const nodesCounters = useAppSelector(
+    (state) => state.dashboard.nodesCounters
+  );
+
+  const isNodesCountersLoading = useAppSelector(
+    (state) => state.dashboard.nodesCountersLoading
+  );
+
+  const hasNodesCountersError = useAppSelector(
+    (state) => state.dashboard.nodesCountersError
+  );
+
   return {
     actions: {
       getHeadlineFigures,
-      getLocationsLeaderboard
+      getLocationsLeaderboard,
+      getNodesCounters
     },
     headlineFigures,
     isHeadlineFiguresLoading,
     hasHeadlineFiguresError,
     locationsLeaderboard,
     isLocationsLeaderboardLoading,
-    hasLocationsLeaderboardError
+    hasLocationsLeaderboardError,
+    nodesCounters,
+    isNodesCountersLoading,
+    hasNodesCountersError
   };
 };
 
