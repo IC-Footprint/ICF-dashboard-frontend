@@ -35,20 +35,23 @@ const World: FC = () => {
       ) ?? []
     );
   }, [globePoints]);
-  const colorDomainMaximum = useMemo(() => {
-    if (globePoints) {
-      return globePoints.reduce((previousValue, currentValue) => {
-        return currentValue.carbonIntensity > previousValue
-          ? currentValue.carbonIntensity
-          : previousValue;
-      }, 0);
+  const colorDomain: [number, number] = useMemo(() => {
+    if (!globePoints) {
+      return [1, 0];
     }
-    return 1;
+    let minimum = 1;
+    let maximum = 0;
+    for (const globePoint of globePoints) {
+      if (globePoint.carbonIntensity > maximum) {
+        maximum = globePoint.carbonIntensity;
+      }
+      if (globePoint.carbonIntensity < minimum) {
+        minimum = globePoint.carbonIntensity;
+      }
+    }
+    return [maximum, minimum];
   }, [globePoints]);
-  const pointColor = scaleSequentialSqrt(interpolateRdYlGn).domain([
-    colorDomainMaximum,
-    0
-  ]);
+  const pointColor = scaleSequentialSqrt(interpolateRdYlGn).domain(colorDomain);
 
   useEffect(() => {
     getGlobePoints();
