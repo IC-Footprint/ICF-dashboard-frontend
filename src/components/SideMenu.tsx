@@ -9,7 +9,11 @@ import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
 import { appRoutes } from '@/router/app-routes';
-import { SideMenuContainer, StyledMenu } from '@/theme/styled-components';
+import {
+  FlexColumnWithRowGap,
+  SideMenuContainer,
+  StyledMenu
+} from '@/theme/styled-components';
 
 const SideMenu: FC = () => {
   const { t } = useTranslation();
@@ -39,8 +43,12 @@ const SideMenu: FC = () => {
 
   return (
     <SideMenuContainer>
-      <img src={logoCarbonCrowd} alt="Carbon Crowd" />
-      <StyledMenu model={menuItems} />
+      <nav>
+        <FlexColumnWithRowGap>
+          <img src={logoCarbonCrowd} alt="Carbon Crowd" />
+          <StyledMenu model={menuItems} />
+        </FlexColumnWithRowGap>
+      </nav>
     </SideMenuContainer>
   );
 };
