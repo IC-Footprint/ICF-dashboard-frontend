@@ -1,5 +1,8 @@
 {
   "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "error": "Error",
     "gridTechnologyType": {
       "hydro": "Hydro",
       "nuclear": "Nuclear",
@@ -13,6 +16,7 @@
       "unassigned": "Unassigned",
       "up": "Up"
     },
+    "submit": "Submit",
     "timeRange": {
       "fiveYears": "5Y",
       "halfAnHour": "30m",
@@ -47,6 +51,22 @@
   "datasets": {
     "networkEmissions": "Network Emissions"
   },
+  "form": {
+    "company": {
+      "label": "Company"
+    },
+    "email": {
+      "label": "Email"
+    },
+    "name": {
+      "label": "Name"
+    },
+    "error": {
+      "required": "The {{ field }} field is required",
+      "max": "The {{ field }} must have at most {{ value }} characters",
+      "email": "The email must be valid"
+    }
+  },
   "locations": {
     "be": "Belgium",
     "ch": "Switzerland",
@@ -67,6 +87,17 @@
     "home": "Home",
     "nodes": "Nodes"
   },
+  "signUp": {
+    "description": "Be one of the first ever cloud networks or node operators to understand your global carbon emissions in real time.",
+    "error": {
+      "title": "An error occurred while signing up for beta"
+    },
+    "success": {
+      "description": "Thank you for joining our beta waiting list!\n We’ll be in touch soon.",
+      "title": "All done!"
+    },
+    "title": "Sign up for beta"
+  },
   "table": {
     "headers": {
       "carbonIntensity": "Carbon Intensity",
@@ -80,8 +111,5 @@
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
-  },
-  "signUp": {
-    "title": "Sign up for beta"
   }
 }

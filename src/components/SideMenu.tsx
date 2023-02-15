@@ -1,3 +1,5 @@
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
@@ -5,6 +7,8 @@ import { NavLink } from 'react-router-dom';
 import type { MenuItem } from 'primereact/menuitem';
 import type { FC, ReactNode } from 'react';
 
+import useSignUp from '@/helpers/state/useSignUp';
+import SignUp from '@/components/sign-up/SignUp';
 import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
@@ -17,6 +21,10 @@ import {
 
 const SideMenu: FC = () => {
   const { t } = useTranslation();
+  const {
+    actions: { showSignUpModal, hideSignUpModal },
+    isSignUpModalVisible
+  } = useSignUp();
   const menuItemTemplate = (item: MenuItem) => (
     <NavLink to={item.url ?? ''} className="p-menuitem-link">
       <i className="menu-item-icon">{item.icon}</i>
@@ -48,7 +56,19 @@ const SideMenu: FC = () => {
           <img src={logoCarbonCrowd} alt="Carbon Crowd" />
           <StyledMenu model={menuItems} />
         </FlexColumnWithRowGap>
+        <Button
+          label={t('signUp.title').toString()}
+          onClick={showSignUpModal}
+        />
       </nav>
+      <Dialog
+        visible={isSignUpModalVisible}
+        onHide={hideSignUpModal}
+        onShow={showSignUpModal}
+        showHeader={false}
+      >
+        <SignUp />
+      </Dialog>
     </SideMenuContainer>
   );
 };
