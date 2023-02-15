@@ -4,6 +4,7 @@ import { Card } from 'primereact/card';
 import { Chart } from 'primereact/chart';
 import { Chip } from 'primereact/chip';
 import { DataTable } from 'primereact/datatable';
+import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
 
@@ -244,4 +245,37 @@ export const StyledTable = styled(DashboardTable)`
       }
     }
   }
+`;
+
+export const StyledInputText = styled(InputText)`
+  width: 100%;
+`;
+
+export const Form = styled.form`
+  margin-top: 0.5rem;
+  row-gap: 0.75rem;
+`;
+
+export const SignUpContainer = styled.div`
+  ${FlexColumnStyle};
+  row-gap: 1.75rem;
+  min-width: 20rem;
+  padding-top: 2rem;
+
+  h5,
+  p {
+    margin: 0;
+  }
+`;
+
+export const SignUpMessage = styled.p`
+  white-space: pre-line;
+`;
+
+export const FooterButtonsContainer = styled.div`
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  margin-top: 2rem;
+  column-gap: 0.5rem;
 `;
