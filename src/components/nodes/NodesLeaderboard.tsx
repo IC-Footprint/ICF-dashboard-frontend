@@ -1,11 +1,11 @@
 import { css } from '@emotion/css';
 import { Column } from 'primereact/column';
-import { DataTable } from 'primereact/datatable';
 import { Tag } from 'primereact/tag';
 import { Tooltip } from 'primereact/tooltip';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { ColumnBodyOptions } from 'primereact/column';
 import type { FC } from 'react';
 import type { NodeModel } from '@/models/nodes/node-model';
 
@@ -15,7 +15,8 @@ import GridTechnologies from '@/components/nodes/GridTechnologies';
 import {
   PaginatorStyle,
   StyledProgressBar,
-  FlexColumnCard
+  FlexColumnCard,
+  StyledTable
 } from '@/theme/styled-components';
 import useNodes from '@/helpers/state/useNodes';
 
@@ -67,6 +68,8 @@ const NodesLeaderboard: FC = () => {
     });
   };
 
+  // TODO: add grid technology
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const gridTechnologyTemplate = (rowData: NodeModel) => {
     return (
       <GridTechnologies
@@ -86,10 +89,20 @@ const NodesLeaderboard: FC = () => {
     );
   };
 
+  const textColumnTemplate = (
+    rowData: NodeModel,
+    options: ColumnBodyOptions
+  ) => {
+    const textField: string = rowData[
+      options.field as keyof NodeModel
+    ] as string;
+    return <span title={textField}>{textField}</span>;
+  };
+
   return (
     <FlexColumnCard>
       <span>{t('common.leaderboard')}</span>
-      <DataTable
+      <StyledTable
         value={nodesLeaderboard ?? []}
         paginator
         rows={paginatorOptions.rows}
@@ -100,10 +113,15 @@ const NodesLeaderboard: FC = () => {
         currentPageReportTemplate={t('table.pageReport').toString()}
         loading={isNodesLeaderboardLoading}
       >
-        <Column field="id" header={t('table.headers.id')}></Column>
+        <Column
+          field="id"
+          header={t('table.headers.id')}
+          body={textColumnTemplate}
+        ></Column>
         <Column
           field="nodeProvider"
           header={t('table.headers.nodeProvider')}
+          body={textColumnTemplate}
         ></Column>
         <Column
           field="electricityDraw"
@@ -121,17 +139,16 @@ const NodesLeaderboard: FC = () => {
           body={emissionsTemplate}
         ></Column>
         <Column
-          field="gridTechnology"
-          header={t('table.headers.gridTechnology')}
-          body={gridTechnologyTemplate}
+          field="location"
+          header={t('table.headers.location')}
+          body={textColumnTemplate}
         ></Column>
-        <Column field="location" header={t('table.headers.location')}></Column>
         <Column
           field="status"
           header={t('table.headers.status')}
           body={statusTemplate}
         ></Column>
-      </DataTable>
+      </StyledTable>
     </FlexColumnCard>
   );
 };

@@ -14,6 +14,11 @@ export const FlexColumnStyle = css`
   flex-direction: column;
 `;
 
+export const FlexColumnWithRowGap = styled.div`
+  ${FlexColumnStyle};
+  row-gap: 1.75rem;
+`;
+
 export const FlexColumnCard = styled(Card)`
   .p-card-content {
     ${FlexColumnStyle};
@@ -41,8 +46,10 @@ export const PageContent = styled.main`
   ${FlexColumnStyle};
   flex-grow: 1;
   min-width: 0;
+  max-width: calc(100vw - 13.75rem);
   padding: 1.75rem;
   row-gap: 1.75rem;
+  overflow: auto;
 
   h3 {
     margin: 0;
@@ -65,6 +72,7 @@ export const TwoColumnsGrid = styled.div`
 `;
 
 export const StyledProgressBar = styled(ProgressBar)`
+  width: 100%;
   height: 6px;
 `;
 
@@ -90,21 +98,27 @@ export const PaginatorStyle = css`
   padding: 1rem;
 `;
 
-export const NodesContainer = styled.div`
-  ${FlexColumnStyle};
-  row-gap: 1.75rem;
-`;
-
 export const LayoutContainer = styled.div`
-  position: relative;
   display: flex;
   min-height: 100vh;
 `;
 
-export const SideMenuContainer = styled.nav`
-  ${FlexColumnStyle};
-  padding: 1.125rem 0.625rem;
-  row-gap: 1.5rem;
+export const SideMenuContainer = styled.div`
+  width: 13.75rem;
+  max-height: 100vh;
+
+  nav {
+    ${FlexColumnStyle};
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1.125rem 0.625rem;
+    overflow: hidden;
+    background-color: var(--surface-ground);
+  }
 `;
 
 export const StyledMenu = styled(Menu)`
@@ -136,40 +150,98 @@ export const HeadlineFigureCardContainer = styled(FlexRowCard)`
   }
 `;
 
-export const DashboardContentContainer = styled.div`
-  display: flex;
+export const RelativeContainer = styled.div`
+  position: relative;
   flex-grow: 1;
+`;
+
+export const DashboardContentContainer = styled.div`
+  position: absolute;
+  display: flex;
   gap: 0.875rem;
+  width: 100%;
+  height: 100%;
 `;
 
 export const DashboardTablesSectionContainer = styled.div`
   ${FlexColumnStyle};
   flex-basis: 26rem;
-  flex-grow: 1;
   row-gap: 0.875rem;
 `;
 
+export const WorldContainer = styled.div`
+  position: relative;
+  flex-grow: 1;
+  min-width: 30rem;
+`;
+
 export const GlobeContainer = styled.div`
+  position: absolute;
+
   canvas {
     border-radius: 0.375rem;
   }
 `;
 
 export const DashboardTable = styled(DataTable)`
-  table.p-datatable-table tr {
+  .p-datatable-table tr {
     & > td {
       padding: 0.5rem 1rem;
       font-size: 0.875rem;
     }
 
     & > th {
+      font-weight: 700;
       font-size: 0.75rem;
     }
   }
 `;
 
 export const HeadlessDashboardTable = styled(DashboardTable)`
-  table thead {
-    display: none;
+  &.p-datatable,
+  &.p-datatable-scrollable {
+    table thead {
+      display: none;
+    }
+  }
+`;
+
+export const TableContainerCard = styled(FlexColumnCard)`
+  &.p-card {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 10rem;
+
+    .p-card-body {
+      height: 100%;
+
+      .p-card-content {
+        justify-content: center;
+        height: 100%;
+
+        .p-datatable-flex-scrollable {
+          height: 90%;
+        }
+      }
+    }
+  }
+`;
+
+export const StyledTable = styled(DashboardTable)`
+  .p-datatable-wrapper {
+    overflow-x: auto;
+
+    table {
+      th {
+        white-space: nowrap;
+      }
+
+      td {
+        max-width: 10rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
   }
 `;

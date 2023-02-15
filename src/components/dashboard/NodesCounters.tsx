@@ -5,8 +5,8 @@ import type { FC } from 'react';
 
 import useDashboard from '@/helpers/state/useDashboard';
 import {
-  FlexColumnCard,
-  HeadlessDashboardTable
+  HeadlessDashboardTable,
+  TableContainerCard
 } from '@/theme/styled-components';
 
 const NodesCounters: FC = () => {
@@ -21,15 +21,17 @@ const NodesCounters: FC = () => {
   }, [getNodesCounters]);
 
   return (
-    <FlexColumnCard>
+    <TableContainerCard>
       <HeadlessDashboardTable
         value={nodesCounters ?? []}
         loading={isNodesCountersLoading}
+        scrollable
+        scrollHeight="flex"
       >
         <Column field="label"></Column>
         <Column field="value"></Column>
       </HeadlessDashboardTable>
-    </FlexColumnCard>
+    </TableContainerCard>
   );
 };
 

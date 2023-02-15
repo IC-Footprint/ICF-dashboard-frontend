@@ -33,18 +33,6 @@ const HeadlineFigures: FC = () => {
   }, [getHeadlineFigures]);
 
   useEffect(() => {
-    const minutesInterval: number =
-      +process.env.REACT_APP_HEADLINE_FIGURES_REFRESH_MINUTES_INTERVAL!;
-    const intervalId = setInterval(() => {
-      getHeadlineFigures();
-    }, 1000 * 60 * minutesInterval);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [getHeadlineFigures]);
-
-  useEffect(() => {
     setHeadlineFiguresView({
       cumulativeNetworkEmissions: createHeadlineFigureEntry(
         'co2Kg',

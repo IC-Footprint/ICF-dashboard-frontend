@@ -80,5 +80,8 @@
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
+  },
+  "signUp": {
+    "title": "Sign up for beta"
   }
 }
