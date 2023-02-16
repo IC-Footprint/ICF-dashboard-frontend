@@ -41,7 +41,7 @@ export class LocationMapper {
   mapLocationName(location: string): string {
     const splitLocation: string[] = location.split('/');
     if (splitLocation.length === 2) {
-      return `${this.getLocation(splitLocation[0]).name} (${splitLocation[1]})`;
+      return `${splitLocation[1]} (${this.getLocation(splitLocation[0]).name})`;
     }
     return this.getLocation(location).name;
   }

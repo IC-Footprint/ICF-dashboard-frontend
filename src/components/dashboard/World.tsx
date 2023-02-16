@@ -30,7 +30,8 @@ const World: FC = () => {
           lng: globePoint.coordinates.longitude,
           size: globePoint.nodeCount * 0.001,
           carbonIntensity: globePoint.carbonIntensity,
-          label: globePoint.location
+          label: globePoint.location,
+          nodesCount: globePoint.nodeCount
         })
       ) ?? []
     );
@@ -52,6 +53,15 @@ const World: FC = () => {
     return [maximum, minimum];
   }, [globePoints]);
   const pointColor = scaleSequentialSqrt(interpolateRdYlGn).domain(colorDomain);
+  const pointLabelTemplate = (d: unknown) => {
+    const data = d as GlobePointViewModel;
+    return `
+      <div class="tooltip-container">
+        <h5>${data.label}</h5>
+        <span>${data.nodesCount} nodes</span>
+      </div>
+    `;
+  };
 
   useEffect(() => {
     getGlobePoints();
@@ -71,6 +81,7 @@ const World: FC = () => {
           pointColor={(d) => {
             return pointColor((d as GlobePointViewModel).carbonIntensity ?? 0);
           }}
+          pointLabel={pointLabelTemplate}
         />
       </GlobeContainer>
     </WorldContainer>

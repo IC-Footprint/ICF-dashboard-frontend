@@ -76,7 +76,7 @@
     "ro": "Romania",
     "sg": "Singapore",
     "si": "Slovenia",
-    "us": "United States of America"
+    "us": "USA"
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",

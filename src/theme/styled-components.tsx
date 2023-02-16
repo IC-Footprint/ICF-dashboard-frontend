@@ -10,6 +10,8 @@ import { ProgressBar } from 'primereact/progressbar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 
+import { globeTooltipBackgroundColor } from '@/theme/colors';
+
 export const FlexColumnStyle = css`
   display: flex;
   flex-direction: column;
@@ -182,6 +184,27 @@ export const GlobeContainer = styled.div`
   canvas {
     border-radius: 0.375rem;
   }
+
+  .scene-tooltip > .tooltip-container {
+    ${FlexColumnStyle};
+    align-items: center;
+    row-gap: 1rem;
+    padding: 1rem;
+    font-family: Inter, sans-serif;
+    background-color: ${globeTooltipBackgroundColor};
+    border-radius: 0.375rem;
+
+    h5 {
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.3125rem;
+    }
+
+    span {
+      color: var(--primary-color);
+      text-align: end;
+    }
+  }
 `;
 
 export const DashboardTable = styled(DataTable)`
@@ -261,11 +284,6 @@ export const SignUpContainer = styled.div`
   row-gap: 1.75rem;
   min-width: 20rem;
   padding-top: 2rem;
-
-  h5,
-  p {
-    margin: 0;
-  }
 `;
 
 export const SignUpMessage = styled.p`
