@@ -33,7 +33,7 @@ const HeadlineFigureCard: FC<HeadlineFigureProps> = ({
           {value !== undefined
             ? t(`common.unit.${unit}`, {
                 value: value.toLocaleString(undefined, {
-                  maximumFractionDigits: 0
+                  maximumFractionDigits: 3
                 })
               })
             : '-'}
