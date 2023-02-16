@@ -58,13 +58,13 @@
     "email": {
       "label": "Email"
     },
+    "error": {
+      "email": "The email must be valid",
+      "max": "The {{ field }} must have at most {{ value }} characters",
+      "required": "The {{ field }} field is required"
+    },
     "name": {
       "label": "Name"
-    },
-    "error": {
-      "required": "The {{ field }} field is required",
-      "max": "The {{ field }} must have at most {{ value }} characters",
-      "email": "The email must be valid"
     }
   },
   "locations": {
@@ -111,5 +111,9 @@
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
+  },
+  "world": {
+    "carbonIntensity": "{{value}} carbon intensity",
+    "nodes": "{{value}} nodes"
   }
 }
