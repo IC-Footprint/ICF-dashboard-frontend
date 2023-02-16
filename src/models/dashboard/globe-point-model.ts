@@ -12,6 +12,7 @@ export interface GlobePointViewModel {
   size: number;
   carbonIntensity: number;
   label: string;
+  nodesCount: number;
 }
 
 export interface CoordinatesModel {

@@ -33,8 +33,7 @@ const SelectTimeRange: FC<SelectTimeRangeProps> = ({
     createSelectItemOption(t('common.timeRange.sevenDays'), 'SEVEN_DAYS'),
     createSelectItemOption(t('common.timeRange.oneMonth'), 'ONE_MONTH'),
     createSelectItemOption(t('common.timeRange.threeMonths'), 'THREE_MONTHS'),
-    createSelectItemOption(t('common.timeRange.oneYear'), 'ONE_YEAR'),
-    createSelectItemOption(t('common.timeRange.fiveYears'), 'FIVE_YEARS')
+    createSelectItemOption(t('common.timeRange.oneYear'), 'ONE_YEAR')
   ]);
 
   return (
