@@ -90,8 +90,8 @@ const SignUpForm: FC = () => {
           <Button
             label={t('common.cancel').toString()}
             onClick={hideSignUpModal}
-            className="p-button-outlined"
             type="button"
+            outlined
             disabled={isSignUpForBetaLoading}
           />
           <Button
