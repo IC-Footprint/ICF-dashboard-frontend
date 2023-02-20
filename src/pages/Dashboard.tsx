@@ -9,8 +9,9 @@ import LocationsLeaderboard from '@/components/dashboard/LocationsLeaderboard';
 import NodesCounters from '@/components/dashboard/NodesCounters';
 import {
   DashboardContentContainer,
-  DashboardTablesSectionContainer,
-  RelativeContainer
+  DashboardRightPanelContainer,
+  RelativeContainer,
+  TableCardContainer
 } from '@/theme/styled-components';
 
 const Dashboard: FC = () => {
@@ -47,11 +48,19 @@ const Dashboard: FC = () => {
       <HeadlineFigures />
       <RelativeContainer>
         <DashboardContentContainer>
-          <World />
-          <DashboardTablesSectionContainer>
-            <LocationsLeaderboard />
-            <NodesCounters />
-          </DashboardTablesSectionContainer>
+          <div className="grid w-full">
+            <div className="col-12 xl:col-8 h-full">
+              <World />
+            </div>
+            <DashboardRightPanelContainer className="col-12 xl:col-4 xl:h-full row-gap-3 md:row-gap-0 grid">
+              <TableCardContainer className="md:col-12 flex-grow-1">
+                <LocationsLeaderboard />
+              </TableCardContainer>
+              <TableCardContainer className="md:col-12 xl:mb-0 mb-3 flex-grow-0">
+                <NodesCounters />
+              </TableCardContainer>
+            </DashboardRightPanelContainer>
+          </div>
         </DashboardContentContainer>
       </RelativeContainer>
     </>

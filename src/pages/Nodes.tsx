@@ -1,9 +1,5 @@
 import type { FC } from 'react';
 
-import {
-  FlexColumnWithRowGap,
-  TwoColumnsGrid
-} from '@/theme/styled-components';
 import ElectricityDrawByTechnologyType from '@/components/nodes/ElectricityDrawByTechnologyType';
 import NetworkEmissions from '@/components/nodes/NetworkEmissions';
 import NodeEmissionsByRegion from '@/components/nodes/NodeEmissionsByRegion';
@@ -11,14 +7,20 @@ import NodesLeaderboard from '@/components/nodes/NodesLeaderboard';
 
 const Nodes: FC = () => {
   return (
-    <FlexColumnWithRowGap>
-      <NetworkEmissions />
-      <TwoColumnsGrid>
+    <div className="grid">
+      <div className="col-12">
+        <NetworkEmissions />
+      </div>
+      <div className="col-12 lg:col-6">
         <NodeEmissionsByRegion />
+      </div>
+      <div className="col-12 lg:col-6">
         <ElectricityDrawByTechnologyType />
-      </TwoColumnsGrid>
-      <NodesLeaderboard />
-    </FlexColumnWithRowGap>
+      </div>
+      <div className="col-12">
+        <NodesLeaderboard />
+      </div>
+    </div>
   );
 };
 

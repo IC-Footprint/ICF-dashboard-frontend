@@ -4,9 +4,11 @@ import { Card } from 'primereact/card';
 import { Chart } from 'primereact/chart';
 import { Chip } from 'primereact/chip';
 import { DataTable } from 'primereact/datatable';
+import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
+import { Sidebar } from 'primereact/sidebar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 
@@ -45,11 +47,16 @@ export const SelectTimeRangeContainer = styled.div`
   padding-top: 0.5rem;
 `;
 
-export const PageContent = styled.main`
+export const PageContent = styled.main<{ isMobile: boolean }>`
   ${FlexColumnStyle};
+  position: absolute;
+  top: ${({ isMobile }) => (isMobile ? '4rem' : 0)};
+  right: 0;
+  bottom: 0;
+  left: 0;
   flex-grow: 1;
   min-width: 0;
-  max-width: calc(100vw - 13.75rem);
+  margin-left: ${({ isMobile }) => (isMobile ? '' : '13.75rem')};
   padding: 1.75rem;
   row-gap: 1.75rem;
   overflow: auto;
@@ -102,29 +109,31 @@ export const PaginatorStyle = css`
 `;
 
 export const LayoutContainer = styled.div`
+  position: relative;
   display: flex;
   min-height: 100vh;
 `;
 
-export const SideMenuContainer = styled.div`
-  width: 13.75rem;
-  max-height: 100vh;
+export const NavBar = styled.nav`
+  ${FlexColumnStyle};
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1.125rem 0.625rem;
+  overflow: hidden;
+  background-color: var(--surface-ground);
+`;
 
-  nav {
-    ${FlexColumnStyle};
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    justify-content: space-between;
-    height: 100%;
-    padding: 1.125rem 0.625rem;
-    overflow: hidden;
-    background-color: var(--surface-ground);
-  }
+export const SideMenuContainer = styled.div`
+  position: fixed;
+  height: 100vh;
 `;
 
 export const StyledMenu = styled(Menu)`
+  width: 100%;
+
   .menu-item-icon {
     height: 1rem;
     margin-right: 0.5rem;
@@ -141,9 +150,7 @@ export const StyledMenu = styled(Menu)`
 `;
 
 export const HeadlineFiguresContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.875rem;
+  padding-right: 1rem;
 `;
 
 export const HeadlineFigureCardContainer = styled(FlexRowCard)`
@@ -164,18 +171,12 @@ export const DashboardContentContainer = styled.div`
   gap: 0.875rem;
   width: 100%;
   height: 100%;
-`;
-
-export const DashboardTablesSectionContainer = styled.div`
-  ${FlexColumnStyle};
-  flex-basis: 26rem;
-  row-gap: 0.875rem;
+  min-height: 25rem;
 `;
 
 export const WorldContainer = styled.div`
   position: relative;
-  flex-grow: 1;
-  min-width: 30rem;
+  height: 100%;
 `;
 
 export const GlobeContainer = styled.div`
@@ -202,6 +203,7 @@ export const GlobeContainer = styled.div`
 
     span {
       color: var(--primary-color);
+      white-space: nowrap;
       text-align: end;
     }
   }
@@ -232,23 +234,34 @@ export const HeadlessDashboardTable = styled(DashboardTable)`
 
 export const TableContainerCard = styled(FlexColumnCard)`
   &.p-card {
-    flex-grow: 1;
-    flex-shrink: 1;
-    min-height: 10rem;
+    position: relative;
+    height: 100%;
 
     .p-card-body {
       height: 100%;
 
       .p-card-content {
-        justify-content: center;
         height: 100%;
 
         .p-datatable-flex-scrollable {
-          height: 90%;
+          height: 100%;
         }
       }
     }
   }
+`;
+
+export const TableCardContainer = styled.div`
+  flex-shrink: 1;
+  min-height: 10rem;
+`;
+
+export const DashboardRightPanelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
 `;
 
 export const StyledTable = styled(DashboardTable)`
@@ -276,13 +289,12 @@ export const StyledInputText = styled(InputText)`
 
 export const Form = styled.form`
   margin-top: 0.5rem;
-  row-gap: 0.75rem;
+  row-gap: 1rem;
 `;
 
 export const SignUpContainer = styled.div`
   ${FlexColumnStyle};
   row-gap: 1.75rem;
-  min-width: 20rem;
   padding-top: 2rem;
 `;
 
@@ -294,6 +306,37 @@ export const FooterButtonsContainer = styled.div`
   display: flex;
   align-items: end;
   justify-content: end;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  padding-bottom: 0;
   column-gap: 0.5rem;
+`;
+
+export const StyledSidebar = styled(Sidebar)`
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+
+  .p-sidebar-header {
+    display: none;
+  }
+
+  .p-sidebar-content {
+    padding: 0;
+  }
+`;
+
+export const TopNavBar = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  padding: 1rem 1.5rem;
+  background-color: var(--surface-overlay);
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.5);
+`;
+
+export const StyledDialog = styled(Dialog)`
+  max-width: 95vw;
 `;

@@ -59,7 +59,7 @@ const SignUpForm: FC = () => {
       <h5>{t('signUp.title')}</h5>
       <SignUpMessage>{t('signUp.description')}</SignUpMessage>
       <Form onSubmit={handleSubmit(onSubmit)} className="grid">
-        <div className="col-6">
+        <div className="col-12 sm:col-6">
           <ControlledInputText<SignUpFormModel>
             name="name"
             label={t('form.name.label')}
@@ -68,7 +68,7 @@ const SignUpForm: FC = () => {
             disabled={isSignUpForBetaLoading}
           />
         </div>
-        <div className="col-6">
+        <div className="col-12 sm:col-6">
           <ControlledInputText<SignUpFormModel>
             name="company"
             label={t('form.company.label')}

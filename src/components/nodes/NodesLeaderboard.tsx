@@ -112,6 +112,7 @@ const NodesLeaderboard: FC = () => {
         paginatorTemplate={paginatorOptions.paginatorTemplate}
         currentPageReportTemplate={t('table.pageReport').toString()}
         loading={isNodesLeaderboardLoading}
+        responsiveLayout="scroll"
       >
         <Column
           field="id"

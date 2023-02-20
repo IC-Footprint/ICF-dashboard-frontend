@@ -3,7 +3,7 @@ export interface GlobePointModel {
   emissions: number;
   carbonIntensity: number;
   nodeCount: number;
-  coordinates: CoordinatesModel;
+  coordinates?: CoordinatesModel;
 }
 
 export interface GlobePointViewModel {

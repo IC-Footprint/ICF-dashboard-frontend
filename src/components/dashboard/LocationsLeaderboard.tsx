@@ -29,19 +29,24 @@ const LocationsLeaderboard: FC = () => {
   return (
     <TableContainerCard>
       <span>{t('common.leaderboard')}</span>
-      <DashboardTable
-        value={locationsLeaderboard ?? []}
-        loading={isLocationsLeaderboardLoading}
-        scrollable
-        scrollHeight="flex"
-      >
-        <Column field="location" header={t('table.headers.location')}></Column>
-        <Column
-          field="emissions"
-          header={t('table.headers.emissionsLast30minutes')}
-          body={emissionsTemplate}
-        ></Column>
-      </DashboardTable>
+      <div className="min-h-0">
+        <DashboardTable
+          value={locationsLeaderboard ?? []}
+          loading={isLocationsLeaderboardLoading}
+          scrollable
+          scrollHeight="flex"
+        >
+          <Column
+            field="location"
+            header={t('table.headers.location')}
+          ></Column>
+          <Column
+            field="emissions"
+            header={t('table.headers.emissionsLast30minutes')}
+            body={emissionsTemplate}
+          ></Column>
+        </DashboardTable>
+      </div>
     </TableContainerCard>
   );
 };
