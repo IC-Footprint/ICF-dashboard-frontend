@@ -39,7 +39,7 @@ const World: FC = () => {
             lat: globePoint.coordinates?.latitude ?? 0,
             lng: globePoint.coordinates?.longitude ?? 0,
             size: globePoint.nodeCount * globeOptions.pointSizeScale,
-            carbonIntensity: globePoint.carbonIntensity,
+            carbonIntensity: +globePoint.carbonIntensity.toFixed(2),
             label: globePoint.location,
             nodesCount: globePoint.nodeCount
           })

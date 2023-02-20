@@ -1,4 +1,3 @@
-import { SelectButton } from 'primereact/selectbutton';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -6,7 +5,10 @@ import type { SelectItem } from 'primereact/selectitem';
 import type { FC } from 'react';
 import type { RangeType } from '@/models/range-type';
 
-import { SelectTimeRangeContainer } from '@/theme/styled-components';
+import {
+  SelectTimeRangeContainer,
+  StyledSelectButton
+} from '@/theme/styled-components';
 
 export interface SelectTimeRangeProps {
   range: RangeType;
@@ -38,12 +40,13 @@ const SelectTimeRange: FC<SelectTimeRangeProps> = ({
 
   return (
     <SelectTimeRangeContainer>
-      <SelectButton
+      <StyledSelectButton
         value={range}
-        onChange={(e) => (e.value ? setRange(e.value) : null)}
+        onChange={(e) => setRange(e.value)}
         options={options}
         optionValue="value"
         disabled={disabled}
+        unselectable={false}
       />
     </SelectTimeRangeContainer>
   );

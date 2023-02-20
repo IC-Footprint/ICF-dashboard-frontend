@@ -8,6 +8,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
+import { SelectButton } from 'primereact/selectbutton';
 import { Sidebar } from 'primereact/sidebar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
@@ -45,6 +46,18 @@ export const SelectTimeRangeContainer = styled.div`
   display: flex;
   justify-content: end;
   padding-top: 0.5rem;
+`;
+
+export const StyledSelectButton = styled(SelectButton)`
+  display: flex;
+  max-width: 100%;
+  padding: 0.25rem;
+  overflow-x: auto;
+
+  .p-button {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const PageContent = styled.main<{ isMobile: boolean }>`
@@ -108,9 +121,8 @@ export const PaginatorStyle = css`
   padding: 1rem;
 `;
 
-export const LayoutContainer = styled.div`
+export const RootContainer = styled.div`
   position: relative;
-  display: flex;
   min-height: 100vh;
 `;
 

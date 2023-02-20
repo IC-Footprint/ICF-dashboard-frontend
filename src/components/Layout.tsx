@@ -1,17 +1,15 @@
 import { Button } from 'primereact/button';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useResizeDetector } from 'react-resize-detector';
 
 import type { FC, PropsWithChildren } from 'react';
 
-import useSignUp from '@/helpers/state/useSignUp';
-import SignUp from '@/components/sign-up/SignUp';
-import { breakpoints } from '@/utils/breakpoints';
-import MenuIcon from '@/theme/assets/icons/menu';
 import SideMenu from '@/components/SideMenu';
+import SignUp from '@/components/sign-up/SignUp';
+import useSignUp from '@/helpers/state/useSignUp';
+import useViewport from '@/helpers/useViewport';
+import MenuIcon from '@/theme/assets/icons/menu';
 import {
-  LayoutContainer,
   PageContent,
   SideMenuContainer,
   StyledDialog,
@@ -21,15 +19,12 @@ import {
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const { t } = useTranslation();
-  const { width, ref: layoutContainerRef } = useResizeDetector();
+  const { isMobile } = useViewport();
   const {
     actions: { showSignUpModal, hideSignUpModal },
     isSignUpModalVisible
   } = useSignUp();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const isMobile: boolean = useMemo(() => {
-    return (width ?? 0) < breakpoints.mobile;
-  }, [width]);
 
   const closeSideMenu = useCallback(() => {
     setIsSidebarVisible(false);
@@ -42,7 +37,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
   }, [isMobile, closeSideMenu]);
 
   return (
-    <LayoutContainer ref={layoutContainerRef}>
+    <>
       {isMobile ? (
         <>
           <TopNavBar>
@@ -81,7 +76,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       >
         <SignUp />
       </StyledDialog>
-    </LayoutContainer>
+    </>
   );
 };
 
