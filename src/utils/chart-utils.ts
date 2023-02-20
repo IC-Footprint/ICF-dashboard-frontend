@@ -1,5 +1,8 @@
+import type { LineOptions, PointPrefixedOptions } from 'chart.js/dist/types';
 import type { BuildChartOptionsModel } from '@/models/build-chart-options-model';
 import type { ChartOptions, FontSpec } from 'chart.js';
+
+type ChartLineOptions = LineOptions & PointPrefixedOptions;
 
 export class ChartUtils {
   private static defaultFont(): Partial<FontSpec> {
@@ -10,6 +13,23 @@ export class ChartUtils {
     };
   }
 
+  private static defaultLineOptions(): Partial<ChartLineOptions> {
+    return {
+      tension: 0.4
+    };
+  }
+
+  private static lineOptions(
+    isMobileViewport: boolean
+  ): Partial<ChartLineOptions> {
+    const options = ChartUtils.defaultLineOptions();
+    if (isMobileViewport) {
+      options.borderWidth = 1.5;
+      options.pointRadius = 1.5;
+    }
+    return options;
+  }
+
   static buildLineChartOptions(
     options: BuildChartOptionsModel
   ): ChartOptions<'line'> {
@@ -18,9 +38,7 @@ export class ChartUtils {
       aspectRatio: 1.5,
       spanGaps: true,
       datasets: {
-        line: {
-          tension: 0.4
-        }
+        line: ChartUtils.lineOptions(options.isMobileViewport)
       },
       plugins: {
         tooltip: {

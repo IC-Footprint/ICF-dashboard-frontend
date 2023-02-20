@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 import type { ChartOptions } from 'chart.js';
 
+import useViewport from '@/helpers/useViewport';
 import { ChartUtils } from '@/utils/chart-utils';
 
 const useChart = () => {
   const [chartOptions, setChartOptions] = useState<ChartOptions>({});
+  const { isMobile } = useViewport();
 
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -19,10 +21,11 @@ const useChart = () => {
       ChartUtils.buildLineChartOptions({
         surfaceBorderColor,
         textColor,
-        textColorSecondary
+        textColorSecondary,
+        isMobileViewport: isMobile
       })
     );
-  }, []); // TODO: update on theme change
+  }, [isMobile]); // TODO: update on theme change
 
   return {
     chartOptions
