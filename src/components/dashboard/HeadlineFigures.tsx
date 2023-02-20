@@ -7,6 +7,7 @@ import type {
   HeadlineFigureEntryModel
 } from '@/models/dashboard/headline-figures-model';
 
+import { HeadlineFiguresContainer } from '@/theme/styled-components';
 import WorldIcon from '@/theme/assets/icons/world-2';
 import LeafIcon from '@/theme/assets/icons/leaf-alt-3';
 import CircleDashedIcon from '@/theme/assets/icons/circle-dashed';
@@ -17,7 +18,6 @@ import {
 } from '@/models/dashboard/headline-figures-model';
 import HeadlineFigureCard from '@/components/dashboard/HeadlineFigureCard';
 import useDashboard from '@/helpers/state/useDashboard';
-import { HeadlineFiguresContainer } from '@/theme/styled-components';
 
 const HeadlineFigures: FC = () => {
   const { t } = useTranslation();
@@ -83,16 +83,17 @@ const HeadlineFigures: FC = () => {
   }, [headlineFigures]);
 
   return (
-    <HeadlineFiguresContainer>
+    <HeadlineFiguresContainer className="grid">
       {Object.entries(headlineFiguresView).map(
         (keyValue: [string, HeadlineFigureEntryModel | null]) => (
-          <HeadlineFigureCard
-            key={keyValue[0]}
-            label={t(`dashboard.headlineFigures.${keyValue[0]}`)}
-            icon={keyValue[1]?.icon}
-            value={keyValue[1]?.value}
-            unit={keyValue[1]?.unit}
-          />
+          <div key={keyValue[0]} className="col-12 lg:col-6">
+            <HeadlineFigureCard
+              label={t(`dashboard.headlineFigures.${keyValue[0]}`)}
+              icon={keyValue[1]?.icon}
+              value={keyValue[1]?.value}
+              unit={keyValue[1]?.unit}
+            />
+          </div>
         )
       )}
     </HeadlineFiguresContainer>

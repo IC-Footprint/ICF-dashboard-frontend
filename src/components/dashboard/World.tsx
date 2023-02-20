@@ -32,16 +32,18 @@ const World: FC = () => {
   }, []);
   const globePointsData: GlobePointViewModel[] = useMemo(() => {
     return (
-      globePoints?.map(
-        (globePoint: GlobePointModel): GlobePointViewModel => ({
-          lat: globePoint.coordinates.latitude,
-          lng: globePoint.coordinates.longitude,
-          size: globePoint.nodeCount * globeOptions.pointSizeScale,
-          carbonIntensity: globePoint.carbonIntensity,
-          label: globePoint.location,
-          nodesCount: globePoint.nodeCount
-        })
-      ) ?? []
+      globePoints
+        ?.filter((globePoint: GlobePointModel) => !!globePoint.coordinates)
+        .map(
+          (globePoint: GlobePointModel): GlobePointViewModel => ({
+            lat: globePoint.coordinates?.latitude ?? 0,
+            lng: globePoint.coordinates?.longitude ?? 0,
+            size: globePoint.nodeCount * globeOptions.pointSizeScale,
+            carbonIntensity: globePoint.carbonIntensity,
+            label: globePoint.location,
+            nodesCount: globePoint.nodeCount
+          })
+        ) ?? []
     );
   }, [globePoints, globeOptions.pointSizeScale]);
   const colorDomain: [number, number] = useMemo(() => {
