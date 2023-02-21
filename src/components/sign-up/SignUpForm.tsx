@@ -17,7 +17,11 @@ import {
 } from '@/theme/styled-components';
 import useSignUp from '@/helpers/state/useSignUp';
 
-const SignUpForm: FC = () => {
+interface SignUpFormProps {
+  showCancel?: boolean;
+}
+
+const SignUpForm: FC<SignUpFormProps> = ({ showCancel = true }) => {
   const { t } = useTranslation();
   const {
     actions: { hideSignUpModal, signUpForBeta },
@@ -86,14 +90,17 @@ const SignUpForm: FC = () => {
             disabled={isSignUpForBetaLoading}
           />
         </div>
+        <span className="col-12 text-xs">{t('signUp.consentMessage')}</span>
         <FooterButtonsContainer className="col-12">
-          <Button
-            label={t('common.cancel').toString()}
-            onClick={hideSignUpModal}
-            type="button"
-            outlined
-            disabled={isSignUpForBetaLoading}
-          />
+          {showCancel ? (
+            <Button
+              label={t('common.cancel').toString()}
+              onClick={hideSignUpModal}
+              type="button"
+              outlined
+              disabled={isSignUpForBetaLoading}
+            />
+          ) : null}
           <Button
             label={t('common.submit').toString()}
             type="submit"

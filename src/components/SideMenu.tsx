@@ -7,10 +7,11 @@ import type { MenuItem } from 'primereact/menuitem';
 import type { FC, ReactNode } from 'react';
 
 import useSignUp from '@/helpers/state/useSignUp';
-import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
+import { appRoutes } from '@/router/app-routes';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
-import { appRoutes } from '@/router/app-routes';
+import InfoCircleIcon from '@/theme/assets/icons/info-circle';
+import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import {
   FlexColumnWithRowGap,
   NavBar,
@@ -51,14 +52,15 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   const menuItems: MenuItem[] = useMemo<MenuItem[]>(() => {
     return [
       createMenuItem(t('page.home'), <HomeIcon />, appRoutes.home.root),
-      createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root)
+      createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root),
+      createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
   }, [t, createMenuItem]);
 
   return (
     <NavBar>
       <FlexColumnWithRowGap>
-        <img src={logoCarbonCrowd} alt="Carbon Crowd" />
+        <img src={logoCarbonCrowd} alt="Carbon Crowd Logo" />
         <StyledMenu model={menuItems} />
       </FlexColumnWithRowGap>
       <Button

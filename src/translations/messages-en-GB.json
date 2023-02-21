@@ -1,4 +1,34 @@
 {
+  "about": {
+    "acknowledgements": "Special Thanks To:",
+    "features": {
+      "costSavings": {
+        "description": "By tracking energy usage in real-time, we can optimise the energy consumption of the Internet Computer to reduce costs and environmental impact.",
+        "title": "Cost Savings"
+      },
+      "regulationCompliance": {
+        "description": "Real-time carbon analytics will help the Internet Computer comply with upcoming regulation, such as that proposed by the EU as part of the European Green Deal.",
+        "title": "Compliance with Regulation"
+      },
+      "transparency": {
+        "description": "Real-time carbon analytics provides a more transparent and accurate view of the Internet Computer’s emissions, allowing the community to take action that will measurably reduce the network’s carbon footprint.",
+        "title": "Increased transparency"
+      }
+    },
+    "followUs": {
+      "title": "Follow us!",
+      "twitter": "Follow us on Twitter and get our latest updates!",
+      "twitterTimelineError": "Could not load the twitter timeline"
+    },
+    "poweredBy": "Powered by",
+    "realTimeCarbonAnalytics": "Real-time carbon analytics for cloud networks",
+    "subtitle": "The home of sustainability on the Internet Computer",
+    "title": "Internet Computer Footprint",
+    "vision": {
+      "description": "Our vision is to become the leading provider of sustainable and environmentally responsible cloud computing solutions. We believe that technology should work hand-in-hand with nature to benefit both people and the planet. We are committed to reducing the carbon footprint of the tech industry by helping our partners run more compute with renewable energy and minimising waste through efficient resource utilisation.\n\n Our ultimate goal is to create a future where technology is seamlessly integrated with the environment, where digital innovation drives sustainability, and where businesses can thrive while preserving the planet for generations to come.",
+      "title": "Carbon Crowd’s Vision"
+    }
+  },
   "common": {
     "cancel": "Cancel",
     "close": "Close",
@@ -84,10 +114,12 @@
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
   },
   "page": {
+    "about": "About",
     "home": "Home",
     "nodes": "Nodes"
   },
   "signUp": {
+    "consentMessage": "By clicking the button \"Submit\" I agree that the given information can be used by ICF to send me notifications",
     "description": "Be one of the first ever cloud networks or node operators to understand your global carbon emissions in real time.",
     "error": {
       "title": "An error occurred while signing up for beta"
