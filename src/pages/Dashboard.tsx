@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
 
@@ -10,11 +11,13 @@ import NodesCounters from '@/components/dashboard/NodesCounters';
 import {
   DashboardContentContainer,
   DashboardRightPanelContainer,
+  FlexColumnContainer,
   RelativeContainer,
   TableCardContainer
 } from '@/theme/styled-components';
 
 const Dashboard: FC = () => {
+  const { t } = useTranslation();
   const {
     actions: {
       getLocationsLeaderboard,
@@ -44,7 +47,8 @@ const Dashboard: FC = () => {
   ]);
 
   return (
-    <>
+    <FlexColumnContainer>
+      <h3>{t('common.internetComputerFootprint')}</h3>
       <HeadlineFigures />
       <RelativeContainer>
         <DashboardContentContainer>
@@ -63,7 +67,7 @@ const Dashboard: FC = () => {
           </div>
         </DashboardContentContainer>
       </RelativeContainer>
-    </>
+    </FlexColumnContainer>
   );
 };
 

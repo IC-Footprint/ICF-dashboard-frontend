@@ -3,6 +3,8 @@ import { Toast } from 'primereact/toast';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { FC } from 'react';
+
 import { createToast } from '@/models/toast-model';
 import SignUpForm from '@/components/sign-up/SignUpForm';
 import useSignUp from '@/helpers/state/useSignUp';
@@ -12,7 +14,12 @@ import {
   SignUpMessage
 } from '@/theme/styled-components';
 
-const SignUp = () => {
+interface SignUpProps {
+  showClose?: boolean;
+  showCancel?: boolean;
+}
+
+const SignUp: FC<SignUpProps> = ({ showClose = true, showCancel = true }) => {
   const { t } = useTranslation();
   const toast = useRef<Toast>(null);
   const {
@@ -40,14 +47,16 @@ const SignUp = () => {
           <h5>{t('signUp.success.title')}</h5>
           <SignUpMessage>{t('signUp.success.description')}</SignUpMessage>
           <FooterButtonsContainer>
-            <Button
-              label={t('common.close').toString()}
-              onClick={hideSignUpModal}
-            />
+            {showClose ? (
+              <Button
+                label={t('common.close').toString()}
+                onClick={hideSignUpModal}
+              />
+            ) : null}
           </FooterButtonsContainer>
         </>
       ) : (
-        <SignUpForm />
+        <SignUpForm showCancel={showCancel} />
       )}
     </SignUpContainer>
   );

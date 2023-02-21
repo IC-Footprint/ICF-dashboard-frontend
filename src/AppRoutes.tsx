@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import type { FC } from 'react';
 
 import Layout from '@/components/Layout';
+import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
 import Nodes from '@/pages/Nodes';
 import { appRoutes } from '@/router/app-routes';
@@ -13,6 +14,7 @@ const AppRoutes: FC = () => {
       <Routes>
         <Route path={appRoutes.home.root} element={<Dashboard />}></Route>
         <Route path={appRoutes.nodes.root} element={<Nodes />}></Route>
+        <Route path={appRoutes.about.root} element={<About />}></Route>
         <Route
           path="/*"
           element={<Navigate to={appRoutes.home.root} />}

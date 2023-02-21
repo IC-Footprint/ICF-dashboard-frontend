@@ -14,6 +14,7 @@ import { Sidebar } from 'primereact/sidebar';
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 
 import { globeTooltipBackgroundColor } from '@/theme/colors';
+import aboutBackgroundImage from '@/theme/assets/about-background.svg';
 
 export const FlexColumnStyle = css`
   display: flex;
@@ -22,7 +23,13 @@ export const FlexColumnStyle = css`
 
 export const FlexColumnWithRowGap = styled.div`
   ${FlexColumnStyle};
-  row-gap: 1.75rem;
+  row-gap: 1.5rem;
+`;
+
+export const FlexColumnContainer = styled(FlexColumnWithRowGap)`
+  ${FlexColumnStyle};
+  flex-grow: 1;
+  padding: 1.75rem;
 `;
 
 export const FlexColumnCard = styled(Card)`
@@ -39,6 +46,15 @@ export const FlexRowCard = styled(Card)`
     align-items: center;
     padding: 0;
     column-gap: 1.375rem;
+  }
+`;
+
+export const AboutAcknowledgementsCardContainer = styled(Card)`
+  .p-card-content {
+    ${FlexColumnStyle};
+    align-items: center;
+    row-gap: 0.875rem;
+    padding: 0;
   }
 `;
 
@@ -66,12 +82,7 @@ export const PageContent = styled.main<{ isMobile: boolean }>`
   top: ${({ isMobile }) => (isMobile ? '4rem' : 0)};
   right: 0;
   bottom: 0;
-  left: 0;
-  flex-grow: 1;
-  min-width: 0;
-  margin-left: ${({ isMobile }) => (isMobile ? '' : '13.75rem')};
-  padding: 1.75rem;
-  row-gap: 1.75rem;
+  left: ${({ isMobile }) => (isMobile ? '0' : '13.75rem')};
   overflow: auto;
 
   h3 {
@@ -318,7 +329,6 @@ export const FooterButtonsContainer = styled.div`
   display: flex;
   align-items: end;
   justify-content: end;
-  margin-top: 1rem;
   padding-bottom: 0;
   column-gap: 0.5rem;
 `;
@@ -351,4 +361,67 @@ export const TopNavBar = styled.div`
 
 export const StyledDialog = styled(Dialog)`
   max-width: 95vw;
+`;
+
+export const AboutContainer = styled.div`
+  position: relative;
+  flex-grow: 1;
+  margin: 0;
+  padding: 1.875rem;
+  overflow: auto;
+  background-image: url(${aboutBackgroundImage});
+  background-size: cover;
+
+  p {
+    white-space: pre-line;
+  }
+`;
+
+export const AboutContentContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 1rem;
+`;
+
+export const AboutContextContainer = styled(FlexColumnContainer)`
+  align-items: center;
+  row-gap: 2rem;
+  margin: 5rem 0;
+  text-align: center;
+`;
+
+export const AboutProviderContainer = styled(FlexColumnContainer)`
+  row-gap: 1rem;
+  align-items: center;
+  padding: 0;
+`;
+
+export const AboutTitle = styled.h1`
+  font-weight: 400;
+  font-size: 2.8125rem;
+  line-height: 2.3125rem;
+`;
+
+export const InformationCardContainer = styled(FlexColumnCard)`
+  height: 100%;
+  padding: 1.5rem 0;
+`;
+
+export const AboutLogosContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem;
+  row-gap: 2rem;
+  column-gap: 4rem;
+
+  img {
+    width: 6.25rem;
+  }
 `;

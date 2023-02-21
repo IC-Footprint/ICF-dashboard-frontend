@@ -4,5 +4,8 @@ export const appRoutes = {
   },
   nodes: {
     root: '/nodes'
+  },
+  about: {
+    root: '/about'
   }
 };

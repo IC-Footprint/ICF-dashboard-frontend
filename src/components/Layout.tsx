@@ -1,6 +1,5 @@
 import { Button } from 'primereact/button';
 import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import type { FC, PropsWithChildren } from 'react';
 
@@ -18,7 +17,6 @@ import {
 } from '@/theme/styled-components';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const { t } = useTranslation();
   const { isMobile } = useViewport();
   const {
     actions: { showSignUpModal, hideSignUpModal },
@@ -64,10 +62,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
           <SideMenu />
         </SideMenuContainer>
       )}
-      <PageContent isMobile={isMobile}>
-        <h3>{t('common.internetComputerFootprint')}</h3>
-        {children}
-      </PageContent>
+      <PageContent isMobile={isMobile}>{children}</PageContent>
       <StyledDialog
         visible={isSignUpModalVisible}
         onHide={hideSignUpModal}
