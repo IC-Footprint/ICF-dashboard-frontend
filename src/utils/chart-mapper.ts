@@ -38,7 +38,8 @@ export class ChartMapper {
           label: dataset.dataSetName,
           data: dataset.data,
           backgroundColor: seriesPalette[index % seriesPalette.length],
-          borderColor: seriesPalette[index % seriesPalette.length]
+          borderColor: seriesPalette[index % seriesPalette.length],
+          hidden: dataset.active === false
         };
       }
     );

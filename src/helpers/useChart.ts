@@ -5,7 +5,7 @@ import type { ChartOptions } from 'chart.js';
 import useViewport from '@/helpers/useViewport';
 import { ChartUtils } from '@/utils/chart-utils';
 
-const useChart = () => {
+const useChart = (displayLegend = true) => {
   const [chartOptions, setChartOptions] = useState<ChartOptions>({});
   const { isMobile } = useViewport();
 
@@ -22,10 +22,11 @@ const useChart = () => {
         surfaceBorderColor,
         textColor,
         textColorSecondary,
-        isMobileViewport: isMobile
+        isMobileViewport: isMobile,
+        displayLegend: displayLegend
       })
     );
-  }, [isMobile]); // TODO: update on theme change
+  }, [isMobile, displayLegend]); // TODO: update on theme change
 
   return {
     chartOptions
