@@ -32,7 +32,7 @@ const GridTechnologies: FC<GridTechnologiesProps> = ({
         label={t(
           `common.gridTechnologyType.${technology.toLowerCase()}`
         ).toString()}
-        color={gridTechnologyColorMap[technology]}
+        $color={gridTechnologyColorMap[technology]}
       ></ColoredChip>
     )
   );
@@ -45,7 +45,7 @@ const GridTechnologies: FC<GridTechnologiesProps> = ({
         <ColoredChip
           id={tooltipId}
           label={`+${technologies.length - 1}`}
-          color={textColor}
+          $color={textColor}
           data-pr-tooltip={technologies
             .slice(1)
             .map((technology: GridTechnologyType) =>

@@ -41,7 +41,7 @@ const NodeEmissionsByRegion: FC = () => {
         type="line"
         data={nodeEmissionsByRegionData}
         options={chartOptions}
-        isMobile={isMobile}
+        $isMobile={isMobile}
       />
       <SelectTimeRange
         range={range}

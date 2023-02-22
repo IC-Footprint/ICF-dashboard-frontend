@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import type { FC, PropsWithChildren } from 'react';
 
+import CustomDialog from '@/components/CustomDialog';
 import SideMenu from '@/components/SideMenu';
 import SignUp from '@/components/sign-up/SignUp';
 import useSignUp from '@/helpers/state/useSignUp';
@@ -11,7 +12,6 @@ import MenuIcon from '@/theme/assets/icons/menu';
 import {
   PageContent,
   SideMenuContainer,
-  StyledDialog,
   StyledSidebar,
   TopNavBar
 } from '@/theme/styled-components';
@@ -62,15 +62,16 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
           <SideMenu />
         </SideMenuContainer>
       )}
-      <PageContent isMobile={isMobile}>{children}</PageContent>
-      <StyledDialog
+      <PageContent $isMobile={isMobile}>{children}</PageContent>
+      <CustomDialog
         visible={isSignUpModalVisible}
         onHide={hideSignUpModal}
         onShow={showSignUpModal}
         showHeader={false}
+        size="small"
       >
         <SignUp />
-      </StyledDialog>
+      </CustomDialog>
     </>
   );
 };

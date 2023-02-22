@@ -12,7 +12,10 @@ import { SelectButton } from 'primereact/selectbutton';
 import { Sidebar } from 'primereact/sidebar';
 
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
+import type { ViewportOptionsProps } from '@/models/viewport-options-props';
+import type { DialogSizeProps } from '@/models/dialog-size-props';
 
+import { transientOptions } from '@/theme/styled-components-utils';
 import { globeTooltipBackgroundColor } from '@/theme/colors';
 import aboutBackgroundImage from '@/theme/assets/about-background.svg';
 
@@ -76,13 +79,13 @@ export const StyledSelectButton = styled(SelectButton)`
   }
 `;
 
-export const PageContent = styled.main<{ isMobile: boolean }>`
+export const PageContent = styled.main<ViewportOptionsProps>`
   ${FlexColumnStyle};
   position: absolute;
-  top: ${({ isMobile }) => (isMobile ? '4rem' : 0)};
+  top: ${({ $isMobile }) => ($isMobile ? '4rem' : 0)};
   right: 0;
   bottom: 0;
-  left: ${({ isMobile }) => (isMobile ? '0' : '13.75rem')};
+  left: ${({ $isMobile }) => ($isMobile ? '0' : '13.75rem')};
   overflow: auto;
 
   h3 {
@@ -90,9 +93,12 @@ export const PageContent = styled.main<{ isMobile: boolean }>`
   }
 `;
 
-export const StyledChart = styled(Chart)<{ isMobile?: boolean }>`
+export const StyledChart = styled(
+  Chart,
+  transientOptions
+)<ViewportOptionsProps>`
   flex: 1;
-  min-height: ${({ isMobile }) => (isMobile ? '25rem' : '18.75rem')};
+  min-height: ${({ $isMobile }) => ($isMobile ? '25rem' : '18.75rem')};
 
   canvas {
     position: absolute;
@@ -116,11 +122,11 @@ export const GridTechnologiesContainer = styled.div`
   column-gap: 0.5rem;
 `;
 
-export const ColoredChip = styled(Chip)<ColoredChipProps>`
+export const ColoredChip = styled(Chip, transientOptions)<ColoredChipProps>`
   padding: 0.125rem 0.5rem;
-  color: ${(props) => props.color};
+  color: ${({ $color }) => $color};
   background-color: unset;
-  border: solid 1px ${(props) => props.color};
+  border: solid 1px ${({ $color }) => $color};
 
   .p-chip-text {
     margin: 0;
@@ -172,11 +178,11 @@ export const StyledMenu = styled(Menu)`
   }
 `;
 
-export const HeadlineFiguresContainer = styled.div`
-  padding-right: 1rem;
-`;
-
 export const HeadlineFigureCardContainer = styled(FlexRowCard)`
+  .p-card-body {
+    padding-right: 0.5rem;
+  }
+
   i {
     height: 2rem;
     color: var(--primary-color);
@@ -200,6 +206,7 @@ export const DashboardContentContainer = styled.div`
 export const WorldContainer = styled.div`
   position: relative;
   height: 100%;
+  margin-right: -1rem;
 `;
 
 export const GlobeContainer = styled.div`
@@ -277,6 +284,8 @@ export const TableContainerCard = styled(FlexColumnCard)`
 export const TableCardContainer = styled.div`
   flex-shrink: 1;
   min-height: 10rem;
+  margin-right: -1rem;
+  padding: 0.5rem;
 `;
 
 export const DashboardRightPanelContainer = styled.div`
@@ -359,8 +368,9 @@ export const TopNavBar = styled.div`
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.5);
 `;
 
-export const StyledDialog = styled(Dialog)`
-  max-width: 95vw;
+export const StyledDialog = styled(Dialog, transientOptions)<DialogSizeProps>`
+  max-width: ${({ $size, $isMobile }) =>
+    $size === 'small' && !$isMobile ? '50vw' : '95vw'};
 `;
 
 export const AboutContainer = styled.div`

@@ -1,3 +1,3 @@
 export interface ColoredChipProps {
-  color?: string;
+  $color?: string;
 }

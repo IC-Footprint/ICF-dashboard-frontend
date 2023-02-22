@@ -52,15 +52,15 @@ const Dashboard: FC = () => {
       <HeadlineFigures />
       <RelativeContainer>
         <DashboardContentContainer>
-          <div className="grid w-full">
+          <div className="grid gap-3 w-full">
             <div className="col-12 xl:col-8 h-full">
               <World />
             </div>
-            <DashboardRightPanelContainer className="col-12 xl:col-4 xl:h-full row-gap-3 md:row-gap-0 grid">
-              <TableCardContainer className="md:col-12 flex-grow-1">
+            <DashboardRightPanelContainer className="col-12 xl:col xl:h-full">
+              <TableCardContainer className="flex-grow-1">
                 <LocationsLeaderboard />
               </TableCardContainer>
-              <TableCardContainer className="md:col-12 xl:mb-0 mb-3 flex-grow-0">
+              <TableCardContainer className="mb-3 xl:mb-0 flex-grow-0">
                 <NodesCounters />
               </TableCardContainer>
             </DashboardRightPanelContainer>
