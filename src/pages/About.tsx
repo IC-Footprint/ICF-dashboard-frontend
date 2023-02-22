@@ -33,8 +33,7 @@ import { TwitterWidgetUtils } from '@/utils/twitter-widget-utils';
 const About: FC = () => {
   const { t } = useTranslation();
   const twitterWidgetOptions: TwitterWidgetOptionsModel = useMemo(() => {
-    // TODO: make the twitter handle configurable?
-    return TwitterWidgetUtils.buildTwitterWidgetOptions('icfootprint');
+    return TwitterWidgetUtils.buildTwitterWidgetOptions();
   }, []);
   const acknowledgmentEntities: EntityModel[] = useMemo(() => {
     return [
@@ -99,7 +98,7 @@ const About: FC = () => {
         </div>
         <div className="col-12">
           <FlexRowCard>
-            <div className="grid w-full">
+            <div className="grid m-0 w-full">
               <div className="col-12 lg:col-6">
                 <Timeline
                   dataSource={twitterWidgetOptions.dataSource}

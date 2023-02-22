@@ -5,12 +5,11 @@ import type {
 
 export class TwitterWidgetUtils {
   static buildTwitterWidgetOptions(
-    username?: string,
     theme: ThemeType = 'dark'
   ): TwitterWidgetOptionsModel {
     return {
       dataSource: {
-        screenName: username ?? '',
+        screenName: 'icfootprint',
         sourceType: 'profile'
       },
       options: {

@@ -7,7 +7,6 @@ import type {
   HeadlineFigureEntryModel
 } from '@/models/dashboard/headline-figures-model';
 
-import { HeadlineFiguresContainer } from '@/theme/styled-components';
 import WorldIcon from '@/theme/assets/icons/world-2';
 import LeafIcon from '@/theme/assets/icons/leaf-alt-3';
 import CircleDashedIcon from '@/theme/assets/icons/circle-dashed';
@@ -83,7 +82,7 @@ const HeadlineFigures: FC = () => {
   }, [headlineFigures]);
 
   return (
-    <HeadlineFiguresContainer className="grid">
+    <div className="grid">
       {Object.entries(headlineFiguresView).map(
         (keyValue: [string, HeadlineFigureEntryModel | null]) => (
           <div key={keyValue[0]} className="col-12 lg:col-6">
@@ -96,7 +95,7 @@ const HeadlineFigures: FC = () => {
           </div>
         )
       )}
-    </HeadlineFiguresContainer>
+    </div>
   );
 };
 
