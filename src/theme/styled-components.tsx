@@ -90,9 +90,9 @@ export const PageContent = styled.main<{ isMobile: boolean }>`
   }
 `;
 
-export const StyledChart = styled(Chart)`
+export const StyledChart = styled(Chart)<{ isMobile?: boolean }>`
   flex: 1;
-  min-height: 350px;
+  min-height: ${({ isMobile }) => (isMobile ? '25rem' : '18.75rem')};
 
   canvas {
     position: absolute;

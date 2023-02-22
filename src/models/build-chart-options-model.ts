@@ -3,4 +3,5 @@ export interface BuildChartOptionsModel {
   textColorSecondary: string;
   surfaceBorderColor: string;
   isMobileViewport: boolean;
+  displayLegend: boolean;
 }

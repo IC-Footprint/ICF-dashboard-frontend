@@ -8,10 +8,12 @@ import type { FC } from 'react';
 import SelectTimeRange from '@/components/SelectTimeRange';
 import useNodes from '@/helpers/state/useNodes';
 import useChart from '@/helpers/useChart';
+import useViewport from '@/helpers/useViewport';
 import { FlexColumnCard, StyledChart } from '@/theme/styled-components';
 
 const NodeEmissionsByRegion: FC = () => {
   const { t } = useTranslation();
+  const { isMobile } = useViewport();
   const { chartOptions } = useChart();
   const [range, setRange] = useState<RangeType>('ONE_DAY');
   const {
@@ -39,6 +41,7 @@ const NodeEmissionsByRegion: FC = () => {
         type="line"
         data={nodeEmissionsByRegionData}
         options={chartOptions}
+        isMobile={isMobile}
       />
       <SelectTimeRange
         range={range}
