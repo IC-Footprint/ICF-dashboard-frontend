@@ -105,12 +105,6 @@ export const StyledChart = styled(
   }
 `;
 
-export const TwoColumnsGrid = styled.div`
-  display: grid;
-  grid-gap: 0.875rem;
-  grid-template-columns: 1fr 1fr;
-`;
-
 export const StyledProgressBar = styled(ProgressBar)`
   width: 100%;
   height: 6px;
