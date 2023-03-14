@@ -21,7 +21,7 @@ const LocationsLeaderboard: FC = () => {
   }, [getLocationsLeaderboard]);
 
   const emissionsTemplate = (rowData: LocationEmissionsModel) => {
-    return t('common.unit.co2Tonnes', {
+    return t('common.unit.co2Kg', {
       value: rowData.emissions.toFixed(1)
     });
   };
