@@ -57,7 +57,7 @@
       "threeMonths": "3M"
     },
     "unit": {
-      "co2Kg": "{{value}} kgCO2",
+      "co2Kg": "{{value}} kgCO2e",
       "co2Tonnes": "{{value}} tCO2e",
       "wattHour": "{{value}} Wh"
     }
@@ -135,7 +135,7 @@
       "carbonIntensity": "Carbon Intensity",
       "electricityDraw": "Electricity Draw",
       "emissions": "Emissions",
-      "emissionsLast30minutes": "Emissions (30 mins)",
+      "emissionsLast30minutes": "Emissions (1 hour)",
       "gridTechnology": "Grid Mix",
       "id": "ID",
       "location": "Location",

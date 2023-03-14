@@ -63,7 +63,7 @@ const NodesLeaderboard: FC = () => {
   };
 
   const emissionsTemplate = (rowData: NodeModel) => {
-    return t('common.unit.co2Tonnes', {
+    return t('common.unit.co2Kg', {
       value: rowData.emissions.toFixed(1)
     });
   };
@@ -123,11 +123,14 @@ const NodesLeaderboard: FC = () => {
           field="nodeProvider"
           header={t('table.headers.nodeProvider')}
           body={textColumnTemplate}
+          sortable
+          filter
         ></Column>
         <Column
           field="electricityDraw"
           header={t('table.headers.electricityDraw')}
           body={electricityDrawTemplate}
+          sortable
         ></Column>
         <Column
           field="carbonIntensity"
@@ -138,16 +141,20 @@ const NodesLeaderboard: FC = () => {
           field="emissions"
           header={t('table.headers.emissions')}
           body={emissionsTemplate}
+          sortable
         ></Column>
         <Column
           field="location"
           header={t('table.headers.location')}
           body={textColumnTemplate}
+          sortable
         ></Column>
         <Column
           field="status"
           header={t('table.headers.status')}
           body={statusTemplate}
+          sortable
+          filter
         ></Column>
       </StyledTable>
     </FlexColumnCard>
