@@ -45,6 +45,10 @@ const LocationsLeaderboard: FC = () => {
             header={t('table.headers.emissionsLast30minutes')}
             body={emissionsTemplate}
           ></Column>
+          <Column
+            field="nodeCount"
+            header={t('table.headers.nodeCount')}
+          ></Column>
         </DashboardTable>
       </div>
     </TableContainerCard>
