@@ -146,6 +146,7 @@
   },
   "world": {
     "carbonIntensity": "{{value}} carbon intensity",
+    "carbonEmissions": "{{value}} kgCo2e/24h",
     "nodes": "{{value}} nodes"
   }
 }
