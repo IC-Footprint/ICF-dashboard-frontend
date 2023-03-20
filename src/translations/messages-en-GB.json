@@ -140,6 +140,7 @@
       "id": "ID",
       "location": "Location",
       "nodeProvider": "Node Provider",
+      "nodeCount": "No nodes",
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"

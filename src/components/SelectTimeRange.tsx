@@ -30,7 +30,7 @@ const SelectTimeRange: FC<SelectTimeRangeProps> = ({
 }) => {
   const { t } = useTranslation();
   const [options] = useState<SelectItem[]>([
-    createSelectItemOption(t('common.timeRange.halfAnHour'), 'HALF_AN_HOUR'),
+    // createSelectItemOption(t('common.timeRange.halfAnHour'), 'HALF_AN_HOUR'),
     createSelectItemOption(t('common.timeRange.oneDay'), 'ONE_DAY'),
     createSelectItemOption(t('common.timeRange.sevenDays'), 'SEVEN_DAYS'),
     createSelectItemOption(t('common.timeRange.oneMonth'), 'ONE_MONTH'),
