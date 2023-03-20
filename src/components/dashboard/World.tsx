@@ -38,8 +38,9 @@ const World: FC = () => {
           (globePoint: GlobePointModel): GlobePointViewModel => ({
             lat: globePoint.coordinates?.latitude ?? 0,
             lng: globePoint.coordinates?.longitude ?? 0,
-            size: globePoint.nodeCount * globeOptions.pointSizeScale,
+            size: globePoint.emissions * globeOptions.pointSizeScale,
             carbonIntensity: +globePoint.carbonIntensity.toFixed(2),
+            carbonEmissions: +globePoint.emissions.toFixed(2),
             label: globePoint.location,
             nodesCount: globePoint.nodeCount
           })
@@ -72,6 +73,7 @@ const World: FC = () => {
         <span>
           ${t('world.carbonIntensity', { value: data.carbonIntensity })}
         </span>
+        <span>${t('world.carbonEmissions', {value: data.carbonEmissions})}</span>
       </div>
     `;
   };

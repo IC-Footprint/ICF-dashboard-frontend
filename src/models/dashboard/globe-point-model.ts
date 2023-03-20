@@ -11,6 +11,7 @@ export interface GlobePointViewModel {
   lng: number;
   size: number;
   carbonIntensity: number;
+  carbonEmissions: number;
   label: string;
   nodesCount: number;
 }
