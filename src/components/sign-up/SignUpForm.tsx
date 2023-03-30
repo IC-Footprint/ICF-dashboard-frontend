@@ -60,7 +60,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ showCancel = true }) => {
 
   return (
     <>
-      <h5>{t('signUp.title')}</h5>
+      <h4>{t('signUp.title')}</h4>
       <SignUpMessage>{t('signUp.description')}</SignUpMessage>
       <Form onSubmit={handleSubmit(onSubmit)} className="grid">
         <div className="col-12 sm:col-6">

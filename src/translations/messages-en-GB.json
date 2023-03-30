@@ -2,17 +2,17 @@
   "about": {
     "acknowledgements": "Special Thanks To:",
     "features": {
+      "transparency": {
+        "description": "No matter what industry you are in, if your organisation consumes electricity, we can help you measure your impact.\n\nSign up for our beta to so we can work together to produce a sustainability dashboard for your organisation.",
+        "title": "Create your own dashboard"
+      },
       "costSavings": {
-        "description": "By tracking energy usage in real-time, we can optimise the energy consumption of the Internet Computer to reduce costs and environmental impact.",
-        "title": "Cost Savings"
+        "description": "Leverage our API for intelligent decision-making with carbon-signals in your network and devices\n\nEasily optimise to help reach your sustainability targets.",
+        "title": "Access Carbon Crowd API"
       },
       "regulationCompliance": {
-        "description": "Real-time carbon analytics will help the Internet Computer comply with upcoming regulation, such as that proposed by the EU as part of the European Green Deal.",
-        "title": "Compliance with Regulation"
-      },
-      "transparency": {
-        "description": "Real-time carbon analytics provides a more transparent and accurate view of the Internet Computer’s emissions, allowing the community to take action that will measurably reduce the network’s carbon footprint.",
-        "title": "Increased transparency"
+        "description": " We offer bespoke consulting to help you achieve your decarbonisation targets and meet upcoming regulation.\n\nWork with Carbon Crowd to measure and decarbonise your digital footprint.",
+        "title": "Bespoke consulting solutions"
       }
     },
     "followUs": {
@@ -22,11 +22,12 @@
     },
     "poweredBy": "Powered by",
     "realTimeCarbonAnalytics": "Real-time carbon analytics for cloud networks",
-    "subtitle": "The home of sustainability on the Internet Computer",
-    "title": "Internet Computer Footprint",
+    "subtitle": "Real-time carbon analytics for Cloud Networks, Blockchain and IoT",
+    "title": "Decarbonise cloud computing.",
     "vision": {
-      "description": "Our vision is to become the leading provider of sustainable and environmentally responsible cloud computing solutions. We believe that technology should work hand-in-hand with nature to benefit both people and the planet. We are committed to reducing the carbon footprint of the tech industry by helping our partners run more compute with renewable energy and minimising waste through efficient resource utilisation.\n\n Our ultimate goal is to create a future where technology is seamlessly integrated with the environment, where digital innovation drives sustainability, and where businesses can thrive while preserving the planet for generations to come.",
-      "title": "Carbon Crowd’s Vision"
+      "description": "\"We are on a mission to decarbonise the digital economy by providing real-time carbon analytics for cloud networks, blockchains and IoT devices. This data can be used to understand the source, amount and carbon intensity of the electricity consumed by a device or network of devices.\"",
+      "author": "Hamish Hutchings, CTO, Carbon Crowd",
+      "title": "What we stand for"
     }
   },
   "common": {
@@ -39,7 +40,7 @@
       "solar": "Solar",
       "wind": "Wind"
     },
-    "internetComputerFootprint": "Internet Computer Footprint",
+    "internetComputerFootprint": "Internet Computer Dashboard",
     "leaderboard": "Leaderboard",
     "nodeStatus": {
       "down": "Down",
