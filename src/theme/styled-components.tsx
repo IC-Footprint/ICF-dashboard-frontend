@@ -373,7 +373,7 @@ export const AboutContainer = styled.div`
   margin: 0;
   padding: 1.875rem;
   overflow: auto;
-  // background-image: url(${aboutBackgroundImage});
+  /* background-image: url(${aboutBackgroundImage}); */
   background-size: cover;
 
   p {
