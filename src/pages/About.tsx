@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Timeline } from 'react-twitter-widgets';
+// import { Timeline } from 'react-twitter-widgets';
 
 import type { EntityModel } from '@/models/about/entity-model';
-import type { TwitterWidgetOptionsModel } from '@/models/about/twitter-widget-options-model';
+// import type { TwitterWidgetOptionsModel } from '@/models/about/twitter-widget-options-model';
 import type { FC } from 'react';
 
 import InformationCard from '@/components/InformationCard';
@@ -13,7 +13,7 @@ import analytics from '@/theme/assets/analytics.svg';
 import chart from '@/theme/assets/chart.svg';
 import check from '@/theme/assets/check.svg';
 import icpExplorerLogo from '@/theme/assets/icp-explorer-logo.png';
-import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
+// import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import presentTechnologiesLogo from '@/theme/assets/present-technologies-logo.png';
 import singularityLogo from '@/theme/assets/singularity-logo.png';
 import {
@@ -22,19 +22,19 @@ import {
   AboutContentContainer,
   AboutContextContainer,
   AboutLogosContainer,
-  AboutProviderContainer,
+  // AboutProviderContainer,
   AboutTitle,
-  FlexColumnCard,
+  // FlexColumnCard,
   FlexColumnContainer,
   FlexRowCard
 } from '@/theme/styled-components';
-import { TwitterWidgetUtils } from '@/utils/twitter-widget-utils';
+// import { TwitterWidgetUtils } from '@/utils/twitter-widget-utils';
 
 const About: FC = () => {
   const { t } = useTranslation();
-  const twitterWidgetOptions: TwitterWidgetOptionsModel = useMemo(() => {
-    return TwitterWidgetUtils.buildTwitterWidgetOptions();
-  }, []);
+  // const twitterWidgetOptions: TwitterWidgetOptionsModel = useMemo(() => {
+  //   return TwitterWidgetUtils.buildTwitterWidgetOptions();
+  // }, []);
   const acknowledgmentEntities: EntityModel[] = useMemo(() => {
     return [
       createEntity(
@@ -57,7 +57,7 @@ const About: FC = () => {
         <AboutContextContainer className="col-12">
           <AboutTitle>{t('about.title')}</AboutTitle>
           <h1 className="text-color">{t('about.subtitle')}</h1>
-          <AboutProviderContainer>
+          {/* <AboutProviderContainer>
             <h4 className="uppercase">{t('about.poweredBy')}</h4>
             <img
               src={logoCarbonCrowd}
@@ -67,7 +67,7 @@ const About: FC = () => {
             <span className="text-primary">
               {t('about.realTimeCarbonAnalytics')}
             </span>
-          </AboutProviderContainer>
+          </AboutProviderContainer> */}
         </AboutContextContainer>
         <div className="col-12 lg:col-4">
           <InformationCard
@@ -90,16 +90,16 @@ const About: FC = () => {
             content={t('about.features.regulationCompliance.description')}
           />
         </div>
-        <div className="col-12">
+        {/* <div className="col-12">
           <FlexColumnCard>
             <h4>{t('about.vision.title')}</h4>
             <p>{t('about.vision.description')}</p>
           </FlexColumnCard>
-        </div>
+        </div> */}
         <div className="col-12">
           <FlexRowCard>
             <div className="grid m-0 w-full">
-              <div className="col-12 lg:col-6">
+              {/* <div className="col-12 lg:col-6">
                 <Timeline
                   dataSource={twitterWidgetOptions.dataSource}
                   options={twitterWidgetOptions.options}
@@ -107,12 +107,23 @@ const About: FC = () => {
                     return <p>{t('about.followUs.twitterTimelineError')}</p>;
                   }}
                 />
-              </div>
+              </div> */}
+              {/* <div className='col-12 lg:col-6'> */}
+                <FlexColumnContainer className={'col-12 lg:col-6'}>
+                  {/* <h4>{t('about.followUs.title')}</h4>
+                  <p>{t('about.followUs.twitter')}</p> */}
+                  {/* <FlexColumnCard> */}
+                    <h4 style={{paddingTop: '2rem'}}>{t('about.vision.title')}</h4>
+                    <i style={{paddingTop: '15%', textAlign: 'center'}}>{t('about.vision.description')}</i>
+                    <p style={{textAlign: 'center'}}>{t('about.vision.author')}</p>
+                  {/* </FlexColumnCard> */}
+                </FlexColumnContainer>
+              {/* </div> */}
               <FlexColumnContainer className={'col-12 lg:col-6'}>
-                <FlexColumnContainer className="p-0 flex-grow-0">
+                {/* <FlexColumnContainer className="p-0 flex-grow-0">
                   <h4>{t('about.followUs.title')}</h4>
                   <p>{t('about.followUs.twitter')}</p>
-                </FlexColumnContainer>
+                </FlexColumnContainer> */}
                 <SignUp showCancel={false} showClose={false} />
               </FlexColumnContainer>
             </div>
