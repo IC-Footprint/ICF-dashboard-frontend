@@ -64,7 +64,7 @@ const NodesLeaderboard: FC = () => {
 
   const emissionsTemplate = (rowData: NodeModel) => {
     return t('common.unit.co2Kg', {
-      value: rowData.emissions.toFixed(1)
+      value: rowData.emissions.toFixed(3)
     });
   };
 
