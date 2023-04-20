@@ -12,6 +12,7 @@ import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
 import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
+import pogLogo from '@/theme/assets/pog.png';
 import {
   FlexColumnWithRowGap,
   NavBar,
@@ -62,6 +63,7 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
       <FlexColumnWithRowGap>
         <img src={logoCarbonCrowd} alt="Carbon Crowd Logo" />
         <StyledMenu model={menuItems} />
+        <img src={pogLogo} alt="PoG logo" width="120px" />
       </FlexColumnWithRowGap>
       <Button
         label={t('signUp.title').toString()}
