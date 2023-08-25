@@ -108,7 +108,12 @@
     "ro": "Romania",
     "sg": "Singapore",
     "si": "Slovenia",
-    "us": "USA"
+    "us": "USA",
+    "za": "South Africa",
+    "cz": "Czech Republic",
+    "in": "India",
+    "hk": "Hong Kong",
+    "se": "Sweden"
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
