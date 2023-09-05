@@ -125,6 +125,18 @@
     "home": "Home",
     "nodes": "Nodes"
   },
+  "dataAccess": {
+    "consentMessage": "By clicking send “Submit” I agree that the given information can be used by Carbon Crowd to contact me via email.",
+    "description": "Leverage our data to train AI models, build custom tooling or apply novel methodologies.",
+    "error": {
+      "title": "An error occurred while submitting the form"
+    },
+    "success": {
+      "description": "Thanks for requesting access, we'll get back to you soon!",
+      "title": "All done!"
+    },
+    "title": "Request data access"
+  },
   "signUp": {
     "consentMessage": "By clicking the button \"Submit\" I agree that the given information can be used by ICF to send me notifications",
     "description": "Be one of the first ever cloud networks or node operators to understand your global carbon emissions in real time.",
@@ -135,7 +147,7 @@
       "description": "Thank you for joining our beta waiting list!\n We’ll be in touch soon.",
       "title": "All done!"
     },
-    "title": "Sign up for beta"
+    "title": "Prove Prior Commitment"
   },
   "table": {
     "headers": {
