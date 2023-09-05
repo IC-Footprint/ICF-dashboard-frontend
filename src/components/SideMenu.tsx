@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import type { MenuItem } from 'primereact/menuitem';
 import type { FC, ReactNode } from 'react';
 
-import useSignUp from '@/helpers/state/useSignUp';
+// import useSignUp from '@/helpers/state/useSignUp';
 import { appRoutes } from '@/router/app-routes';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
@@ -25,9 +25,9 @@ interface SideMenuProps {
 
 const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   const { t } = useTranslation();
-  const {
-    actions: { showSignUpModal }
-  } = useSignUp();
+  // const {
+    // actions: { showSignUpModal }
+  // } = useSignUp();
   const createMenuItem = useCallback(
     (label: string, icon: ReactNode, url: string): MenuItem => {
       const menuItemTemplate = (item: MenuItem) => (
@@ -69,7 +69,8 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
         label={t('signUp.title').toString()}
         onClick={() => {
           onItemClick?.();
-          showSignUpModal();
+          // showSignUpModal();
+          window.open('https://mwu3nbiuwdv.typeform.com/to/KH3RJJXS', '_blank');
         }}
       />
     </NavBar>

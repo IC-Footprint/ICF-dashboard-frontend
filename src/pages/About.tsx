@@ -7,7 +7,7 @@ import type { EntityModel } from '@/models/about/entity-model';
 import type { FC } from 'react';
 
 import InformationCard from '@/components/InformationCard';
-import SignUp from '@/components/sign-up/SignUp';
+import SignUpData from '@/components/sign-up/SignUpDataAccess';
 import { createEntity } from '@/models/about/entity-model';
 import analytics from '@/theme/assets/analytics.svg';
 import chart from '@/theme/assets/chart.svg';
@@ -124,7 +124,7 @@ const About: FC = () => {
                   <h4>{t('about.followUs.title')}</h4>
                   <p>{t('about.followUs.twitter')}</p>
                 </FlexColumnContainer> */}
-                <SignUp showCancel={false} showClose={false} />
+                <SignUpData showCancel={false} showClose={false} />
               </FlexColumnContainer>
             </div>
           </FlexRowCard>
