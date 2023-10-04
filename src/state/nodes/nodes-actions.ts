@@ -4,6 +4,7 @@ import type { DatasetModel } from '@/models/dataset-model';
 import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 import i18n from '@/i18n';
 import nodesApi from '@/api/nodes-api';
@@ -78,3 +79,28 @@ export const getElectricityDrawByTechnologyTypeAction = createAsyncThunk<
     }
   }
 );
+
+export const getNodeStatsAction = createAsyncThunk<
+  HeadlineFiguresModel,
+  string
+>('/node/nodeStats', async (nodeId, { rejectWithValue }) => {
+  try {
+    return await nodesApi.getNodeStats(nodeId);
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+
+export const getNodeEmissionsAction = createAsyncThunk<
+  ChartData,
+  { range: RangeType | null, nodeId: string }
+>('/node/emissionsAndElectricity', async ({ range, nodeId }, { rejectWithValue }) => {
+  try {
+    const datasets = await nodesApi.getNodeEmissions(nodeId, range);
+    return ChartMapper.mapChartData(datasets, range);
+    
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+

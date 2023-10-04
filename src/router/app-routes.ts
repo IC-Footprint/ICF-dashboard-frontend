@@ -3,7 +3,11 @@ export const appRoutes = {
     root: '/'
   },
   nodes: {
-    root: '/nodes'
+    root: '/nodes',
+    show: '/nodes/:nodeId'
+  },
+  subnets: {
+    root: '/subnets'
   },
   about: {
     root: '/about'
