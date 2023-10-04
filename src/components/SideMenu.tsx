@@ -10,6 +10,7 @@ import type { FC, ReactNode } from 'react';
 import { appRoutes } from '@/router/app-routes';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
+import NetworkIcon from '@/theme/assets/icons/network';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
 import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import pogLogo from '@/theme/assets/pog.png';
@@ -54,6 +55,7 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
     return [
       createMenuItem(t('page.home'), <HomeIcon />, appRoutes.home.root),
       createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root),
+      createMenuItem(t('Subnets'), <NetworkIcon />, appRoutes.subnets.root),
       createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
   }, [t, createMenuItem]);

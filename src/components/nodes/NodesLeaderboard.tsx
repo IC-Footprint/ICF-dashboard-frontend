@@ -5,9 +5,12 @@ import { Tooltip } from 'primereact/tooltip';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { ColumnBodyOptions } from 'primereact/column';
+import { useNavigate } from 'react-router-dom';
+
 import type { FC } from 'react';
 import type { NodeModel } from '@/models/nodes/node-model';
+
+import type { ColumnBodyOptions } from 'primereact/column';
 
 import { defaultPaginatorOptions } from '@/models/paginator-options-model';
 import { nodeStatusSeverityMap } from '@/models/nodes/node-status';
@@ -22,6 +25,8 @@ import useNodes from '@/helpers/state/useNodes';
 
 const NodesLeaderboard: FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const {
     actions: { getNodesLeaderboard },
     nodesLeaderboard,
@@ -113,6 +118,8 @@ const NodesLeaderboard: FC = () => {
         currentPageReportTemplate={t('table.pageReport').toString()}
         loading={isNodesLeaderboardLoading}
         responsiveLayout="scroll"
+        selectionMode="single"
+        onSelectionChange={(e) => navigate(`/nodes/${(e.value as any).id}`)}
       >
         <Column
           field="id"

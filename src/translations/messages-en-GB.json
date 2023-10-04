@@ -118,7 +118,13 @@
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "networkEmissions": "Network Emissions (kgCo2e)",
-    "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
+    "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)",
+    "machineId": "Node machine {{nodeId}}",
+    "nodeEmissions": "Node Emissions"
+  },
+  "subnets": {
+    "emissionsBySubnet": "Emissions by Subnet",
+    "subnetEmissionsByType": "Emissions by Subnet Type"
   },
   "page": {
     "about": "About",
