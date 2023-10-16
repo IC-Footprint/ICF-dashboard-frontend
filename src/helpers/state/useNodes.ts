@@ -6,8 +6,10 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks';
 import {
   getElectricityDrawByTechnologyTypeAction,
   getNetworkEmissionsAction,
+  getNodeEmissionsAction,
   getNodeEmissionsByRegionAction,
-  getNodesLeaderboardAction
+  getNodesLeaderboardAction,
+  getNodeStatsAction
 } from '@/state/nodes/nodes-slice';
 
 const useNodes = () => {
@@ -81,12 +83,36 @@ const useNodes = () => {
     (state) => state.nodes.electricityDrawByTechnologyTypeError
   );
 
+  const getNodeStats = useCallback(
+    (nodeId: string) => dispatch(getNodeStatsAction(nodeId)),
+    [dispatch]
+  );
+
+  const nodeStats = useAppSelector(
+    (state) => state.nodes.nodeStats
+  );
+
+  const getNodeEmissions = useCallback(
+    (nodeId: string, range: RangeType | null) => dispatch(getNodeEmissionsAction({ nodeId, range })),
+    [dispatch]
+  );
+
+  const nodeEmissions = useAppSelector(
+    (state) => state.nodes.nodeEmissions
+  );
+
+  const nodeEmissionsLoading = useAppSelector(
+    (state) => state.nodes.nodeEmissionsLoading
+  );
+
   return {
     actions: {
       getNodesLeaderboard,
       getNetworkEmissions,
       getNodeEmissionsByRegion,
-      getElectricityDrawByTechnologyType
+      getElectricityDrawByTechnologyType,
+      getNodeStats,
+      getNodeEmissions
     },
     nodesLeaderboard,
     isNodesLeaderboardLoading,
@@ -99,7 +125,10 @@ const useNodes = () => {
     hasNodeEmissionsByRegionError,
     electricityDrawByTechnologyType,
     isElectricityDrawByTechnologyTypeLoading,
-    hasElectricityDrawByTechnologyTypeError
+    hasElectricityDrawByTechnologyTypeError,
+    nodeStats,
+    nodeEmissions,
+    nodeEmissionsLoading
   };
 };
 

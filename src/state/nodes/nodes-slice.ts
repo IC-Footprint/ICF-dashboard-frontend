@@ -4,12 +4,15 @@ import type { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import type { NodeModel } from '@/models/nodes/node-model';
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 import {
   getElectricityDrawByTechnologyTypeAction,
   getNetworkEmissionsAction,
   getNodeEmissionsByRegionAction,
-  getNodesLeaderboardAction
+  getNodesLeaderboardAction,
+  getNodeStatsAction,
+  getNodeEmissionsAction
 } from '@/state/nodes/nodes-actions';
 
 export interface NodesState {
@@ -25,6 +28,10 @@ export interface NodesState {
   electricityDrawByTechnologyType: ChartData | null;
   electricityDrawByTechnologyTypeLoading: boolean;
   electricityDrawByTechnologyTypeError: boolean;
+  nodeStats: HeadlineFiguresModel | null;
+  nodeStatsLoading: boolean;
+  nodeEmissions: ChartData | null;
+  nodeEmissionsLoading: boolean;
 }
 
 const initialState: () => NodesState = () => ({
@@ -39,7 +46,11 @@ const initialState: () => NodesState = () => ({
   networkEmissionsError: false,
   nodeEmissionsByRegion: null,
   nodeEmissionsByRegionLoading: false,
-  nodeEmissionsByRegionError: false
+  nodeEmissionsByRegionError: false,
+  nodeStats: null,
+  nodeStatsLoading: false,
+  nodeEmissions: null,
+  nodeEmissionsLoading: false
 });
 
 const nodesSlice = createSlice({
@@ -123,6 +134,38 @@ const nodesSlice = createSlice({
         state.electricityDrawByTechnologyTypeLoading = false;
         state.electricityDrawByTechnologyTypeError = true;
       });
+
+    builder
+      .addCase(getNodeStatsAction.pending, (state) => {
+        state.nodeStats = null;
+        state.nodeStatsLoading = true;
+      })
+      .addCase(
+        getNodeStatsAction.fulfilled,
+        (state, { payload }) => {
+          state.nodeStatsLoading = false;
+          state.nodeStats = payload;
+        }
+      )
+      .addCase(getNodeStatsAction.rejected, (state) => {
+        state.nodeStatsLoading = false;
+      });
+
+    builder
+      .addCase(getNodeEmissionsAction.pending, (state) => {
+        state.nodeEmissions = null;
+        state.nodeEmissionsLoading = false;
+      })
+      .addCase(
+        getNodeEmissionsAction.fulfilled,
+        (state, { payload }) => {
+          state.nodeEmissionsLoading = false;
+          state.nodeEmissions = payload as Draft<ChartData>;
+        }
+      )
+      .addCase(getNodeEmissionsAction.rejected, (state) => {
+        state.nodeEmissionsLoading = false;
+      });
   }
 });
 
@@ -130,7 +173,9 @@ export {
   getNodesLeaderboardAction,
   getNodeEmissionsByRegionAction,
   getNetworkEmissionsAction,
-  getElectricityDrawByTechnologyTypeAction
+  getElectricityDrawByTechnologyTypeAction,
+  getNodeStatsAction,
+  getNodeEmissionsAction
 };
 
 export default nodesSlice.reducer;
