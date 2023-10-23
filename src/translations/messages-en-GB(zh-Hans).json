@@ -1,0 +1,178 @@
+{
+  "about": {
+    "acknowledgements": "特别感谢：",
+    "features": {
+      "transparency": {
+        "description": "无论您从事哪个行业，如果您的组织消耗电力，我们都可以帮助您衡量影响。\n\n注册我们的测试版，以便我们可以共同为您的组织制作可持续发展仪表板。",
+        "title": "创建您自己的仪表板"
+      },
+      "costSavings": {
+        "description": "利用我们的 API 通过网络和设备中的碳信号进行智能决策\n\n轻松优化以帮助实现您的可持续发展目标。",
+        "title": "访问 Carbon Crowd API"
+      },
+      "regulationCompliance": {
+        "description": "我们提供定制咨询，帮助您实现脱碳目标并满足即将出台的法规。\n\n与 Carbon Crowd 合作测量您的数字足迹并使其脱碳。",
+        "title": "定制咨询解决方案"
+      }
+    },
+    "followUs": {
+      "title": "跟着我们！",
+      "twitter": "在 Twitter 上关注我们并获取我们的最新动态！",
+      "twitterTimelineError": "无法加载 Twitter 时间线"
+    },
+    "poweredBy": "供电",
+    "realTimeCarbonAnalytics": "云网络的实时碳分析",
+    "subtitle": "云网络、区块链和物联网的实时碳分析",
+    "title": "云计算脱碳。",
+    "vision": {
+      "description": "“我们的使命是通过为云网络、区块链和物联网设备提供实时碳分析来实现数字经济脱碳。这些数据可用于了解设备或设备网络消耗的电力的来源、数量和碳强度。”",
+      "author": "Hamish Hutchings，Carbon Crowd 首席技术官",
+      "title": "我们的主张"
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "close": "关闭",
+    "error": "错误",
+    "gridTechnologyType": {
+      "hydro": "海德鲁",
+      "nuclear": "核",
+      "solar": "太阳的",
+      "wind": "风"
+    },
+    "internetComputerFootprint": "互联网计算机仪表板",
+    "leaderboard": "排行榜",
+    "nodeStatus": {
+      "down": "向下",
+      "unassigned": "未分配",
+      "up": "向上"
+    },
+    "submit": "提交",
+    "timeRange": {
+      "fiveYears": "5年",
+      "halfAnHour": "30m",
+      "oneDay": "一维",
+      "oneMonth": "1M",
+      "oneYear": "1年",
+      "sevenDays": "7D",
+      "threeMonths": "3M"
+    },
+    "unit": {
+      "co2Kg": "{{值}} kgCO2e",
+      "co2Tonnes": "{{值}} tCO2e",
+      "wattHour": "{{值}} 瓦时"
+    }
+  },
+  "dashboard": {
+    "headlineFigures": {
+      "avoidedEmissions": "避免碳排放",
+      "cumulativeElectricityDraw": "累计用电量",
+      "cumulativeNetworkEmissions": "累计碳排放量",
+      "offsetEmissions": "抵消碳排放"
+    },
+    "nodesCounters": {
+      "boundaryNodes": "边界节点",
+      "dataCentres": "数据中心",
+      "nodeProviders": "节点提供商",
+      "nodesInSubnets": "子网中的节点",
+      "subnets": "子网",
+      "totalNodes": "节点总数"
+    }
+  },
+  "datasets": {
+    "networkEmissions": "网络排放"
+  },
+  "form": {
+    "company": {
+      "label": "公司"
+    },
+    "email": {
+      "label": "电子邮件"
+    },
+    "error": {
+      "email": "电子邮件必须有效",
+      "max": "{{ field }} 最多只能有 {{ value }} 个字符",
+      "required": "{{ field }} 字段为必填项"
+    },
+    "name": {
+      "label": "姓名"
+    }
+  },
+  "locations": {
+    "ca": "加拿大",
+    "be": "比利时",
+    "ch": "瑞士",
+    "de": "德国",
+    "fr": "法国",
+    "jp": "日本",
+    "ro": "罗马尼亚",
+    "sg": "新加坡",
+    "si": "斯洛文尼亚",
+    "us": "美国",
+    "za": "南非",
+    "cz": "捷克共和国",
+    "in": "印度",
+    "hk": "香港",
+    "se": "瑞典"
+  },
+  "nodes": {
+    "electricityDrawByTechnologyType": "按技术类型划分的耗电量 (Wh)",
+    "networkEmissions": "网络排放量（kgCo2e）",
+    "nodeEmissionsByRegion": "按地区划分的节点排放量 (kgCo2e)",
+    "machineId": "节点机 {{nodeId}}",
+    "nodeEmissions": "节点排放"
+  },
+  "subnets": {
+    "emissionsBySubnet": "按子网划分的排放量",
+    "subnetEmissionsByType": "按子网类型划分的排放量"
+  },
+  "page": {
+    "about": "关于",
+    "home": "家",
+    "nodes": "节点"
+  },
+  "dataAccess": {
+    "consentMessage": "点击发送“提交”即表示我同意 Carbon Crowd 使用所提供的信息通过电子邮件与我联系。",
+    "description": "利用我们的数据来训练人工智能模型、构建自定义工具或应用新颖的方法。",
+    "error": {
+      "title": "提交表单时发生错误"
+    },
+    "success": {
+      "description": "感谢您请求访问，我们会尽快回复您！",
+      "title": "全做完了！"
+    },
+    "title": "请求数据访问"
+  },
+  "signUp": {
+    "consentMessage": "单击“提交”按钮，我同意 ICF 使用所提供的信息向我发送通知",
+    "description": "成为第一批实时了解全球碳排放量的云网络或节点运营商之一。",
+    "error": {
+      "title": "注册测试版时发生错误"
+    },
+    "success": {
+      "description": "感谢您加入我们的测试版等待名单！\n我们很快就会联系。",
+      "title": "全做完了！"
+    },
+    "title": "证明事先的承诺"
+  },
+  "table": {
+    "headers": {
+      "carbonIntensity": "碳强度",
+      "electricityDraw": "电力消耗",
+      "emissions": "排放量",
+      "emissionsLast30minutes": "排放量（1小时）",
+      "gridTechnology": "网格混合",
+      "id": "ID",
+      "location": "地点",
+      "nodeProvider": "节点提供商",
+      "nodeCount": "# 节点",
+      "status": "地位"
+    },
+    "pageReport": "显示 {first} 到 {last} 个条目（共 {totalRecords} 个）"
+  },
+  "world": {
+    "carbonIntensity": "{{value}}碳强度",
+    "carbonEmissions": "{{值}} kgCo2e/1h",
+    "nodes": "{{value}} 节点"
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "about": {
+    "acknowledgements": "Özel Teşekkür:",
+    "features": {
+      "transparency": {
+        "description": "Hangi sektörde olursanız olun, kuruluşunuz elektrik tüketiyorsa etkinizi ölçmenize yardımcı olabiliriz.\n\nKuruluşunuz için bir sürdürülebilirlik panosu oluşturmak üzere birlikte çalışabilmemiz için beta sürümümüze kaydolun.",
+        "title": "Kendi panonuzu oluşturun"
+      },
+      "costSavings": {
+        "description": "Ağınızda ve cihazlarınızda karbon sinyalleri ile akıllı karar verme için API'mizden yararlanın\n\nSürdürülebilirlik hedeflerinize ulaşmanıza yardımcı olmak için kolayca optimize edin.",
+        "title": "Carbon Crowd API'ye erişin"
+      },
+      "regulationCompliance": {
+        "description": " Karbonsuzlaştırma hedeflerinize ulaşmanıza ve yaklaşan düzenlemeleri karşılamanıza yardımcı olmak için ısmarlama danışmanlık sunuyoruz.\n\nDijital ayak izinizi ölçmek ve karbondan arındırmak için Carbon Crowd ile birlikte çalışın.",
+        "title": "Ismarlama danışmanlık çözümleri"
+      }
+    },
+    "followUs": {
+      "title": "Bizi takip edin!",
+      "twitter": "Bizi Twitter'da takip edin ve en son güncellemelerimizi alın!",
+      "twitterTimelineError": "Twitter zaman çizelgesi yüklenemedi"
+    },
+    "poweredBy": "Destekçi",
+    "realTimeCarbonAnalytics": "Bulut ağları için gerçek zamanlı karbon analitiği",
+    "subtitle": "Bulut Ağları, Blockchain ve IoT için gerçek zamanlı karbon analitiği",
+    "title": "Bulut bilişimi karbondan arındırın.",
+    "vision": {
+      "description": "\"Bulut ağları, blok zincirleri ve IoT cihazları için gerçek zamanlı karbon analitiği sağlayarak dijital ekonomiyi karbondan arındırma görevindeyiz. Bu veriler, bir cihaz veya cihaz ağı tarafından tüketilen elektriğin kaynağını, miktarını ve karbon yoğunluğunu anlamak için kullanılabilir.\"",
+      "author": "Hamish Hutchings, CTO, Carbon Crowd",
+      "title": "Neyi temsil ediyoruz"
+    }
+  },
+  "common": {
+    "cancel": "İptal",
+    "close": "Kapatmak",
+    "error": "Hata",
+    "gridTechnologyType": {
+      "hydro": "Hidro",
+      "nuclear": "Nükleer",
+      "solar": "Güneş",
+      "wind": "Rüzgar"
+    },
+    "internetComputerFootprint": "Internet Computer Panosu",
+    "leaderboard": "Liderler Sıralaması",
+    "nodeStatus": {
+      "down": "Aşağı",
+      "unassigned": "Atanma -mış",
+      "up": "Yukarı"
+    },
+    "submit": "Gönder",
+    "timeRange": {
+      "fiveYears": "5Y",
+      "halfAnHour": "30 dk.",
+      "oneDay": "1 BOYUTLU",
+      "oneMonth": "1 milyon",
+      "oneYear": "1Y",
+      "sevenDays": "7D",
+      "threeMonths": "3 DK."
+    },
+    "unit": {
+      "co2Kg": "{{değer}} kgCO2e",
+      "co2Tonnes": "{{değer}} tCO2e",
+      "wattHour": "{{değer}} Wh"
+    }
+  },
+  "dashboard": {
+    "headlineFigures": {
+      "avoidedEmissions": "Önlenen Karbon Emisyonları",
+      "cumulativeElectricityDraw": "Kümülatif Elektrik Çekişi",
+      "cumulativeNetworkEmissions": "Kümülatif Karbon Emisyonları",
+      "offsetEmissions": "Karbon Emisyonlarını Dengeleyin"
+    },
+    "nodesCounters": {
+      "boundaryNodes": "Sınır Düğümleri",
+      "dataCentres": "Veri Merkezleri",
+      "nodeProviders": "Düğüm Sağlayıcıları",
+      "nodesInSubnets": "Alt ağlardaki düğümler",
+      "subnets": "Alt ağ",
+      "totalNodes": "Toplam Düğüm Sayısı"
+    }
+  },
+  "datasets": {
+    "networkEmissions": "Ağ Emisyonları"
+  },
+  "form": {
+    "company": {
+      "label": "Şirket"
+    },
+    "email": {
+      "label": "E-posta"
+    },
+    "error": {
+      "email": "E-posta geçerli olmalıdır",
+      "max": "{{ alan }} en fazla {{ değer }} karakter içermelidir",
+      "required": "{{ field }} alanı gereklidir"
+    },
+    "name": {
+      "label": "Ad"
+    }
+  },
+  "locations": {
+    "ca": "Kanada",
+    "be": "Belçika",
+    "ch": "İsviçre",
+    "de": "Almanya",
+    "fr": "Fransa",
+    "jp": "Japonya",
+    "ro": "Romanya",
+    "sg": "Singapur",
+    "si": "Slovenya",
+    "us": "ABD",
+    "za": "Güney Afrika",
+    "cz": "Çek Cumhuriyeti",
+    "in": "Hindistan",
+    "hk": "Hong Kong",
+    "se": "İsveç"
+  },
+  "nodes": {
+    "electricityDrawByTechnologyType": "Teknoloji türüne göre elektrik çekişi (Wh)",
+    "networkEmissions": "Şebeke Emisyonları (kgCo2e)",
+    "nodeEmissionsByRegion": "Bölgelere Göre Düğüm Emisyonları (kgCo2e)",
+    "machineId": "Düğüm makinesi {{nodeId}}",
+    "nodeEmissions": "Düğüm Emisyonları"
+  },
+  "subnets": {
+    "emissionsBySubnet": "Alt Ağa Göre Emisyonlar",
+    "subnetEmissionsByType": "Alt Ağ Türüne Göre Emisyonlar"
+  },
+  "page": {
+    "about": "Hakkında",
+    "home": "Ev",
+    "nodes": "Düğüm"
+  },
+  "dataAccess": {
+    "consentMessage": "\"Gönder\" gönder'e tıklayarak, verilen bilgilerin Carbon Crowd tarafından e-posta yoluyla benimle iletişime geçmek için kullanılabileceğini kabul ediyorum.",
+    "description": "Yapay zeka modellerini eğitmek, özel araçlar oluşturmak veya yeni metodolojiler uygulamak için verilerimizden yararlanın.",
+    "error": {
+      "title": "Form gönderilirken bir hata oluştu"
+    },
+    "success": {
+      "description": "Erişim talep ettiğiniz için teşekkür ederiz, yakında size geri döneceğiz!",
+      "title": "Hepsi bitti!"
+    },
+    "title": "Veri erişimi isteyin"
+  },
+  "signUp": {
+    "consentMessage": "\"Gönder\" düğmesine tıklayarak, verilen bilgilerin ICF tarafından bana bildirim göndermek için kullanılabileceğini kabul ediyorum",
+    "description": "Küresel karbon emisyonlarınızı gerçek zamanlı olarak anlayan ilk bulut ağlarından veya düğüm operatörlerinden biri olun.",
+    "error": {
+      "title": "Beta sürümüne kaydolurken bir hata oluştu"
+    },
+    "success": {
+      "description": "Beta bekleme listemize katıldığınız için teşekkür ederiz!\n Yakında sizinle iletişime geçeceğiz.",
+      "title": "Hepsi bitti!"
+    },
+    "title": "Önceden Bağlılığınızı Kanıtlayın"
+  },
+  "table": {
+    "headers": {
+      "carbonIntensity": "Karbon Yoğunluğu",
+      "electricityDraw": "Elektrik Çekişi",
+      "emissions": "Emisyon",
+      "emissionsLast30minutes": "Emisyon (1 saat)",
+      "gridTechnology": "Izgara Karışımı",
+      "id": "KİMLİĞİ",
+      "location": "Yer",
+      "nodeProvider": "Düğüm Sağlayıcı",
+      "nodeCount": "# Düğümler",
+      "status": "Durum"
+    },
+    "pageReport": "{totalRecords} girişlerinin {first} ile {last} arasında gösterilmesi"
+  },
+  "world": {
+    "carbonIntensity": "{{değer}} karbon yoğunluğu",
+    "carbonEmissions": "{{değer}} kgCo2e/1h",
+    "nodes": "{{value}} düğümleri"
+  }
+}
