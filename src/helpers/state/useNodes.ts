@@ -8,6 +8,7 @@ import {
   getNetworkEmissionsAction,
   getNodeEmissionsAction,
   getNodeEmissionsByRegionAction,
+  getNodeEmissionsByProviderAction,
   getNodesLeaderboardAction,
   getNodeStatsAction
 } from '@/state/nodes/nodes-slice';
@@ -65,6 +66,21 @@ const useNodes = () => {
     (state) => state.nodes.nodeEmissionsByRegionError
   );
 
+  const getNodeEmissionsByProvider = useCallback(
+    (range: RangeType | null) =>
+      dispatch(getNodeEmissionsByProviderAction(range)),
+    [dispatch]
+  );
+  const nodeEmissionsByProvider = useAppSelector(
+    (state) => state.nodes.nodeEmissionsByProvider
+  );
+  const isNodeEmissionsByProviderLoading = useAppSelector(
+    (state) => state.nodes.nodeEmissionsByProviderLoading
+  );
+  const hasNodeEmissionsByProviderError = useAppSelector(
+    (state) => state.nodes.nodeEmissionsByProviderError
+  );
+
   const getElectricityDrawByTechnologyType = useCallback(
     (range: RangeType | null) =>
       dispatch(getElectricityDrawByTechnologyTypeAction(range)),
@@ -88,18 +104,15 @@ const useNodes = () => {
     [dispatch]
   );
 
-  const nodeStats = useAppSelector(
-    (state) => state.nodes.nodeStats
-  );
+  const nodeStats = useAppSelector((state) => state.nodes.nodeStats);
 
   const getNodeEmissions = useCallback(
-    (nodeId: string, range: RangeType | null) => dispatch(getNodeEmissionsAction({ nodeId, range })),
+    (nodeId: string, range: RangeType | null) =>
+      dispatch(getNodeEmissionsAction({ nodeId, range })),
     [dispatch]
   );
 
-  const nodeEmissions = useAppSelector(
-    (state) => state.nodes.nodeEmissions
-  );
+  const nodeEmissions = useAppSelector((state) => state.nodes.nodeEmissions);
 
   const nodeEmissionsLoading = useAppSelector(
     (state) => state.nodes.nodeEmissionsLoading
@@ -110,6 +123,7 @@ const useNodes = () => {
       getNodesLeaderboard,
       getNetworkEmissions,
       getNodeEmissionsByRegion,
+      getNodeEmissionsByProvider,
       getElectricityDrawByTechnologyType,
       getNodeStats,
       getNodeEmissions
@@ -123,6 +137,9 @@ const useNodes = () => {
     nodeEmissionsByRegion,
     isNodeEmissionsByRegionLoading,
     hasNodeEmissionsByRegionError,
+    nodeEmissionsByProvider,
+    isNodeEmissionsByProviderLoading,
+    hasNodeEmissionsByProviderError,
     electricityDrawByTechnologyType,
     isElectricityDrawByTechnologyTypeLoading,
     hasElectricityDrawByTechnologyTypeError,
