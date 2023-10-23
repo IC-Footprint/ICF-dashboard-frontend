@@ -99,21 +99,25 @@
     }
   },
   "locations": {
-    "ca": "Canada",
+    "au": "Australia",
     "be": "Belgium",
+    "ca": "Canada",
     "ch": "Switzerland",
+    "cz": "Czech Republic",
     "de": "Germany",
     "fr": "France",
+    "ge": "Georgia",
+    "hk": "Hong Kong",
+    "in": "India",
     "jp": "Japan",
+    "lk": "Sri Lanka",
+    "lt": "Lithuania",
     "ro": "Romania",
+    "se": "Sweden",
     "sg": "Singapore",
     "si": "Slovenia",
     "us": "USA",
-    "za": "South Africa",
-    "cz": "Czech Republic",
-    "in": "India",
-    "hk": "Hong Kong",
-    "se": "Sweden"
+    "za": "South Africa"
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
