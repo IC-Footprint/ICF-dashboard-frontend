@@ -7,6 +7,7 @@ import type { FC } from 'react';
 import { FlexColumnContainer } from '@/theme/styled-components';
 import NodeStats from '@/components/nodes/NodeStats';
 import NodeEmissions from '@/components/nodes/NodeEmissions';
+import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 
 const Node: FC = () => {
   const { t } = useTranslation();
@@ -15,10 +16,13 @@ const Node: FC = () => {
   return (
     <FlexColumnContainer>
       <h3>{t('nodes.machineId', { nodeId })}</h3>
-      <NodeStats nodeId={nodeId || ''}/>
-      <div className='grid'>
+      <NodeStats nodeId={nodeId || ''} />
+      <div className="grid">
         <div className="col-12 lg:col-6">
-          <NodeEmissions nodeId={nodeId || ''}/>
+          <NodeEmissions nodeId={nodeId || ''} />
+        </div>
+        <div className="col-12 lg:col-6">
+          <NodePowerConsumption nodeId={nodeId || ''} />
         </div>
       </div>
     </FlexColumnContainer>
