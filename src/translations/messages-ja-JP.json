@@ -1,0 +1,178 @@
+{
+  "about": {
+    "acknowledgements": "Special Thanks To：",
+    "features": {
+      "transparency": {
+        "description": "どのような業種であれ、電力を消費する組織であれば、その影響を測定するお手伝いをいたします。\n\nベータ版にご登録いただくと、あなたの組織のサステナビリティ・ダッシュボードを一緒に作成することができます。",
+        "title": "ダッシュボードの作成"
+      },
+      "costSavings": {
+        "description": "当社のAPIを活用し、ネットワークやデバイスのカーボンシグナルを活用したインテリジェントな意思決定を行います。\n\nサステナビリティ目標の達成を支援するために、簡単に最適化できます。",
+        "title": "カーボンクラウドAPIへのアクセス"
+      },
+      "regulationCompliance": {
+        "description": "私たちは、お客様の脱炭素目標の達成と今後の規制への対応を支援するために、オーダーメイドのコンサルティングを提供しています。\n\nカーボンクラウドと協力して、デジタルフットプリントを測定し、脱炭素化を図りましょう。",
+        "title": "オーダーメイドのコンサルティング・ソリューション"
+      }
+    },
+    "followUs": {
+      "title": "フォローしてください！",
+      "twitter": "ツイッターをフォローして最新情報をゲットしよう！",
+      "twitterTimelineError": "ツイッターのタイムラインを読み込めませんでした"
+    },
+    "poweredBy": "搭載",
+    "realTimeCarbonAnalytics": "クラウド・ネットワークのためのリアルタイム炭素分析",
+    "subtitle": "クラウドネットワーク、ブロックチェーン、IoTのためのリアルタイム炭素分析",
+    "title": "クラウド・コンピューティングの脱炭素化。",
+    "vision": {
+      "description": "「私たちは、クラウド・ネットワーク、ブロックチェーン、IoTデバイスにリアルタイムの炭素分析を提供することで、デジタル経済の脱炭素化を使命としています。このデータは、機器や機器のネットワークで消費される電力の発生源、量、炭素強度を理解するために使用できる。",
+      "author": "カーボン・クラウド CTO ヘイミッシュ・ハッチングス",
+      "title": "私たちが目指すもの"
+    }
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "error": "エラー",
+    "gridTechnologyType": {
+      "hydro": "ハイドロ",
+      "nuclear": "原子力",
+      "solar": "ソーラー",
+      "wind": "風"
+    },
+    "internetComputerFootprint": "インターネット・コンピューター・ダッシュボード",
+    "leaderboard": "リーダーボード",
+    "nodeStatus": {
+      "down": "ダウン",
+      "unassigned": "未指定",
+      "up": "上へ"
+    },
+    "submit": "投稿する",
+    "timeRange": {
+      "fiveYears": "5Y",
+      "halfAnHour": "30m",
+      "oneDay": "1D",
+      "oneMonth": "1M",
+      "oneYear": "1Y",
+      "sevenDays": "7D",
+      "threeMonths": "3M"
+    },
+    "unit": {
+      "co2Kg": "{値}} kgCO2e",
+      "co2Tonnes": "{値}} tCO2e",
+      "wattHour": "{{value}}Wh"
+    }
+  },
+  "dashboard": {
+    "headlineFigures": {
+      "avoidedEmissions": "回避された炭素排出量",
+      "cumulativeElectricityDraw": "累積電力使用量",
+      "cumulativeNetworkEmissions": "累積炭素排出量",
+      "offsetEmissions": "カーボンオフセット"
+    },
+    "nodesCounters": {
+      "boundaryNodes": "境界ノード",
+      "dataCentres": "データセンター",
+      "nodeProviders": "ノードプロバイダー",
+      "nodesInSubnets": "サブネット内のノード",
+      "subnets": "サブネット",
+      "totalNodes": "総ノード数"
+    }
+  },
+  "datasets": {
+    "networkEmissions": "ネットワーク・エミッション"
+  },
+  "form": {
+    "company": {
+      "label": "会社概要"
+    },
+    "email": {
+      "label": "電子メール"
+    },
+    "error": {
+      "email": "電子メールは有効でなければならない",
+      "max": "フィールド }} は最大 {{ 値 }} 文字でなければなりません。",
+      "required": "フィールド }} フィールドは必須です。"
+    },
+    "name": {
+      "label": "名称"
+    }
+  },
+  "locations": {
+    "ca": "カナダ",
+    "be": "ベルギー",
+    "ch": "スイス",
+    "de": "ドイツ",
+    "fr": "フランス",
+    "jp": "日本",
+    "ro": "ルーマニア",
+    "sg": "シンガポール",
+    "si": "スロベニア",
+    "us": "アメリカ",
+    "za": "南アフリカ",
+    "cz": "チェコ共和国",
+    "in": "インド",
+    "hk": "香港",
+    "se": "スウェーデン"
+  },
+  "nodes": {
+    "electricityDrawByTechnologyType": "技術タイプ別電力使用量（Wh）",
+    "networkEmissions": "ネットワーク排出量（kgCo2e）",
+    "nodeEmissionsByRegion": "地域別ノード排出量（kgCo2e）",
+    "machineId": "ノードマシン {{nodeId}}",
+    "nodeEmissions": "ノード・エミッション"
+  },
+  "subnets": {
+    "emissionsBySubnet": "サブネット別排出量",
+    "subnetEmissionsByType": "サブネット・タイプ別排出量"
+  },
+  "page": {
+    "about": "について",
+    "home": "ホーム",
+    "nodes": "ノード"
+  },
+  "dataAccess": {
+    "consentMessage": "送信」をクリックすることで、カーボン・クラウドが私に電子メールで連絡するために与えられた情報を使用することに同意します。",
+    "description": "当社のデータを活用し、AIモデルのトレーニング、カスタムツールの構築、新しい手法の適用を行う。",
+    "error": {
+      "title": "フォーム送信中にエラーが発生しました"
+    },
+    "success": {
+      "description": "アクセスリクエストありがとうございます！",
+      "title": "すべて終わった！"
+    },
+    "title": "データアクセスのリクエスト"
+  },
+  "signUp": {
+    "consentMessage": "送信する」ボタンをクリックすることで、ICFから通知を送付するために、入力された情報が使用されることに同意します。",
+    "description": "世界の二酸化炭素排出量をリアルタイムで把握できる、クラウド・ネットワークやノード・オペレーターの最初の一人になりましょう。",
+    "error": {
+      "title": "ベータ版へのサインアップ中にエラーが発生しました"
+    },
+    "success": {
+      "description": "ベータ版のウェイティングリストにご登録いただき、ありがとうございます！\nすぐに連絡する。",
+      "title": "すべて終わった！"
+    },
+    "title": "事前のコミットメントを証明する"
+  },
+  "table": {
+    "headers": {
+      "carbonIntensity": "炭素強度",
+      "electricityDraw": "電気の引き込み",
+      "emissions": "排出量",
+      "emissionsLast30minutes": "排出ガス（1時間）",
+      "gridTechnology": "グリッド・ミックス",
+      "id": "身分証明書",
+      "location": "所在地",
+      "nodeProvider": "ノードプロバイダー",
+      "nodeCount": "# ノード",
+      "status": "ステータス"
+    },
+    "pageReport": "totalRecords}エントリの{最初}から{最後}までを表示する。"
+  },
+  "world": {
+    "carbonIntensity": "{炭素強度",
+    "carbonEmissions": "{値}} kgCo2e/1h",
+    "nodes": "{{value}} ノード"
+  }
+}
