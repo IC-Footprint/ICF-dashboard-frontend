@@ -7,7 +7,6 @@ import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
 import Nodes from '@/pages/Nodes';
 import Subnets from '@/pages/Subnets';
-import Crypto from '@/pages/Crypto';
 import { appRoutes } from '@/router/app-routes';
 import Node from '@/pages/Node';
 
@@ -20,7 +19,6 @@ const AppRoutes: FC = () => {
         <Route path={appRoutes.nodes.show} element={<Node />} />
         <Route path={appRoutes.subnets.root} element={<Subnets />}></Route>
         <Route path={appRoutes.about.root} element={<About />}></Route>
-        <Route path={appRoutes.crypto.root} element={<Crypto />} />
         <Route
           path="/*"
           element={<Navigate to={appRoutes.home.root} />}
