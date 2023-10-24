@@ -33,13 +33,13 @@ const CryptoStats: FC = () => {
 
   const consumptionTemplate = (rowData: ChartDataApiObject) => {
     return t('common.unit.TWh', {
-      value: rowData.power.toFixed(3)
+      value: rowData.consumption.toFixed(3)
     });
   };
 
   const emissionsTemplate = (rowData: ChartDataApiObject) => {
     return t('common.unit.Mt', {
-      value: rowData.power.toFixed(3)
+      value: rowData.emission.toFixed(3)
     });
   };
 
