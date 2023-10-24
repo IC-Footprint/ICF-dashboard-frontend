@@ -49,7 +49,7 @@ const NodePowerConsumption: FC<NodePowerConsumtionProps> = ({ nodeId }) => {
       case 'SEVEN_DAYS':
         return addDays(currentTimestamp, -7);
       case 'ONE_DAY':
-        return addDays(currentTimestamp, 1);
+        return addDays(currentTimestamp, -1);
       case 'HALF_AN_HOUR':
         return addMinutes(currentTimestamp, -30);
     }
