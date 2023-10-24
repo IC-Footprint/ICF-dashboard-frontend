@@ -12,6 +12,8 @@ import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
 import NetworkIcon from '@/theme/assets/icons/network';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
+import CryptoLogo from '@/theme/assets/icons/crypto';
+
 import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import pogLogo from '@/theme/assets/pog.png';
 import {
@@ -27,7 +29,7 @@ interface SideMenuProps {
 const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   const { t } = useTranslation();
   // const {
-    // actions: { showSignUpModal }
+  // actions: { showSignUpModal }
   // } = useSignUp();
   const createMenuItem = useCallback(
     (label: string, icon: ReactNode, url: string): MenuItem => {
@@ -55,7 +57,12 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
     return [
       createMenuItem(t('page.home'), <HomeIcon />, appRoutes.home.root),
       createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root),
-      createMenuItem(t('Subnets'), <NetworkIcon />, appRoutes.subnets.root),
+      createMenuItem(t('page.crypto'), <CryptoLogo />, appRoutes.crypto.root),
+      createMenuItem(
+        t('page.subnets'),
+        <NetworkIcon />,
+        appRoutes.subnets.root
+      ),
       createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
   }, [t, createMenuItem]);
