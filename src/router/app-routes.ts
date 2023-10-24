@@ -11,5 +11,8 @@ export const appRoutes = {
   },
   about: {
     root: '/about'
+  },
+  crypto: {
+    root: '/crypto'
   }
 };
