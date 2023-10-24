@@ -27,6 +27,16 @@ export interface ChartDataApiObject {
   power: number;
 }
 
+export interface CryptodetailsApiObject {
+  ticker: string;
+  name: string;
+  outputs: {
+    power: string;
+    electricity: string;
+    emissions: string;
+  };
+}
+
 class CarbonRankingsApi {
   async getEmissionsGraphData(): Promise<CryptoEmissions[]> {
     const response: AxiosResponse<GraphDataApiObject[]> = await axios.get(
@@ -72,6 +82,13 @@ class CarbonRankingsApi {
   async getChartData(): Promise<ChartDataApiObject[]> {
     const response: AxiosResponse<ChartDataApiObject[]> = await axios.get(
       '/dashboard/cryptoChartData'
+    );
+    return response.data;
+  }
+
+  async getCryptoDetails(): Promise<CryptodetailsApiObject[]> {
+    const response: AxiosResponse<CryptodetailsApiObject[]> = await axios.get(
+      '/dashboard/curencyDetails'
     );
     return response.data;
   }

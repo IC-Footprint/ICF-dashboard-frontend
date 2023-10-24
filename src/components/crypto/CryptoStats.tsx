@@ -4,7 +4,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
-import type { ChartDataApiObject } from '@/api/carbon-rankings-api';
+import type {
+  ChartDataApiObject,
+  CryptodetailsApiObject
+} from '@/api/carbon-rankings-api';
 
 import {
   PaginatorStyle,
@@ -16,6 +19,9 @@ import CarbonRankingsApi from '@/api/carbon-rankings-api';
 const CryptoStats: FC = () => {
   const { t } = useTranslation();
   const [chartData, setChartData] = useState<ChartDataApiObject[]>([]);
+  const [currencyDetails, setCurrencyDetails] = useState<
+    CryptodetailsApiObject[]
+  >([]);
 
   const client = useMemo(() => {
     return new CarbonRankingsApi();
@@ -25,22 +31,32 @@ const CryptoStats: FC = () => {
     client.getChartData().then(setChartData).catch(console.log);
   }, [client, setChartData]);
 
+  useEffect(() => {
+    client.getCryptoDetails().then(setCurrencyDetails).catch(console.log);
+  }, [client, setCurrencyDetails]);
+
   const powerTemplate = (rowData: ChartDataApiObject) => {
-    return t('common.unit.GW', {
-      value: rowData.power.toFixed(3)
-    });
+    const info = currencyDetails.find(
+      (detail) => detail.ticker === rowData.ticker
+    );
+
+    return `${rowData.power.toFixed(3)} ${info?.outputs.power}`;
   };
 
   const consumptionTemplate = (rowData: ChartDataApiObject) => {
-    return t('common.unit.TWh', {
-      value: rowData.consumption.toFixed(3)
-    });
+    const info = currencyDetails.find(
+      (detail) => detail.ticker === rowData.ticker
+    );
+
+    return `${rowData.consumption.toFixed(3)} ${info?.outputs.electricity}`;
   };
 
   const emissionsTemplate = (rowData: ChartDataApiObject) => {
-    return t('common.unit.Mt', {
-      value: rowData.emission.toFixed(3)
-    });
+    const info = currencyDetails.find(
+      (detail) => detail.ticker === rowData.ticker
+    );
+
+    return `${rowData.emission.toFixed(3)} ${info?.outputs.emissions}`;
   };
 
   const currencyTemplate = (rowData: ChartDataApiObject) => {
