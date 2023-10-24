@@ -26,8 +26,21 @@ interface SideMenuProps {
   onItemClick?: () => void;
 }
 
+const LANGUAGES = [
+  'en_GB',
+  'es_ES',
+  'de_DE',
+  'ja_JP',
+  'fr_FR',
+  'pt_PT',
+  'ru_RU',
+  'tr_TR',
+  'vi_VN',
+  'zh_CN'
+];
+
 const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // const {
   // actions: { showSignUpModal }
   // } = useSignUp();
@@ -81,7 +94,13 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
           // showSignUpModal();
           window.open('https://mwu3nbiuwdv.typeform.com/to/KH3RJJXS', '_blank');
         }}
+        style={{ maxWidth: 200 }}
       />
+      <select onChange={(event) => i18n.changeLanguage(event.target.value)}>
+        {LANGUAGES.map((language) => (
+          <option key={language}>{language}</option>
+        ))}
+      </select>
     </NavBar>
   );
 };

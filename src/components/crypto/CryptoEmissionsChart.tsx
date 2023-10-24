@@ -65,7 +65,7 @@ const CryptoEmissionsChart: FC = () => {
           datasets: response.map((dataset) => {
             return {
               label: dataset.name,
-              data: labels.map((date) => dataset.emissions[date])
+              data: labels.map((date) => dataset.emissions[date] || 0)
             };
           }),
           labels
