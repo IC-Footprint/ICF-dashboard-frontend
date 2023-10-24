@@ -12,6 +12,8 @@ import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
 import NetworkIcon from '@/theme/assets/icons/network';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
+import CryptoLogo from '@/theme/assets/icons/crypto';
+
 import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
 import pogLogo from '@/theme/assets/pog.png';
 import {
@@ -24,10 +26,23 @@ interface SideMenuProps {
   onItemClick?: () => void;
 }
 
+const LANGUAGES = [
+  'en_GB',
+  'es_ES',
+  'de_DE',
+  'ja_JP',
+  'fr_FR',
+  'pt_PT',
+  'ru_RU',
+  'tr_TR',
+  'vi_VN',
+  'zh_CN'
+];
+
 const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // const {
-    // actions: { showSignUpModal }
+  // actions: { showSignUpModal }
   // } = useSignUp();
   const createMenuItem = useCallback(
     (label: string, icon: ReactNode, url: string): MenuItem => {
@@ -55,7 +70,12 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
     return [
       createMenuItem(t('page.home'), <HomeIcon />, appRoutes.home.root),
       createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root),
-      createMenuItem(t('Subnets'), <NetworkIcon />, appRoutes.subnets.root),
+      createMenuItem(t('page.crypto'), <CryptoLogo />, appRoutes.crypto.root),
+      createMenuItem(
+        t('page.subnets'),
+        <NetworkIcon />,
+        appRoutes.subnets.root
+      ),
       createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
   }, [t, createMenuItem]);
@@ -74,7 +94,13 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
           // showSignUpModal();
           window.open('https://mwu3nbiuwdv.typeform.com/to/KH3RJJXS', '_blank');
         }}
+        style={{ maxWidth: 200 }}
       />
+      <select onChange={(event) => i18n.changeLanguage(event.target.value)}>
+        {LANGUAGES.map((language) => (
+          <option key={language}>{language}</option>
+        ))}
+      </select>
     </NavBar>
   );
 };
