@@ -125,7 +125,8 @@
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)",
     "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "machineId": "Node machine {{nodeId}}",
-    "nodeEmissions": "Node Emissions"
+    "nodeEmissions": "Node Emissions",
+    "nodeElectricityDraw": "Node Electricity Draw"
   },
   "subnets": {
     "emissionsBySubnet": "Emissions by Subnet",
