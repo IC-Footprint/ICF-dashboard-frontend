@@ -1,4 +1,3 @@
-import { Button } from 'primereact/button';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
@@ -6,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import type { MenuItem } from 'primereact/menuitem';
 import type { FC, ReactNode } from 'react';
 
-// import useSignUp from '@/helpers/state/useSignUp';
 import { appRoutes } from '@/router/app-routes';
 import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
@@ -67,14 +65,6 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
         <StyledMenu model={menuItems} />
         <img src={pogLogo} alt="PoG logo" width="120px" />
       </FlexColumnWithRowGap>
-      <Button
-        label={t('signUp.title').toString()}
-        onClick={() => {
-          onItemClick?.();
-          // showSignUpModal();
-          window.open('https://mwu3nbiuwdv.typeform.com/to/KH3RJJXS', '_blank');
-        }}
-      />
     </NavBar>
   );
 };
