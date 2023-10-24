@@ -60,7 +60,10 @@
     "unit": {
       "co2Kg": "{{value}} kgCO2e",
       "co2Tonnes": "{{value}} tCO2e",
-      "wattHour": "{{value}} Wh"
+      "wattHour": "{{value}} Wh",
+      "GW": "{{value}} GW",
+      "TWh": "{{value}} TWh",
+      "Mt": "{{value}} Mt"
     }
   },
   "dashboard": {
@@ -135,7 +138,9 @@
   "page": {
     "about": "About",
     "home": "Home",
-    "nodes": "Nodes"
+    "nodes": "Nodes",
+    "crypto": "Crypto",
+    "subnets": "Subnets"
   },
   "dataAccess": {
     "consentMessage": "By clicking send “Submit” I agree that the given information can be used by Carbon Crowd to contact me via email.",
@@ -172,7 +177,11 @@
       "location": "Location",
       "nodeProvider": "Node Provider",
       "nodeCount": "# Nodes",
-      "status": "Status"
+      "status": "Status",
+      "marketCap": "Market Cap",
+      "electricalPower": "Electrical Power",
+      "consumption": "Consumption",
+      "emission": "Emissions"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
   },
@@ -180,5 +189,11 @@
     "carbonIntensity": "{{value}} carbon intensity",
     "carbonEmissions": "{{value}} kgCo2e/1h",
     "nodes": "{{value}} nodes"
+  },
+  "crypto": {
+    "title": "Crypto Sustainability Indices",
+    "stats": "Sustainability data",
+    "networkEmissions": "CO2 emissions in Megatons (Mt)",
+    "networkConsumption": "Consumption in terawatt hours (TWh)"
   }
 }
