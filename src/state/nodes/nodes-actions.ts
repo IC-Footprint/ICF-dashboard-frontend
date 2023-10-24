@@ -64,6 +64,20 @@ export const getNodeEmissionsByRegionAction = createAsyncThunk<
   }
 });
 
+export const getNodeEmissionsByProviderAction = createAsyncThunk<
+  ChartData,
+  RangeType | null
+>('/nodes/getNodeEmissionsByProvider', async (range, { rejectWithValue }) => {
+  try {
+    const datasets: DatasetModel[] = await nodesApi.getNodeEmissionsByProvider(
+      range
+    );
+    return ChartMapper.mapChartData(datasets, range);
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+
 export const getElectricityDrawByTechnologyTypeAction = createAsyncThunk<
   ChartData,
   RangeType | null
@@ -93,14 +107,15 @@ export const getNodeStatsAction = createAsyncThunk<
 
 export const getNodeEmissionsAction = createAsyncThunk<
   ChartData,
-  { range: RangeType | null, nodeId: string }
->('/node/emissionsAndElectricity', async ({ range, nodeId }, { rejectWithValue }) => {
-  try {
-    const datasets = await nodesApi.getNodeEmissions(nodeId, range);
-    return ChartMapper.mapChartData(datasets, range);
-    
-  } catch (err) {
-    return rejectWithValue(null);
+  { range: RangeType | null; nodeId: string }
+>(
+  '/node/emissionsAndElectricity',
+  async ({ range, nodeId }, { rejectWithValue }) => {
+    try {
+      const datasets = await nodesApi.getNodeEmissions(nodeId, range);
+      return ChartMapper.mapChartData(datasets, range);
+    } catch (err) {
+      return rejectWithValue(null);
+    }
   }
-});
-
+);

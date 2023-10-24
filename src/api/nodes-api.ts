@@ -40,6 +40,20 @@ export class NodesApi {
     return response.data;
   }
 
+  async getNodeEmissionsByProvider(
+    range: RangeType | null
+  ): Promise<DatasetModel[]> {
+    const response: AxiosResponse<DatasetModel[]> = await axios.get(
+      '/nodes/providerEmissions',
+      {
+        params: {
+          range: range
+        }
+      }
+    );
+    return response.data;
+  }
+
   async getElectricityDrawByTechnologyType(
     range: RangeType | null
   ): Promise<DatasetModel[]> {
@@ -64,7 +78,10 @@ export class NodesApi {
     return response.data;
   }
 
-  async getNodeEmissions(nodeId: string, range: RangeType | null): Promise<DatasetModel[]> {
+  async getNodeEmissions(
+    nodeId: string,
+    range: RangeType | null
+  ): Promise<DatasetModel[]> {
     const response: AxiosResponse<DatasetModel[]> = await axios.get(
       '/nodes/emissionsByNode',
       {

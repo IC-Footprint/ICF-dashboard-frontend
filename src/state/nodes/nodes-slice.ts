@@ -10,6 +10,7 @@ import {
   getElectricityDrawByTechnologyTypeAction,
   getNetworkEmissionsAction,
   getNodeEmissionsByRegionAction,
+  getNodeEmissionsByProviderAction,
   getNodesLeaderboardAction,
   getNodeStatsAction,
   getNodeEmissionsAction
@@ -23,8 +24,11 @@ export interface NodesState {
   networkEmissionsLoading: boolean;
   networkEmissionsError: boolean;
   nodeEmissionsByRegion: ChartData | null;
+  nodeEmissionsByProvider: ChartData | null;
   nodeEmissionsByRegionLoading: boolean;
+  nodeEmissionsByProviderLoading: boolean;
   nodeEmissionsByRegionError: boolean;
+  nodeEmissionsByProviderError: boolean;
   electricityDrawByTechnologyType: ChartData | null;
   electricityDrawByTechnologyTypeLoading: boolean;
   electricityDrawByTechnologyTypeError: boolean;
@@ -45,8 +49,11 @@ const initialState: () => NodesState = () => ({
   networkEmissionsLoading: false,
   networkEmissionsError: false,
   nodeEmissionsByRegion: null,
+  nodeEmissionsByProvider: null,
   nodeEmissionsByRegionLoading: false,
+  nodeEmissionsByProviderLoading: false,
   nodeEmissionsByRegionError: false,
+  nodeEmissionsByProviderError: false,
   nodeStats: null,
   nodeStatsLoading: false,
   nodeEmissions: null,
@@ -117,6 +124,23 @@ const nodesSlice = createSlice({
         state.nodeEmissionsByRegionError = true;
       });
 
+    builder
+      .addCase(getNodeEmissionsByProviderAction.pending, (state) => {
+        state.nodeEmissionsByProviderLoading = true;
+        state.nodeEmissionsByProviderError = false;
+      })
+      .addCase(
+        getNodeEmissionsByProviderAction.fulfilled,
+        (state, { payload }) => {
+          state.nodeEmissionsByProvider = payload as Draft<ChartData>;
+          state.nodeEmissionsByProviderLoading = false;
+        }
+      )
+      .addCase(getNodeEmissionsByProviderAction.rejected, (state) => {
+        state.nodeEmissionsByProviderLoading = false;
+        state.nodeEmissionsByProviderError = true;
+      });
+
     /** Get electricity draw by technology type **/
     builder
       .addCase(getElectricityDrawByTechnologyTypeAction.pending, (state) => {
@@ -140,13 +164,10 @@ const nodesSlice = createSlice({
         state.nodeStats = null;
         state.nodeStatsLoading = true;
       })
-      .addCase(
-        getNodeStatsAction.fulfilled,
-        (state, { payload }) => {
-          state.nodeStatsLoading = false;
-          state.nodeStats = payload;
-        }
-      )
+      .addCase(getNodeStatsAction.fulfilled, (state, { payload }) => {
+        state.nodeStatsLoading = false;
+        state.nodeStats = payload;
+      })
       .addCase(getNodeStatsAction.rejected, (state) => {
         state.nodeStatsLoading = false;
       });
@@ -156,13 +177,10 @@ const nodesSlice = createSlice({
         state.nodeEmissions = null;
         state.nodeEmissionsLoading = false;
       })
-      .addCase(
-        getNodeEmissionsAction.fulfilled,
-        (state, { payload }) => {
-          state.nodeEmissionsLoading = false;
-          state.nodeEmissions = payload as Draft<ChartData>;
-        }
-      )
+      .addCase(getNodeEmissionsAction.fulfilled, (state, { payload }) => {
+        state.nodeEmissionsLoading = false;
+        state.nodeEmissions = payload as Draft<ChartData>;
+      })
       .addCase(getNodeEmissionsAction.rejected, (state) => {
         state.nodeEmissionsLoading = false;
       });
@@ -172,6 +190,7 @@ const nodesSlice = createSlice({
 export {
   getNodesLeaderboardAction,
   getNodeEmissionsByRegionAction,
+  getNodeEmissionsByProviderAction,
   getNetworkEmissionsAction,
   getElectricityDrawByTechnologyTypeAction,
   getNodeStatsAction,
