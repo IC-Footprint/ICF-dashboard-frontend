@@ -80,7 +80,12 @@ const CryptoEmissionsChart: FC = () => {
   return (
     <FlexColumnCard>
       <span>{t('crypto.networkEmissions')}</span>
-      <Chart type="line" data={emissionsdata} options={chartOptions} />
+      <Chart
+        type="line"
+        data={emissionsdata}
+        options={chartOptions}
+        style={{ height: 350 }}
+      />
       <SelectTimeRange range={range} setRange={setRange} disabled={loading} />
     </FlexColumnCard>
   );
