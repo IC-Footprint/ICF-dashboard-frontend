@@ -103,7 +103,7 @@ const NodePowerConsumption: FC<NodePowerConsumtionProps> = ({ nodeId }) => {
 
   return (
     <FlexColumnCard>
-      <span>{t('nodes.nodePowerConsumption')}</span>
+      <span>{t('nodes.nodeElectricityDraw')}</span>
       <StyledChart
         type="line"
         data={nodeEmissionsData}
