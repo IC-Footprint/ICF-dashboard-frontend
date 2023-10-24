@@ -65,7 +65,7 @@
   },
   "dashboard": {
     "headlineFigures": {
-      "avoidedEmissions":"Avoided Carbon Emissions",
+      "avoidedEmissions": "Avoided Carbon Emissions",
       "cumulativeElectricityDraw": "Cumulative Electricity Draw",
       "cumulativeNetworkEmissions": "Cumulative Carbon Emissions",
       "offsetEmissions": "Offset Carbon Emissions"
@@ -123,6 +123,7 @@
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "networkEmissions": "Network Emissions (kgCo2e)",
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)",
+    "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "machineId": "Node machine {{nodeId}}",
     "nodeEmissions": "Node Emissions"
   },
