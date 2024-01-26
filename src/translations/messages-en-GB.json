@@ -58,12 +58,16 @@
       "threeMonths": "3M"
     },
     "unit": {
-      "co2Kg": "{{value}} kgCO2e",
+      "co2Kg": "{{value}} KGCO2e",
       "co2Tonnes": "{{value}} tCO2e",
       "wattHour": "{{value}} Wh"
     }
   },
   "dashboard": {
+    "carbonDebit": {
+      "timeDifference": "Past week",
+      "title": "Outstanding Carbon Debit"
+    },
     "headlineFigures": {
       "avoidedEmissions": "Avoided Carbon Emissions",
       "cumulativeElectricityDraw": "Cumulative Electricity Draw",

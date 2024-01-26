@@ -35,6 +35,12 @@ export const FlexColumnContainer = styled(FlexColumnWithRowGap)`
   padding: 1.75rem;
 `;
 
+export const FlexRowContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+`;
+
 export const FlexColumnCard = styled(Card)`
   .p-card-content {
     ${FlexColumnStyle};
@@ -44,6 +50,8 @@ export const FlexColumnCard = styled(Card)`
 `;
 
 export const FlexRowCard = styled(Card)`
+  border-radius: 1rem;
+
   .p-card-content {
     display: flex;
     align-items: center;
