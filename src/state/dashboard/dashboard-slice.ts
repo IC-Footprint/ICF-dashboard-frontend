@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
-import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
+import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
 
 import {
+  getDashboardCarbonDebitAction,
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodesCountersAction
 } from '@/state/dashboard/dashboard-actions';
+
 export interface DashboardState {
   headlineFigures: HeadlineFiguresModel | null;
   headlineFiguresLoading: boolean;
@@ -24,9 +27,12 @@ export interface DashboardState {
   globePoints: GlobePointModel[] | null;
   globePointsLoading: boolean;
   globePointsError: boolean;
+  carbonDebit: OutstandingCarbonDebitModel | null;
+  carbonDebitLoading: boolean;
+  carbonDebitError: boolean;
 }
 
-const initialState: () => DashboardState = () => ({
+export const initialState: () => DashboardState = () => ({
   headlineFigures: null,
   headlineFiguresError: false,
   headlineFiguresLoading: false,
@@ -38,7 +44,10 @@ const initialState: () => DashboardState = () => ({
   nodesCountersLoading: false,
   globePoints: null,
   globePointsError: false,
-  globePointsLoading: false
+  globePointsLoading: false,
+  carbonDebit: null,
+  carbonDebitLoading: false,
+  carbonDebitError: false
 });
 
 const dashboardSlice = createSlice({
@@ -108,6 +117,24 @@ const dashboardSlice = createSlice({
         state.globePointsLoading = false;
         state.globePointsError = true;
       });
+
+    /** Get dashboard carbon debit **/
+    builder
+      .addCase(getDashboardCarbonDebitAction.pending, (state) => {
+        state.carbonDebitLoading = true;
+        state.carbonDebitError = false;
+      })
+      .addCase(
+        getDashboardCarbonDebitAction.fulfilled,
+        (state, { payload }) => {
+          state.carbonDebitLoading = false;
+          state.carbonDebit = payload;
+        }
+      )
+      .addCase(getDashboardCarbonDebitAction.rejected, (state) => {
+        state.carbonDebitLoading = false;
+        state.carbonDebitError = true;
+      });
   }
 });
 
@@ -115,7 +142,8 @@ export {
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodesCountersAction,
-  getGlobePointsAction
+  getGlobePointsAction,
+  getDashboardCarbonDebitAction
 };
 
 export default dashboardSlice.reducer;

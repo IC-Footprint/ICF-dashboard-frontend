@@ -11,5 +11,9 @@ export const appRoutes = {
   },
   about: {
     root: '/about'
+  },
+  oldDashboard: {
+    // TODO: delete
+    root: '/oldDashboard'
   }
 };

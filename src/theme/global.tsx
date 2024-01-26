@@ -1,10 +1,15 @@
 import { css, Global } from '@emotion/react';
 
+import { primary } from '@/theme/colors';
 import '@/theme/fonts.css';
 
 export const globalStyles = (
   <Global
     styles={css`
+      :root {
+        --primary-color: ${primary};
+      }
+
       * {
         font-family: 'Inter', sans-serif;
       }

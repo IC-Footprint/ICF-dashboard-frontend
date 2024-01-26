@@ -4,7 +4,8 @@ import {
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
-  getNodesCountersAction
+  getNodesCountersAction,
+  getDashboardCarbonDebitAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -77,12 +78,30 @@ const useDashboard = () => {
     (state) => state.dashboard.globePointsError
   );
 
+  const getDashboardCarbonDebits = useCallback(
+    () => dispatch(getDashboardCarbonDebitAction()),
+    [dispatch]
+  );
+
+  const dashboardCarbonDebits = useAppSelector(
+    (state) => state.dashboard.carbonDebit
+  );
+
+  const isDashboardCarbonDebitsLoading = useAppSelector(
+    (state) => state.dashboard.carbonDebitLoading
+  );
+
+  const hasDashboardCarbonDebitsError = useAppSelector(
+    (state) => state.dashboard.carbonDebitError
+  );
+
   return {
     actions: {
       getHeadlineFigures,
       getLocationsLeaderboard,
       getNodesCounters,
-      getGlobePoints
+      getGlobePoints,
+      getDashboardCarbonDebits
     },
     headlineFigures,
     isHeadlineFiguresLoading,
@@ -95,7 +114,10 @@ const useDashboard = () => {
     hasNodesCountersError,
     globePoints,
     isGlobePointsLoading,
-    hasGlobePointsError
+    hasGlobePointsError,
+    dashboardCarbonDebits,
+    isDashboardCarbonDebitsLoading,
+    hasDashboardCarbonDebitsError
   };
 };
 
