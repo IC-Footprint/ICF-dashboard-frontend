@@ -16,7 +16,7 @@ export class ChartUtils {
     return {
       family: 'Inter',
       size: 11,
-      weight: '400'
+      weight: 400
     };
   }
 
