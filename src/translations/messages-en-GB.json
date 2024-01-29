@@ -47,6 +47,7 @@
       "unassigned": "Unassigned",
       "up": "Up"
     },
+    "report": "Report",
     "submit": "Submit",
     "timeRange": {
       "fiveYears": "5Y",
@@ -73,6 +74,11 @@
       "cumulativeElectricityDraw": "Cumulative Electricity Draw",
       "cumulativeNetworkEmissions": "Cumulative Carbon Emissions",
       "offsetEmissions": "Offset Carbon Emissions"
+    },
+    "informationCard": {
+      "icSns": "IC FOOTPRINT SNS\n‘Control Yourself’",
+      "joinSocials": "Join our Socials",
+      "sustainabilityReport": "SUSTAINABILITY REPORT\n{{year}}"
     },
     "nodesCounters": {
       "boundaryNodes": "Boundary Nodes",
@@ -184,5 +190,8 @@
     "carbonIntensity": "{{value}} carbon intensity",
     "carbonEmissions": "{{value}} kgCo2e/1h",
     "nodes": "{{value}} nodes"
+  },
+  "whitePaper": {
+    "title": "White Paper"
   }
 }

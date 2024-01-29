@@ -41,7 +41,11 @@ export const FlexRowContainer = styled.div`
   column-gap: 0.5rem;
 `;
 
-export const FlexColumnCard = styled(Card)`
+export const StyledCard = styled(Card)`
+  border-radius: 1rem;
+`;
+
+export const FlexColumnCard = styled(StyledCard)`
   .p-card-content {
     ${FlexColumnStyle};
     row-gap: 0.875rem;
@@ -49,18 +53,17 @@ export const FlexColumnCard = styled(Card)`
   }
 `;
 
-export const FlexRowCard = styled(Card)`
-  border-radius: 1rem;
-
+export const FlexRowCard = styled(StyledCard)`
   .p-card-content {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 0;
     column-gap: 1.375rem;
   }
 `;
 
-export const AboutAcknowledgementsCardContainer = styled(Card)`
+export const AboutAcknowledgementsCardContainer = styled(StyledCard)`
   .p-card-content {
     ${FlexColumnStyle};
     align-items: center;
