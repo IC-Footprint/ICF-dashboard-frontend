@@ -1,4 +1,3 @@
-import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Tag } from 'primereact/tag';
 import { useMemo } from 'react';
@@ -23,17 +22,26 @@ interface DashboardOutstandingCarbonDebitProps {
   unit?: UnitType;
 }
 
-const cardBackgroundImageStyle = css`
-  background-image: url(${icBackground});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-`;
-
 const LightTag = styled(Tag)`
   padding: 0.5rem 1rem;
   color: ${primary};
   background: ${primaryLight};
+`;
+
+const CardContainer = styled(FlexRowCard)`
+  height: 100%;
+  background-image: url(${icBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .p-card-body {
+    height: 100%;
+
+    .p-card-content {
+      height: 100%;
+    }
+  }
 `;
 
 const Home: FC<DashboardOutstandingCarbonDebitProps> = ({
@@ -53,7 +61,7 @@ const Home: FC<DashboardOutstandingCarbonDebitProps> = ({
   }, [weekDifferencePercentage]);
 
   return (
-    <FlexRowCard className={css(cardBackgroundImageStyle)}>
+    <CardContainer>
       <FlexColumnContainer>
         <h4 className="opacity-60 font-normal">
           {t('dashboard.carbonDebit.title')}
@@ -77,7 +85,7 @@ const Home: FC<DashboardOutstandingCarbonDebitProps> = ({
           </span>
         </FlexRowContainer>
       </LightTag>
-    </FlexRowCard>
+    </CardContainer>
   );
 };
 

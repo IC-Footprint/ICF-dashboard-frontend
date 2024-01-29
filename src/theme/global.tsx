@@ -74,6 +74,10 @@ export const globalStyles = (
       .twitter-timeline iframe {
         border-radius: 0.75rem;
       }
+
+      .white-space-pre-line {
+        white-space: pre-line;
+      }
     `}
   />
 );

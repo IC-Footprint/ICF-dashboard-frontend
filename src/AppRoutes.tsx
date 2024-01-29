@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import type { FC } from 'react';
 
+import WhitePaper from '@/pages/WhitePaper';
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
@@ -24,6 +25,10 @@ const AppRoutes: FC = () => {
         <Route path={appRoutes.nodes.show} element={<Node />} />
         <Route path={appRoutes.subnets.root} element={<Subnets />}></Route>
         <Route path={appRoutes.about.root} element={<About />}></Route>
+        <Route
+          path={appRoutes.whitePaper.root}
+          element={<WhitePaper />}
+        ></Route>
         <Route
           path="/*"
           element={<Navigate to={appRoutes.home.root} />}

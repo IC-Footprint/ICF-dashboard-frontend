@@ -15,5 +15,8 @@ export const appRoutes = {
   oldDashboard: {
     // TODO: delete
     root: '/oldDashboard'
+  },
+  whitePaper: {
+    root: '/white-paper'
   }
 };

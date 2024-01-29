@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 import type { FC } from 'react';
 
+import DashboardInformationCarousel from '@/components/dashboard/DashboardInformationCarousel';
 import DashboardOutstandingCarbonDebit from '@/components/dashboard/DashboardOutstandingCarbonDebit';
 import useDashboard from '@/helpers/state/useDashboard';
-import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Home: FC = () => {
   const {
@@ -27,14 +27,19 @@ const Home: FC = () => {
   }, [getDashboardCarbonDebits]);
 
   return (
-    <FlexColumnContainer>
-      <DashboardOutstandingCarbonDebit
-        carbonDebit={dashboardCarbonDebits?.carbonDebit}
-        weekDifferencePercentage={
-          dashboardCarbonDebits?.weekDifferencePercentage
-        }
-      />
-    </FlexColumnContainer>
+    <div className="grid m-5">
+      <div className="col-12 lg:col-7">
+        <DashboardOutstandingCarbonDebit
+          carbonDebit={dashboardCarbonDebits?.carbonDebit}
+          weekDifferencePercentage={
+            dashboardCarbonDebits?.weekDifferencePercentage
+          }
+        />
+      </div>
+      <div className="col-12 lg:col-5">
+        <DashboardInformationCarousel />
+      </div>
+    </div>
   );
 };
 
