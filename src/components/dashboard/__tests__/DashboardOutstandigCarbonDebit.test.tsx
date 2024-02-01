@@ -18,7 +18,7 @@ test('should render with the debit value and difference', () => {
     /dashboard.carbonDebit.timeDifference/
   );
   expect(timeDifference).toBeInTheDocument();
-  expect(timeDifference).toHaveTextContent('+15');
+  expect(component.getByText(/\+15%/)).toBeInTheDocument();
 });
 
 test('should render difference with arrow up when the difference is positive', () => {

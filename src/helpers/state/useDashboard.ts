@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 
 import {
-  getDashboardCarbonDebitAction,
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
@@ -82,23 +81,6 @@ const useDashboard = () => {
     (state) => state.dashboard.globePointsError
   );
 
-  const getDashboardCarbonDebits = useCallback(
-    () => dispatch(getDashboardCarbonDebitAction()),
-    [dispatch]
-  );
-
-  const dashboardCarbonDebits = useAppSelector(
-    (state) => state.dashboard.carbonDebit
-  );
-
-  const isDashboardCarbonDebitsLoading = useAppSelector(
-    (state) => state.dashboard.carbonDebitLoading
-  );
-
-  const hasDashboardCarbonDebitsError = useAppSelector(
-    (state) => state.dashboard.carbonDebitError
-  );
-
   const getNodeProviders = useCallback(
     () => dispatch(getNodeProvidersAction()),
     [dispatch]
@@ -129,7 +111,6 @@ const useDashboard = () => {
       getLocationsLeaderboard,
       getNodesCounters,
       getGlobePoints,
-      getDashboardCarbonDebits,
       getNodeProviders,
       setDataLayout
     },
@@ -145,9 +126,6 @@ const useDashboard = () => {
     globePoints,
     isGlobePointsLoading,
     hasGlobePointsError,
-    dashboardCarbonDebits,
-    isDashboardCarbonDebitsLoading,
-    hasDashboardCarbonDebitsError,
     nodeProviders,
     isNodeProvidersLoading,
     hasNodeProvidersError,

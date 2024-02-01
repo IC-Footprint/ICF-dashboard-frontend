@@ -6,11 +6,9 @@ import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-m
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
-import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
 import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 
 import {
-  getDashboardCarbonDebitAction,
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
@@ -31,9 +29,6 @@ export interface DashboardState {
   globePoints: GlobePointModel[] | null;
   globePointsLoading: boolean;
   globePointsError: boolean;
-  carbonDebit: OutstandingCarbonDebitModel | null;
-  carbonDebitLoading: boolean;
-  carbonDebitError: boolean;
   nodeProviders: CarbonAccountModel[] | null;
   nodeProvidersLoading: boolean;
   nodeProvidersError: boolean;
@@ -134,24 +129,6 @@ const dashboardSlice = createSlice({
         state.globePointsError = true;
       });
 
-    /** Get dashboard carbon debit **/
-    builder
-      .addCase(getDashboardCarbonDebitAction.pending, (state) => {
-        state.carbonDebitLoading = true;
-        state.carbonDebitError = false;
-      })
-      .addCase(
-        getDashboardCarbonDebitAction.fulfilled,
-        (state, { payload }) => {
-          state.carbonDebitLoading = false;
-          state.carbonDebit = payload;
-        }
-      )
-      .addCase(getDashboardCarbonDebitAction.rejected, (state) => {
-        state.carbonDebitLoading = false;
-        state.carbonDebitError = true;
-      });
-
     /** Get node providers **/
     builder
       .addCase(getNodeProvidersAction.pending, (state) => {
@@ -176,7 +153,6 @@ export {
   getLocationsLeaderboardAction,
   getNodesCountersAction,
   getGlobePointsAction,
-  getDashboardCarbonDebitAction,
   getNodeProvidersAction
 };
 
