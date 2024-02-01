@@ -2,26 +2,37 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import type { FC } from 'react';
 
-import WhitePaper from '@/pages/WhitePaper';
+import NodeOperators from '@/components/dashboard/carbon-accounts/NodeOperators';
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
 import Home from '@/pages/Home';
 import Node from '@/pages/Node';
-import Nodes from '@/pages/Nodes';
 import Subnets from '@/pages/Subnets';
+import WhitePaper from '@/pages/WhitePaper';
 import { appRoutes } from '@/router/app-routes';
 
 const AppRoutes: FC = () => {
   return (
     <Layout>
       <Routes>
-        <Route path={appRoutes.home.root} element={<Home />}></Route>
+        <Route path={appRoutes.home.root} element={<Home />}>
+          <Route
+            index
+            element={<Navigate to={appRoutes.nodeOperators.root} replace />}
+          />
+          <Route
+            index
+            path={appRoutes.nodeOperators.root}
+            element={<NodeOperators />}
+          />
+          <Route path={appRoutes.nodes.root} element={<div>Nodes</div>} />
+          <Route path={appRoutes.projects.root} element={<div>Projects</div>} />
+        </Route>
         <Route
           path={appRoutes.oldDashboard.root}
           element={<Dashboard />}
         ></Route>
-        <Route path={appRoutes.nodes.root} element={<Nodes />}></Route>
         <Route path={appRoutes.nodes.show} element={<Node />} />
         <Route path={appRoutes.subnets.root} element={<Subnets />}></Route>
         <Route path={appRoutes.about.root} element={<About />}></Route>

@@ -11,8 +11,8 @@ import { ProgressBar } from 'primereact/progressbar';
 import { SelectButton } from 'primereact/selectbutton';
 import { Sidebar } from 'primereact/sidebar';
 
-import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 import type { ViewportOptionsProps } from '@/models/viewport-options-props';
+import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 import type { DialogSizeProps } from '@/models/dialog-size-props';
 
 import { transientOptions } from '@/theme/styled-components-utils';

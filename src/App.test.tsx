@@ -4,6 +4,6 @@ import App from '@/App';
 
 test('renders app component', () => {
   render(<App />);
-  const headingElement = screen.getByRole('button');
-  expect(headingElement).toBeInTheDocument();
+  const headingElements = screen.getAllByRole('heading');
+  expect(headingElements.length).toBeGreaterThan(0);
 });

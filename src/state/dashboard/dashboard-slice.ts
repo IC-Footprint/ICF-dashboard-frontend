@@ -1,16 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { PayloadAction } from '@reduxjs/toolkit';
 import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
 import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
+import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 
 import {
   getDashboardCarbonDebitAction,
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
+  getNodeOperatorsAction,
   getNodesCountersAction
 } from '@/state/dashboard/dashboard-actions';
 
@@ -30,6 +34,10 @@ export interface DashboardState {
   carbonDebit: OutstandingCarbonDebitModel | null;
   carbonDebitLoading: boolean;
   carbonDebitError: boolean;
+  nodeOperators: CarbonAccountModel[] | null;
+  nodeOperatorsLoading: boolean;
+  nodeOperatorsError: boolean;
+  dataLayout: DataLayoutType;
 }
 
 export const initialState: () => DashboardState = () => ({
@@ -47,13 +55,21 @@ export const initialState: () => DashboardState = () => ({
   globePointsLoading: false,
   carbonDebit: null,
   carbonDebitLoading: false,
-  carbonDebitError: false
+  carbonDebitError: false,
+  nodeOperators: null,
+  nodeOperatorsError: false,
+  nodeOperatorsLoading: false,
+  dataLayout: 'grid'
 });
 
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
-  reducers: {},
+  reducers: {
+    setDataLayout: (state, { payload }: PayloadAction<DataLayoutType>) => {
+      state.dataLayout = payload;
+    }
+  },
   extraReducers: (builder) => {
     /** Get headline figures **/
     builder
@@ -135,15 +151,33 @@ const dashboardSlice = createSlice({
         state.carbonDebitLoading = false;
         state.carbonDebitError = true;
       });
+
+    /** Get node operators **/
+    builder
+      .addCase(getNodeOperatorsAction.pending, (state) => {
+        state.nodeOperatorsLoading = true;
+        state.nodeOperatorsError = false;
+      })
+      .addCase(getNodeOperatorsAction.fulfilled, (state, { payload }) => {
+        state.nodeOperatorsLoading = false;
+        state.nodeOperators = payload;
+      })
+      .addCase(getNodeOperatorsAction.rejected, (state) => {
+        state.nodeOperatorsLoading = false;
+        state.nodeOperatorsError = true;
+      });
   }
 });
+
+export const { setDataLayout: setDataLayoutAction } = dashboardSlice.actions;
 
 export {
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodesCountersAction,
   getGlobePointsAction,
-  getDashboardCarbonDebitAction
+  getDashboardCarbonDebitAction,
+  getNodeOperatorsAction
 };
 
 export default dashboardSlice.reducer;

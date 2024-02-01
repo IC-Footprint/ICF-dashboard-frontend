@@ -1,11 +1,15 @@
 import { useCallback } from 'react';
 
+import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
+
 import {
+  getDashboardCarbonDebitAction,
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
+  getNodeOperatorsAction,
   getNodesCountersAction,
-  getDashboardCarbonDebitAction
+  setDataLayoutAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -95,13 +99,39 @@ const useDashboard = () => {
     (state) => state.dashboard.carbonDebitError
   );
 
+  const getNodeOperators = useCallback(
+    () => dispatch(getNodeOperatorsAction()),
+    [dispatch]
+  );
+
+  const nodeOperators = useAppSelector(
+    (state) => state.dashboard.nodeOperators
+  );
+
+  const isNodeOperatorsLoading = useAppSelector(
+    (state) => state.dashboard.nodeOperatorsLoading
+  );
+
+  const hasNodeOperatorsError = useAppSelector(
+    (state) => state.dashboard.nodeOperatorsError
+  );
+
+  const dataLayout = useAppSelector((state) => state.dashboard.dataLayout);
+
+  const setDataLayout = useCallback(
+    (dataLayout: DataLayoutType) => dispatch(setDataLayoutAction(dataLayout)),
+    [dispatch]
+  );
+
   return {
     actions: {
       getHeadlineFigures,
       getLocationsLeaderboard,
       getNodesCounters,
       getGlobePoints,
-      getDashboardCarbonDebits
+      getDashboardCarbonDebits,
+      getNodeOperators,
+      setDataLayout
     },
     headlineFigures,
     isHeadlineFiguresLoading,
@@ -117,7 +147,11 @@ const useDashboard = () => {
     hasGlobePointsError,
     dashboardCarbonDebits,
     isDashboardCarbonDebitsLoading,
-    hasDashboardCarbonDebitsError
+    hasDashboardCarbonDebitsError,
+    nodeOperators,
+    isNodeOperatorsLoading,
+    hasNodeOperatorsError,
+    dataLayout
   };
 };
 

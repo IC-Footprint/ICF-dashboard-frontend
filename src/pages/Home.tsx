@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import type { FC } from 'react';
 
+import CarbonAccounts from '@/components/dashboard/carbon-accounts/CarbonAccounts';
 import DashboardInformationCarousel from '@/components/dashboard/DashboardInformationCarousel';
 import DashboardOutstandingCarbonDebit from '@/components/dashboard/DashboardOutstandingCarbonDebit';
 import useDashboard from '@/helpers/state/useDashboard';
@@ -38,6 +39,9 @@ const Home: FC = () => {
       </div>
       <div className="col-12 lg:col-5">
         <DashboardInformationCarousel />
+      </div>
+      <div className="col-12">
+        <CarbonAccounts />
       </div>
     </div>
   );
