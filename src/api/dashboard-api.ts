@@ -46,6 +46,15 @@ export class DashboardApi {
       }, 1000);
     });
   }
+
+  // TODO: integrate
+  async getProjects(): Promise<CarbonAccountModel[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([ModelMocks.mockNodeElement('1', 'UP')]);
+      }, 1000);
+    });
+  }
 }
 
 const dashboardApi: DashboardApi = new DashboardApi();

@@ -17,10 +17,19 @@ const NodeProviders: FC = () => {
   } = useDashboard();
 
   useEffect(() => {
-    // TODO: add periodic refresh
     if (!nodeProviders) {
       getNodeProviders();
     }
+
+    const minutesInterval: number =
+      +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
+    const intervalId = setInterval(() => {
+      getNodeProviders();
+    }, 1000 * 60 * minutesInterval);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [nodeProviders, getNodeProviders]);
 
   if (hasNodeProvidersError) {

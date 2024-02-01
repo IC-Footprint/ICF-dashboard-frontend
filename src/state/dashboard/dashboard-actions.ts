@@ -79,3 +79,15 @@ export const getNodeProvidersAction = createAsyncThunk<
     return rejectWithValue(null);
   }
 });
+
+export const getProjectsAction = createAsyncThunk<CarbonAccountModel[], void>(
+  '/dashboard/getProjects',
+  async (_, { rejectWithValue }) => {
+    try {
+      const projects: CarbonAccountModel[] = await dashboardApi.getProjects();
+      return DashboardMappers.mapProjects(projects);
+    } catch (err) {
+      return rejectWithValue(null);
+    }
+  }
+);

@@ -208,9 +208,8 @@
       "gridTechnology": "Grid Mix",
       "id": "ID",
       "location": "Location",
+      "name": "Name",
       "nodeCount": "# Nodes",
-      "nodeProvider": "Node Operator",
-      "nodeProvider": "Node Provider",
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"

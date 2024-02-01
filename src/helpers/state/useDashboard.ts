@@ -8,7 +8,8 @@ import {
   getLocationsLeaderboardAction,
   getNodeProvidersAction,
   getNodesCountersAction,
-  setDataLayoutAction
+  setDataLayoutAction,
+  getProjectsAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -105,6 +106,21 @@ const useDashboard = () => {
     [dispatch]
   );
 
+  const getProjects = useCallback(
+    () => dispatch(getProjectsAction()),
+    [dispatch]
+  );
+
+  const projects = useAppSelector((state) => state.dashboard.projects);
+
+  const isProjectsLoading = useAppSelector(
+    (state) => state.dashboard.projectsLoading
+  );
+
+  const hasProjectsError = useAppSelector(
+    (state) => state.dashboard.projectsError
+  );
+
   return {
     actions: {
       getHeadlineFigures,
@@ -112,7 +128,8 @@ const useDashboard = () => {
       getNodesCounters,
       getGlobePoints,
       getNodeProviders,
-      setDataLayout
+      setDataLayout,
+      getProjects
     },
     headlineFigures,
     isHeadlineFiguresLoading,
@@ -129,7 +146,10 @@ const useDashboard = () => {
     nodeProviders,
     isNodeProvidersLoading,
     hasNodeProvidersError,
-    dataLayout
+    dataLayout,
+    projects,
+    isProjectsLoading,
+    hasProjectsError
   };
 };
 
