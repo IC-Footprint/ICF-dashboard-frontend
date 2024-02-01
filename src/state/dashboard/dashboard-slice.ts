@@ -37,6 +37,7 @@ export interface DashboardState {
   projectsLoading: boolean;
   projectsError: boolean;
   dataLayout: DataLayoutType;
+  searchFilter: string;
 }
 
 export const initialState: () => DashboardState = () => ({
@@ -61,7 +62,8 @@ export const initialState: () => DashboardState = () => ({
   projects: null,
   projectsError: false,
   projectsLoading: false,
-  dataLayout: 'grid'
+  dataLayout: 'grid',
+  searchFilter: ''
 });
 
 const dashboardSlice = createSlice({
@@ -70,6 +72,9 @@ const dashboardSlice = createSlice({
   reducers: {
     setDataLayout: (state, { payload }: PayloadAction<DataLayoutType>) => {
       state.dataLayout = payload;
+    },
+    setSearchFilter: (state, { payload }: PayloadAction<string>) => {
+      state.searchFilter = payload;
     }
   },
   extraReducers: (builder) => {
@@ -168,7 +173,10 @@ const dashboardSlice = createSlice({
   }
 });
 
-export const { setDataLayout: setDataLayoutAction } = dashboardSlice.actions;
+export const {
+  setDataLayout: setDataLayoutAction,
+  setSearchFilter: setSearchFilterAction
+} = dashboardSlice.actions;
 
 export {
   getHeadlineFiguresAction,

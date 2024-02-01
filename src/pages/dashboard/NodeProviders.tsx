@@ -13,7 +13,8 @@ const NodeProviders: FC = () => {
     actions: { getNodeProviders },
     nodeProviders,
     isNodeProvidersLoading,
-    hasNodeProvidersError
+    hasNodeProvidersError,
+    searchFilter
   } = useDashboard();
 
   useEffect(() => {
@@ -36,9 +37,16 @@ const NodeProviders: FC = () => {
     return <p>{t('dashboard.carbonAccounts.nodeProviders.error')}</p>;
   }
 
+  const filteredNodeProviders =
+    nodeProviders?.filter((nodeProvider) => {
+      return nodeProvider.operator.name
+        .toLowerCase()
+        .includes(searchFilter.toLowerCase());
+    }) ?? [];
+
   return (
     <AccountsDataView
-      list={nodeProviders}
+      list={filteredNodeProviders}
       isLoading={isNodeProvidersLoading}
       parentRoute={appRoutes.nodeProviders.root}
     />

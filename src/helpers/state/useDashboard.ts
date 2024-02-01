@@ -8,8 +8,9 @@ import {
   getLocationsLeaderboardAction,
   getNodeProvidersAction,
   getNodesCountersAction,
+  getProjectsAction,
   setDataLayoutAction,
-  getProjectsAction
+  setSearchFilterAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -121,6 +122,13 @@ const useDashboard = () => {
     (state) => state.dashboard.projectsError
   );
 
+  const searchFilter = useAppSelector((state) => state.dashboard.searchFilter);
+
+  const setSearchFilter = useCallback(
+    (searchFilter: string) => dispatch(setSearchFilterAction(searchFilter)),
+    [dispatch]
+  );
+
   return {
     actions: {
       getHeadlineFigures,
@@ -129,7 +137,8 @@ const useDashboard = () => {
       getGlobePoints,
       getNodeProviders,
       setDataLayout,
-      getProjects
+      getProjects,
+      setSearchFilter
     },
     headlineFigures,
     isHeadlineFiguresLoading,
@@ -149,7 +158,8 @@ const useDashboard = () => {
     dataLayout,
     projects,
     isProjectsLoading,
-    hasProjectsError
+    hasProjectsError,
+    searchFilter
   };
 };
 

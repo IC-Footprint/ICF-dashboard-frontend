@@ -72,7 +72,7 @@
   "dashboard": {
     "carbonAccounts": {
       "carbonDebits": "Carbon Debits",
-      "nodeProvider":  "Node Operator",
+      "nodeProvider":  "Node Provider",
       "nodeProviders": {
         "error": "Error loading the node providers",
         "title": "Node Providers"

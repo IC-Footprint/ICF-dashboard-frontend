@@ -81,6 +81,11 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
   }, []);
 
   const gridItem = (account: CarbonAccountModel) => {
+    const header =
+      dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
+    const identificationField =
+      dataType === 'nodes' ? account.id : account.operator.name;
+
     return (
       <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
         <AccountCard>
@@ -93,12 +98,12 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               />
             </div>
             <InformationItemContainer>
-              <h4>{t('dashboard.carbonAccounts.nodeProvider')}</h4>
+              <h4>{header}</h4>
               <p
-                title={account.operator.name}
+                title={identificationField}
                 className="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
               >
-                {account.operator.name}
+                {identificationField}
               </p>
             </InformationItemContainer>
           </FlexRowContainer>
