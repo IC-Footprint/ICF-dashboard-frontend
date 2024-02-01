@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
 import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
 
@@ -73,6 +74,17 @@ export const getDashboardCarbonDebitAction = createAsyncThunk<
 >('/dashboard/getDashboardCarbonDebit', async (_, { rejectWithValue }) => {
   try {
     return await dashboardApi.getDashboardCarbonDebit();
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+
+export const getNodeOperatorsAction = createAsyncThunk<
+  CarbonAccountModel[],
+  void
+>('/dashboard/getNodeOperators', async (_, { rejectWithValue }) => {
+  try {
+    return await dashboardApi.getNodeOperators();
   } catch (err) {
     return rejectWithValue(null);
   }

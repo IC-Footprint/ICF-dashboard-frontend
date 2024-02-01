@@ -2,6 +2,8 @@ import type {
   NodesCountersModel,
   NodesCounterViewModel
 } from '@/models/dashboard/nodes-counters-model';
+import type { NodeModel } from '@/models/nodes/node-model';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
 import i18n from '@/i18n';
 
@@ -18,5 +20,22 @@ export class DashboardMappers {
       });
     }
     return [];
+  }
+
+  static mapNodesAccounts(nodes: NodeModel[]): CarbonAccountModel[] {
+    return nodes.map((node: NodeModel): CarbonAccountModel => {
+      return {
+        id: node.id,
+        operator: {
+          icon: '',
+          name: node.nodeProvider
+        },
+        carbonDebits: node.emissions,
+        status: node.status,
+        location: node.location,
+        confidence: 0, // TODO
+        lastDayCarbonDifference: 0 // TODO
+      };
+    });
   }
 }

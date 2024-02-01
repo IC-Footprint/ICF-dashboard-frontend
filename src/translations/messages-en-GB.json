@@ -43,11 +43,15 @@
     "internetComputerFootprint": "Internet Computer Dashboard",
     "leaderboard": "Leaderboard",
     "nodeStatus": {
+      "degraded": "Degraded",
       "down": "Down",
       "unassigned": "Unassigned",
-      "up": "Up"
+      "up": "Live"
     },
     "report": "Report",
+    "search": "Search",
+    "seeMore": "See more",
+    "status": "Status",
     "submit": "Submit",
     "timeRange": {
       "fiveYears": "5Y",
@@ -61,10 +65,31 @@
     "unit": {
       "co2Kg": "{{value}} KGCO2e",
       "co2Tonnes": "{{value}} tCO2e",
+      "kgPerDay": "{{value}} Kg/24hrs",
       "wattHour": "{{value}} Wh"
     }
   },
   "dashboard": {
+    "carbonAccounts": {
+      "carbonDebits": "Carbon Debits",
+      "nodeOperator":  "Node Operator",
+      "nodeOperators": {
+        "error": "Error loading the node operators",
+        "title": "Node Operators"
+      },
+      "nodes": {
+        "error": "Error loading the nodes",
+        "title": "Nodes"
+      },
+      "projects": {
+        "error": "Error loading the projects",
+        "title": "Projects"
+      },
+      "title": "Carbon Accounts",
+      "wallets": {
+        "title": "Wallets"
+      }
+    },
     "carbonDebit": {
       "timeDifference": "Past week",
       "title": "Outstanding Carbon Debit"
@@ -173,15 +198,19 @@
   },
   "table": {
     "headers": {
+      "carbonDebits": "Carbon Debits",
       "carbonIntensity": "Carbon Intensity",
+      "confidence": "Confidence",
+      "details": "Details",
       "electricityDraw": "Electricity Draw",
       "emissions": "Emissions",
       "emissionsLast30minutes": "Emissions (1 hour)",
       "gridTechnology": "Grid Mix",
       "id": "ID",
       "location": "Location",
-      "nodeProvider": "Node Provider",
       "nodeCount": "# Nodes",
+      "nodeOperator": "Node Operator",
+      "nodeProvider": "Node Provider",
       "status": "Status"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
