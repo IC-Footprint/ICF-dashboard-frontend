@@ -1,14 +1,17 @@
 import type { IconModel } from '@/models/dashboard/dashboard-carousel-item-model';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
-import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
 import type { GlobalConfigurationModel } from '@/models/global-configuration-model';
 import type { NodeStatus } from '@/models/nodes/node-status';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 export class ModelMocks {
-  static mockCarbonDebit(): OutstandingCarbonDebitModel {
+  static mockHeadlineFigures(): HeadlineFiguresModel {
     return {
-      carbonDebit: 1000,
-      weekDifferencePercentage: 10
+      avoidedEmissions: 1000,
+      cumulativeElectricityDraw: 100,
+      cumulativeNetworkEmissions: 300,
+      cumulativeNetworkEmissionsRate: 0.5,
+      offsetEmissions: 123
     };
   }
 

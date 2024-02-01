@@ -6,7 +6,6 @@ import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-m
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCountersModel } from '@/models/dashboard/nodes-counters-model';
-import type { OutstandingCarbonDebitModel } from '@/models/dashboard/outstanding-carbon-debit-model';
 
 import { ModelMocks } from '@/mocks/model.mocks';
 
@@ -37,18 +36,6 @@ export class DashboardApi {
       '/dashboard/globePoints'
     );
     return response.data;
-  }
-
-  // TODO: integrate
-  async getDashboardCarbonDebit(): Promise<OutstandingCarbonDebitModel> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          carbonDebit: 10320000,
-          weekDifferencePercentage: 10
-        } as OutstandingCarbonDebitModel);
-      }, 500);
-    });
   }
 
   // TODO: integrate

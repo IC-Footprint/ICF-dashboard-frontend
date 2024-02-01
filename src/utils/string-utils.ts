@@ -7,6 +7,6 @@ export class StringUtils {
     if (value > 0) {
       sign = '+';
     }
-    return `${sign}${value}%`;
+    return `${sign}${value.toLocaleString()}%`;
   }
 }

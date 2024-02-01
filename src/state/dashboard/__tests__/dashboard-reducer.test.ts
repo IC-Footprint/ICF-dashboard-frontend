@@ -1,8 +1,8 @@
 import { mockAction } from '@/mocks/actions.mocks';
 import { ModelMocks } from '@/mocks/model.mocks';
 import reducer, {
-  getDashboardCarbonDebitAction,
-  initialState
+  initialState,
+  getHeadlineFiguresAction
 } from '@/state/dashboard/dashboard-slice';
 
 test('should return the initial state', () => {
@@ -10,33 +10,33 @@ test('should return the initial state', () => {
 });
 
 describe('getHeadlineFiguresAction', () => {
-  test('should set carbon debit loading to true when the action is loading', () => {
+  test('should set headline figures loading to true when the action is loading', () => {
     const state = reducer(
       initialState(),
-      mockAction(getDashboardCarbonDebitAction.pending.type)
+      mockAction(getHeadlineFiguresAction.pending.type)
     );
-    expect(state.carbonDebitLoading).toBe(true);
-    expect(state.carbonDebitError).toBe(false);
+    expect(state.headlineFiguresLoading).toBe(true);
+    expect(state.headlineFiguresError).toBe(false);
   });
 
-  test('should set carbon debit loading to false when the action is fulfilled', () => {
+  test('should set headline figures loading to false when the action is fulfilled', () => {
     const state = reducer(
       initialState(),
       mockAction(
-        getDashboardCarbonDebitAction.fulfilled.type,
-        ModelMocks.mockCarbonDebit()
+        getHeadlineFiguresAction.fulfilled.type,
+        ModelMocks.mockHeadlineFigures()
       )
     );
-    expect(state.carbonDebitLoading).toBe(false);
-    expect(state.carbonDebit).toEqual(ModelMocks.mockCarbonDebit());
+    expect(state.headlineFiguresLoading).toBe(false);
+    expect(state.headlineFigures).toEqual(ModelMocks.mockHeadlineFigures());
   });
 
-  test('should set carbon debit error to true when the action is rejected', () => {
+  test('should set headline figures error to true when the action is rejected', () => {
     const state = reducer(
       initialState(),
-      mockAction(getDashboardCarbonDebitAction.rejected.type)
+      mockAction(getHeadlineFiguresAction.rejected.type)
     );
-    expect(state.carbonDebitLoading).toBe(false);
-    expect(state.carbonDebitError).toBe(true);
+    expect(state.headlineFiguresLoading).toBe(false);
+    expect(state.headlineFiguresError).toBe(true);
   });
 });

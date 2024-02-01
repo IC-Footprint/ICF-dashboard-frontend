@@ -9,31 +9,31 @@ import useDashboard from '@/helpers/state/useDashboard';
 
 const Home: FC = () => {
   const {
-    actions: { getDashboardCarbonDebits },
-    dashboardCarbonDebits
+    actions: { getHeadlineFigures },
+    headlineFigures
   } = useDashboard();
 
   useEffect(() => {
-    getDashboardCarbonDebits();
+    getHeadlineFigures();
 
     const minutesInterval: number =
       +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
     const intervalId = setInterval(() => {
-      getDashboardCarbonDebits();
+      getHeadlineFigures();
     }, 1000 * 60 * minutesInterval);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [getDashboardCarbonDebits]);
+  }, [getHeadlineFigures]);
 
   return (
     <div className="grid m-5">
       <div className="col-12 lg:col-7">
         <DashboardOutstandingCarbonDebit
-          carbonDebit={dashboardCarbonDebits?.carbonDebit}
+          carbonDebit={headlineFigures?.cumulativeNetworkEmissions}
           weekDifferencePercentage={
-            dashboardCarbonDebits?.weekDifferencePercentage
+            headlineFigures?.cumulativeNetworkEmissionsRate
           }
         />
       </div>
