@@ -11,6 +11,7 @@ import Node from '@/pages/Node';
 import Subnets from '@/pages/Subnets';
 import WhitePaper from '@/pages/WhitePaper';
 import { appRoutes } from '@/router/app-routes';
+import Nodes from '@/pages/Nodes';
 
 const AppRoutes: FC = () => {
   return (
@@ -26,7 +27,7 @@ const AppRoutes: FC = () => {
             path={appRoutes.nodeProviders.root}
             element={<NodeProviders />}
           />
-          <Route path={appRoutes.nodes.root} element={<div>Nodes</div>} />
+          <Route path={appRoutes.nodes.root} element={<Nodes />} />
           <Route path={appRoutes.projects.root} element={<div>Projects</div>} />
         </Route>
         <Route

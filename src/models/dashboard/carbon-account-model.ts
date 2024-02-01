@@ -1,7 +1,7 @@
 import type { NodeStatus } from '@/models/nodes/node-status';
 
 export interface OperatorModel {
-  icon: string;
+  icon?: string;
   name: string;
 }
 

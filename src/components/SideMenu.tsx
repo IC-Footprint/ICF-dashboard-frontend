@@ -2,11 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import type { MenuItem } from 'primereact/menuitem';
 import type { FC, ReactNode } from 'react';
+import type { MenuItem } from 'primereact/menuitem';
 
 import { appRoutes } from '@/router/app-routes';
-import CubeIcon from '@/theme/assets/icons/cube';
 import HomeIcon from '@/theme/assets/icons/home';
 import NetworkIcon from '@/theme/assets/icons/network';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
@@ -24,9 +23,6 @@ interface SideMenuProps {
 
 const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   const { t } = useTranslation();
-  // const {
-    // actions: { showSignUpModal }
-  // } = useSignUp();
   const createMenuItem = useCallback(
     (label: string, icon: ReactNode, url: string): MenuItem => {
       const menuItemTemplate = (item: MenuItem) => (
@@ -51,8 +47,11 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   );
   const menuItems: MenuItem[] = useMemo<MenuItem[]>(() => {
     return [
-      createMenuItem(t('page.home'), <HomeIcon />, appRoutes.home.root),
-      createMenuItem(t('page.nodes'), <CubeIcon />, appRoutes.nodes.root),
+      createMenuItem(
+        t('page.home'),
+        <HomeIcon />,
+        `${appRoutes.nodeProviders.root}`
+      ),
       createMenuItem(t('Subnets'), <NetworkIcon />, appRoutes.subnets.root),
       createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
