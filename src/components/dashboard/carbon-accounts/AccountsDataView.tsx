@@ -24,7 +24,7 @@ import {
 } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
-export type AccountDataType = 'nodes' | 'nodeProviders';
+export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
 
 export interface AccountsDataViewProps {
   list: CarbonAccountModel[] | null;
@@ -160,9 +160,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
   const identificationColumn = useMemo(() => {
     const field = dataType === 'nodes' ? 'id' : 'operator.name';
     const header =
-      dataType === 'nodes'
-        ? t('table.headers.id')
-        : t('table.headers.nodeProvider');
+      dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
 
     return <Column field={field} header={header}></Column>;
   }, [dataType, t]);

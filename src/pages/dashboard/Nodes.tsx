@@ -20,6 +20,16 @@ const Nodes: FC = () => {
     if (!nodesList) {
       getNodesList();
     }
+
+    const minutesInterval: number =
+      +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
+    const intervalId = setInterval(() => {
+      getNodesList();
+    }, 1000 * 60 * minutesInterval);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [nodesList, getNodesList]);
 
   if (hasNodesListError) {

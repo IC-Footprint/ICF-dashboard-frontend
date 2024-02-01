@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import type { FC } from 'react';
 
-import NodeProviders from '@/components/dashboard/carbon-accounts/NodeProviders';
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
@@ -11,7 +10,9 @@ import Node from '@/pages/Node';
 import Subnets from '@/pages/Subnets';
 import WhitePaper from '@/pages/WhitePaper';
 import { appRoutes } from '@/router/app-routes';
-import Nodes from '@/pages/Nodes';
+import NodeProviders from '@/pages/dashboard/NodeProviders';
+import Nodes from '@/pages/dashboard/Nodes';
+import Projects from '@/pages/dashboard/Projects';
 
 const AppRoutes: FC = () => {
   return (
@@ -28,7 +29,7 @@ const AppRoutes: FC = () => {
             element={<NodeProviders />}
           />
           <Route path={appRoutes.nodes.root} element={<Nodes />} />
-          <Route path={appRoutes.projects.root} element={<div>Projects</div>} />
+          <Route path={appRoutes.projects.root} element={<Projects />} />
         </Route>
         <Route
           path={appRoutes.oldDashboard.root}

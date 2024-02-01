@@ -13,7 +13,8 @@ import {
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
   getNodeProvidersAction,
-  getNodesCountersAction
+  getNodesCountersAction,
+  getProjectsAction
 } from '@/state/dashboard/dashboard-actions';
 
 export interface DashboardState {
@@ -32,6 +33,9 @@ export interface DashboardState {
   nodeProviders: CarbonAccountModel[] | null;
   nodeProvidersLoading: boolean;
   nodeProvidersError: boolean;
+  projects: CarbonAccountModel[] | null;
+  projectsLoading: boolean;
+  projectsError: boolean;
   dataLayout: DataLayoutType;
 }
 
@@ -54,6 +58,9 @@ export const initialState: () => DashboardState = () => ({
   nodeProviders: null,
   nodeProvidersError: false,
   nodeProvidersLoading: false,
+  projects: null,
+  projectsError: false,
+  projectsLoading: false,
   dataLayout: 'grid'
 });
 
@@ -143,6 +150,21 @@ const dashboardSlice = createSlice({
         state.nodeProvidersLoading = false;
         state.nodeProvidersError = true;
       });
+
+    /** Get projects **/
+    builder
+      .addCase(getProjectsAction.pending, (state) => {
+        state.projectsLoading = true;
+        state.projectsError = false;
+      })
+      .addCase(getProjectsAction.fulfilled, (state, { payload }) => {
+        state.projectsLoading = false;
+        state.projects = payload;
+      })
+      .addCase(getProjectsAction.rejected, (state) => {
+        state.projectsLoading = false;
+        state.projectsError = true;
+      });
   }
 });
 
@@ -153,7 +175,8 @@ export {
   getLocationsLeaderboardAction,
   getNodesCountersAction,
   getGlobePointsAction,
-  getNodeProvidersAction
+  getNodeProvidersAction,
+  getProjectsAction
 };
 
 export default dashboardSlice.reducer;
