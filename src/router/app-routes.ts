@@ -13,9 +13,9 @@ export const appRoutes = {
     root: '/projects',
     details: '/projects/:projectId'
   },
-  nodeOperators: {
-    root: '/node-operators',
-    details: '/node-operators/:nodeOperatorId'
+  nodeProviders: {
+    root: '/node-providers',
+    details: '/node-providers/:nodeProviderId'
   },
   whitePaper: {
     root: '/white-paper'

@@ -7,33 +7,33 @@ import AccountsDataView from '@/components/dashboard/carbon-accounts/AccountsDat
 import useDashboard from '@/helpers/state/useDashboard';
 import { appRoutes } from '@/router/app-routes';
 
-const NodeOperators: FC = () => {
+const NodeProviders: FC = () => {
   const { t } = useTranslation();
   const {
-    actions: { getNodeOperators },
-    nodeOperators,
-    isNodeOperatorsLoading,
-    hasNodeOperatorsError
+    actions: { getNodeProviders },
+    nodeProviders,
+    isNodeProvidersLoading,
+    hasNodeProvidersError
   } = useDashboard();
 
   useEffect(() => {
     // TODO: add periodic refresh
-    if (!nodeOperators) {
-      getNodeOperators();
+    if (!nodeProviders) {
+      getNodeProviders();
     }
-  }, [nodeOperators, getNodeOperators]);
+  }, [nodeProviders, getNodeProviders]);
 
-  if (hasNodeOperatorsError) {
-    return <p>{t('dashboard.carbonAccounts.nodeOperators.error')}</p>;
+  if (hasNodeProvidersError) {
+    return <p>{t('dashboard.carbonAccounts.nodeProviders.error')}</p>;
   }
 
   return (
     <AccountsDataView
-      list={nodeOperators}
-      isLoading={isNodeOperatorsLoading}
-      parentRoute={appRoutes.nodeOperators.root}
+      list={nodeProviders}
+      isLoading={isNodeProvidersLoading}
+      parentRoute={appRoutes.nodeProviders.root}
     />
   );
 };
 
-export default NodeOperators;
+export default NodeProviders;

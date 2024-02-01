@@ -7,7 +7,7 @@ import {
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
-  getNodeOperatorsAction,
+  getNodeProvidersAction,
   getNodesCountersAction,
   setDataLayoutAction
 } from '@/state/dashboard/dashboard-slice';
@@ -99,21 +99,21 @@ const useDashboard = () => {
     (state) => state.dashboard.carbonDebitError
   );
 
-  const getNodeOperators = useCallback(
-    () => dispatch(getNodeOperatorsAction()),
+  const getNodeProviders = useCallback(
+    () => dispatch(getNodeProvidersAction()),
     [dispatch]
   );
 
-  const nodeOperators = useAppSelector(
-    (state) => state.dashboard.nodeOperators
+  const nodeProviders = useAppSelector(
+    (state) => state.dashboard.nodeProviders
   );
 
-  const isNodeOperatorsLoading = useAppSelector(
-    (state) => state.dashboard.nodeOperatorsLoading
+  const isNodeProvidersLoading = useAppSelector(
+    (state) => state.dashboard.nodeProvidersLoading
   );
 
-  const hasNodeOperatorsError = useAppSelector(
-    (state) => state.dashboard.nodeOperatorsError
+  const hasNodeProvidersError = useAppSelector(
+    (state) => state.dashboard.nodeProvidersError
   );
 
   const dataLayout = useAppSelector((state) => state.dashboard.dataLayout);
@@ -130,7 +130,7 @@ const useDashboard = () => {
       getNodesCounters,
       getGlobePoints,
       getDashboardCarbonDebits,
-      getNodeOperators,
+      getNodeProviders,
       setDataLayout
     },
     headlineFigures,
@@ -148,9 +148,9 @@ const useDashboard = () => {
     dashboardCarbonDebits,
     isDashboardCarbonDebitsLoading,
     hasDashboardCarbonDebitsError,
-    nodeOperators,
-    isNodeOperatorsLoading,
-    hasNodeOperatorsError,
+    nodeProviders,
+    isNodeProvidersLoading,
+    hasNodeProvidersError,
     dataLayout
   };
 };

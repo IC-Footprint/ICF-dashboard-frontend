@@ -72,10 +72,10 @@
   "dashboard": {
     "carbonAccounts": {
       "carbonDebits": "Carbon Debits",
-      "nodeOperator":  "Node Operator",
-      "nodeOperators": {
-        "error": "Error loading the node operators",
-        "title": "Node Operators"
+      "nodeProvider":  "Node Operator",
+      "nodeProviders": {
+        "error": "Error loading the node providers",
+        "title": "Node Providers"
       },
       "nodes": {
         "error": "Error loading the nodes",
@@ -209,7 +209,7 @@
       "id": "ID",
       "location": "Location",
       "nodeCount": "# Nodes",
-      "nodeOperator": "Node Operator",
+      "nodeProvider": "Node Operator",
       "nodeProvider": "Node Provider",
       "status": "Status"
     },
