@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
 
-import useNodes from '@/helpers/state/useNodes';
 import AccountsDataView from '@/components/dashboard/carbon-accounts/AccountsDataView';
+import useDashboard from '@/helpers/state/useDashboard';
+import useNodes from '@/helpers/state/useNodes';
 import { appRoutes } from '@/router/app-routes';
 
 const Nodes: FC = () => {
@@ -15,6 +16,7 @@ const Nodes: FC = () => {
     isNodesListLoading,
     hasNodesListError
   } = useNodes();
+  const { searchFilter } = useDashboard();
 
   useEffect(() => {
     if (!nodesList) {
@@ -36,9 +38,14 @@ const Nodes: FC = () => {
     return <p>{t('dashboard.carbonAccounts.nodes.error')}</p>;
   }
 
+  const filteredNodesList =
+    nodesList?.filter((node) => {
+      return node.id.toLowerCase().includes(searchFilter.toLowerCase());
+    }) ?? [];
+
   return (
     <AccountsDataView
-      list={nodesList}
+      list={filteredNodesList}
       isLoading={isNodesListLoading}
       parentRoute={appRoutes.nodes.root}
       dataType="nodes"

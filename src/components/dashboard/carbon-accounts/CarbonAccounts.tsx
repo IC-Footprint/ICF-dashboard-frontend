@@ -19,8 +19,9 @@ const CarbonAccounts: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const {
-    actions: { setDataLayout },
-    dataLayout
+    actions: { setDataLayout, setSearchFilter },
+    dataLayout,
+    searchFilter
   } = useDashboard();
 
   const menuItems = useMemo((): MenuItem[] => {
@@ -69,7 +70,11 @@ const CarbonAccounts: FC = () => {
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
-          <InputText placeholder={t('common.search') ?? ''} />
+          <InputText
+            placeholder={t('common.search') ?? ''}
+            value={searchFilter}
+            onChange={(e) => setSearchFilter(e.target.value)}
+          />
         </span>
         <DataViewLayoutOptions
           layout={dataLayout}

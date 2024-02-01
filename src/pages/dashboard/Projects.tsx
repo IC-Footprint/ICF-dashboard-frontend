@@ -13,7 +13,8 @@ const Projects: FC = () => {
     actions: { getProjects },
     projects,
     isProjectsLoading,
-    hasProjectsError
+    hasProjectsError,
+    searchFilter
   } = useDashboard();
 
   useEffect(() => {
@@ -36,9 +37,16 @@ const Projects: FC = () => {
     return <p>{t('dashboard.carbonAccounts.projects.error')}</p>;
   }
 
+  const filteredProjects =
+    projects?.filter((project) => {
+      return project.operator.name
+        .toLowerCase()
+        .includes(searchFilter.toLowerCase());
+    }) ?? [];
+
   return (
     <AccountsDataView
-      list={projects}
+      list={filteredProjects}
       isLoading={isProjectsLoading}
       parentRoute={appRoutes.projects.root}
       dataType="projects"
