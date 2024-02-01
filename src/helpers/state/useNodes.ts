@@ -9,26 +9,26 @@ import {
   getNodeEmissionsAction,
   getNodeEmissionsByRegionAction,
   getNodeEmissionsByProviderAction,
-  getNodesLeaderboardAction,
+  getNodesListAction,
   getNodeStatsAction
 } from '@/state/nodes/nodes-slice';
 
 const useNodes = () => {
   const dispatch = useAppDispatch();
 
-  const getNodesLeaderboard = useCallback(
-    () => dispatch(getNodesLeaderboardAction()),
+  const getNodesList = useCallback(
+    () => dispatch(getNodesListAction()),
     [dispatch]
   );
 
-  const nodesLeaderboard = useAppSelector((state) => state.nodes.leaderboard);
+  const nodesList = useAppSelector((state) => state.nodes.nodesList);
 
-  const isNodesLeaderboardLoading = useAppSelector(
-    (state) => state.nodes.leaderboardLoading
+  const isNodesListLoading = useAppSelector(
+    (state) => state.nodes.nodesListLoading
   );
 
-  const hasNodesLeaderboardError = useAppSelector(
-    (state) => state.nodes.leaderboardError
+  const hasNodesListError = useAppSelector(
+    (state) => state.nodes.nodesListError
   );
 
   const getNetworkEmissions = useCallback(
@@ -120,7 +120,7 @@ const useNodes = () => {
 
   return {
     actions: {
-      getNodesLeaderboard,
+      getNodesList,
       getNetworkEmissions,
       getNodeEmissionsByRegion,
       getNodeEmissionsByProvider,
@@ -128,9 +128,9 @@ const useNodes = () => {
       getNodeStats,
       getNodeEmissions
     },
-    nodesLeaderboard,
-    isNodesLeaderboardLoading,
-    hasNodesLeaderboardError,
+    nodesList,
+    isNodesListLoading,
+    hasNodesListError,
     networkEmissions,
     isNetworkEmissionsLoading,
     hasNetworkEmissionsError,

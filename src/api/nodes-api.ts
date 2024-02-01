@@ -7,7 +7,7 @@ import type { RangeType } from '@/models/range-type';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 export class NodesApi {
-  async getNodesLeaderboard(): Promise<NodeModel[]> {
+  async getNodesList(): Promise<NodeModel[]> {
     const response: AxiosResponse<NodeModel[]> = await axios.get(
       '/nodes/leaderboard'
     );

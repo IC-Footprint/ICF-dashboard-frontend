@@ -1,25 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { DatasetModel } from '@/models/dataset-model';
-import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
 import i18n from '@/i18n';
 import nodesApi from '@/api/nodes-api';
 import { ChartMapper } from '@/utils/chart-mapper';
 import locationMapper from '@/utils/location-mapper';
+import { NodesMappers } from '@/state/nodes/nodes-mappers';
 
-export const getNodesLeaderboardAction = createAsyncThunk<NodeModel[], void>(
-  '/nodes/getNodesLeaderboard',
+export const getNodesListAction = createAsyncThunk<CarbonAccountModel[], void>(
+  '/nodes/getNodesList',
   async (_, { rejectWithValue }) => {
     try {
-      const leaderboard = await nodesApi.getNodesLeaderboard();
-      return leaderboard.map((node: NodeModel) => ({
-        ...node,
-        location: locationMapper.mapLocationName(node.location)
-      }));
+      const list = await nodesApi.getNodesList();
+      return NodesMappers.mapNodeAccounts(list);
     } catch (err) {
       return rejectWithValue(null);
     }

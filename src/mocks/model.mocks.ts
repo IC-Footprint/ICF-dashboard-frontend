@@ -38,7 +38,6 @@ export class ModelMocks {
     return {
       id: id,
       operator: {
-        icon: `https://source.unsplash.com/random/200x200?sig=${id}`,
         name: 'Aviate Labs'
       },
       carbonDebits: 10320000,

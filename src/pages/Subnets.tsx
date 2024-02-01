@@ -6,7 +6,7 @@ import EmissionsbySubnetType from '@/components/subnets/EmissionsbySubnetType';
 import EmissionsbySubnet from '@/components/subnets/EmissionsbySubnet';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
-const Nodes: FC = () => {
+const Subnets: FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -24,4 +24,4 @@ const Nodes: FC = () => {
   );
 };
 
-export default Nodes;
+export default Subnets;

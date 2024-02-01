@@ -15,7 +15,6 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import TrendValue from '@/components/dashboard/TrendValue';
 import useDashboard from '@/helpers/state/useDashboard';
 import { defaultPaginatorOptions } from '@/models/paginator-options-model';
-import { appRoutes } from '@/router/app-routes';
 import Spinner1 from '@/theme/assets/icons/spinner-1';
 import { gridCardBackground } from '@/theme/colors';
 import {
@@ -137,7 +136,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               </p>
             </InformationItemContainer>
             <div className="flex flex-1 justify-content-end">
-              <Link to={`${appRoutes.nodeProviders.root}/${account.id}`}>
+              <Link to={`${parentRoute}/${account.id}`}>
                 <Button
                   label={t('common.seeMore') ?? ''}
                   severity="secondary"

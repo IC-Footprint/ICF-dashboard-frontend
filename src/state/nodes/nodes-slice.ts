@@ -1,25 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import type { NodeModel } from '@/models/nodes/node-model';
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
 import {
   getElectricityDrawByTechnologyTypeAction,
   getNetworkEmissionsAction,
   getNodeEmissionsByRegionAction,
   getNodeEmissionsByProviderAction,
-  getNodesLeaderboardAction,
+  getNodesListAction,
   getNodeStatsAction,
   getNodeEmissionsAction
 } from '@/state/nodes/nodes-actions';
 
 export interface NodesState {
-  leaderboard: NodeModel[] | null;
-  leaderboardLoading: boolean;
-  leaderboardError: boolean;
+  nodesList: CarbonAccountModel[] | null;
+  nodesListLoading: boolean;
+  nodesListError: boolean;
   networkEmissions: ChartData | null;
   networkEmissionsLoading: boolean;
   networkEmissionsError: boolean;
@@ -39,12 +39,12 @@ export interface NodesState {
 }
 
 const initialState: () => NodesState = () => ({
+  nodesListLoading: false,
+  nodesListError: false,
+  nodesList: null,
   electricityDrawByTechnologyType: null,
   electricityDrawByTechnologyTypeLoading: false,
   electricityDrawByTechnologyTypeError: false,
-  leaderboardLoading: false,
-  leaderboardError: false,
-  leaderboard: null,
   networkEmissions: null,
   networkEmissionsLoading: false,
   networkEmissionsError: false,
@@ -64,10 +64,10 @@ const nodesSlice = createSlice({
   name: 'nodes',
   initialState,
   reducers: {
-    resetNodesLeaderboardAction: (state) => {
-      state.leaderboardLoading = false;
-      state.leaderboardError = false;
-      state.leaderboard = null;
+    resetNodesListAction: (state) => {
+      state.nodesListLoading = false;
+      state.nodesListError = false;
+      state.nodesList = null;
     },
     resetNetworkEmissionsAction: (state) => {
       state.networkEmissionsLoading = false;
@@ -78,17 +78,17 @@ const nodesSlice = createSlice({
   extraReducers: (builder: ActionReducerMapBuilder<NodesState>) => {
     /** Get nodes leaderboard **/
     builder
-      .addCase(getNodesLeaderboardAction.pending, (state) => {
-        state.leaderboardLoading = true;
-        state.leaderboardError = false;
+      .addCase(getNodesListAction.pending, (state) => {
+        state.nodesListLoading = true;
+        state.nodesListError = false;
       })
-      .addCase(getNodesLeaderboardAction.fulfilled, (state, { payload }) => {
-        state.leaderboardLoading = false;
-        state.leaderboard = payload;
+      .addCase(getNodesListAction.fulfilled, (state, { payload }) => {
+        state.nodesListLoading = false;
+        state.nodesList = payload;
       })
-      .addCase(getNodesLeaderboardAction.rejected, (state) => {
-        state.leaderboardLoading = false;
-        state.leaderboardError = true;
+      .addCase(getNodesListAction.rejected, (state) => {
+        state.nodesListLoading = false;
+        state.nodesListError = true;
       });
 
     /** Get network emissions **/
@@ -188,7 +188,7 @@ const nodesSlice = createSlice({
 });
 
 export {
-  getNodesLeaderboardAction,
+  getNodesListAction,
   getNodeEmissionsByRegionAction,
   getNodeEmissionsByProviderAction,
   getNetworkEmissionsAction,
