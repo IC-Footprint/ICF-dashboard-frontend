@@ -79,12 +79,12 @@ export const getDashboardCarbonDebitAction = createAsyncThunk<
   }
 });
 
-export const getNodeOperatorsAction = createAsyncThunk<
+export const getNodeProvidersAction = createAsyncThunk<
   CarbonAccountModel[],
   void
->('/dashboard/getNodeOperators', async (_, { rejectWithValue }) => {
+>('/dashboard/getNodeProviders', async (_, { rejectWithValue }) => {
   try {
-    return await dashboardApi.getNodeOperators();
+    return await dashboardApi.getNodeProviders();
   } catch (err) {
     return rejectWithValue(null);
   }

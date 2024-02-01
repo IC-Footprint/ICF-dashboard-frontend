@@ -52,7 +52,7 @@ export class DashboardApi {
   }
 
   // TODO: integrate
-  async getNodeOperators(): Promise<CarbonAccountModel[]> {
+  async getNodeProviders(): Promise<CarbonAccountModel[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(ModelMocks.mockNodeElementsList());

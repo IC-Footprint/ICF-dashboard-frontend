@@ -25,7 +25,7 @@ import {
 } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
-export type AccountDataType = 'nodes' | 'nodeOperators';
+export type AccountDataType = 'nodes' | 'nodeProviders';
 
 export interface AccountsDataViewProps {
   list: CarbonAccountModel[] | null;
@@ -94,7 +94,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               />
             </div>
             <InformationItemContainer>
-              <h4>{t('dashboard.carbonAccounts.nodeOperator')}</h4>
+              <h4>{t('dashboard.carbonAccounts.nodeProvider')}</h4>
               <p
                 title={account.operator.name}
                 className="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
@@ -137,7 +137,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               </p>
             </InformationItemContainer>
             <div className="flex flex-1 justify-content-end">
-              <Link to={`${appRoutes.nodeOperators.root}/${account.id}`}>
+              <Link to={`${appRoutes.nodeProviders.root}/${account.id}`}>
                 <Button
                   label={t('common.seeMore') ?? ''}
                   severity="secondary"
@@ -163,7 +163,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     const header =
       dataType === 'nodes'
         ? t('table.headers.id')
-        : t('table.headers.nodeOperator');
+        : t('table.headers.nodeProvider');
 
     return <Column field={field} header={header}></Column>;
   }, [dataType, t]);
@@ -215,7 +215,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
           {dataType === 'nodes' ? (
             <Column
               field="operator.name"
-              header={t('table.headers.nodeOperator')}
+              header={t('table.headers.nodeProvider')}
             ></Column>
           ) : null}
           <Column

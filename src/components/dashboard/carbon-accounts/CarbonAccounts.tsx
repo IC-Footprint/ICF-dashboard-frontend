@@ -26,8 +26,8 @@ const CarbonAccounts: FC = () => {
   const menuItems = useMemo((): MenuItem[] => {
     return [
       {
-        label: t('dashboard.carbonAccounts.nodeOperators.title') ?? '',
-        url: appRoutes.nodeOperators.root
+        label: t('dashboard.carbonAccounts.nodeProviders.title') ?? '',
+        url: appRoutes.nodeProviders.root
       },
       {
         label: t('dashboard.carbonAccounts.nodes.title') ?? '',

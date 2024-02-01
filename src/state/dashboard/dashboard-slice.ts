@@ -14,7 +14,7 @@ import {
   getGlobePointsAction,
   getHeadlineFiguresAction,
   getLocationsLeaderboardAction,
-  getNodeOperatorsAction,
+  getNodeProvidersAction,
   getNodesCountersAction
 } from '@/state/dashboard/dashboard-actions';
 
@@ -34,9 +34,9 @@ export interface DashboardState {
   carbonDebit: OutstandingCarbonDebitModel | null;
   carbonDebitLoading: boolean;
   carbonDebitError: boolean;
-  nodeOperators: CarbonAccountModel[] | null;
-  nodeOperatorsLoading: boolean;
-  nodeOperatorsError: boolean;
+  nodeProviders: CarbonAccountModel[] | null;
+  nodeProvidersLoading: boolean;
+  nodeProvidersError: boolean;
   dataLayout: DataLayoutType;
 }
 
@@ -56,9 +56,9 @@ export const initialState: () => DashboardState = () => ({
   carbonDebit: null,
   carbonDebitLoading: false,
   carbonDebitError: false,
-  nodeOperators: null,
-  nodeOperatorsError: false,
-  nodeOperatorsLoading: false,
+  nodeProviders: null,
+  nodeProvidersError: false,
+  nodeProvidersLoading: false,
   dataLayout: 'grid'
 });
 
@@ -152,19 +152,19 @@ const dashboardSlice = createSlice({
         state.carbonDebitError = true;
       });
 
-    /** Get node operators **/
+    /** Get node providers **/
     builder
-      .addCase(getNodeOperatorsAction.pending, (state) => {
-        state.nodeOperatorsLoading = true;
-        state.nodeOperatorsError = false;
+      .addCase(getNodeProvidersAction.pending, (state) => {
+        state.nodeProvidersLoading = true;
+        state.nodeProvidersError = false;
       })
-      .addCase(getNodeOperatorsAction.fulfilled, (state, { payload }) => {
-        state.nodeOperatorsLoading = false;
-        state.nodeOperators = payload;
+      .addCase(getNodeProvidersAction.fulfilled, (state, { payload }) => {
+        state.nodeProvidersLoading = false;
+        state.nodeProviders = payload;
       })
-      .addCase(getNodeOperatorsAction.rejected, (state) => {
-        state.nodeOperatorsLoading = false;
-        state.nodeOperatorsError = true;
+      .addCase(getNodeProvidersAction.rejected, (state) => {
+        state.nodeProvidersLoading = false;
+        state.nodeProvidersError = true;
       });
   }
 });
@@ -177,7 +177,7 @@ export {
   getNodesCountersAction,
   getGlobePointsAction,
   getDashboardCarbonDebitAction,
-  getNodeOperatorsAction
+  getNodeProvidersAction
 };
 
 export default dashboardSlice.reducer;

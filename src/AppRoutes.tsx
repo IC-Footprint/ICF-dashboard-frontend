@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import type { FC } from 'react';
 
-import NodeOperators from '@/components/dashboard/carbon-accounts/NodeOperators';
+import NodeProviders from '@/components/dashboard/carbon-accounts/NodeProviders';
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
@@ -19,12 +19,12 @@ const AppRoutes: FC = () => {
         <Route path={appRoutes.home.root} element={<Home />}>
           <Route
             index
-            element={<Navigate to={appRoutes.nodeOperators.root} replace />}
+            element={<Navigate to={appRoutes.nodeProviders.root} replace />}
           />
           <Route
             index
-            path={appRoutes.nodeOperators.root}
-            element={<NodeOperators />}
+            path={appRoutes.nodeProviders.root}
+            element={<NodeProviders />}
           />
           <Route path={appRoutes.nodes.root} element={<div>Nodes</div>} />
           <Route path={appRoutes.projects.root} element={<div>Projects</div>} />
