@@ -10,14 +10,25 @@ import { Menu } from 'primereact/menu';
 import { ProgressBar } from 'primereact/progressbar';
 import { SelectButton } from 'primereact/selectbutton';
 import { Sidebar } from 'primereact/sidebar';
+import { Tag } from 'primereact/tag';
 
 import type { ViewportOptionsProps } from '@/models/viewport-options-props';
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
 import type { DialogSizeProps } from '@/models/dialog-size-props';
 
 import { transientOptions } from '@/theme/styled-components-utils';
-import { globeTooltipBackgroundColor } from '@/theme/colors';
+import {
+  globeTooltipBackgroundColor,
+  primary,
+  primaryLight
+} from '@/theme/colors';
 import aboutBackgroundImage from '@/theme/assets/about-background.svg';
+
+export const LabelStyle = css`
+  color: var(--text-color-secondary);
+  font-weight: normal;
+  font-size: 0.75rem;
+`;
 
 export const FlexColumnStyle = css`
   display: flex;
@@ -42,6 +53,7 @@ export const FlexRowContainer = styled.div`
 `;
 
 export const StyledCard = styled(Card)`
+  color: var(--text-color-primary);
   border-radius: 1rem;
 `;
 
@@ -180,17 +192,6 @@ export const StyledMenu = styled(Menu)`
         color: var(--primary-color);
       }
     }
-  }
-`;
-
-export const HeadlineFigureCardContainer = styled(FlexRowCard)`
-  .p-card-body {
-    padding-right: 0.5rem;
-  }
-
-  i {
-    height: 2rem;
-    color: var(--primary-color);
   }
 `;
 
@@ -438,5 +439,15 @@ export const AboutLogosContainer = styled.div`
 
   img {
     width: 6.25rem;
+  }
+`;
+
+export const LightTag = styled(Tag)`
+  padding: 0.5rem 1rem;
+  color: ${primary};
+  background: ${primaryLight};
+
+  p {
+    font-size: 0.875rem;
   }
 `;

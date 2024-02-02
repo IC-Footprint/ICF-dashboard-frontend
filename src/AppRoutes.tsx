@@ -31,6 +31,7 @@ const AppRoutes: FC = () => {
           <Route path={appRoutes.nodes.root} element={<Nodes />} />
           <Route path={appRoutes.projects.root} element={<Projects />} />
         </Route>
+        <Route path={appRoutes.nodes.show} element={<Node />} />
         <Route
           path={appRoutes.oldDashboard.root}
           element={<Dashboard />}

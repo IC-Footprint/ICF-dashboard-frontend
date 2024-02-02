@@ -1,8 +1,9 @@
-import type { IconModel } from '@/models/dashboard/dashboard-carousel-item-model';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
-import type { GlobalConfigurationModel } from '@/models/global-configuration-model';
-import type { NodeStatus } from '@/models/nodes/node-status';
+import type { IconModel } from '@/models/dashboard/dashboard-carousel-item-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { GlobalConfigurationModel } from '@/models/global-configuration-model';
+import type { NodeModel } from '@/models/nodes/node-model';
+import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
 export class ModelMocks {
   static mockHeadlineFigures(): HeadlineFiguresModel {
@@ -34,13 +35,16 @@ export class ModelMocks {
     };
   }
 
-  static mockNodeElement(id: string, status: NodeStatus): CarbonAccountModel {
+  static mockNodeElement(
+    id: string,
+    status: NodeStatusType
+  ): CarbonAccountModel {
     return {
       id: id,
       operator: {
         name: 'Aviate Labs'
       },
-      carbonDebits: 10320000,
+      carbonDebit: 10320000,
       lastDayCarbonDifference: +Math.random().toFixed(2),
       status: status,
       confidence: +Math.random().toFixed(2),
@@ -52,5 +56,22 @@ export class ModelMocks {
     return new Array(25).fill(null).map((_, index) => {
       return this.mockNodeElement(String(index + 1), 'UP');
     });
+  }
+
+  static mockNode(
+    id = '2ew2x-bmzxs-o6sw6-xbxv6-efhzc-47y5k-vy5ce-luaqo-lecdi-33z4i-gqe'
+  ): NodeModel {
+    return {
+      id,
+      emissions: 120020.3252321,
+      gridTechnology: [],
+      nodeProvider: 'Allusion',
+      location: 'BE',
+      status: 'UP',
+      electricityDraw: 285,
+      carbonIntensity: 0.3311601852849294,
+      dataCentreOwner: 'Owner',
+      subnetId: 'subnet-id'
+    };
   }
 }

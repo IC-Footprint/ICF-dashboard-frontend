@@ -13,7 +13,8 @@ import {
   getNodeEmissionsByProviderAction,
   getNodesListAction,
   getNodeStatsAction,
-  getNodeEmissionsAction
+  getNodeEmissionsAction,
+  getNodeDetailsAction
 } from '@/state/nodes/nodes-actions';
 
 export interface NodesState {
@@ -36,6 +37,9 @@ export interface NodesState {
   nodeStatsLoading: boolean;
   nodeEmissions: ChartData | null;
   nodeEmissionsLoading: boolean;
+  nodeDetails: CarbonAccountModel | null;
+  nodeDetailsLoading: boolean;
+  nodeDetailsError: boolean;
 }
 
 const initialState: () => NodesState = () => ({
@@ -57,7 +61,10 @@ const initialState: () => NodesState = () => ({
   nodeStats: null,
   nodeStatsLoading: false,
   nodeEmissions: null,
-  nodeEmissionsLoading: false
+  nodeEmissionsLoading: false,
+  nodeDetails: null,
+  nodeDetailsError: false,
+  nodeDetailsLoading: false
 });
 
 const nodesSlice = createSlice({
@@ -184,6 +191,22 @@ const nodesSlice = createSlice({
       .addCase(getNodeEmissionsAction.rejected, (state) => {
         state.nodeEmissionsLoading = false;
       });
+
+    /** Get node details **/
+    builder
+      .addCase(getNodeDetailsAction.pending, (state) => {
+        state.nodeDetails = null;
+        state.nodeDetailsLoading = true;
+        state.nodeDetailsError = false;
+      })
+      .addCase(getNodeDetailsAction.fulfilled, (state, { payload }) => {
+        state.nodeDetailsLoading = false;
+        state.nodeDetails = payload;
+      })
+      .addCase(getNodeDetailsAction.rejected, (state) => {
+        state.nodeDetailsLoading = false;
+        state.nodeDetailsError = true;
+      });
   }
 });
 
@@ -194,7 +217,8 @@ export {
   getNetworkEmissionsAction,
   getElectricityDrawByTechnologyTypeAction,
   getNodeStatsAction,
-  getNodeEmissionsAction
+  getNodeEmissionsAction,
+  getNodeDetailsAction
 };
 
 export default nodesSlice.reducer;

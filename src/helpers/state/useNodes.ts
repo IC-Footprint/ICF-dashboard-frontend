@@ -10,7 +10,8 @@ import {
   getNodeEmissionsByRegionAction,
   getNodeEmissionsByProviderAction,
   getNodesListAction,
-  getNodeStatsAction
+  getNodeStatsAction,
+  getNodeDetailsAction
 } from '@/state/nodes/nodes-slice';
 
 const useNodes = () => {
@@ -118,6 +119,21 @@ const useNodes = () => {
     (state) => state.nodes.nodeEmissionsLoading
   );
 
+  const getNodeDetails = useCallback(
+    (nodeId: string) => dispatch(getNodeDetailsAction(nodeId)),
+    [dispatch]
+  );
+
+  const nodeDetails = useAppSelector((state) => state.nodes.nodeDetails);
+
+  const nodeDetailsLoading = useAppSelector(
+    (state) => state.nodes.nodeDetailsLoading
+  );
+
+  const nodeDetailsError = useAppSelector(
+    (state) => state.nodes.nodeDetailsError
+  );
+
   return {
     actions: {
       getNodesList,
@@ -126,7 +142,8 @@ const useNodes = () => {
       getNodeEmissionsByProvider,
       getElectricityDrawByTechnologyType,
       getNodeStats,
-      getNodeEmissions
+      getNodeEmissions,
+      getNodeDetails
     },
     nodesList,
     isNodesListLoading,
@@ -145,7 +162,10 @@ const useNodes = () => {
     hasElectricityDrawByTechnologyTypeError,
     nodeStats,
     nodeEmissions,
-    nodeEmissionsLoading
+    nodeEmissionsLoading,
+    nodeDetails,
+    nodeDetailsLoading,
+    nodeDetailsError
   };
 };
 

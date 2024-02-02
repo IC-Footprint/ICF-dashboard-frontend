@@ -17,7 +17,7 @@ export const getNodesListAction = createAsyncThunk<CarbonAccountModel[], void>(
   async (_, { rejectWithValue }) => {
     try {
       const list = await nodesApi.getNodesList();
-      return NodesMappers.mapNodeAccounts(list);
+      return list.map(NodesMappers.mapNodeAccounts);
     } catch (err) {
       return rejectWithValue(null);
     }
@@ -117,3 +117,15 @@ export const getNodeEmissionsAction = createAsyncThunk<
     }
   }
 );
+
+export const getNodeDetailsAction = createAsyncThunk<
+  CarbonAccountModel,
+  string
+>('/node/nodeDetails', async (nodeId, { rejectWithValue }) => {
+  try {
+    const details = await nodesApi.getNodeDetails(nodeId);
+    return NodesMappers.mapNodeAccounts(details);
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});

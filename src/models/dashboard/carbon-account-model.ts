@@ -1,4 +1,4 @@
-import type { NodeStatus } from '@/models/nodes/node-status';
+import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
 export interface OperatorModel {
   icon?: string;
@@ -9,9 +9,9 @@ export interface OperatorModel {
 export interface CarbonAccountModel {
   id: string;
   operator: OperatorModel;
-  carbonDebits: number;
+  carbonDebit: number;
   lastDayCarbonDifference: number;
-  status: NodeStatus;
+  status: NodeStatusType;
   confidence: number;
   location: string;
 }

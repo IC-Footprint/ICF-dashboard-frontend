@@ -1,13 +1,13 @@
 import { css } from '@emotion/css';
+import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 
-import type { FC, ReactNode } from 'react';
 import type { UnitType } from '@/models/unit-type';
+import type { FC, ReactNode } from 'react';
 
-import {
-  HeadlineFigureCardContainer,
-  FlexColumnStyle
-} from '@/theme/styled-components';
+import { gridCardBackground } from '@/theme/colors';
+import { FlexColumnStyle, FlexRowCard } from '@/theme/styled-components';
+import { NumberUtils } from '@/utils/number-utils';
 
 export interface HeadlineFigureProps {
   label: string;
@@ -15,6 +15,31 @@ export interface HeadlineFigureProps {
   unit?: UnitType;
   value?: number;
 }
+
+export const HeadlineFigureCardContainer = styled(FlexRowCard)`
+  .p-card-body {
+    padding-right: 0.5rem;
+  }
+
+  i {
+    height: 2rem;
+    color: var(--primary-color);
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+`;
+
+const HeadlineIconContainer = styled.span`
+  background-color: ${gridCardBackground};
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const HeadlineFigureCard: FC<HeadlineFigureProps> = ({
   unit = 'co2Kg',
@@ -26,19 +51,18 @@ const HeadlineFigureCard: FC<HeadlineFigureProps> = ({
 
   return (
     <HeadlineFigureCardContainer>
-      <i>{icon}</i>
+      <HeadlineIconContainer>
+        <i>{icon}</i>
+      </HeadlineIconContainer>
       <div className={css(FlexColumnStyle)}>
-        <span>{label}</span>
-        <h3>
+        <h5>{label}</h5>
+        <p>
           {value !== undefined
             ? t(`common.unit.${unit}`, {
-                value: value.toLocaleString(undefined, {
-                  maximumFractionDigits: 3,
-                  minimumFractionDigits: 3,
-                })
+                value: NumberUtils.formatNumber(value)
               })
             : '-'}
-        </h3>
+        </p>
       </div>
     </HeadlineFigureCardContainer>
   );

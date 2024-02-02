@@ -8,7 +8,7 @@ import { FlexRowContainer } from '@/theme/styled-components';
 import { StringUtils } from '@/utils/string-utils';
 
 export interface TrendProps {
-  differenceValue: number;
+  differenceValue?: number;
   size?: 'small' | 'large';
   iconAlignment?: 'left' | 'right';
   isPercentage?: boolean;
@@ -23,7 +23,7 @@ const StyledFlexRowContainer = styled(FlexRowContainer)`
 const TrendValue: FC<TrendProps> = ({
   differenceValue,
   size,
-  iconAlignment,
+  iconAlignment = 'left',
   isPercentage
 }) => {
   const trendIcon = useMemo(() => {
@@ -54,7 +54,7 @@ const TrendValue: FC<TrendProps> = ({
       className={iconAlignment === 'right' ? 'flex-row-reverse' : ''}
     >
       {trendIcon}
-      <p>{value}</p>
+      <p>{value ?? '-'}</p>
     </StyledFlexRowContainer>
   );
 };
