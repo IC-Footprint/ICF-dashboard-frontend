@@ -1,20 +1,20 @@
 export const appRoutes = {
   home: {
-    root: '/'
+    root: '/dashboard'
   },
   nodes: {
-    root: '/nodes',
-    show: '/nodes/:nodeId'
+    root: '/dashboard/nodes',
+    show: '/dashboard/nodes/:nodeId'
   },
   subnets: {
     root: '/subnets'
   },
   projects: {
-    root: '/projects',
+    root: '/dashboard/projects',
     details: '/projects/:projectId'
   },
   nodeProviders: {
-    root: '/node-providers',
+    root: '/dashboard/node-providers',
     details: '/node-providers/:nodeProviderId'
   },
   whitePaper: {

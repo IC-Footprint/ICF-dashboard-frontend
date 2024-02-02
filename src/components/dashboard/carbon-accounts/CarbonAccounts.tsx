@@ -7,8 +7,8 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import type { FC } from 'react';
 import type { TabMenuTabChangeEvent } from 'primereact/tabmenu';
-import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 import type { MenuItem } from 'primereact/menuitem';
+import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 
 import { StyledCard } from '@/theme/styled-components';
 import { appRoutes } from '@/router/app-routes';
@@ -46,8 +46,8 @@ const CarbonAccounts: FC = () => {
   }, [t]);
 
   const activeTabIndex = useMemo(() => {
-    const activeTabPath = location.pathname.split('/').pop();
-    return menuItems.findIndex((item) => item.url === `/${activeTabPath}`) ?? 0;
+    const activeTabPath = location.pathname;
+    return menuItems.findIndex((item) => item.url === activeTabPath) ?? 0;
   }, [location, menuItems]);
 
   const onTabChange = (e: TabMenuTabChangeEvent) => {

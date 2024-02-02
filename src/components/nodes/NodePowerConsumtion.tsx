@@ -97,7 +97,7 @@ const NodePowerConsumption: FC<NodePowerConsumtionProps> = ({ nodeId }) => {
         setNodeEmissionsData(chartData);
       })
       .finally(() => setLoading(false));
-  }, [endDate, currentTimestamp, icClient, range, granularity]);
+  }, [endDate, currentTimestamp, icClient, range, granularity, nodeId]);
 
   console.log(nodeEmissionsData);
 

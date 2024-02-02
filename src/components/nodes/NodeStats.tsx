@@ -19,7 +19,7 @@ import HeadlineFigureCard from '@/components/dashboard/HeadlineFigureCard';
 import useNodes from '@/helpers/state/useNodes';
 
 interface NodeStatsParams {
-  nodeId: string
+  nodeId: string;
 }
 
 const NodeStats: FC<NodeStatsParams> = ({ nodeId }) => {
@@ -28,7 +28,6 @@ const NodeStats: FC<NodeStatsParams> = ({ nodeId }) => {
     actions: { getNodeStats },
     nodeStats
   } = useNodes();
-  
   const [headlineFiguresView, setHeadlineFiguresView] =
     useState<HeadlineFiguresViewModel>(createEmptyHeadlineFiguresViewModel());
 
@@ -65,7 +64,7 @@ const NodeStats: FC<NodeStatsParams> = ({ nodeId }) => {
     <div className="grid">
       {Object.entries(headlineFiguresView).map(
         (keyValue: [string, HeadlineFigureEntryModel | null]) => (
-          <div key={keyValue[0]} className="col-12 lg:col-6">
+          <div key={keyValue[0]} className="col-12 md:col-6 xl:col-3">
             <HeadlineFigureCard
               label={t(`dashboard.headlineFigures.${keyValue[0]}`)}
               icon={keyValue[1]?.icon}

@@ -6,6 +6,8 @@ import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
+import { ModelMocks } from '@/mocks/model.mocks';
+
 export class NodesApi {
   async getNodesList(): Promise<NodeModel[]> {
     const response: AxiosResponse<NodeModel[]> = await axios.get(
@@ -92,6 +94,15 @@ export class NodesApi {
       }
     );
     return response.data;
+  }
+
+  // TODO: integrate
+  async getNodeDetails(nodeId: string): Promise<NodeModel> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(ModelMocks.mockNode(nodeId));
+      }, 1000);
+    });
   }
 }
 

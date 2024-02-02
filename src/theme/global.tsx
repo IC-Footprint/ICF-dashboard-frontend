@@ -2,6 +2,7 @@ import { css, Global } from '@emotion/react';
 
 import { primary } from '@/theme/colors';
 import '@/theme/fonts.css';
+import { LabelStyle } from '@/theme/styled-components';
 
 export const globalStyles = (
   <Global
@@ -37,12 +38,6 @@ export const globalStyles = (
         margin: 0;
       }
 
-      h1,
-      h2,
-      h3 {
-        color: var(--primary-color);
-      }
-
       h1 {
         font-weight: 400;
         font-size: 2.25rem;
@@ -65,6 +60,7 @@ export const globalStyles = (
         font-weight: 700;
         font-size: 1.125rem;
         line-height: 1.3125rem;
+        ${LabelStyle};
       }
 
       .p-component {

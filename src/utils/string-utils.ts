@@ -1,3 +1,5 @@
+import { NumberUtils } from '@/utils/number-utils';
+
 export class StringUtils {
   static toDifferencePercentage(value?: number): string {
     if (value === undefined) {
@@ -7,6 +9,6 @@ export class StringUtils {
     if (value > 0) {
       sign = '+';
     }
-    return `${sign}${value.toLocaleString()}%`;
+    return `${sign}${NumberUtils.formatNumber(value)}%`;
   }
 }

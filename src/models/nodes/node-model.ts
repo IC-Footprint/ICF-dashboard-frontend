@@ -1,5 +1,5 @@
 import type { GridTechnologyType } from '@/models/nodes/grid-technology-type';
-import type { NodeStatus } from '@/models/nodes/node-status';
+import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
 export interface NodeModel {
   id: string;
@@ -8,7 +8,7 @@ export interface NodeModel {
   carbonIntensity: number;
   emissions: number;
   location: string;
-  status: NodeStatus;
+  status: NodeStatusType;
   dataCentreOwner: string;
   subnetId: string;
   gridTechnology: GridTechnologyType[];

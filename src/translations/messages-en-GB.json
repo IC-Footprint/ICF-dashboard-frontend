@@ -71,6 +71,7 @@
   },
   "dashboard": {
     "carbonAccounts": {
+      "carbonDebit": "Carbon Debit",
       "carbonDebits": "Carbon Debits",
       "nodeProvider":  "Node Provider",
       "nodeProviders": {

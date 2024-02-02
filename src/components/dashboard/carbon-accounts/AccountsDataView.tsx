@@ -1,28 +1,29 @@
+import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { Column } from 'primereact/column';
 import { DataView } from 'primereact/dataview';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { css } from '@emotion/css';
-import { Column } from 'primereact/column';
 
 import type { FC } from 'react';
 import type { DataTableSelectionSingleChangeEvent } from 'primereact/datatable';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
-import TrendValue from '@/components/dashboard/TrendValue';
-import useDashboard from '@/helpers/state/useDashboard';
-import { defaultPaginatorOptions } from '@/models/paginator-options-model';
-import Spinner1 from '@/theme/assets/icons/spinner-1';
-import { gridCardBackground } from '@/theme/colors';
+import { NumberUtils } from '@/utils/number-utils';
 import {
   FlexRowContainer,
+  LabelStyle,
   PaginatorStyle,
   StyledTable
 } from '@/theme/styled-components';
-import { NumberUtils } from '@/utils/number-utils';
+import { gridCardBackground } from '@/theme/colors';
+import { defaultPaginatorOptions } from '@/models/paginator-options-model';
+import useDashboard from '@/helpers/state/useDashboard';
+import NodeStatus from '@/components/nodes/NodeStatus';
+import TrendValue from '@/components/dashboard/TrendValue';
 
 export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
 
@@ -48,12 +49,9 @@ const InformationItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 0;
-  flex: 1 1 0;
 
   h4 {
-    font-size: 0.75rem;
-    color: var(--text-color-secondary);
-    font-weight: normal;
+    ${LabelStyle};
   }
 
   p {
@@ -91,13 +89,12 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
         <AccountCard>
           <FlexRowContainer className="justify-content-between">
             <div className="flex-grow-1">
-              {/* TODO: change alt*/}
               <OperatorIcon
                 src={account.operator.icon}
-                alt={account.id.substring(0, 10)}
+                alt={identificationField}
               />
             </div>
-            <InformationItemContainer>
+            <InformationItemContainer className="flex-1">
               <h4>{header}</h4>
               <p
                 title={identificationField}
@@ -111,7 +108,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             <h4>{t('dashboard.carbonAccounts.carbonDebits')}</h4>
             <p>
               <span className="text-xl font-bold">
-                {NumberUtils.formatNumber(account.carbonDebits)}
+                {NumberUtils.formatNumber(account.carbonDebit)}
               </span>
               <span className="font-normal">
                 {t('common.unit.co2Kg', {
@@ -135,10 +132,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             </InformationItemContainer>
             <InformationItemContainer>
               <h4>{t('common.status')}</h4>
-              <p className="flex align-items-center gap-1">
-                {t(`common.nodeStatus.${account.status.toLowerCase()}`)}
-                {account.status === 'UP' ? <Spinner1 width="1rem" /> : null}
-              </p>
+              <NodeStatus status={account.status} />
             </InformationItemContainer>
             <div className="flex flex-1 justify-content-end">
               <Link to={`${parentRoute}/${account.id}`}>
@@ -211,7 +205,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               }
             ).trim()})`}
             body={(rowData: CarbonAccountModel) =>
-              NumberUtils.formatNumber(rowData.carbonDebits)
+              NumberUtils.formatNumber(rowData.carbonDebit)
             }
           ></Column>
           {dataType === 'nodes' ? (
