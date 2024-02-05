@@ -30,9 +30,51 @@
       "title": "What we stand for"
     }
   },
+  "checkout": {
+    "calculateOffset": "Calculate Offset",
+    "contacts": {
+      "title": "Speak To Us"
+    },
+    "form": {
+      "amount": {
+        "label": "Amount"
+      },
+      "cost": {
+        "label": "Cost"
+      },
+      "addNewToken": {
+        "label": "Add new token"
+      },
+      "submit": {
+        "label": "Check Out"
+      }
+    },
+    "greenEnergy": {
+      "title": "Green Energy"
+    },
+    "offsetEmission": {
+      "additionality": {
+        "description": "Carbon Credits are a good way to compensate for historical emissions, but decarbonization (preventing emissions) should always be the priority.",
+        "title": "Additionality"
+      },
+      "addToken": {
+        "description": "We’ll add any tokenized carbon available on the IC  to the platform. If you want to discuss and integration then speak to us.",
+        "title": "Add a token"
+      },
+      "description": "Offset your carbon emissions",
+      "title": "Offset Emissions"
+    },
+    "priorCommitment": {
+      "title": "Prove Prior Commitment"
+    },
+    "title": "Checkout"
+  },
   "common": {
     "cancel": "Cancel",
     "close": "Close",
+    "costCurrency": {
+      "icp": "ICP Internet Computer"
+    },
     "error": "Error",
     "gridTechnologyType": {
       "hydro": "Hydro",
@@ -62,6 +104,9 @@
       "sevenDays": "7D",
       "threeMonths": "3M"
     },
+    "tokenType": {
+      "cawatech": "CAWA TECH"
+    },
     "unit": {
       "co2Kg": "{{value}} KGCO2e",
       "co2Tonnes": "{{value}} tCO2e",
@@ -73,7 +118,7 @@
     "carbonAccounts": {
       "carbonDebit": "Carbon Debit",
       "carbonDebits": "Carbon Debits",
-      "nodeProvider":  "Node Provider",
+      "nodeProvider": "Node Provider",
       "nodeProviders": {
         "error": "Error loading the node providers",
         "title": "Node Providers"

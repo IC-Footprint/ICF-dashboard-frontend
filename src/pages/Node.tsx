@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import type { FC } from 'react';
 
 import AccountDetailsCard from '@/components/AccountDetailsCard';
+import CheckoutCard from '@/components/checkout/CheckoutCard';
 import NodeEmissions from '@/components/nodes/NodeEmissions';
 import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
@@ -31,6 +32,9 @@ const Node: FC = () => {
       <div className="grid">
         <div className="col-12 lg:col-5">
           <AccountDetailsCard account={nodeDetails} />
+        </div>
+        <div className="col-12 lg:col-7">
+          <CheckoutCard />
         </div>
         <div className="col-12">
           <NodeStats nodeId={nodeId || ''} />
