@@ -20,7 +20,8 @@ import { transientOptions } from '@/theme/styled-components-utils';
 import {
   globeTooltipBackgroundColor,
   primary,
-  primaryLight
+  primaryLight,
+  gridCardBackground
 } from '@/theme/colors';
 import aboutBackgroundImage from '@/theme/assets/about-background.svg';
 
@@ -192,6 +193,27 @@ export const StyledMenu = styled(Menu)`
         color: var(--primary-color);
       }
     }
+  }
+`;
+
+export const FeaturesInformationCard = styled(Card)`
+  background-color: ${gridCardBackground};
+
+  h5 {
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  p {
+    color: var(--text-color-secondary);
+  }
+
+  .p-card-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    padding: 0.5rem;
   }
 `;
 
