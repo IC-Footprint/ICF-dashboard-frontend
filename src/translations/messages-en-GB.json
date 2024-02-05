@@ -33,23 +33,43 @@
   "checkout": {
     "calculateOffset": "Calculate Offset",
     "contacts": {
+      "joinOurSocials": "Join our socials or schedule a call",
+      "scheduleCall": "Schedule a call",
       "title": "Speak To Us"
     },
     "form": {
+      "addNewToken": {
+        "label": "Add new token"
+      },
       "amount": {
         "label": "Amount"
       },
       "cost": {
         "label": "Cost"
       },
-      "addNewToken": {
-        "label": "Add new token"
-      },
       "submit": {
         "label": "Check Out"
       }
     },
     "greenEnergy": {
+      "description": "What does a Renewable Energy Purchase means for you, and the network?",
+      "enhancedReputation": {
+        "description": "Show your community and stakeholders that you're committed to responsible and ethical practices.",
+        "title": "Enhanced Reputation"
+      },
+      "environmentalLeadership": {
+        "description": "By purchasing renewable energy, you directly contribute to reducing carbon emissions of the entire IC network.",
+        "title": "Environmental Leadership"
+      },
+      "getQuote": "Get Quote",
+      "globalImpact": {
+        "description": "Contribute to the global effort to combat climate change, fostering a cleaner and healthier planet for generations to come.",
+        "title": "Global Impact"
+      },
+      "regulatoryCompliance": {
+        "description": "Ensure your operations align seamlessly with evolving standards, demonstrating a commitment to responsible practices.",
+        "title": "Regulatory Compliance"
+      },
       "title": "Green Energy"
     },
     "offsetEmission": {
@@ -65,6 +85,16 @@
       "title": "Offset Emissions"
     },
     "priorCommitment": {
+      "description": "Already made commitment you want to share with us?",
+      "other": {
+        "description": "Used high-quality offsets, or made another environmental commitment? Use the form below to let us know about it.",
+        "title": "Other"
+      },
+      "renewableEnergyPurchases": {
+        "description": "Already run in a fully green data centre, or have purchased renewable energy from a different providers? Use the form be provide us with the information we  need to update the dashboard.",
+        "title": "Renewable Energy Purchases"
+      },
+      "startForm": "Start Form",
       "title": "Prove Prior Commitment"
     },
     "title": "Checkout"

@@ -199,16 +199,6 @@ export const StyledMenu = styled(Menu)`
 export const FeaturesInformationCard = styled(Card)`
   background-color: ${gridCardBackground};
 
-  h5 {
-    color: var(--text-color);
-    font-weight: bold;
-    font-size: 1rem;
-  }
-
-  p {
-    color: var(--text-color-secondary);
-  }
-
   .p-card-content {
     display: flex;
     flex-direction: column;

@@ -72,11 +72,13 @@ const CheckoutForm: FC = () => {
         </div>
       </div>
       <div className="col-12">
-        <h5 className="text-sm">{t('checkout.form.cost.label')}</h5>
+        <h5 className="font-normal text-color-secondary">
+          {t('checkout.form.cost.label')}
+        </h5>
         {isCostCalculationLoading ? (
           <ProgressSpinner className="w-2rem h-2rem" />
         ) : (
-          <p className="text-3xl">
+          <p className="text-3xl text-color">
             {cost}
             <span className="text-xs text-color-secondary ml-1">
               {t('common.costCurrency.icp')}
