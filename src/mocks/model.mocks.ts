@@ -30,7 +30,10 @@ export class ModelMocks {
         discord: 'http://localhost/discord-link',
         openChat: 'http://localhost/open-chat-link',
         twitter: 'http://localhost/twitter-link',
-        sustainabilityReport: 'http://localhost/sustainability-report-link'
+        sustainabilityReport: 'http://localhost/sustainability-report-link',
+        greenEnergyQuote: 'http://localhost/green-energy-quote-link',
+        priorCommitmentForm: 'http://localhost/prio-commitment-form-link',
+        scheduleCall: 'http://localhost/schedule-call-link'
       }
     };
   }

@@ -75,8 +75,14 @@ export const globalStyles = (
         white-space: pre-line;
       }
 
-      .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-        padding: 0.5rem 1rem;
+      .p-tabview {
+        .p-tabview-nav li .p-tabview-nav-link {
+          padding: 0.5rem 1rem;
+        }
+
+        .p-tabview-panels {
+          padding-bottom: 0;
+        }
       }
     `}
   />

@@ -9,8 +9,8 @@ const OffsetEmission: FC = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h4 className="py-3">{t('checkout.calculateOffset')}</h4>
-      <div className="grid mt-3">
+      <h4>{t('checkout.calculateOffset')}</h4>
+      <div className="grid grid-nogutter">
         <FeaturesInformationCard className="col-12 lg:col-5">
           <div>
             <h5>{t('checkout.offsetEmission.additionality.title')}</h5>

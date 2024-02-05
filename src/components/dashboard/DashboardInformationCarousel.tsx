@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Button } from 'primereact/button';
 import { Carousel } from 'primereact/carousel';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -9,14 +9,13 @@ import type {
   DashboardCarouselItemModel,
   IconModel
 } from '@/models/dashboard/dashboard-carousel-item-model';
-import type { LinkType } from '@/models/global-configuration-model';
 import type { FC } from 'react';
 
+import { ResourcesMappers } from '@/state/resources/resources-mappers';
 import IconLink from '@/components/IconLink';
 import useResources from '@/helpers/state/useResources';
 import { appRoutes } from '@/router/app-routes';
 import carouselBackground from '@/theme/assets/carousel-background.png';
-import { socialLogos } from '@/theme/assets/social-logos';
 import {
   FlexColumnContainer,
   FlexRowContainer,
@@ -59,17 +58,6 @@ const DashboardInformationCarousel: FC = () => {
     }
   });
 
-  const createSocialIcon = useCallback(
-    (type: LinkType): IconModel => {
-      return {
-        name: type,
-        icon: socialLogos[type] ?? '',
-        url: globalConfiguration?.links[type] ?? ''
-      };
-    },
-    [globalConfiguration]
-  );
-
   const items: DashboardCarouselItemModel[] = useMemo<
     DashboardCarouselItemModel[]
   >((): DashboardCarouselItemModel[] => {
@@ -89,13 +77,13 @@ const DashboardInformationCarousel: FC = () => {
       {
         title: t('dashboard.informationCard.joinSocials'),
         socialIcons: [
-          createSocialIcon('twitter'),
-          createSocialIcon('discord'),
-          createSocialIcon('openChat')
+          ResourcesMappers.mapSocialIconLink(globalConfiguration, 'twitter'),
+          ResourcesMappers.mapSocialIconLink(globalConfiguration, 'discord'),
+          ResourcesMappers.mapSocialIconLink(globalConfiguration, 'openChat')
         ]
       }
     ];
-  }, [t, createSocialIcon, globalConfiguration]);
+  }, [t, globalConfiguration]);
 
   const itemTemplate = (item: DashboardCarouselItemModel) => {
     let itemActions = null;
