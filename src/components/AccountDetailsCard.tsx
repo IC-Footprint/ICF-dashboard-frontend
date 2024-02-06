@@ -21,8 +21,11 @@ interface AccountDetailsProps {
 }
 
 const CardContentContainer = styled(FlexColumnContainer)`
-  align-items: center;
+  height: 100%;
   padding: 0 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
 
   h5 {
     font-size: 1rem;
@@ -41,6 +44,15 @@ const CardContentContainer = styled(FlexColumnContainer)`
 const AccountDetailsContainer = styled(StyledCard)`
   background: url(${gradientBackground}) center;
   background-size: cover;
+  height: 100%;
+
+  .p-card-body {
+    height: 100%;
+
+    .p-card-content {
+      height: 100%;
+    }
+  }
 `;
 
 const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {

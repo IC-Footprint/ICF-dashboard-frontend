@@ -4,13 +4,13 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
-import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 
 import { StyledTable, PaginatorStyle } from '@/theme/styled-components';
 import { defaultPaginatorOptions } from '@/models/paginator-options-model';
 
 interface CanisterAttributionsTableProps {
-  list: CanisterAttributionViewModel[];
+  list: CanisterAttributionModel[];
   isLoading?: boolean;
 }
 
@@ -39,7 +39,7 @@ const CanisterAttributionsTable: FC<CanisterAttributionsTableProps> = ({
       <Column
         field="registry"
         header={t('table.headers.registry')}
-        body={(rowData: CanisterAttributionViewModel) => (
+        body={(rowData: CanisterAttributionModel) => (
           <a
             href={rowData.registry}
             target="_blank"
@@ -53,7 +53,7 @@ const CanisterAttributionsTable: FC<CanisterAttributionsTableProps> = ({
       <Column
         field="status"
         header={t('table.headers.status')}
-        body={(rowData: CanisterAttributionViewModel) =>
+        body={(rowData: CanisterAttributionModel) =>
           t(`common.canisterAttributionStatus.${rowData.status}`)
         }
       ></Column>
@@ -61,14 +61,14 @@ const CanisterAttributionsTable: FC<CanisterAttributionsTableProps> = ({
       <Column
         field="timestamp"
         header={t('table.headers.timestamp')}
-        body={(rowData: CanisterAttributionViewModel) => {
-          return rowData.creationDate.toISOString();
+        body={(rowData: CanisterAttributionModel) => {
+          return new Date(rowData.timestamp).toISOString();
         }}
       ></Column>
       <Column
         field="transactionHash"
         header={t('table.headers.transactionHash')}
-        body={(rowData: CanisterAttributionViewModel) => {
+        body={(rowData: CanisterAttributionModel) => {
           return (
             <span title={rowData.transactionHash}>
               {rowData.transactionHash}

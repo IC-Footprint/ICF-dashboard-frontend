@@ -2,14 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { DatasetModel } from '@/models/dataset-model';
-import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
 
-import dashboardApi from '@/api/dashboard-api';
-import networkApi from '@/api/network-api';
-import { NodesMappers } from '@/state/nodes/nodes-mappers';
 import { ChartMapper } from '@/utils/chart-mapper';
+import networkApi from '@/api/network-api';
+import dashboardApi from '@/api/dashboard-api';
 
 export const getSubnetEmissionsByTypeAction = createAsyncThunk<
   ChartData,
@@ -49,12 +48,11 @@ export const getNetworkDetailsAction = createAsyncThunk<
 });
 
 export const getNetworkAttributionsAction = createAsyncThunk<
-  CanisterAttributionViewModel[],
+  CanisterAttributionModel[],
   void
 >('/network/getNetworkAttributions', async (_, { rejectWithValue }) => {
   try {
-    const attributions = await networkApi.getNetworkAttributions();
-    return attributions.map(NodesMappers.mapCanisterAttribution);
+    return await networkApi.getNetworkAttributions();
   } catch (err) {
     return rejectWithValue(null);
   }

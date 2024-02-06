@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
-import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
@@ -26,7 +26,7 @@ export interface NetworkState {
   networkStats: HeadlineFiguresModel | null;
   networkDetailsLoading: boolean;
   networkDetailsError: boolean;
-  networkAttributions: CanisterAttributionViewModel[] | null;
+  networkAttributions: CanisterAttributionModel[] | null;
   networkAttributionsLoading: boolean;
   networkAttributionsError: boolean;
 }

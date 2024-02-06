@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { DatasetModel } from '@/models/dataset-model';
-import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 
 import nodesApi from '@/api/nodes-api';
 import i18n from '@/i18n';
@@ -132,12 +132,11 @@ export const getNodeDetailsAction = createAsyncThunk<
 });
 
 export const getNodeCanisterAttributionsAction = createAsyncThunk<
-  CanisterAttributionViewModel[],
+  CanisterAttributionModel[],
   string
 >('/node/nodeCanisterAttributions', async (nodeId, { rejectWithValue }) => {
   try {
-    const canisterAttributions = await nodesApi.getCanisterAttributions(nodeId);
-    return canisterAttributions.map(NodesMappers.mapCanisterAttribution);
+    return await nodesApi.getCanisterAttributions(nodeId);
   } catch (err) {
     return rejectWithValue(null);
   }
