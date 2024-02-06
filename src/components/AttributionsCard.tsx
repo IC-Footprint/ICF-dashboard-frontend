@@ -1,11 +1,11 @@
-import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { FC } from 'react';
 
 import CanisterAttributionsTable from '@/components/CanisterAttributionsTable';
 import { StyledCard } from '@/theme/styled-components';
 
 interface NodeCanisterAttributionsProps {
-  list: CanisterAttributionViewModel[];
+  list: CanisterAttributionModel[];
   isLoading?: boolean;
   title: string;
 }

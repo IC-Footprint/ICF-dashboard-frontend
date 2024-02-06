@@ -26,8 +26,6 @@ const NodePowerConsumption: FC<NodePowerConsumtionProps> = ({ nodeId }) => {
 
   const [nodeEmissionsData, setNodeEmissionsData] = useState<ChartData>();
 
-  console.log(setNodeEmissionsData);
-
   const currentTimestamp = useMemo(() => {
     return new Date();
   }, []);
@@ -98,8 +96,6 @@ const NodePowerConsumption: FC<NodePowerConsumtionProps> = ({ nodeId }) => {
       })
       .finally(() => setLoading(false));
   }, [endDate, currentTimestamp, icClient, range, granularity, nodeId]);
-
-  console.log(nodeEmissionsData);
 
   return (
     <FlexColumnCard>

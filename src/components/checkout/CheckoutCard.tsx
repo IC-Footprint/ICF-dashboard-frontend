@@ -12,6 +12,8 @@ import ThunderboltIcon from '@/theme/assets/icons/thunderbolt';
 import { StyledCard } from '@/theme/styled-components';
 
 const CheckoutCardContainer = styled(StyledCard)`
+  min-height: 30rem;
+
   h4 {
     font-size: 1rem;
     margin-bottom: 1rem;

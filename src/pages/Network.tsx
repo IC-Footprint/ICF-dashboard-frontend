@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
@@ -14,6 +15,7 @@ import NodeEmissionsByRegion from '@/components/network/NodeEmissionsByRegion';
 import WorldCard from '@/components/network/WorldCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNetwork from '@/helpers/state/useNetwork';
+import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Network: FC = () => {
   const { t } = useTranslation();
@@ -40,11 +42,9 @@ const Network: FC = () => {
   ]);
 
   return (
-    <>
-      <div className="grid m-5">
-        <div className="col-12">
-          <h3>{t('network.title')}</h3>
-        </div>
+    <FlexColumnContainer>
+      <h3>{t('network.title')}</h3>
+      <div className="grid">
         <div className="col-12 lg:col-5">
           <AccountDetailsCard account={networkDetails} />
         </div>
@@ -80,7 +80,7 @@ const Network: FC = () => {
           <EmissionsBySubnetType />
         </div>
       </div>
-    </>
+    </FlexColumnContainer>
   );
 };
 
