@@ -11,7 +11,8 @@ import {
   getNodeEmissionsByProviderAction,
   getNodesListAction,
   getNodeStatsAction,
-  getNodeDetailsAction
+  getNodeDetailsAction,
+  getNodeCanisterAttributionsAction
 } from '@/state/nodes/nodes-slice';
 
 const useNodes = () => {
@@ -134,6 +135,23 @@ const useNodes = () => {
     (state) => state.nodes.nodeDetailsError
   );
 
+  const getNodeCanisterAttributions = useCallback(
+    (nodeId: string) => dispatch(getNodeCanisterAttributionsAction(nodeId)),
+    [dispatch]
+  );
+
+  const canisterAttributions = useAppSelector(
+    (state) => state.nodes.canisterAttributions
+  );
+
+  const isCanisterAttributionsLoading = useAppSelector(
+    (state) => state.nodes.canisterAttributionsLoading
+  );
+
+  const hasCanisterAttributionsError = useAppSelector(
+    (state) => state.nodes.canisterAttributionsError
+  );
+
   return {
     actions: {
       getNodesList,
@@ -143,7 +161,8 @@ const useNodes = () => {
       getElectricityDrawByTechnologyType,
       getNodeStats,
       getNodeEmissions,
-      getNodeDetails
+      getNodeDetails,
+      getNodeCanisterAttributions
     },
     nodesList,
     isNodesListLoading,
@@ -165,7 +184,10 @@ const useNodes = () => {
     nodeEmissionsLoading,
     nodeDetails,
     nodeDetailsLoading,
-    nodeDetailsError
+    nodeDetailsError,
+    canisterAttributions,
+    isCanisterAttributionsLoading,
+    hasCanisterAttributionsError
   };
 };
 

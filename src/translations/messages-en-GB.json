@@ -101,6 +101,12 @@
   },
   "common": {
     "cancel": "Cancel",
+    "canisterAttributionStatus": {
+      "complete": "Complete",
+      "pending": "Pending",
+      "rejected": "Rejected",
+      "validated": "Validated"
+    },
     "close": "Close",
     "costCurrency": {
       "icp": "ICP Internet Computer"
@@ -232,12 +238,13 @@
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
-    "networkEmissions": "Network Emissions (kgCo2e)",
-    "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)",
-    "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "machineId": "Node machine {{nodeId}}",
+    "networkEmissions": "Network Emissions (kgCo2e)",
+    "nodeCanisterAttributions": "Node Canister Attributions",
+    "nodeElectricityDraw": "Node Electricity Draw",
     "nodeEmissions": "Node Emissions",
-    "nodeElectricityDraw": "Node Electricity Draw"
+    "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
+    "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
   },
   "subnets": {
     "emissionsBySubnet": "Emissions by Subnet",
@@ -286,7 +293,11 @@
       "location": "Location",
       "name": "Name",
       "nodeCount": "# Nodes",
-      "status": "Status"
+      "registry": "Registry",
+      "status": "Status",
+      "timestamp": "Timestamp",
+      "transactionHash": "Transaction Hash",
+      "type": "Type"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
   },
