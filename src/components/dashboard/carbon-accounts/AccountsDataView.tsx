@@ -82,7 +82,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     const header =
       dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
     const identificationField =
-      dataType === 'nodes' ? account.id : account.operator.name;
+      dataType === 'nodes' ? account.id : account.operator?.name;
 
     return (
       <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
@@ -90,7 +90,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
           <FlexRowContainer className="justify-content-between">
             <div className="flex-grow-1">
               <OperatorIcon
-                src={account.operator.icon}
+                src={account.operator?.icon}
                 alt={identificationField}
               />
             </div>
@@ -218,7 +218,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             field="status"
             header={t('table.headers.status')}
             body={(rowData: CarbonAccountModel) =>
-              t(`common.nodeStatus.${rowData.status.toLowerCase()}`)
+              t(`common.nodeStatus.${rowData.status?.toLowerCase()}`)
             }
           ></Column>
           <Column

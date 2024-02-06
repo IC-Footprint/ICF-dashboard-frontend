@@ -80,7 +80,7 @@ const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {
         <div className="col-12 flex justify-content-between">
           <div>
             <h5>{t('dashboard.carbonAccounts.nodeProvider')}</h5>
-            <p>{account?.operator.name ?? '-'}</p>
+            <p>{account?.operator?.name ?? '-'}</p>
           </div>
           <div>
             <h5>{t('common.status')}</h5>

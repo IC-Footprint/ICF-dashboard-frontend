@@ -7,51 +7,51 @@ import type { FC } from 'react';
 
 import SelectTimeRange from '@/components/SelectTimeRange';
 import useChart from '@/helpers/useChart';
-import useViewport from '@/helpers/useViewport';
 import { FlexColumnCard, StyledChart } from '@/theme/styled-components';
-import useSubnets from '@/helpers/state/useSubnets';
+import useNetwork from '@/helpers/state/useNetwork';
+import useViewport from '@/helpers/useViewport';
 
-const NodeEmissionsByRegion: FC = () => {
+const NetworkEmissions: FC = () => {
   const { t } = useTranslation();
-  const { isMobile } = useViewport();
   const { chartOptions } = useChart();
   const [range, setRange] = useState<RangeType>('ONE_DAY');
-  
+  const { isMobile } = useViewport();
+
   const {
-    actions: { getSubnetEmissionsByType },
-    subnetEmissionsByType,
-    isSubnetEmissionsByTypeLoading
-  } = useSubnets();
-  
-  const [emissionsByTypeData, setEmissionsByTypeData] =
+    actions: { getEmissionsBySubnet },
+    emissionsBySubnet,
+    isEmissionsBySubnetLoading
+  } = useNetwork();
+
+  const [emissionsBySubnetData, setEmissionsBySubnetData] =
     useState<ChartData>();
 
   useEffect(() => {
-    getSubnetEmissionsByType(range);
-  }, [range, getSubnetEmissionsByType]);
+    getEmissionsBySubnet(range);
+  }, [range, getEmissionsBySubnet]);
 
   useEffect(() => {
-    if (subnetEmissionsByType) {
-      setEmissionsByTypeData(structuredClone(subnetEmissionsByType));
+    if (emissionsBySubnet) {
+      setEmissionsBySubnetData(structuredClone(emissionsBySubnet));
     }
-  }, [subnetEmissionsByType]);
+  }, [emissionsBySubnet]);
 
   return (
     <FlexColumnCard>
-      <span>{t('subnets.subnetEmissionsByType')}</span>
+      <span>{t('network.emissionsBySubnet')}</span>
       <StyledChart
         type="line"
-        data={emissionsByTypeData}
+        data={emissionsBySubnetData}
         options={chartOptions}
         $isMobile={isMobile}
       />
       <SelectTimeRange
         range={range}
         setRange={setRange}
-        disabled={isSubnetEmissionsByTypeLoading}
+        disabled={isEmissionsBySubnetLoading}
       />
     </FlexColumnCard>
   );
 };
 
-export default NodeEmissionsByRegion;
+export default NetworkEmissions;

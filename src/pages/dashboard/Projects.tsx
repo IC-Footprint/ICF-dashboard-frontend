@@ -39,7 +39,7 @@ const Projects: FC = () => {
 
   const filteredProjects =
     projects?.filter((project) => {
-      return project.operator.name
+      return project.operator?.name
         .toLowerCase()
         .includes(searchFilter.toLowerCase());
     }) ?? [];

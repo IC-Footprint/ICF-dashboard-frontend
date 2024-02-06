@@ -39,7 +39,7 @@ const NodeProviders: FC = () => {
 
   const filteredNodeProviders =
     nodeProviders?.filter((nodeProvider) => {
-      return nodeProvider.operator.name
+      return nodeProvider.operator?.name
         .toLowerCase()
         .includes(searchFilter.toLowerCase());
     }) ?? [];

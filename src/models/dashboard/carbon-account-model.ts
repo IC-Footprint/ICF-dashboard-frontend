@@ -8,10 +8,10 @@ export interface OperatorModel {
 // TODO: change name?
 export interface CarbonAccountModel {
   id: string;
-  operator: OperatorModel;
+  operator: OperatorModel | null;
   carbonDebit: number;
   lastDayCarbonDifference: number;
-  status: NodeStatusType;
-  confidence: number;
-  location: string;
+  status: NodeStatusType | null;
+  confidence: number | null;
+  location: string | null;
 }

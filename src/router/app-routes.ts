@@ -6,9 +6,6 @@ export const appRoutes = {
     root: '/dashboard/nodes',
     show: '/dashboard/nodes/:nodeId'
   },
-  subnets: {
-    root: '/subnets'
-  },
   projects: {
     root: '/dashboard/projects',
     details: '/projects/:projectId'
@@ -16,6 +13,9 @@ export const appRoutes = {
   nodeProviders: {
     root: '/dashboard/node-providers',
     details: '/node-providers/:nodeProviderId'
+  },
+  network: {
+    root: '/network'
   },
   whitePaper: {
     root: '/white-paper'
@@ -26,5 +26,8 @@ export const appRoutes = {
   },
   oldDashboard: {
     root: '/oldDashboard'
+  },
+  subnets: {
+    root: '/subnets'
   }
 };

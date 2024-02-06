@@ -124,6 +124,7 @@
       "degraded": "Degraded",
       "down": "Down",
       "unassigned": "Unassigned",
+      "unknown": "Unknown",
       "up": "Live"
     },
     "report": "Report",
@@ -246,13 +247,16 @@
     "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
   },
-  "subnets": {
+  "network": {
     "emissionsBySubnet": "Emissions by Subnet",
-    "subnetEmissionsByType": "Emissions by Subnet Type"
+    "networkAttributions": "Network Attributions",
+    "subnetEmissionsByType": "Emissions by Subnet Type",
+    "title": "Network"
   },
   "page": {
     "about": "About",
     "home": "Home",
+    "network": "Network",
     "nodes": "Nodes"
   },
   "dataAccess": {

@@ -6,13 +6,13 @@ import type { FC } from 'react';
 import Spinner1 from '@/theme/assets/icons/spinner-1';
 
 interface NodeStatusProps {
-  status: NodeStatusType;
+  status: NodeStatusType | null;
 }
 
 const NodeStatus: FC<NodeStatusProps> = ({ status }) => {
   return (
     <p>
-      {t(`common.nodeStatus.${status.toLowerCase()}`)}
+      {t(`common.nodeStatus.${status?.toLowerCase() ?? 'unknown'}`)}
       <i className="ml-1">
         {status === 'UP' ? <Spinner1 width="1rem" /> : null}
       </i>

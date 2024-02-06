@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import type { FC } from 'react';
 
-import NodeCanisterAttributions from '@/components/nodes/NodeCanisterAttributions';
 import AccountDetailsCard from '@/components/AccountDetailsCard';
+import AttributionsCard from '@/components/AttributionsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
 import NodeEmissions from '@/components/nodes/NodeEmissions';
 import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
@@ -17,19 +17,26 @@ const Node: FC = () => {
   const { t } = useTranslation();
   const { nodeId } = useParams();
   const {
-    actions: { getNodeDetails },
-    nodeDetails
+    actions: { getNodeDetails, getNodeStats, getNodeCanisterAttributions },
+    nodeDetails,
+    nodeStats,
+    canisterAttributions,
+    isCanisterAttributionsLoading
   } = useNodes();
 
   useEffect(() => {
     if (nodeId) {
       getNodeDetails(nodeId);
+      getNodeStats(nodeId);
+      getNodeCanisterAttributions(nodeId);
     }
-  }, [nodeId, getNodeDetails]);
+  }, [nodeId, getNodeDetails, getNodeStats, getNodeCanisterAttributions]);
 
   return (
     <FlexColumnContainer>
-      <h3>{t('nodes.machineId', { nodeId })}</h3>
+      <h3 className="text-lg text-color-secondary">
+        {t('nodes.machineId', { nodeId })}
+      </h3>
       <div className="grid">
         <div className="col-12 lg:col-5">
           <AccountDetailsCard account={nodeDetails} />
@@ -38,10 +45,14 @@ const Node: FC = () => {
           <CheckoutCard />
         </div>
         <div className="col-12">
-          <NodeStats nodeId={nodeId ?? ''} />
+          <NodeStats stats={nodeStats} />
         </div>
         <div className="col-12">
-          <NodeCanisterAttributions nodeId={nodeId ?? ''} />
+          <AttributionsCard
+            title={t('nodes.nodeCanisterAttributions')}
+            list={canisterAttributions ?? []}
+            isLoading={isCanisterAttributionsLoading}
+          />
         </div>
         <div className="col-12 lg:col-6">
           <NodeEmissions nodeId={nodeId ?? ''} />
