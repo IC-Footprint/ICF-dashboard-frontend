@@ -2,6 +2,7 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import type { IconModel } from '@/models/dashboard/dashboard-carousel-item-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { GlobalConfigurationModel } from '@/models/global-configuration-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { NodeModel } from '@/models/nodes/node-model';
 import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
@@ -76,5 +77,25 @@ export class ModelMocks {
       dataCentreOwner: 'Owner',
       subnetId: 'subnet-id'
     };
+  }
+
+  static mockCanisterAttribution(id: string): CanisterAttributionModel {
+    return {
+      id,
+      registry: 'CAWA TECH',
+      status: 'pending',
+      type: 'Carbon Credit',
+      timestamp: new Date().getTime(),
+      transactionHash:
+        '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+      confidence: 0.4,
+      url: 'http://localhost/canister-attribution-url'
+    };
+  }
+
+  static mockCanisterAttributions(): CanisterAttributionModel[] {
+    return new Array(25).fill(null).map((_, index) => {
+      return this.mockCanisterAttribution(String(index + 1));
+    });
   }
 }

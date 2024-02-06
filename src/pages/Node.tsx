@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import type { FC } from 'react';
 
+import NodeCanisterAttributions from '@/components/nodes/NodeCanisterAttributions';
 import AccountDetailsCard from '@/components/AccountDetailsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
 import NodeEmissions from '@/components/nodes/NodeEmissions';
@@ -37,13 +38,16 @@ const Node: FC = () => {
           <CheckoutCard />
         </div>
         <div className="col-12">
-          <NodeStats nodeId={nodeId || ''} />
+          <NodeStats nodeId={nodeId ?? ''} />
+        </div>
+        <div className="col-12">
+          <NodeCanisterAttributions nodeId={nodeId ?? ''} />
         </div>
         <div className="col-12 lg:col-6">
-          <NodeEmissions nodeId={nodeId || ''} />
+          <NodeEmissions nodeId={nodeId ?? ''} />
         </div>
         <div className="col-12 lg:col-6">
-          <NodePowerConsumption nodeId={nodeId || ''} />
+          <NodePowerConsumption nodeId={nodeId ?? ''} />
         </div>
       </div>
     </FlexColumnContainer>

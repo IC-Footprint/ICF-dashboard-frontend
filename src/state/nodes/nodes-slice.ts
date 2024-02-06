@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
 import type { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
-import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
-import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
 import {
   getElectricityDrawByTechnologyTypeAction,
@@ -14,7 +15,8 @@ import {
   getNodesListAction,
   getNodeStatsAction,
   getNodeEmissionsAction,
-  getNodeDetailsAction
+  getNodeDetailsAction,
+  getNodeCanisterAttributionsAction
 } from '@/state/nodes/nodes-actions';
 
 export interface NodesState {
@@ -40,6 +42,9 @@ export interface NodesState {
   nodeDetails: CarbonAccountModel | null;
   nodeDetailsLoading: boolean;
   nodeDetailsError: boolean;
+  canisterAttributions: CanisterAttributionViewModel[] | null;
+  canisterAttributionsLoading: boolean;
+  canisterAttributionsError: boolean;
 }
 
 const initialState: () => NodesState = () => ({
@@ -64,7 +69,10 @@ const initialState: () => NodesState = () => ({
   nodeEmissionsLoading: false,
   nodeDetails: null,
   nodeDetailsError: false,
-  nodeDetailsLoading: false
+  nodeDetailsLoading: false,
+  canisterAttributions: null,
+  canisterAttributionsLoading: false,
+  canisterAttributionsError: false
 });
 
 const nodesSlice = createSlice({
@@ -207,6 +215,25 @@ const nodesSlice = createSlice({
         state.nodeDetailsLoading = false;
         state.nodeDetailsError = true;
       });
+
+    /** Get node canister attributions **/
+    builder
+      .addCase(getNodeCanisterAttributionsAction.pending, (state) => {
+        state.canisterAttributions = null;
+        state.canisterAttributionsLoading = true;
+        state.canisterAttributionsError = false;
+      })
+      .addCase(
+        getNodeCanisterAttributionsAction.fulfilled,
+        (state, { payload }) => {
+          state.canisterAttributionsLoading = false;
+          state.canisterAttributions = payload;
+        }
+      )
+      .addCase(getNodeCanisterAttributionsAction.rejected, (state) => {
+        state.canisterAttributionsLoading = false;
+        state.canisterAttributionsError = true;
+      });
   }
 });
 
@@ -218,7 +245,8 @@ export {
   getElectricityDrawByTechnologyTypeAction,
   getNodeStatsAction,
   getNodeEmissionsAction,
-  getNodeDetailsAction
+  getNodeDetailsAction,
+  getNodeCanisterAttributionsAction
 };
 
 export default nodesSlice.reducer;

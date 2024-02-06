@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-import type { AxiosResponse } from 'axios';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { DatasetModel } from '@/models/dataset-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
-import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { AxiosResponse } from 'axios';
 
 import { ModelMocks } from '@/mocks/model.mocks';
 
@@ -101,6 +102,17 @@ export class NodesApi {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(ModelMocks.mockNode(nodeId));
+      }, 1000);
+    });
+  }
+
+  // TODO: integrate
+  async getCanisterAttributions(
+    _id: string
+  ): Promise<CanisterAttributionModel[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(ModelMocks.mockCanisterAttributions());
       }, 1000);
     });
   }

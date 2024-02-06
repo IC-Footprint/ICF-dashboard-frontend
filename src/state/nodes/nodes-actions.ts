@@ -1,16 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { DatasetModel } from '@/models/dataset-model';
+import type { CanisterAttributionViewModel } from '@/models/nodes/canister-attribution-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
-import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
-import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
-import i18n from '@/i18n';
 import nodesApi from '@/api/nodes-api';
+import i18n from '@/i18n';
+import { NodesMappers } from '@/state/nodes/nodes-mappers';
 import { ChartMapper } from '@/utils/chart-mapper';
 import locationMapper from '@/utils/location-mapper';
-import { NodesMappers } from '@/state/nodes/nodes-mappers';
 
 export const getNodesListAction = createAsyncThunk<CarbonAccountModel[], void>(
   '/nodes/getNodesList',
@@ -125,6 +126,18 @@ export const getNodeDetailsAction = createAsyncThunk<
   try {
     const details = await nodesApi.getNodeDetails(nodeId);
     return NodesMappers.mapNodeAccounts(details);
+  } catch (err) {
+    return rejectWithValue(null);
+  }
+});
+
+export const getNodeCanisterAttributionsAction = createAsyncThunk<
+  CanisterAttributionViewModel[],
+  string
+>('/node/nodeCanisterAttributions', async (nodeId, { rejectWithValue }) => {
+  try {
+    const canisterAttributions = await nodesApi.getCanisterAttributions(nodeId);
+    return canisterAttributions.map(NodesMappers.mapCanisterAttribution);
   } catch (err) {
     return rejectWithValue(null);
   }
