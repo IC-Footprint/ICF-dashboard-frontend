@@ -1,68 +1,51 @@
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { FC } from 'react';
 import type {
-  HeadlineFiguresViewModel,
-  HeadlineFigureEntryModel
+  HeadlineFigureEntryModel,
+  HeadlineFiguresModel
 } from '@/models/dashboard/headline-figures-model';
+import type { FC } from 'react';
 
-import WorldIcon from '@/theme/assets/icons/world-2';
-import LeafIcon from '@/theme/assets/icons/leaf-alt-3';
-import CircleDashedIcon from '@/theme/assets/icons/circle-dashed';
-import ThunderboltIcon from '@/theme/assets/icons/thunderbolt';
-import {
-  createEmptyHeadlineFiguresViewModel,
-  createHeadlineFigureEntry
-} from '@/models/dashboard/headline-figures-model';
 import HeadlineFigureCard from '@/components/dashboard/HeadlineFigureCard';
-import useNodes from '@/helpers/state/useNodes';
+import { createHeadlineFigureEntry } from '@/models/dashboard/headline-figures-model';
+import CircleDashedIcon from '@/theme/assets/icons/circle-dashed';
+import LeafIcon from '@/theme/assets/icons/leaf-alt-3';
+import ThunderboltIcon from '@/theme/assets/icons/thunderbolt';
+import WorldIcon from '@/theme/assets/icons/world-2';
 
-interface NodeStatsParams {
-  nodeId: string;
+interface NodeStatsProps {
+  stats: HeadlineFiguresModel | null;
 }
 
-const NodeStats: FC<NodeStatsParams> = ({ nodeId }) => {
+const NodeStats: FC<NodeStatsProps> = ({ stats }) => {
   const { t } = useTranslation();
-  const {
-    actions: { getNodeStats },
-    nodeStats
-  } = useNodes();
-  const [headlineFiguresView, setHeadlineFiguresView] =
-    useState<HeadlineFiguresViewModel>(createEmptyHeadlineFiguresViewModel());
 
-  useEffect(() => {
-    getNodeStats(nodeId);
-  }, [getNodeStats, nodeId]);
-
-  useEffect(() => {
-    setHeadlineFiguresView({
-      cumulativeNetworkEmissions: createHeadlineFigureEntry(
-        'co2Kg',
-        <WorldIcon />,
-        nodeStats?.cumulativeNetworkEmissions
-      ),
-      cumulativeElectricityDraw: createHeadlineFigureEntry(
-        'wattHour',
-        <ThunderboltIcon />,
-        nodeStats?.cumulativeElectricityDraw
-      ),
-      avoidedEmissions: createHeadlineFigureEntry(
-        'co2Kg',
-        <CircleDashedIcon />,
-        nodeStats?.avoidedEmissions
-      ),
-      offsetEmissions: createHeadlineFigureEntry(
-        'co2Kg',
-        <LeafIcon />,
-        nodeStats?.offsetEmissions
-      )
-    });
-  }, [nodeStats]);
+  const headlineFigures = {
+    cumulativeNetworkEmissions: createHeadlineFigureEntry(
+      'co2Kg',
+      <WorldIcon />,
+      stats?.cumulativeNetworkEmissions
+    ),
+    cumulativeElectricityDraw: createHeadlineFigureEntry(
+      'wattHour',
+      <ThunderboltIcon />,
+      stats?.cumulativeElectricityDraw
+    ),
+    avoidedEmissions: createHeadlineFigureEntry(
+      'co2Kg',
+      <CircleDashedIcon />,
+      stats?.avoidedEmissions
+    ),
+    offsetEmissions: createHeadlineFigureEntry(
+      'co2Kg',
+      <LeafIcon />,
+      stats?.offsetEmissions
+    )
+  };
 
   return (
     <div className="grid">
-      {Object.entries(headlineFiguresView).map(
+      {Object.entries(headlineFigures).map(
         (keyValue: [string, HeadlineFigureEntryModel | null]) => (
           <div key={keyValue[0]} className="col-12 md:col-6 xl:col-3">
             <HeadlineFigureCard

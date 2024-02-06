@@ -7,7 +7,7 @@ import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
 import Home from '@/pages/Home';
 import Node from '@/pages/Node';
-import Subnets from '@/pages/Subnets';
+import Network from '@/pages/Network';
 import WhitePaper from '@/pages/WhitePaper';
 import { appRoutes } from '@/router/app-routes';
 import NodeProviders from '@/pages/dashboard/NodeProviders';
@@ -32,12 +32,11 @@ const AppRoutes: FC = () => {
           <Route path={appRoutes.projects.root} element={<Projects />} />
         </Route>
         <Route path={appRoutes.nodes.show} element={<Node />} />
+        <Route path={appRoutes.network.root} element={<Network />}></Route>
         <Route
           path={appRoutes.oldDashboard.root}
           element={<Dashboard />}
         ></Route>
-        <Route path={appRoutes.nodes.show} element={<Node />} />
-        <Route path={appRoutes.subnets.root} element={<Subnets />}></Route>
         <Route path={appRoutes.about.root} element={<About />}></Route>
         <Route
           path={appRoutes.whitePaper.root}

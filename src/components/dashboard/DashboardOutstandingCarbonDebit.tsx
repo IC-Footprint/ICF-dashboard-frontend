@@ -36,11 +36,9 @@ const CardContainer = styled(FlexRowCard)`
   }
 `;
 
-const Home: FC<DashboardOutstandingCarbonDebitProps> = ({
-  carbonDebit,
-  weekDifferencePercentage,
-  unit = 'co2Kg'
-}) => {
+const DashboardOutstandingCarbonDebit: FC<
+  DashboardOutstandingCarbonDebitProps
+> = ({ carbonDebit, weekDifferencePercentage, unit = 'co2Kg' }) => {
   const { t } = useTranslation();
 
   return (
@@ -71,4 +69,4 @@ const Home: FC<DashboardOutstandingCarbonDebitProps> = ({
   );
 };
 
-export default Home;
+export default DashboardOutstandingCarbonDebit;

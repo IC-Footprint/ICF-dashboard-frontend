@@ -28,22 +28,26 @@ export class DashboardMappers {
   ): CarbonAccountModel[] {
     return nodeProviders.map((account: CarbonAccountModel) => ({
       ...account,
-      operator: {
-        ...account.operator,
-        // TODO: use real icon in the future
-        icon: account.operator.icon ?? categoryIcon
-      }
+      operator: account.operator
+        ? {
+            ...account.operator,
+            // TODO: use real icon in the future
+            icon: account.operator.icon ?? categoryIcon
+          }
+        : null
     }));
   }
 
   static mapProjects(projects: CarbonAccountModel[]): CarbonAccountModel[] {
     return projects.map((account: CarbonAccountModel) => ({
       ...account,
-      operator: {
-        ...account.operator,
-        // TODO: use real icon in the future
-        icon: account.operator.icon ?? openChatIcon
-      }
+      operator: account.operator
+        ? {
+            ...account.operator,
+            // TODO: use real icon in the future
+            icon: account.operator.icon ?? openChatIcon
+          }
+        : null
     }));
   }
 }

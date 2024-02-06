@@ -84,6 +84,10 @@ export const globalStyles = (
           padding-bottom: 0;
         }
       }
+
+      .h-half {
+        height: 50%;
+      }
     `}
   />
 );

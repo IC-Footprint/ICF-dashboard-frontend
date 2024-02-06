@@ -48,7 +48,11 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   const menuItems: MenuItem[] = useMemo<MenuItem[]>(() => {
     return [
       createMenuItem(t('page.home'), <HomeIcon />, `${appRoutes.home.root}`),
-      createMenuItem(t('Subnets'), <NetworkIcon />, appRoutes.subnets.root),
+      createMenuItem(
+        t('page.network'),
+        <NetworkIcon />,
+        appRoutes.network.root
+      ),
       createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
     ];
   }, [t, createMenuItem]);
