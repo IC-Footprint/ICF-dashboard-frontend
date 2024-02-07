@@ -124,7 +124,6 @@
       "degraded": "Degraded",
       "down": "Down",
       "unassigned": "Unassigned",
-      "unknown": "Unknown",
       "up": "Live"
     },
     "report": "Report",
@@ -239,13 +238,17 @@
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
-    "machineId": "Node machine {{nodeId}}",
+    "machineId": "Node / {{nodeId}}",
     "networkEmissions": "Network Emissions (kgCo2e)",
     "nodeCanisterAttributions": "Node Canister Attributions",
     "nodeElectricityDraw": "Node Electricity Draw",
     "nodeEmissions": "Node Emissions",
     "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
+  },
+  "nodeProvider": {
+    "machineId": "Node Provider / {{nodeProviderId}}",
+    "nodeProviderAttributions": "Node Provider Attributions"
   },
   "network": {
     "emissionsBySubnet": "Emissions by Subnet",

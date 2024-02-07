@@ -5,14 +5,15 @@ import type { FC } from 'react';
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
-import Home from '@/pages/Home';
-import Node from '@/pages/Node';
-import Network from '@/pages/Network';
-import WhitePaper from '@/pages/WhitePaper';
-import { appRoutes } from '@/router/app-routes';
+import Node from '@/pages/dashboard/details/Node';
+import NodeProvider from '@/pages/dashboard/details/NodeProvider';
 import NodeProviders from '@/pages/dashboard/NodeProviders';
 import Nodes from '@/pages/dashboard/Nodes';
 import Projects from '@/pages/dashboard/Projects';
+import Home from '@/pages/Home';
+import Network from '@/pages/Network';
+import WhitePaper from '@/pages/WhitePaper';
+import { appRoutes } from '@/router/app-routes';
 
 const AppRoutes: FC = () => {
   return (
@@ -24,14 +25,17 @@ const AppRoutes: FC = () => {
             element={<Navigate to={appRoutes.nodeProviders.root} replace />}
           />
           <Route
-            index
             path={appRoutes.nodeProviders.root}
             element={<NodeProviders />}
           />
           <Route path={appRoutes.nodes.root} element={<Nodes />} />
           <Route path={appRoutes.projects.root} element={<Projects />} />
         </Route>
-        <Route path={appRoutes.nodes.show} element={<Node />} />
+        <Route path={appRoutes.nodes.details} element={<Node />} />
+        <Route
+          path={appRoutes.nodeProviders.details}
+          element={<NodeProvider />}
+        ></Route>
         <Route path={appRoutes.network.root} element={<Network />}></Route>
         <Route
           path={appRoutes.oldDashboard.root}

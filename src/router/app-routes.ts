@@ -4,7 +4,7 @@ export const appRoutes = {
   },
   nodes: {
     root: '/dashboard/nodes',
-    show: '/dashboard/nodes/:nodeId'
+    details: '/dashboard/nodes/:nodeId'
   },
   projects: {
     root: '/dashboard/projects',
@@ -12,7 +12,7 @@ export const appRoutes = {
   },
   nodeProviders: {
     root: '/dashboard/node-providers',
-    details: '/node-providers/:nodeProviderId'
+    details: '/dashboard/node-providers/:nodeProviderId'
   },
   network: {
     root: '/network'

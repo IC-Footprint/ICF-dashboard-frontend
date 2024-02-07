@@ -12,7 +12,7 @@ interface NodeStatusProps {
 const NodeStatus: FC<NodeStatusProps> = ({ status }) => {
   return (
     <p>
-      {t(`common.nodeStatus.${status?.toLowerCase() ?? 'unknown'}`)}
+      {status ? t(`common.nodeStatus.${status?.toLowerCase()}`) : '-'}
       <i className="ml-1">
         {status === 'UP' ? <Spinner1 width="1rem" /> : null}
       </i>

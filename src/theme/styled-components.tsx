@@ -167,6 +167,7 @@ export const NavBar = styled.nav`
   left: 0;
   z-index: 1000;
   justify-content: space-between;
+  min-width: 14rem;
   height: 100%;
   padding: 1.125rem 0.625rem;
   overflow: hidden;
@@ -189,9 +190,7 @@ export const StyledMenu = styled(Menu)`
   .p-menuitem a.p-menuitem-link.active {
     &,
     &:hover {
-      & > * {
-        color: var(--primary-color);
-      }
+      background-color: ${gridCardBackground};
     }
   }
 `;

@@ -9,7 +9,7 @@ import { appRoutes } from '@/router/app-routes';
 import HomeIcon from '@/theme/assets/icons/home';
 import NetworkIcon from '@/theme/assets/icons/network';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
-import logoCarbonCrowd from '@/theme/assets/logo-carbon-crowd.svg';
+import icFootprintTextLogo from '@/theme/assets/ic-footprint-text-logo.svg';
 import pogLogo from '@/theme/assets/pog.png';
 import {
   FlexColumnWithRowGap,
@@ -60,7 +60,7 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   return (
     <NavBar>
       <FlexColumnWithRowGap>
-        <img src={logoCarbonCrowd} alt="Carbon Crowd Logo" />
+        <img src={icFootprintTextLogo} alt="Carbon Crowd Logo" />
         <StyledMenu model={menuItems} />
         <img src={pogLogo} alt="PoG logo" width="120px" />
       </FlexColumnWithRowGap>
