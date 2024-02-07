@@ -2,7 +2,7 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 export class NetworkMappers {
-  static mapNetworkDetails(
+  static mapStatsToAccount(
     headlineFigures: HeadlineFiguresModel
   ): CarbonAccountModel {
     return {

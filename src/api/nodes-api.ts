@@ -116,6 +116,26 @@ export class NodesApi {
       }, 1000);
     });
   }
+
+  async getNodeProviderStats(
+    _providerId: string
+  ): Promise<HeadlineFiguresModel> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(ModelMocks.mockHeadlineFigures());
+      }, 1000);
+    });
+  }
+
+  async getNodeProviderCanisterAttributions(
+    _providerId: string
+  ): Promise<CanisterAttributionModel[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(ModelMocks.mockCanisterAttributions());
+      }, 1000);
+    });
+  }
 }
 
 const nodesApi: NodesApi = new NodesApi();

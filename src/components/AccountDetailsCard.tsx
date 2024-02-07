@@ -96,7 +96,7 @@ const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {
           </div>
           <div>
             <h5>{t('common.status')}</h5>
-            {account?.status ? <NodeStatus status={account.status} /> : '-'}
+            <NodeStatus status={account?.status ?? null} />
           </div>
         </div>
       </CardContentContainer>
