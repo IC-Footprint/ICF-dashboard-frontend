@@ -2,16 +2,17 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { DatasetFilterModel } from '@/models/dataset-filter-model';
 import type { DatasetModel } from '@/models/dataset-model';
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
-import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 
-import nodesApi from '@/api/nodes-api';
-import i18n from '@/i18n';
 import { NodesMappers } from '@/state/nodes/nodes-mappers';
 import { ChartMapper } from '@/utils/chart-mapper';
 import locationMapper from '@/utils/location-mapper';
+import i18n from '@/i18n';
+import nodesApi from '@/api/nodes-api';
 
 export const getNodesListAction = createAsyncThunk<CarbonAccountModel[], void>(
   '/nodes/getNodesList',
@@ -106,18 +107,15 @@ export const getNodeStatsAction = createAsyncThunk<
 
 export const getNodeEmissionsAction = createAsyncThunk<
   ChartData,
-  { range: RangeType | null; nodeId: string }
->(
-  '/node/emissionsAndElectricity',
-  async ({ range, nodeId }, { rejectWithValue }) => {
-    try {
-      const datasets = await nodesApi.getNodeEmissions(nodeId, range);
-      return ChartMapper.mapChartData(datasets, range);
-    } catch (err) {
-      return rejectWithValue(null);
-    }
+  DatasetFilterModel
+>('/node/emissionsAndElectricity', async (filter, { rejectWithValue }) => {
+  try {
+    const datasets = await nodesApi.getNodeEmissions(filter);
+    return ChartMapper.mapChartData(datasets, filter.range);
+  } catch (err) {
+    return rejectWithValue(null);
   }
-);
+});
 
 export const getNodeDetailsAction = createAsyncThunk<
   CarbonAccountModel,

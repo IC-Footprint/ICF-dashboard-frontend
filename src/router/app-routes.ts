@@ -8,7 +8,7 @@ export const appRoutes = {
   },
   projects: {
     root: '/dashboard/projects',
-    details: '/projects/:projectId'
+    details: '/dashboard/projects/:projectId'
   },
   nodeProviders: {
     root: '/dashboard/node-providers',

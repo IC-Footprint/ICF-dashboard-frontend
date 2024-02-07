@@ -7,6 +7,7 @@ import About from '@/pages/About';
 import Dashboard from '@/pages/Dashboard';
 import Node from '@/pages/dashboard/details/Node';
 import NodeProvider from '@/pages/dashboard/details/NodeProvider';
+import Project from '@/pages/dashboard/details/Project';
 import NodeProviders from '@/pages/dashboard/NodeProviders';
 import Nodes from '@/pages/dashboard/Nodes';
 import Projects from '@/pages/dashboard/Projects';
@@ -36,6 +37,7 @@ const AppRoutes: FC = () => {
           path={appRoutes.nodeProviders.details}
           element={<NodeProvider />}
         ></Route>
+        <Route path={appRoutes.projects.details} element={<Project />} />
         <Route path={appRoutes.network.root} element={<Network />}></Route>
         <Route
           path={appRoutes.oldDashboard.root}

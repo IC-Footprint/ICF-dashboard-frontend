@@ -30,7 +30,7 @@ const initialState: () => NodeProvidersState = () => ({
   nodeProviderCanisterAttributionsError: false
 });
 
-export const nodeProvidersReducer = createSlice({
+export const nodeProvidersSlice = createSlice({
   name: 'nodeProviders',
   initialState: initialState(),
   reducers: {},
@@ -74,4 +74,4 @@ export {
   getNodeProviderCanisterAttributionAction
 };
 
-export default nodeProvidersReducer.reducer;
+export default nodeProvidersSlice.reducer;
