@@ -164,8 +164,8 @@
         "title": "Nodes"
       },
       "projects": {
-        "error": "Error loading the projects",
-        "title": "Projects"
+        "error": "Error loading the DApps",
+        "title": "DApps"
       },
       "title": "Carbon Accounts",
       "wallets": {
@@ -236,6 +236,16 @@
     "us": "USA",
     "za": "South Africa"
   },
+  "network": {
+    "emissionsBySubnet": "Emissions by Subnet",
+    "networkAttributions": "Network Attributions",
+    "subnetEmissionsByType": "Emissions by Subnet Type",
+    "title": "Network"
+  },
+  "nodeProvider": {
+    "machineId": "Node Provider / {{nodeProviderId}}",
+    "nodeProviderAttributions": "Node Provider Attributions"
+  },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "machineId": "Node / {{nodeId}}",
@@ -246,21 +256,17 @@
     "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
     "nodeEmissionsByRegion": "Node Emissions by Region (kgCo2e)"
   },
-  "nodeProvider": {
-    "machineId": "Node Provider / {{nodeProviderId}}",
-    "nodeProviderAttributions": "Node Provider Attributions"
-  },
-  "network": {
-    "emissionsBySubnet": "Emissions by Subnet",
-    "networkAttributions": "Network Attributions",
-    "subnetEmissionsByType": "Emissions by Subnet Type",
-    "title": "Network"
-  },
   "page": {
     "about": "About",
     "home": "Home",
     "network": "Network",
     "nodes": "Nodes"
+  },
+  "project": {
+    "machineId": "DApp / {{projectId}}",
+    "projectAttributions": "DApp Attributions",
+    "projectEmissions": "DApp Emissions",
+    "projectPowerConsumption": "DApp Electricity Draw"
   },
   "dataAccess": {
     "consentMessage": "By clicking send “Submit” I agree that the given information can be used by Carbon Crowd to contact me via email.",

@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import AccountDetailsCard from '@/components/AccountDetailsCard';
 import AttributionsCard from '@/components/AttributionsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
-import NodeEmissions from '@/components/nodes/NodeEmissions';
+import ChartCard from '@/components/nodes/ChartCard';
 import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodes from '@/helpers/state/useNodes';
@@ -17,11 +17,18 @@ const Node: FC = () => {
   const { t } = useTranslation();
   const { nodeId } = useParams();
   const {
-    actions: { getNodeDetails, getNodeStats, getNodeCanisterAttributions },
+    actions: {
+      getNodeDetails,
+      getNodeStats,
+      getNodeCanisterAttributions,
+      getNodeEmissions
+    },
     nodeDetails,
     nodeStats,
     canisterAttributions,
-    isCanisterAttributionsLoading
+    isCanisterAttributionsLoading,
+    nodeEmissions,
+    nodeEmissionsLoading
   } = useNodes();
 
   useEffect(() => {
@@ -55,7 +62,13 @@ const Node: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-6">
-          <NodeEmissions nodeId={nodeId ?? ''} />
+          <ChartCard
+            label={t('nodes.nodeEmissions')}
+            idFilter={nodeId ?? ''}
+            data={nodeEmissions}
+            getDataAction={getNodeEmissions}
+            isLoading={nodeEmissionsLoading}
+          />
         </div>
         <div className="col-12 lg:col-6">
           <NodePowerConsumption nodeId={nodeId ?? ''} />

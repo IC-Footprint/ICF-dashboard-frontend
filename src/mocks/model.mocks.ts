@@ -1,6 +1,7 @@
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { IconModel } from '@/models/dashboard/dashboard-carousel-item-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { DatasetModel } from '@/models/dataset-model';
 import type { GlobalConfigurationModel } from '@/models/global-configuration-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { NodeModel } from '@/models/nodes/node-model';
@@ -96,6 +97,26 @@ export class ModelMocks {
   static mockCanisterAttributions(): CanisterAttributionModel[] {
     return new Array(25).fill(null).map((_, index) => {
       return this.mockCanisterAttribution(String(index + 1));
+    });
+  }
+
+  static mockDataset(dataSetName: string): DatasetModel {
+    const emptyArray = Array(10).fill(null);
+    return {
+      dataSetName,
+      labels: emptyArray.map((_, index) => {
+        return String(index + 1);
+      }),
+      data: emptyArray.map(() => {
+        return Math.random() * 100;
+      }),
+      active: true
+    };
+  }
+
+  static mockDatasetList(): DatasetModel[] {
+    return new Array(5).fill(null).map((_, index) => {
+      return ModelMocks.mockDataset(`Emission ${index + 1}`);
     });
   }
 }

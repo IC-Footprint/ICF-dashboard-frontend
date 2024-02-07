@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import type { RangeType } from '@/models/range-type';
+import type { DatasetFilterModel } from '@/models/dataset-filter-model';
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 import {
@@ -109,8 +110,7 @@ const useNodes = () => {
   const nodeStats = useAppSelector((state) => state.nodes.nodeStats);
 
   const getNodeEmissions = useCallback(
-    (nodeId: string, range: RangeType | null) =>
-      dispatch(getNodeEmissionsAction({ nodeId, range })),
+    (filter: DatasetFilterModel) => dispatch(getNodeEmissionsAction(filter)),
     [dispatch]
   );
 

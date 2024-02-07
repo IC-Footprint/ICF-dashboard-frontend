@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
+import type { DatasetFilterModel } from '@/models/dataset-filter-model';
 import type { DatasetModel } from '@/models/dataset-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
+import type { NodeFilterParams } from '@/models/nodes/node-filter-params';
 import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
 import type { AxiosResponse } from 'axios';
@@ -81,17 +83,14 @@ export class NodesApi {
     return response.data;
   }
 
-  async getNodeEmissions(
-    nodeId: string,
-    range: RangeType | null
-  ): Promise<DatasetModel[]> {
+  async getNodeEmissions(filter: DatasetFilterModel): Promise<DatasetModel[]> {
     const response: AxiosResponse<DatasetModel[]> = await axios.get(
       '/nodes/emissionsByNode',
       {
         params: {
-          range,
-          nodeId
-        }
+          nodeId: filter.id,
+          range: filter.range
+        } as NodeFilterParams
       }
     );
     return response.data;

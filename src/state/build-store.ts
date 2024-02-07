@@ -5,6 +5,7 @@ import type { NetworkState } from '@/state/network/network-slice';
 import type { NodeProvidersState } from '@/state/node-providers/node-providers-slice';
 import type { NodesState } from '@/state/nodes/nodes-slice';
 import type { PaymentState } from '@/state/payment/payment-slice';
+import type { ProjectsState } from '@/state/projects/projects-slice';
 import type { ResourcesState } from '@/state/resources/resources-slice';
 import type { SignUpState } from '@/state/sign-up/sign-up-slice';
 
@@ -13,6 +14,7 @@ import networkReducer from '@/state/network/network-slice';
 import nodeProvidersReducer from '@/state/node-providers/node-providers-slice';
 import nodesReducer from '@/state/nodes/nodes-slice';
 import paymentReducer from '@/state/payment/payment-slice';
+import projectsReducer from '@/state/projects/projects-slice';
 import resourcesReducer from '@/state/resources/resources-slice';
 import signUpReducer from '@/state/sign-up/sign-up-slice';
 
@@ -24,6 +26,7 @@ export interface RootState {
   resources: ResourcesState;
   payment: PaymentState;
   nodeProviders: NodeProvidersState;
+  projects: ProjectsState;
 }
 
 export const createStore = (preloadedState?: Partial<RootState>) =>
@@ -35,7 +38,8 @@ export const createStore = (preloadedState?: Partial<RootState>) =>
       signUp: signUpReducer,
       resources: resourcesReducer,
       payment: paymentReducer,
-      nodeProviders: nodeProvidersReducer
+      nodeProviders: nodeProvidersReducer,
+      projects: projectsReducer
     },
     preloadedState
   });
