@@ -306,6 +306,7 @@
       "location": "Location",
       "name": "Name",
       "nodeCount": "# Nodes",
+      "nodeProvider": "Node Provider",
       "registry": "Registry",
       "status": "Status",
       "timestamp": "Timestamp",

@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { FC } from 'react';
 
 import AccountDetailsCard from '@/components/AccountDetailsCard';
@@ -10,6 +12,7 @@ import CheckoutCard from '@/components/checkout/CheckoutCard';
 import ChartCard from '@/components/nodes/ChartCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useProjects from '@/helpers/state/useProjects';
+import useIncrementalValue from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Project: FC = () => {
@@ -39,6 +42,29 @@ const Project: FC = () => {
     }
   }, [getProjectDetails, getProjectCanisterAttributions, projectId]);
 
+  const incrementingProjectEmissions = useIncrementalValue(
+    project?.carbonDebit,
+    projectStats?.cumulativeNetworkEmissionsRate
+  );
+
+  const incrementingProject = useMemo((): CarbonAccountModel | null => {
+    return project
+      ? {
+          ...project,
+          carbonDebit: incrementingProjectEmissions ?? 0
+        }
+      : null;
+  }, [project, incrementingProjectEmissions]);
+
+  const incrementingProjectStats = useMemo((): HeadlineFiguresModel | null => {
+    return projectStats
+      ? {
+          ...projectStats,
+          cumulativeNetworkEmissions: incrementingProjectEmissions ?? 0
+        }
+      : null;
+  }, [projectStats, incrementingProjectEmissions]);
+
   return (
     <FlexColumnContainer>
       <h3 className="text-lg text-color-secondary">
@@ -46,13 +72,13 @@ const Project: FC = () => {
       </h3>
       <div className="grid">
         <div className="col-12 lg:col-5">
-          <AccountDetailsCard account={project} />
+          <AccountDetailsCard account={incrementingProject} />
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard />
         </div>
         <div className="col-12">
-          <NodeStats stats={projectStats} />
+          <NodeStats stats={incrementingProjectStats} />
         </div>
         <div className="col-12">
           <AttributionsCard

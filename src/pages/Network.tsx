@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { FC } from 'react';
 
 import AccountDetailsCard from '@/components/AccountDetailsCard';
@@ -15,6 +16,7 @@ import NodeEmissionsByRegion from '@/components/network/NodeEmissionsByRegion';
 import WorldCard from '@/components/network/WorldCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNetwork from '@/helpers/state/useNetwork';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Network: FC = () => {
@@ -41,18 +43,41 @@ const Network: FC = () => {
     networkDetails
   ]);
 
+  const incrementalNetworkEmissions = useIntervalIncrement(
+    networkStats?.cumulativeNetworkEmissions,
+    networkStats?.cumulativeNetworkEmissionsRate
+  );
+
+  const incrementalNetworkDetails = useMemo((): CarbonAccountModel | null => {
+    return networkDetails
+      ? {
+          ...networkDetails,
+          carbonDebit: incrementalNetworkEmissions ?? 0
+        }
+      : null;
+  }, [incrementalNetworkEmissions, networkDetails]);
+
+  const incrementalNetworkStats = useMemo((): HeadlineFiguresModel | null => {
+    return networkStats
+      ? {
+          ...networkStats,
+          cumulativeNetworkEmissions: incrementalNetworkEmissions ?? 0
+        }
+      : null;
+  }, [incrementalNetworkEmissions, networkStats]);
+
   return (
     <FlexColumnContainer>
       <h3>{t('network.title')}</h3>
       <div className="grid">
         <div className="col-12 lg:col-5">
-          <AccountDetailsCard account={networkDetails} />
+          <AccountDetailsCard account={incrementalNetworkDetails} />
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard />
         </div>
         <div className="col-12">
-          <NodeStats stats={networkStats} />
+          <NodeStats stats={incrementalNetworkStats} />
         </div>
         <div className="col-12">
           <AttributionsCard
