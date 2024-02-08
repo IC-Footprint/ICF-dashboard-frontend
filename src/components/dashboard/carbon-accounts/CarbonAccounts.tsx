@@ -1,11 +1,13 @@
+import styled from '@emotion/styled';
 import { DataViewLayoutOptions } from 'primereact/dataview';
 import { InputText } from 'primereact/inputtext';
 import { TabMenu } from 'primereact/tabmenu';
-import { useMemo } from 'react';
+import { Tag } from 'primereact/tag';
+import { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import type { TabMenuTabChangeEvent } from 'primereact/tabmenu';
 import type { MenuItem } from 'primereact/menuitem';
 import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
@@ -13,6 +15,20 @@ import type { DataLayoutType } from '@/models/dashboard/data-layout-type';
 import { StyledCard } from '@/theme/styled-components';
 import { appRoutes } from '@/router/app-routes';
 import useDashboard from '@/helpers/state/useDashboard';
+
+const FeatureStatusTag = styled(Tag)`
+  &.p-tag {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: normal;
+
+    &.p-tag-info {
+      border-color: var(--text-color);
+      color: var(--text-color);
+    }
+  }
+`;
 
 const CarbonAccounts: FC = () => {
   const { t } = useTranslation();
@@ -23,6 +39,28 @@ const CarbonAccounts: FC = () => {
     dataLayout,
     searchFilter
   } = useDashboard();
+
+  const itemWithFeatureStatus = useCallback(
+    (item: MenuItem) => {
+      const onLinkClick = (e: MouseEvent) => {
+        e.preventDefault();
+        navigate(item.url ?? '');
+      };
+
+      return (
+        <a
+          href={item.url}
+          className="p-menuitem-link"
+          role="presentation"
+          onClick={onLinkClick}
+        >
+          <span className="p-menuitem-text mr-2">{item.label}</span>
+          {item.icon ? item.icon : null}
+        </a>
+      );
+    },
+    [navigate]
+  );
 
   const menuItems = useMemo((): MenuItem[] => {
     return [
@@ -36,14 +74,24 @@ const CarbonAccounts: FC = () => {
       },
       {
         label: t('dashboard.carbonAccounts.projects.title') ?? '',
-        url: appRoutes.projects.root
+        url: appRoutes.projects.root,
+        icon: (
+          <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
+        ),
+        template: itemWithFeatureStatus
       },
       {
         label: t('dashboard.carbonAccounts.wallets.title') ?? '',
-        disabled: true
+        disabled: true,
+        icon: (
+          <FeatureStatusTag severity="info">
+            {t('common.featureStatus.comingSoon')}
+          </FeatureStatusTag>
+        ),
+        template: itemWithFeatureStatus
       }
     ];
-  }, [t]);
+  }, [t, itemWithFeatureStatus]);
 
   const activeTabIndex = useMemo(() => {
     const activeTabPath = location.pathname;

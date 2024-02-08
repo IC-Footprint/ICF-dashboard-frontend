@@ -112,6 +112,10 @@
       "icp": "ICP Internet Computer"
     },
     "error": "Error",
+    "featureStatus": {
+      "comingSoon": "Coming soon",
+      "new": "New"
+    },
     "gridTechnologyType": {
       "hydro": "Hydro",
       "nuclear": "Nuclear",

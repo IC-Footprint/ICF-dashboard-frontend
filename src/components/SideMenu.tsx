@@ -1,15 +1,15 @@
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-import type { FC, ReactNode } from 'react';
 import type { MenuItem } from 'primereact/menuitem';
+import type { FC, ReactNode } from 'react';
 
 import { appRoutes } from '@/router/app-routes';
-import HomeIcon from '@/theme/assets/icons/home';
-import NetworkIcon from '@/theme/assets/icons/network';
-import InfoCircleIcon from '@/theme/assets/icons/info-circle';
 import icFootprintTextLogo from '@/theme/assets/ic-footprint-text-logo.svg';
+import HomeIcon from '@/theme/assets/icons/home';
+import InfoCircleIcon from '@/theme/assets/icons/info-circle';
+import NetworkIcon from '@/theme/assets/icons/network';
 import pogLogo from '@/theme/assets/pog.png';
 import {
   FlexColumnWithRowGap,
@@ -60,7 +60,9 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   return (
     <NavBar>
       <FlexColumnWithRowGap>
-        <img src={icFootprintTextLogo} alt="Carbon Crowd Logo" />
+        <Link to={appRoutes.home.root}>
+          <img src={icFootprintTextLogo} alt="Carbon Crowd Logo" />
+        </Link>
         <StyledMenu model={menuItems} />
         <img src={pogLogo} alt="PoG logo" width="120px" />
       </FlexColumnWithRowGap>
