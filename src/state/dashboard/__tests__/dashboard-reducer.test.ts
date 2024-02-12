@@ -1,3 +1,5 @@
+import { expect, describe, test } from 'vitest';
+
 import { mockAction } from '@/mocks/actions.mocks';
 import { ModelMocks } from '@/mocks/model.mocks';
 import reducer, {

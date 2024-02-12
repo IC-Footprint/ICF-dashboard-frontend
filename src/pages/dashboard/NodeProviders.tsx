@@ -22,8 +22,8 @@ const NodeProviders: FC = () => {
       getNodeProviders();
     }
 
-    const minutesInterval: number =
-      +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
+    const minutesInterval: number = +import.meta.env
+      .VITE_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL;
     const intervalId = setInterval(() => {
       getNodeProviders();
     }, 1000 * 60 * minutesInterval);

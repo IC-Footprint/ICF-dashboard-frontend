@@ -1,3 +1,5 @@
+import { expect, describe, test } from 'vitest';
+
 import { StringUtils } from '@/utils/string-utils';
 
 describe('StringUtils', () => {

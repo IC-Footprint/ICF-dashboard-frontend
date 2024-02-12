@@ -17,8 +17,8 @@ const Home: FC = () => {
   useEffect(() => {
     getHeadlineFigures();
 
-    const minutesInterval: number =
-      +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
+    const minutesInterval: number = +import.meta.env
+      .VITE_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL;
     const intervalId = setInterval(() => {
       getHeadlineFigures();
     }, 1000 * 60 * minutesInterval);

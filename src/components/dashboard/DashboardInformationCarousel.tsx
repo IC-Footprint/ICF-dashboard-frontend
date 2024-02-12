@@ -69,7 +69,7 @@ const DashboardInformationCarousel: FC = () => {
       },
       {
         title: t('dashboard.informationCard.sustainabilityReport', {
-          year: process.env.REACT_APP_SUSTAINABILITY_REPORT_YEAR
+          year: import.meta.env.VITE_APP_SUSTAINABILITY_REPORT_YEAR
         }),
         buttonLabel: t('common.report') ?? '',
         href: globalConfiguration?.links.sustainabilityReport ?? ''

@@ -27,8 +27,8 @@ const Dashboard: FC = () => {
     }
   } = useDashboard();
   useEffect(() => {
-    const minutesInterval: number =
-      +process.env.REACT_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL!;
+    const minutesInterval: number = +import.meta.env
+      .VITE_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL;
     const intervalId = setInterval(() => {
       getLocationsLeaderboard();
       getGlobePoints();

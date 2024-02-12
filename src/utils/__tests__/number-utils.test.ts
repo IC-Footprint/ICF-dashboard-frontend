@@ -1,3 +1,5 @@
+import { expect, describe, test } from 'vitest';
+
 import { NumberUtils } from '@/utils/number-utils';
 
 describe('NumberUtils', () => {

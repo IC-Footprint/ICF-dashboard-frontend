@@ -2,14 +2,15 @@
 // Allows you to do things like:
 // Expect(element).toHaveTextContent(/react/i)
 // Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { createElement, forwardRef } from 'react';
+import { vi } from 'vitest';
 
 import initialSetup from '@/initial-setup';
 
 initialSetup();
 
-jest.doMock('react-globe.gl', () => {
+vi.doMock('react-globe.gl', () => {
   return {
     __esModule: true,
     default: forwardRef(function Globe(_props, ref) {
@@ -20,7 +21,7 @@ jest.doMock('react-globe.gl', () => {
   };
 });
 
-jest.doMock('react-i18next', () => ({
+vi.doMock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (str: string) => str
@@ -28,7 +29,7 @@ jest.doMock('react-i18next', () => ({
   },
   initReactI18next: {
     type: '3rdParty',
-    init: jest.fn()
+    init: vi.fn()
   }
 }));
 

@@ -1,5 +1,6 @@
-import Home from '@/pages/Home';
+import { expect, test } from 'vitest';
 
+import Home from '@/pages/Home';
 import { renderWithProviders } from '@/utils/test-utils';
 
 test('should render component', () => {
