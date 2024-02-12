@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { test, expect } from 'vitest';
 
 import IconLink from '@/components/IconLink';
 import { ModelMocks } from '@/mocks/model.mocks';

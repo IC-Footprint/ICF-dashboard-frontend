@@ -46,7 +46,7 @@ const ChartCard: FC<ChartCardProps> = ({
       <span>{label}</span>
       <StyledChart
         type="line"
-        data={chartData}
+        data={chartData ?? undefined}
         options={chartOptions}
         $isMobile={isMobile}
       />

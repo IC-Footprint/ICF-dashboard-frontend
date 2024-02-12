@@ -4,9 +4,10 @@ import {
   getByRole,
   getByText
 } from '@testing-library/react';
+import { expect, test } from 'vitest';
 
-import { ModelMocks } from '@/mocks/model.mocks';
 import DashboardInformationCarousel from '@/components/dashboard/DashboardInformationCarousel';
+import { ModelMocks } from '@/mocks/model.mocks';
 import { renderWithProviders } from '@/utils/test-utils';
 
 function renderWithGlobalConfiguration() {
@@ -38,7 +39,7 @@ test('should render the internet computer SNS carousel item', async () => {
     name: /whitePaper.title/i
   }) as HTMLAnchorElement;
   expect(whitePaperButton).toBeInTheDocument();
-  expect(whitePaperButton.href).toBe('http://localhost/white-paper');
+  expect(whitePaperButton.href).toBe('http://localhost:3000/white-paper');
 });
 
 test('should render the sustainability report carousel item', async () => {
