@@ -1,11 +1,33 @@
+import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
 
 import CheckoutForm from '@/components/checkout/CheckoutForm';
+import { disabledColor } from '@/theme/colors';
 import { FeaturesInformationCard } from '@/theme/styled-components';
 
-const OffsetEmission: FC = () => {
+interface OffsetEmissionProps {
+  isPaymentUnsupported?: boolean;
+}
+
+const MessageOverlayContainer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${disabledColor};
+  margin: 0 -1rem -1rem -1rem;
+  border-radius: 0.675rem;
+  pointer-events: none;
+`;
+
+const OffsetEmission: FC<OffsetEmissionProps> = ({ isPaymentUnsupported }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -21,8 +43,15 @@ const OffsetEmission: FC = () => {
             <p>{t('checkout.offsetEmission.addToken.description')}</p>
           </div>
         </FeaturesInformationCard>
-        <div className="col-12 lg:col-6 lg:col-offset-1">
+        <div className="col-12 lg:col-6 lg:col-offset-1 relative">
           <CheckoutForm />
+          {isPaymentUnsupported ? (
+            <MessageOverlayContainer>
+              <h2 className="text-primary">
+                {t('common.featureStatus.comingSoon')}
+              </h2>
+            </MessageOverlayContainer>
+          ) : null}
         </div>
       </div>
     </>

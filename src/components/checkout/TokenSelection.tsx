@@ -39,7 +39,11 @@ const OverlayItemContainer = styled.div`
   }
 `;
 
-const TokenSelection: FC = () => {
+interface TokenSelectionProps {
+  disabled?: boolean;
+}
+
+const TokenSelection: FC<TokenSelectionProps> = ({ disabled }) => {
   const { t } = useTranslation();
   const {
     actions: { setPayment },
@@ -75,6 +79,7 @@ const TokenSelection: FC = () => {
         type="button"
         text
         onClick={(e) => overlayRef.current?.toggle(e)}
+        disabled={disabled}
       >
         {currentToken?.label}
         <i className="pi pi-chevron-down ml-2 text-xs"></i>

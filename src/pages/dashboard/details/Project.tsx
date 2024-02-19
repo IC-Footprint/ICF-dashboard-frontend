@@ -75,7 +75,7 @@ const Project: FC = () => {
           <AccountDetailsCard account={incrementingProject} />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard />
+          <CheckoutCard isPaymentUnsupported />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingProjectStats} />

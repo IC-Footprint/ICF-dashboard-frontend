@@ -4,13 +4,12 @@ import { Dialog } from 'primereact/dialog';
 import { InputNumber } from 'primereact/inputnumber';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Toast } from 'primereact/toast';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { InputNumberChangeEvent } from 'primereact/inputnumber';
 import type { FC, FormEventHandler } from 'react';
 
-import { NumberUtils } from '@/utils/number-utils';
 import CheckoutSuccess from '@/components/checkout/CheckoutSuccess';
 import TokenSelection from '@/components/checkout/TokenSelection';
 import usePayment from '@/helpers/state/usePayment';
@@ -18,7 +17,9 @@ import { useDebounce } from '@/helpers/useDebounce';
 import { emptyPaymentModel } from '@/models/payment/payment-data-model';
 import { createToast } from '@/models/toast-model';
 import carouselBackground from '@/theme/assets/carousel-background.png';
+import plugWalletLogo from '@/theme/assets/plug-wallet-logo.png';
 import { Form } from '@/theme/styled-components';
+import { NumberUtils } from '@/utils/number-utils';
 
 const SuccessDialog = styled(Dialog)`
   width: 35vw;
@@ -49,6 +50,10 @@ const CheckoutForm: FC = () => {
   } = usePayment();
   const [successDialogVisible, setSuccessDialogVisible] = useState(false);
   const toast = useRef<Toast>(null);
+
+  const isFormDisabled = useMemo(() => {
+    return !payment?.nodeId;
+  }, [payment]);
 
   useEffect(() => {
     if (!payment) {
@@ -120,9 +125,10 @@ const CheckoutForm: FC = () => {
                 value: ''
               }) ?? ''
             }
+            disabled={isFormDisabled}
           />
           <div className="p-inputgroup-addon p-0">
-            <TokenSelection />
+            <TokenSelection disabled={isFormDisabled} />
           </div>
         </div>
       </div>
@@ -133,7 +139,7 @@ const CheckoutForm: FC = () => {
         {isCostCalculationLoading ? (
           <ProgressSpinner className="w-2rem h-2rem" />
         ) : (
-          <p className="text-3xl text-color">
+          <p className={`text-3xl ${isFormDisabled ? '' : 'text-color'}`}>
             {NumberUtils.formatNumber(cost, 3)}
             <span className="text-xs text-color-secondary ml-1">
               {t('common.costCurrency.icp')}
@@ -141,13 +147,24 @@ const CheckoutForm: FC = () => {
           </p>
         )}
       </div>
-      <div className="col-12 mt-5">
+      <div className="col-12 mt-5 px-3">
         <Button
-          className="w-full mx-3"
+          className="w-full"
           type="submit"
           loading={isPaymentRegistrationLoading}
-          label={t('checkout.form.submit.label') ?? ''}
-        />
+          disabled={isFormDisabled}
+          iconPos="right"
+          outlined
+        >
+          <div className="p-button-label flex align-items-center justify-content-center">
+            {t('checkout.form.submit.label')}
+            <img
+              src={plugWalletLogo}
+              alt="Plug Wallet Logo"
+              className="h-2rem p-button-icon-right mr-4"
+            ></img>
+          </div>
+        </Button>
       </div>
       <SuccessDialog
         visible={successDialogVisible}
