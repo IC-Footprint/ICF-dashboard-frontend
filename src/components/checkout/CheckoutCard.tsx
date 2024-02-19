@@ -35,9 +35,13 @@ const CheckoutCardContainer = styled(StyledCard)`
 
 interface CheckoutCardProps {
   nodeId?: string;
+  isPaymentUnsupported?: boolean;
 }
 
-const CheckoutCard: FC<CheckoutCardProps> = ({ nodeId }) => {
+const CheckoutCard: FC<CheckoutCardProps> = ({
+  nodeId,
+  isPaymentUnsupported
+}) => {
   const { t } = useTranslation();
   const {
     actions: { resetPayment }
@@ -54,7 +58,7 @@ const CheckoutCard: FC<CheckoutCardProps> = ({ nodeId }) => {
           header={t('checkout.offsetEmission.title')}
           leftIcon="pi pi-cloud-download mr-2"
         >
-          <OffsetEmission />
+          <OffsetEmission isPaymentUnsupported={isPaymentUnsupported} />
         </TabPanel>
         <TabPanel
           header={t('checkout.greenEnergy.title')}
