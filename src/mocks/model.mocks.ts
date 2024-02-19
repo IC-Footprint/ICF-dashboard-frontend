@@ -35,7 +35,9 @@ export class ModelMocks {
         sustainabilityReport: 'http://localhost/sustainability-report-link',
         greenEnergyQuote: 'http://localhost/green-energy-quote-link',
         priorCommitmentForm: 'http://localhost/prio-commitment-form-link',
-        scheduleCall: 'http://localhost/schedule-call-link'
+        scheduleCall: 'http://localhost/schedule-call-link',
+        internetComputerDashboard:
+          'http://localhost/internet-computer-dashboard-link'
       }
     };
   }
@@ -83,14 +85,10 @@ export class ModelMocks {
   static mockCanisterAttribution(id: string): CanisterAttributionModel {
     return {
       id,
-      registry: 'CAWA TECH',
-      status: 'pending',
-      type: 'Carbon Credit',
-      timestamp: new Date().getTime(),
-      transactionHash:
-        '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
-      confidence: 0.4,
-      url: 'http://localhost/canister-attribution-url'
+      payer: '',
+      ticketCount: Math.random() * 100,
+      ticketPrice: Math.random() * 100,
+      total: Math.random() * 100 + 100
     };
   }
 

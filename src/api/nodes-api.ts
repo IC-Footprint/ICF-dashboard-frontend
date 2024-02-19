@@ -105,17 +105,6 @@ export class NodesApi {
     });
   }
 
-  // TODO: integrate
-  async getCanisterAttributions(
-    _id: string
-  ): Promise<CanisterAttributionModel[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(ModelMocks.mockCanisterAttributions());
-      }, 1000);
-    });
-  }
-
   async getNodeProviderStats(
     _providerId: string
   ): Promise<HeadlineFiguresModel> {
@@ -131,7 +120,7 @@ export class NodesApi {
   ): Promise<CanisterAttributionModel[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(ModelMocks.mockCanisterAttributions());
+        resolve([]);
       }, 1000);
     });
   }

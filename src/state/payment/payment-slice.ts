@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PaymentDataModel } from '@/models/payment/payment-data-model';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import { emptyPaymentModel } from '@/models/payment/payment-data-model';
 import {
   calculateCostAction,
   registerPaymentAction
@@ -34,6 +35,17 @@ const paymentSlice = createSlice({
   reducers: {
     setPaymentAction: (state, action: PayloadAction<PaymentDataModel>) => {
       state.payment = action.payload;
+    },
+    resetPaymentRegistrationAction: (state) => {
+      state.paymentRegistered = false;
+      state.paymentRegistrationError = false;
+    },
+    resetPaymentAction: (state, action: PayloadAction<string>) => {
+      state.payment = {
+        ...emptyPaymentModel(),
+        nodeId: action.payload
+      };
+      state.cost = 0;
     }
   },
   extraReducers: (builder) => {
@@ -58,11 +70,16 @@ const paymentSlice = createSlice({
     builder.addCase(registerPaymentAction.pending, (state) => {
       state.paymentRegistrationLoading = true;
       state.paymentRegistrationError = false;
+      state.paymentRegistered = false;
     });
 
     builder.addCase(registerPaymentAction.fulfilled, (state, { payload }) => {
       state.paymentRegistrationLoading = false;
       state.paymentRegistered = payload;
+      state.payment = {
+        ...emptyPaymentModel(),
+        nodeId: state.payment?.nodeId ?? ''
+      };
     });
 
     builder.addCase(registerPaymentAction.rejected, (state) => {
@@ -72,7 +89,11 @@ const paymentSlice = createSlice({
   }
 });
 
-export const { setPaymentAction } = paymentSlice.actions;
+export const {
+  setPaymentAction,
+  resetPaymentRegistrationAction,
+  resetPaymentAction
+} = paymentSlice.actions;
 
 export { calculateCostAction, registerPaymentAction };
 

@@ -6,7 +6,9 @@ import { useAppSelector, useAppDispatch } from '@/state/hooks';
 import {
   calculateCostAction,
   registerPaymentAction,
-  setPaymentAction
+  setPaymentAction,
+  resetPaymentRegistrationAction,
+  resetPaymentAction
 } from '@/state/payment/payment-slice';
 
 const usePayment = () => {
@@ -51,11 +53,23 @@ const usePayment = () => {
     (state) => state.payment.paymentRegistrationError
   );
 
+  const resetPaymentRegistration = useCallback(
+    () => dispatch(resetPaymentRegistrationAction()),
+    [dispatch]
+  );
+
+  const resetPayment = useCallback(
+    (nodeId: string) => dispatch(resetPaymentAction(nodeId)),
+    [dispatch]
+  );
+
   return {
     actions: {
       setPayment,
       calculateCost,
-      registerPayment
+      registerPayment,
+      resetPaymentRegistration,
+      resetPayment
     },
     payment,
     cost,

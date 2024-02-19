@@ -1,27 +1,54 @@
+import styled from '@emotion/styled';
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import { InputNumber } from 'primereact/inputnumber';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { useEffect } from 'react';
+import { Toast } from 'primereact/toast';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { InputNumberChangeEvent } from 'primereact/inputnumber';
 import type { FC, FormEventHandler } from 'react';
 
+import { NumberUtils } from '@/utils/number-utils';
+import CheckoutSuccess from '@/components/checkout/CheckoutSuccess';
 import TokenSelection from '@/components/checkout/TokenSelection';
 import usePayment from '@/helpers/state/usePayment';
 import { useDebounce } from '@/helpers/useDebounce';
 import { emptyPaymentModel } from '@/models/payment/payment-data-model';
+import { createToast } from '@/models/toast-model';
+import carouselBackground from '@/theme/assets/carousel-background.png';
 import { Form } from '@/theme/styled-components';
+
+const SuccessDialog = styled(Dialog)`
+  width: 35vw;
+  background: #071426 url(${carouselBackground}) no-repeat center;
+  background-size: cover;
+
+  .p-dialog-header,
+  .p-dialog-content {
+    background: none;
+  }
+`;
 
 const CheckoutForm: FC = () => {
   const { t } = useTranslation();
   const {
-    actions: { setPayment, calculateCost, registerPayment },
+    actions: {
+      setPayment,
+      calculateCost,
+      registerPayment,
+      resetPaymentRegistration
+    },
     cost,
     payment,
     isCostCalculationLoading,
-    isPaymentRegistrationLoading
+    isPaymentRegistrationLoading,
+    paymentRegistered,
+    hasPaymentRegistrationError
   } = usePayment();
+  const [successDialogVisible, setSuccessDialogVisible] = useState(false);
+  const toast = useRef<Toast>(null);
 
   useEffect(() => {
     if (!payment) {
@@ -29,27 +56,55 @@ const CheckoutForm: FC = () => {
     }
   }, [payment, setPayment]);
 
-  const updateDebitAmountAndCalculateCost = async (
-    e: InputNumberChangeEvent
-  ) => {
+  useEffect(() => {
+    if (paymentRegistered) {
+      setSuccessDialogVisible(true);
+    }
+  }, [paymentRegistered]);
+
+  useEffect(() => {
+    if (hasPaymentRegistrationError) {
+      toast.current?.show(
+        createToast(
+          'error',
+          t('common.error'),
+          t('checkout.offsetEmission.error.title')
+        )
+      );
+    }
+    return () => {
+      resetPaymentRegistration();
+    };
+  }, [t, hasPaymentRegistrationError, resetPaymentRegistration]);
+
+  const updateValue = (e: InputNumberChangeEvent) => {
     const paymentValue = payment ?? emptyPaymentModel();
-    calculateCost({ ...paymentValue, carbonDebitAmount: e.value ?? 0 });
+    setPayment({ ...paymentValue, carbonDebitAmount: e.value ?? 0 });
   };
 
-  const debouncedUpdateDebitAmount = useDebounce(
-    updateDebitAmountAndCalculateCost,
-    300
-  );
+  const debouncedCalculateAmount = useDebounce(() => {
+    if (payment) {
+      calculateCost(payment);
+    }
+  }, 300);
 
-  const registerCarbonOffsetPayment: FormEventHandler = (event) => {
+  useEffect(() => {
+    debouncedCalculateAmount();
+  }, [payment]);
+
+  const registerCarbonOffsetPayment: FormEventHandler = async (event) => {
     event.preventDefault();
     if (payment) {
-      registerPayment(payment);
+      registerPayment({
+        ...payment,
+        totalCost: cost
+      });
     }
   };
 
   return (
     <Form onSubmit={registerCarbonOffsetPayment} className="grid">
+      <Toast ref={toast} />
       <div className="col-12">
         <label className="opacity-70 mb-2 block" htmlFor="carbonDebitAmount">
           {t('checkout.form.amount.label')}
@@ -59,7 +114,7 @@ const CheckoutForm: FC = () => {
             inputId="carbonDebitAmount"
             value={payment?.carbonDebitAmount}
             allowEmpty
-            onChange={debouncedUpdateDebitAmount}
+            onChange={updateValue}
             suffix={
               t('common.unit.co2Kg', {
                 value: ''
@@ -79,7 +134,7 @@ const CheckoutForm: FC = () => {
           <ProgressSpinner className="w-2rem h-2rem" />
         ) : (
           <p className="text-3xl text-color">
-            {cost}
+            {NumberUtils.formatNumber(cost, 3)}
             <span className="text-xs text-color-secondary ml-1">
               {t('common.costCurrency.icp')}
             </span>
@@ -94,6 +149,18 @@ const CheckoutForm: FC = () => {
           label={t('checkout.form.submit.label') ?? ''}
         />
       </div>
+      <SuccessDialog
+        visible={successDialogVisible}
+        onHide={() => setSuccessDialogVisible(false)}
+        draggable={false}
+        resizable={false}
+        breakpoints={{ '1440px': '50vw', '960px': '75vw', '641px': '100vw' }}
+      >
+        <CheckoutSuccess
+          nodeId={payment?.nodeId ?? ''}
+          carbonDebit={payment?.carbonDebitAmount ?? 0}
+        />
+      </SuccessDialog>
     </Form>
   );
 };

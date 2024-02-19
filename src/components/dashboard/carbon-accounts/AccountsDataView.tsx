@@ -45,7 +45,7 @@ const AccountCard = styled(Card)`
   }
 `;
 
-const InformationItemContainer = styled.div`
+export const InformationItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 0;

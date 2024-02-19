@@ -82,6 +82,15 @@
         "title": "Add a token"
       },
       "description": "Offset your carbon emissions",
+      "success": {
+        "compensationTitle": "You just compensated",
+        "for": "for",
+        "nodeMachine": "Node Machine",
+        "with": "with"
+      },
+      "error": {
+        "title": "An error occurred while making the transaction"
+      },
       "title": "Offset Emissions"
     },
     "priorCommitment": {
@@ -122,6 +131,7 @@
       "solar": "Solar",
       "wind": "Wind"
     },
+    "icFootprint": "IC FOOTPRINT",
     "internetComputerFootprint": "Internet Computer Dashboard",
     "leaderboard": "Leaderboard",
     "nodeStatus": {
@@ -311,9 +321,13 @@
       "name": "Name",
       "nodeCount": "# Nodes",
       "nodeProvider": "Node Provider",
+      "payer": "Payer",
       "registry": "Registry",
       "status": "Status",
+      "ticketCount": "Ticket Count",
+      "ticketPrice": "Ticket Price",
       "timestamp": "Timestamp",
+      "total": "Total",
       "transactionHash": "Transaction Hash",
       "type": "Type"
     },
