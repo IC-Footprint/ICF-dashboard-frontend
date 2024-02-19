@@ -36,50 +36,16 @@ const CanisterAttributionsTable: FC<CanisterAttributionsTableProps> = ({
       loading={isLoading}
       responsiveLayout="scroll"
     >
+      <Column field="payer" header={t('table.headers.payer')}></Column>
       <Column
-        field="registry"
-        header={t('table.headers.registry')}
-        body={(rowData: CanisterAttributionModel) => (
-          <a
-            href={rowData.registry}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary"
-          >
-            {rowData.registry}
-          </a>
-        )}
+        field="ticketCount"
+        header={t('table.headers.ticketCount')}
       ></Column>
       <Column
-        field="status"
-        header={t('table.headers.status')}
-        body={(rowData: CanisterAttributionModel) =>
-          t(`common.canisterAttributionStatus.${rowData.status}`)
-        }
+        field="ticketPrice"
+        header={t('table.headers.ticketPrice')}
       ></Column>
-      <Column field="type" header={t('table.headers.type')}></Column>
-      <Column
-        field="timestamp"
-        header={t('table.headers.timestamp')}
-        body={(rowData: CanisterAttributionModel) => {
-          return new Date(rowData.timestamp).toISOString();
-        }}
-      ></Column>
-      <Column
-        field="transactionHash"
-        header={t('table.headers.transactionHash')}
-        body={(rowData: CanisterAttributionModel) => {
-          return (
-            <span title={rowData.transactionHash}>
-              {rowData.transactionHash}
-            </span>
-          );
-        }}
-      ></Column>
-      <Column
-        field="confidence"
-        header={t('table.headers.confidence')}
-      ></Column>
+      <Column field="total" header={t('table.headers.total')}></Column>
     </StyledTable>
   );
 };

@@ -6,11 +6,8 @@ export type AttributionStatusType =
 
 export interface CanisterAttributionModel {
   id: string;
-  registry: string;
-  status: AttributionStatusType;
-  type: string;
-  timestamp: number;
-  transactionHash: string;
-  confidence: number;
-  url?: string;
+  payer: string;
+  ticketPrice: number;
+  ticketCount: number;
+  total: number;
 }

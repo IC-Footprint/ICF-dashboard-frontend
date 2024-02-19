@@ -1,0 +1,25 @@
+{
+  "canisters": {
+    "frontend": {
+      "dependencies": ["escrow_manager", "node_escrow"],
+      "type": "assets",
+      "source": ["dist/"]
+    },
+    "icrc1_ledger_canister": {
+      "type": "custom",
+      "candid": "icrc1_ledger/icrc1_ledger.did",
+      "wasm": "icrc1_ledger/icrc1_ledger.wasm.gz"
+    },
+    "node_escrow": {
+      "type": "pull",
+      "id": "jpkvk-uyaaa-aaaal-aduua-cai"
+    },
+    "escrow_manager": {
+      "type": "pull",
+      "id": "icere-3qaaa-aaaal-adutq-cai"
+    }
+  },
+  "output_env_file": ".env",
+  "dfx": "0.15.2",
+  "version": 1
+}

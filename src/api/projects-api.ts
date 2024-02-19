@@ -21,7 +21,7 @@ export class ProjectsApi {
   ): Promise<CanisterAttributionModel[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(ModelMocks.mockCanisterAttributions());
+        resolve([]);
       }, 1000);
     });
   }

@@ -5,8 +5,6 @@ import type { CanisterAttributionModel } from '@/models/nodes/canister-attributi
 import type { RangeType } from '@/models/range-type';
 import type { AxiosResponse } from 'axios';
 
-import { ModelMocks } from '@/mocks/model.mocks';
-
 export class NetworkApi {
   async getEmissionsByType(range: RangeType | null): Promise<DatasetModel[]> {
     const response: AxiosResponse<DatasetModel[]> = await axios.get(
@@ -36,7 +34,7 @@ export class NetworkApi {
   async getNetworkAttributions(): Promise<CanisterAttributionModel[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(ModelMocks.mockCanisterAttributions());
+        resolve([]);
       }, 1000);
     });
   }

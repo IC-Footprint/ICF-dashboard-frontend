@@ -13,6 +13,7 @@ import ChartCard from '@/components/nodes/ChartCard';
 import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodes from '@/helpers/state/useNodes';
+import usePayment from '@/helpers/state/usePayment';
 import useIncrementalValue from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
@@ -33,6 +34,7 @@ const Node: FC = () => {
     nodeEmissions,
     nodeEmissionsLoading
   } = useNodes();
+  const { paymentRegistered, payment } = usePayment();
 
   useEffect(() => {
     if (nodeId) {
@@ -41,6 +43,12 @@ const Node: FC = () => {
       getNodeCanisterAttributions(nodeId);
     }
   }, [nodeId, getNodeDetails, getNodeStats, getNodeCanisterAttributions]);
+
+  useEffect(() => {
+    if (nodeId && payment?.nodeId === nodeId && paymentRegistered) {
+      getNodeCanisterAttributions(nodeId);
+    }
+  }, [payment, paymentRegistered, nodeId]);
 
   const incrementingNodeEmissions = useIncrementalValue(
     nodeDetails?.carbonDebit,
@@ -75,7 +83,7 @@ const Node: FC = () => {
           <AccountDetailsCard account={incrementingNodeDetails} />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard />
+          <CheckoutCard nodeId={nodeId} />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingNodeStats} />

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { TabView, TabPanel } from 'primereact/tabview';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
@@ -8,6 +9,7 @@ import Contacts from '@/components/checkout/tabs/Contacts';
 import GreenEnergy from '@/components/checkout/tabs/GreenEnergy';
 import OffsetEmission from '@/components/checkout/tabs/OffsetEmission';
 import PriorCommitment from '@/components/checkout/tabs/PriorCommitment';
+import usePayment from '@/helpers/state/usePayment';
 import ThunderboltIcon from '@/theme/assets/icons/thunderbolt';
 import { StyledCard } from '@/theme/styled-components';
 
@@ -31,8 +33,20 @@ const CheckoutCardContainer = styled(StyledCard)`
   }
 `;
 
-const CheckoutCard: FC = () => {
+interface CheckoutCardProps {
+  nodeId?: string;
+}
+
+const CheckoutCard: FC<CheckoutCardProps> = ({ nodeId }) => {
   const { t } = useTranslation();
+  const {
+    actions: { resetPayment }
+  } = usePayment();
+
+  useEffect(() => {
+    resetPayment(nodeId ?? '');
+  }, [nodeId, resetPayment]);
+
   return (
     <CheckoutCardContainer>
       <TabView>

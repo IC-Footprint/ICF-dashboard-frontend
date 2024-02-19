@@ -8,6 +8,7 @@ import type { CanisterAttributionModel } from '@/models/nodes/canister-attributi
 import type { RangeType } from '@/models/range-type';
 import type { ChartData } from 'chart.js';
 
+import paymentApi from '@/api/payment-api';
 import { NodesMappers } from '@/state/nodes/nodes-mappers';
 import { ChartMapper } from '@/utils/chart-mapper';
 import locationMapper from '@/utils/location-mapper';
@@ -134,7 +135,7 @@ export const getNodeCanisterAttributionsAction = createAsyncThunk<
   string
 >('/node/nodeCanisterAttributions', async (nodeId, { rejectWithValue }) => {
   try {
-    return await nodesApi.getCanisterAttributions(nodeId);
+    return await paymentApi.getPurchases(nodeId);
   } catch (err) {
     return rejectWithValue(null);
   }

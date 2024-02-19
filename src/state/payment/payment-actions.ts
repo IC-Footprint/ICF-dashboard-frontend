@@ -10,6 +10,7 @@ export const calculateCostAction = createAsyncThunk<number, PaymentDataModel>(
     try {
       return paymentApi.calculateCost(data);
     } catch (err) {
+      console.error('Error calculating cost: ', err);
       return rejectWithValue(null);
     }
   }
@@ -24,6 +25,7 @@ export const registerPaymentAction = createAsyncThunk<
     try {
       return paymentApi.registerPayment(data);
     } catch (err) {
+      console.error('Error registering payment: ', err);
       return rejectWithValue(false);
     }
   }

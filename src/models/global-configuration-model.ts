@@ -5,7 +5,8 @@ export type LinkType =
   | 'openChat'
   | 'greenEnergyQuote'
   | 'priorCommitmentForm'
-  | 'scheduleCall';
+  | 'scheduleCall'
+  | 'internetComputerDashboard';
 
 export interface GlobalConfigurationModel {
   links: Record<LinkType, string>;
