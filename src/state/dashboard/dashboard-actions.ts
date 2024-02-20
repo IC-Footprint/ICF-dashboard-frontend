@@ -17,7 +17,13 @@ export const getHeadlineFiguresAction = createAsyncThunk<
   void
 >('/dashboard/getHeadlineFigures', async (_, { rejectWithValue }) => {
   try {
-    return await dashboardApi.getDashboardHeadlineFigures();
+    const headlineFigures = await dashboardApi.getDashboardHeadlineFigures();
+    const totalPercentChangeOverLastWeek =
+      await dashboardApi.getTotalPercentChangeOverLastWeek();
+    return {
+      ...headlineFigures,
+      weeklyEmissions: totalPercentChangeOverLastWeek.value
+    };
   } catch (err) {
     return rejectWithValue(null);
   }

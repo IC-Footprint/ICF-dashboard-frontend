@@ -10,7 +10,7 @@ import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 
 const Home: FC = () => {
   const {
-    actions: { getHeadlineFigures },
+    actions: { getHeadlineFigures, resetHeadlineFigures },
     headlineFigures
   } = useDashboard();
 
@@ -25,8 +25,9 @@ const Home: FC = () => {
 
     return () => {
       clearInterval(intervalId);
+      resetHeadlineFigures();
     };
-  }, [getHeadlineFigures]);
+  }, [getHeadlineFigures, resetHeadlineFigures]);
 
   const cumulativeNetworkEmissions = useIntervalIncrement(
     headlineFigures?.cumulativeNetworkEmissions,
@@ -38,9 +39,7 @@ const Home: FC = () => {
       <div className="col-12 lg:col-7">
         <DashboardOutstandingCarbonDebit
           carbonDebit={cumulativeNetworkEmissions}
-          weekDifferencePercentage={
-            headlineFigures?.cumulativeNetworkEmissionsRate
-          }
+          weekDifferencePercentage={headlineFigures?.weeklyEmissions}
         />
       </div>
       <div className="col-12 lg:col-5">

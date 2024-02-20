@@ -7,7 +7,8 @@ export class NumberUtils {
       return undefined;
     }
     return new Intl.NumberFormat(undefined, {
-      maximumSignificantDigits
+      maximumSignificantDigits,
+      maximumFractionDigits: 2
     }).format(value);
   }
 }

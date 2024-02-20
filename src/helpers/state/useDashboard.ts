@@ -10,7 +10,8 @@ import {
   getNodesCountersAction,
   getProjectsAction,
   setDataLayoutAction,
-  setSearchFilterAction
+  setSearchFilterAction,
+  resetHeadlineFiguresAction
 } from '@/state/dashboard/dashboard-slice';
 import { useAppDispatch, useAppSelector } from '@/state/hooks';
 
@@ -129,6 +130,10 @@ const useDashboard = () => {
     [dispatch]
   );
 
+  const resetHeadlineFigures = useCallback(() => {
+    dispatch(resetHeadlineFiguresAction());
+  }, [dispatch]);
+
   return {
     actions: {
       getHeadlineFigures,
@@ -138,7 +143,8 @@ const useDashboard = () => {
       getNodeProviders,
       setDataLayout,
       getProjects,
-      setSearchFilter
+      setSearchFilter,
+      resetHeadlineFigures
     },
     headlineFigures,
     isHeadlineFiguresLoading,

@@ -75,6 +75,9 @@ const dashboardSlice = createSlice({
     },
     setSearchFilter: (state, { payload }: PayloadAction<string>) => {
       state.searchFilter = payload;
+    },
+    resetHeadlineFigures: (state) => {
+      state.headlineFigures = null;
     }
   },
   extraReducers: (builder) => {
@@ -175,7 +178,8 @@ const dashboardSlice = createSlice({
 
 export const {
   setDataLayout: setDataLayoutAction,
-  setSearchFilter: setSearchFilterAction
+  setSearchFilter: setSearchFilterAction,
+  resetHeadlineFigures: resetHeadlineFiguresAction
 } = dashboardSlice.actions;
 
 export {
