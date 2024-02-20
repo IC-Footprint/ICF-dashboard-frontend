@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-import type { AxiosResponse } from 'axios';
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
-import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCountersModel } from '@/models/dashboard/nodes-counters-model';
+import type { DiscreteValueModel } from '@/models/discrete-value-model';
+import type { AxiosResponse } from 'axios';
 
 import { ModelMocks } from '@/mocks/model.mocks';
 
@@ -13,6 +14,13 @@ export class DashboardApi {
   async getDashboardHeadlineFigures(): Promise<HeadlineFiguresModel> {
     const response: AxiosResponse<HeadlineFiguresModel> = await axios.get(
       '/dashboard/counters/emissionsAndElectricity'
+    );
+    return response.data;
+  }
+
+  async getTotalPercentChangeOverLastWeek(): Promise<DiscreteValueModel> {
+    const response: AxiosResponse<DiscreteValueModel> = await axios.get(
+      '/node-providers/getTotalPercentChangeOverLastWeek'
     );
     return response.data;
   }
@@ -36,15 +44,6 @@ export class DashboardApi {
       '/dashboard/globePoints'
     );
     return response.data;
-  }
-
-  // TODO: integrate
-  async getNodeProviders(): Promise<CarbonAccountModel[]> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(ModelMocks.mockNodeElementsList());
-      }, 1000);
-    });
   }
 
   // TODO: integrate
