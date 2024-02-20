@@ -22,13 +22,13 @@ const AppRoutes: FC = () => {
         <Route path={appRoutes.home.root} element={<Home />}>
           <Route
             index
-            element={<Navigate to={appRoutes.nodeProviders.root} replace />}
+            element={<Navigate to={appRoutes.nodes.root} replace />}
           />
+          <Route path={appRoutes.nodes.root} element={<Nodes />} />
           <Route
             path={appRoutes.nodeProviders.root}
             element={<NodeProviders />}
           />
-          <Route path={appRoutes.nodes.root} element={<Nodes />} />
           <Route path={appRoutes.projects.root} element={<Projects />} />
         </Route>
         <Route path={appRoutes.nodes.details} element={<Node />} />

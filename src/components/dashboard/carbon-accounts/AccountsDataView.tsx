@@ -232,10 +232,12 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
                 : '-'
             }
           ></Column>
-          <Column
-            field="confidence"
-            header={t('table.headers.confidence')}
-          ></Column>
+          {dataType === 'nodes' ? (
+            <Column
+              field="confidence"
+              header={t('table.headers.confidence')}
+            ></Column>
+          ) : null}
           <Column
             field="location"
             header={t('table.headers.location')}

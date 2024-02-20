@@ -179,12 +179,12 @@
         "title": "Nodes"
       },
       "projects": {
-        "error": "Error loading the DApps",
-        "title": "DApps"
+        "error": "Error loading the DAOs",
+        "title": "DAOs"
       },
       "title": "Carbon Accounts",
       "wallets": {
-        "title": "Wallets"
+        "title": "DApps & Wallets"
       }
     },
     "carbonDebit": {
@@ -278,10 +278,10 @@
     "nodes": "Nodes"
   },
   "project": {
-    "machineId": "DApp / {{projectId}}",
-    "projectAttributions": "DApp Attributions",
-    "projectEmissions": "DApp Emissions",
-    "projectPowerConsumption": "DApp Electricity Draw"
+    "machineId": "DAO / {{projectId}}",
+    "projectAttributions": "DAO Attributions",
+    "projectEmissions": "DAO Emissions",
+    "projectPowerConsumption": "DAO Electricity Draw"
   },
   "dataAccess": {
     "consentMessage": "By clicking send “Submit” I agree that the given information can be used by Carbon Crowd to contact me via email.",
