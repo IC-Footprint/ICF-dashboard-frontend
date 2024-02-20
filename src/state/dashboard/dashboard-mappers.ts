@@ -3,7 +3,7 @@ import type {
   NodesCountersModel,
   NodesCounterViewModel
 } from '@/models/dashboard/nodes-counters-model';
-import type { NodeProviderModel } from '@/models/node-providers/node-provider-model';
+import type { EmissionsModel } from '@/models/emissions-model';
 
 import i18n from '@/i18n';
 import categoryIcon from '@/theme/assets/category-icon.svg';
@@ -25,10 +25,10 @@ export class DashboardMappers {
   }
 
   static mapNodeProviders(
-    nodeProviders: NodeProviderModel[]
+    nodeProviders: EmissionsModel[]
   ): CarbonAccountModel[] {
     return nodeProviders.map(
-      (nodeProvider: NodeProviderModel): CarbonAccountModel => ({
+      (nodeProvider: EmissionsModel): CarbonAccountModel => ({
         id: nodeProvider.name,
         carbonDebit: nodeProvider.totalEmissions,
         weeklyEmissions: nodeProvider.weeklyEmissions,

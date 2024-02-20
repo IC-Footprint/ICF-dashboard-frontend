@@ -48,7 +48,7 @@ const TrendValue: FC<TrendProps> = ({
 
   const value = isPercentage
     ? StringUtils.toDifferencePercentage(differenceValue)
-    : NumberUtils.formatNumber(differenceValue, 2);
+    : NumberUtils.formatNumber(differenceValue);
 
   return (
     <StyledFlexRowContainer

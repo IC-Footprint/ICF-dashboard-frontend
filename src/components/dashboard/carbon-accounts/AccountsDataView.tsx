@@ -214,7 +214,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               value: ''
             })}
             body={(rowData: CarbonAccountModel) =>
-              NumberUtils.formatNumber(rowData.weeklyEmissions, 2)
+              NumberUtils.formatNumber(rowData.weeklyEmissions)
             }
           ></Column>
           {dataType === 'nodes' ? (

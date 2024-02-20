@@ -12,4 +12,5 @@ export interface NodeModel {
   dataCentreOwner: string;
   subnetId: string;
   gridTechnology: GridTechnologyType[];
+  weeklyEmissions: number;
 }

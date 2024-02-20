@@ -13,7 +13,8 @@ import {
   getNodesListAction,
   getNodeStatsAction,
   getNodeDetailsAction,
-  getNodeCanisterAttributionsAction
+  getNodeCanisterAttributionsAction,
+  resetNodeDetailsAction
 } from '@/state/nodes/nodes-slice';
 
 const useNodes = () => {
@@ -152,6 +153,10 @@ const useNodes = () => {
     (state) => state.nodes.canisterAttributionsError
   );
 
+  const resetNodeDetails = useCallback(() => {
+    dispatch(resetNodeDetailsAction());
+  }, [dispatch]);
+
   return {
     actions: {
       getNodesList,
@@ -162,7 +167,8 @@ const useNodes = () => {
       getNodeStats,
       getNodeEmissions,
       getNodeDetails,
-      getNodeCanisterAttributions
+      getNodeCanisterAttributions,
+      resetNodeDetails
     },
     nodesList,
     isNodesListLoading,

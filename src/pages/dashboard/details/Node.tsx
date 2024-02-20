@@ -25,7 +25,8 @@ const Node: FC = () => {
       getNodeDetails,
       getNodeStats,
       getNodeCanisterAttributions,
-      getNodeEmissions
+      getNodeEmissions,
+      resetNodeDetails
     },
     nodeDetails,
     nodeStats,
@@ -42,7 +43,16 @@ const Node: FC = () => {
       getNodeStats(nodeId);
       getNodeCanisterAttributions(nodeId);
     }
-  }, [nodeId, getNodeDetails, getNodeStats, getNodeCanisterAttributions]);
+    return () => {
+      resetNodeDetails();
+    };
+  }, [
+    nodeId,
+    getNodeDetails,
+    getNodeStats,
+    getNodeCanisterAttributions,
+    resetNodeDetails
+  ]);
 
   useEffect(() => {
     if (nodeId && payment?.nodeId === nodeId && paymentRegistered) {

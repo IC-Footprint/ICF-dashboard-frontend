@@ -19,8 +19,11 @@ export const getNodesListAction = createAsyncThunk<CarbonAccountModel[], void>(
   '/nodes/getNodesList',
   async (_, { rejectWithValue }) => {
     try {
-      const list = await nodesApi.getNodesList();
-      return list.map(NodesMappers.mapNodeAccounts);
+      const nodesList = await nodesApi.getNodesList();
+      const nodesEmissions = await nodesApi.getNodesEmissions();
+      return nodesList
+        .map(NodesMappers.mapNodeAccounts(nodesEmissions))
+        .sort((a, b) => b.carbonDebit - a.carbonDebit);
     } catch (err) {
       return rejectWithValue(null);
     }
@@ -123,8 +126,10 @@ export const getNodeDetailsAction = createAsyncThunk<
   string
 >('/node/nodeDetails', async (nodeId, { rejectWithValue }) => {
   try {
-    const details = await nodesApi.getNodeDetails(nodeId);
-    return NodesMappers.mapNodeAccounts(details);
+    const nodesList = await nodesApi.getNodesList();
+    const details = nodesList.find((n) => n.id === nodeId);
+    const nodesEmissions = await nodesApi.getNodesEmissions();
+    return NodesMappers.mapNodeAccounts(nodesEmissions)(details);
   } catch (err) {
     return rejectWithValue(null);
   }

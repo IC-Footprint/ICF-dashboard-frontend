@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 import type { NodeProviderElectricityDrawModel } from '@/models/node-providers/node-provider-electricity-draw-model';
-import type { NodeProviderModel } from '@/models/node-providers/node-provider-model';
+import type { EmissionsModel } from '@/models/emissions-model';
 import type { AxiosResponse } from 'axios';
 
 export class NodeProvidersApi {
-  async getNodeProviders(): Promise<NodeProviderModel[]> {
-    const response: AxiosResponse<NodeProviderModel[]> = await axios.get(
+  async getNodeProviders(): Promise<EmissionsModel[]> {
+    const response: AxiosResponse<EmissionsModel[]> = await axios.get(
       '/node-providers/getNodeProviderEmissions'
     );
     return response.data;
