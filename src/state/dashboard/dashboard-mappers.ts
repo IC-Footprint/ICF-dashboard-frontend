@@ -1,12 +1,13 @@
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type {
   NodesCountersModel,
   NodesCounterViewModel
 } from '@/models/dashboard/nodes-counters-model';
-import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+import type { NodeProviderModel } from '@/models/node-providers/node-provider-model';
 
+import i18n from '@/i18n';
 import categoryIcon from '@/theme/assets/category-icon.svg';
 import openChatIcon from '@/theme/assets/social-logos/open-chat-logo.png';
-import i18n from '@/i18n';
 
 export class DashboardMappers {
   static mapDashboardNodesCounters(
@@ -24,18 +25,23 @@ export class DashboardMappers {
   }
 
   static mapNodeProviders(
-    nodeProviders: CarbonAccountModel[]
+    nodeProviders: NodeProviderModel[]
   ): CarbonAccountModel[] {
-    return nodeProviders.map((account: CarbonAccountModel) => ({
-      ...account,
-      operator: account.operator
-        ? {
-            ...account.operator,
-            // TODO: use real icon in the future
-            icon: account.operator.icon ?? categoryIcon
-          }
-        : null
-    }));
+    return nodeProviders.map(
+      (nodeProvider: NodeProviderModel): CarbonAccountModel => ({
+        id: nodeProvider.name,
+        carbonDebit: nodeProvider.totalEmissions,
+        weeklyEmissions: nodeProvider.weeklyEmissions,
+        operator: {
+          name: nodeProvider.name,
+          // TODO: use real icon in the future
+          icon: categoryIcon
+        },
+        location: null,
+        confidence: null,
+        status: null
+      })
+    );
   }
 
   static mapProjects(projects: CarbonAccountModel[]): CarbonAccountModel[] {

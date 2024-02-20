@@ -9,6 +9,6 @@ export class StringUtils {
     if (value > 0) {
       sign = '+';
     }
-    return `${sign}${NumberUtils.formatNumber(value)}%`;
+    return `${sign}${NumberUtils.formatNumber(value, 2)}%`;
   }
 }

@@ -10,7 +10,7 @@ export interface CarbonAccountModel {
   id: string;
   operator: OperatorModel | null;
   carbonDebit: number;
-  lastDayCarbonDifference: number;
+  weeklyEmissions: number;
   status: NodeStatusType | null;
   confidence: number | null;
   location: string | null;

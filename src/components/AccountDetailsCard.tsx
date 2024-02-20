@@ -81,9 +81,9 @@ const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {
         </div>
         <LightTag>
           <FlexRowContainer>
-            <TrendValue differenceValue={account?.lastDayCarbonDifference} />
+            <TrendValue differenceValue={account?.weeklyEmissions} />
             <span>
-              {t('common.unit.kgPerDay', {
+              {t('common.unit.kgPerWeek', {
                 value: ''
               })}
             </span>

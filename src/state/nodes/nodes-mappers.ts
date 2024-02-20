@@ -16,7 +16,7 @@ export class NodesMappers {
       status: node.status,
       location: locationMapper.mapLocationName(node.location),
       confidence: 0, // TODO
-      lastDayCarbonDifference: 0 // TODO
+      weeklyEmissions: 0 // TODO
     };
   }
 }

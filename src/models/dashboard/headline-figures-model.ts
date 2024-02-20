@@ -7,6 +7,7 @@ export interface HeadlineFiguresModel {
   cumulativeElectricityDraw: number;
   avoidedEmissions: number;
   offsetEmissions: number;
+  weeklyEmissions: number;
 }
 
 export interface HeadlineFigureEntryModel {

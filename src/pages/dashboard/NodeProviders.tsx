@@ -18,7 +18,7 @@ const NodeProviders: FC = () => {
   } = useDashboard();
 
   useEffect(() => {
-    if (!nodeProviders) {
+    if (!nodeProviders || nodeProviders.length === 0) {
       getNodeProviders();
     }
 

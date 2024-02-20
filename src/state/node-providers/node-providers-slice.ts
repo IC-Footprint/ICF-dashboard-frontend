@@ -4,11 +4,11 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 
-import { NetworkMappers } from '@/state/network/network-mappers';
 import {
   getNodeProviderDetailsAction,
   getNodeProviderCanisterAttributionAction
 } from '@/state/node-providers/node-providers-actions';
+import { NodeProvidersMappers } from '@/state/node-providers/node-providers-mappers';
 
 export interface NodeProvidersState {
   nodeProvider: CarbonAccountModel | null;
@@ -43,7 +43,10 @@ export const nodeProvidersSlice = createSlice({
       .addCase(getNodeProviderDetailsAction.fulfilled, (state, action) => {
         state.nodeProviderLoading = false;
         state.nodeProviderStats = action.payload;
-        state.nodeProvider = NetworkMappers.mapStatsToAccount(action.payload);
+        state.nodeProvider = NodeProvidersMappers.mapStatsToAccount(
+          action.payload,
+          action.meta.arg
+        );
       })
       .addCase(getNodeProviderDetailsAction.rejected, (state) => {
         state.nodeProviderLoading = false;

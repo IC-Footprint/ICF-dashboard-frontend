@@ -1,17 +1,24 @@
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
-export class NetworkMappers {
+export class NodeProvidersMappers {
   static mapStatsToAccount(
-    headlineFigures: HeadlineFiguresModel
+    headlineFigures: HeadlineFiguresModel,
+    nodeProviderName?: string
   ): CarbonAccountModel {
     return {
       weeklyEmissions: headlineFigures.weeklyEmissions,
-      operator: null,
+      operator: nodeProviderName
+        ? {
+            name: nodeProviderName
+          }
+        : null,
       status: null,
       location: null,
-      id: 'network',
-      carbonDebit: headlineFigures.cumulativeNetworkEmissions,
+      id: nodeProviderName ?? '',
+      carbonDebit:
+        headlineFigures.cumulativeNetworkEmissions -
+        headlineFigures.avoidedEmissions,
       confidence: null
     };
   }

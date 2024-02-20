@@ -5,6 +5,7 @@ import type { FC } from 'react';
 
 import { primary } from '@/theme/colors';
 import { FlexRowContainer } from '@/theme/styled-components';
+import { NumberUtils } from '@/utils/number-utils';
 import { StringUtils } from '@/utils/string-utils';
 
 export interface TrendProps {
@@ -47,7 +48,7 @@ const TrendValue: FC<TrendProps> = ({
 
   const value = isPercentage
     ? StringUtils.toDifferencePercentage(differenceValue)
-    : differenceValue;
+    : NumberUtils.formatNumber(differenceValue, 2);
 
   return (
     <StyledFlexRowContainer

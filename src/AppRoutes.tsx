@@ -4,7 +4,6 @@ import type { FC } from 'react';
 
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
-import Dashboard from '@/pages/Dashboard';
 import Node from '@/pages/dashboard/details/Node';
 import NodeProvider from '@/pages/dashboard/details/NodeProvider';
 import Project from '@/pages/dashboard/details/Project';
@@ -39,10 +38,6 @@ const AppRoutes: FC = () => {
         ></Route>
         <Route path={appRoutes.projects.details} element={<Project />} />
         <Route path={appRoutes.network.root} element={<Network />}></Route>
-        <Route
-          path={appRoutes.oldDashboard.root}
-          element={<Dashboard />}
-        ></Route>
         <Route path={appRoutes.about.root} element={<About />}></Route>
         <Route
           path={appRoutes.whitePaper.root}

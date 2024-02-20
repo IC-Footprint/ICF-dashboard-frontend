@@ -120,17 +120,17 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
           <FlexRowContainer>
             <InformationItemContainer>
               <h4>
-                {t('common.unit.kgPerDay', {
+                {t('common.unit.kgPerWeek', {
                   value: ''
                 })}
               </h4>
               <TrendValue
-                differenceValue={account.lastDayCarbonDifference}
+                differenceValue={account.weeklyEmissions}
                 size="small"
                 iconAlignment={'right'}
               />
             </InformationItemContainer>
-            <InformationItemContainer>
+            <InformationItemContainer className="ml-2">
               <h4>{t('common.status')}</h4>
               <NodeStatus status={account.status} />
             </InformationItemContainer>
@@ -208,6 +208,15 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               NumberUtils.formatNumber(rowData.carbonDebit)
             }
           ></Column>
+          <Column
+            field="weeklyEmissions"
+            header={t('common.unit.kgPerWeek', {
+              value: ''
+            })}
+            body={(rowData: CarbonAccountModel) =>
+              NumberUtils.formatNumber(rowData.weeklyEmissions, 2)
+            }
+          ></Column>
           {dataType === 'nodes' ? (
             <Column
               field="operator.name"
@@ -218,7 +227,9 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             field="status"
             header={t('table.headers.status')}
             body={(rowData: CarbonAccountModel) =>
-              t(`common.nodeStatus.${rowData.status?.toLowerCase()}`)
+              rowData.status
+                ? t(`common.nodeStatus.${rowData.status?.toLowerCase()}`)
+                : '-'
             }
           ></Column>
           <Column
