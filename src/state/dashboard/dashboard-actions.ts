@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
-import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
+import type { NodeProviderModel } from '@/models/node-providers/node-provider-model';
 
+import nodeProvidersApi from '@/api/node-providers-api';
 import dashboardApi from '@/api/dashboard-api';
 import { DashboardMappers } from '@/state/dashboard/dashboard-mappers';
 import locationMapper from '@/utils/location-mapper';
@@ -72,8 +74,8 @@ export const getNodeProvidersAction = createAsyncThunk<
   void
 >('/dashboard/getNodeProviders', async (_, { rejectWithValue }) => {
   try {
-    const nodeProviders: CarbonAccountModel[] =
-      await dashboardApi.getNodeProviders();
+    const nodeProviders: NodeProviderModel[] =
+      await nodeProvidersApi.getNodeProviders();
     return DashboardMappers.mapNodeProviders(nodeProviders);
   } catch (err) {
     return rejectWithValue(null);

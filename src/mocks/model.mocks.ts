@@ -14,7 +14,8 @@ export class ModelMocks {
       cumulativeElectricityDraw: 100,
       cumulativeNetworkEmissions: 300,
       cumulativeNetworkEmissionsRate: 0.5,
-      offsetEmissions: 123
+      offsetEmissions: 123,
+      weeklyEmissions: 50
     };
   }
 
@@ -52,7 +53,7 @@ export class ModelMocks {
         name: 'Aviate Labs'
       },
       carbonDebit: 10320000,
-      lastDayCarbonDifference: +Math.random().toFixed(2),
+      weeklyEmissions: +Math.random().toFixed(2),
       status: status,
       confidence: +Math.random().toFixed(2),
       location: 'USA'

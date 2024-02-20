@@ -161,6 +161,7 @@
       "co2Kg": "{{value}} KGCO2e",
       "co2Tonnes": "{{value}} tCO2e",
       "kgPerDay": "{{value}} Kg/24hrs",
+      "kgPerWeek": "{{value}} Kg/Week",
       "wattHour": "{{value}} Wh"
     }
   },
