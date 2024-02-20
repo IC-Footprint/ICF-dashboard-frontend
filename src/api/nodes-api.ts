@@ -3,6 +3,7 @@ import axios from 'axios';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { DatasetFilterModel } from '@/models/dataset-filter-model';
 import type { DatasetModel } from '@/models/dataset-model';
+import type { EmissionsModel } from '@/models/emissions-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { NodeFilterParams } from '@/models/nodes/node-filter-params';
 import type { NodeModel } from '@/models/nodes/node-model';
@@ -15,6 +16,13 @@ export class NodesApi {
   async getNodesList(): Promise<NodeModel[]> {
     const response: AxiosResponse<NodeModel[]> = await axios.get(
       '/nodes/leaderboard'
+    );
+    return response.data;
+  }
+
+  async getNodesEmissions(): Promise<EmissionsModel[]> {
+    const response: AxiosResponse<EmissionsModel[]> = await axios.get(
+      '/nodes/getNodeEmissions'
     );
     return response.data;
   }

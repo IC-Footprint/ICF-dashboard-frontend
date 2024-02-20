@@ -88,6 +88,12 @@ const nodesSlice = createSlice({
       state.networkEmissionsLoading = false;
       state.networkEmissionsError = false;
       state.networkEmissions = null;
+    },
+    resetNodeDetailsAction: (state) => {
+      state.nodeDetails = null;
+      state.nodeStats = null;
+      state.nodeEmissionsByProvider = null;
+      state.nodeEmissionsByRegion = null;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<NodesState>) => {
@@ -236,6 +242,8 @@ const nodesSlice = createSlice({
       });
   }
 });
+
+export const { resetNodeDetailsAction } = nodesSlice.actions;
 
 export {
   getNodesListAction,

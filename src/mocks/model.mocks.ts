@@ -79,7 +79,8 @@ export class ModelMocks {
       electricityDraw: 285,
       carbonIntensity: 0.3311601852849294,
       dataCentreOwner: 'Owner',
-      subnetId: 'subnet-id'
+      subnetId: 'subnet-id',
+      weeklyEmissions: 0.5
     };
   }
 
