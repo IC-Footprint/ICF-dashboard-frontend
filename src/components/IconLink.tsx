@@ -9,7 +9,6 @@ export interface IconLinkProps {
 
 const IconImage = styled.img`
   width: 2rem;
-  height: 2rem;
 `;
 
 const IconLink: FC<IconLinkProps> = ({ iconData }) => {
