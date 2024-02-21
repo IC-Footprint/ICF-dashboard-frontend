@@ -1,5 +1,5 @@
 export const appRoutes = {
-  home: {
+  dashboard: {
     root: '/dashboard'
   },
   nodes: {
@@ -20,14 +20,7 @@ export const appRoutes = {
   whitePaper: {
     root: '/white-paper'
   },
-  // TODO: delete routes below
   about: {
     root: '/about'
-  },
-  oldDashboard: {
-    root: '/oldDashboard'
-  },
-  subnets: {
-    root: '/subnets'
   }
 };

@@ -1,73 +1,54 @@
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
 
+import CarbonAccounts from '@/components/dashboard/carbon-accounts/CarbonAccounts';
+import DashboardInformationCarousel from '@/components/dashboard/DashboardInformationCarousel';
+import DashboardOutstandingCarbonDebit from '@/components/dashboard/DashboardOutstandingCarbonDebit';
 import useDashboard from '@/helpers/state/useDashboard';
-import World from '@/components/dashboard/World';
-import HeadlineFigures from '@/components/dashboard/HeadlineFigures';
-import LocationsLeaderboard from '@/components/dashboard/LocationsLeaderboard';
-import NodesCounters from '@/components/dashboard/NodesCounters';
-import {
-  DashboardContentContainer,
-  DashboardRightPanelContainer,
-  FlexColumnContainer,
-  RelativeContainer,
-  TableCardContainer
-} from '@/theme/styled-components';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 
 const Dashboard: FC = () => {
-  const { t } = useTranslation();
   const {
-    actions: {
-      getLocationsLeaderboard,
-      getGlobePoints,
-      getHeadlineFigures,
-      getNodesCounters
-    }
+    actions: { getHeadlineFigures, resetHeadlineFigures },
+    headlineFigures
   } = useDashboard();
+
   useEffect(() => {
+    getHeadlineFigures();
+
     const minutesInterval: number = +import.meta.env
       .VITE_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL;
     const intervalId = setInterval(() => {
-      getLocationsLeaderboard();
-      getGlobePoints();
       getHeadlineFigures();
-      getNodesCounters();
     }, 1000 * 60 * minutesInterval);
 
     return () => {
       clearInterval(intervalId);
+      resetHeadlineFigures();
     };
-  }, [
-    getLocationsLeaderboard,
-    getGlobePoints,
-    getHeadlineFigures,
-    getNodesCounters
-  ]);
+  }, [getHeadlineFigures, resetHeadlineFigures]);
+
+  const cumulativeNetworkEmissions = useIntervalIncrement(
+    headlineFigures?.cumulativeNetworkEmissions,
+    headlineFigures?.cumulativeNetworkEmissionsRate
+  );
 
   return (
-    <FlexColumnContainer>
-      <h3>{t('common.internetComputerFootprint')}</h3>
-      <HeadlineFigures />
-      <RelativeContainer>
-        <DashboardContentContainer>
-          <div className="grid gap-3 w-full">
-            <div className="col-12 xl:col-8 h-full">
-              <World />
-            </div>
-            <DashboardRightPanelContainer className="col-12 xl:col xl:h-full">
-              <TableCardContainer className="flex-grow-1">
-                <LocationsLeaderboard />
-              </TableCardContainer>
-              <TableCardContainer className="mb-3 xl:mb-0 flex-grow-0">
-                <NodesCounters />
-              </TableCardContainer>
-            </DashboardRightPanelContainer>
-          </div>
-        </DashboardContentContainer>
-      </RelativeContainer>
-    </FlexColumnContainer>
+    <div className="grid m-5">
+      <div className="col-12 lg:col-7">
+        <DashboardOutstandingCarbonDebit
+          carbonDebit={cumulativeNetworkEmissions}
+          weekDifferencePercentage={headlineFigures?.weeklyEmissions}
+        />
+      </div>
+      <div className="col-12 lg:col-5">
+        <DashboardInformationCarousel />
+      </div>
+      <div className="col-12">
+        <CarbonAccounts />
+      </div>
+    </div>
   );
 };
 

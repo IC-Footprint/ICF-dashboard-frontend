@@ -95,7 +95,7 @@ const CheckoutForm: FC = () => {
 
   useEffect(() => {
     debouncedCalculateAmount();
-  }, [payment]);
+  }, [payment, debouncedCalculateAmount]);
 
   const registerCarbonOffsetPayment: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -140,7 +140,7 @@ const CheckoutForm: FC = () => {
           <ProgressSpinner className="w-2rem h-2rem" />
         ) : (
           <p className={`text-3xl ${isFormDisabled ? '' : 'text-color'}`}>
-            {NumberUtils.formatNumber(cost, 3)}
+            {NumberUtils.formatNumber(cost, 9)}
             <span className="text-xs text-color-secondary ml-1">
               {t('common.costCurrency.icp')}
             </span>
