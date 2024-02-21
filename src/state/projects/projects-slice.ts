@@ -6,7 +6,6 @@ import type { CanisterAttributionModel } from '@/models/nodes/canister-attributi
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
 
-import { NetworkMappers } from '@/state/network/network-mappers';
 import {
   getProjectDetailsAction,
   getProjectCanisterAttributionsAction,
@@ -58,8 +57,8 @@ export const projectsSlice = createSlice({
       })
       .addCase(getProjectDetailsAction.fulfilled, (state, action) => {
         state.projectLoading = false;
-        state.projectStats = action.payload;
-        state.project = NetworkMappers.mapStatsToAccount(action.payload);
+        state.projectStats = action.payload[0];
+        state.project = action.payload[1];
       })
       .addCase(getProjectDetailsAction.rejected, (state) => {
         state.projectLoading = false;

@@ -10,8 +10,6 @@ import type { NodeModel } from '@/models/nodes/node-model';
 import type { RangeType } from '@/models/range-type';
 import type { AxiosResponse } from 'axios';
 
-import { ModelMocks } from '@/mocks/model.mocks';
-
 export class NodesApi {
   async getNodesList(): Promise<NodeModel[]> {
     const response: AxiosResponse<NodeModel[]> = await axios.get(
@@ -102,25 +100,6 @@ export class NodesApi {
       }
     );
     return response.data;
-  }
-
-  // TODO: integrate
-  async getNodeDetails(nodeId: string): Promise<NodeModel> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(ModelMocks.mockNode(nodeId));
-      }, 1000);
-    });
-  }
-
-  async getNodeProviderStats(
-    _providerId: string
-  ): Promise<HeadlineFiguresModel> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(ModelMocks.mockHeadlineFigures());
-      }, 1000);
-    });
   }
 
   async getNodeProviderCanisterAttributions(

@@ -5,8 +5,10 @@ import type { GlobePointModel } from '@/models/dashboard/globe-point-model';
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { LocationEmissionsModel } from '@/models/dashboard/location-emissions-model';
 import type { NodesCounterViewModel } from '@/models/dashboard/nodes-counters-model';
+import type { ProjectModel } from '@/models/dashboard/project-model';
 import type { EmissionsModel } from '@/models/emissions-model';
 
+import projectsApi from '@/api/projects-api';
 import nodeProvidersApi from '@/api/node-providers-api';
 import dashboardApi from '@/api/dashboard-api';
 import { DashboardMappers } from '@/state/dashboard/dashboard-mappers';
@@ -92,8 +94,10 @@ export const getProjectsAction = createAsyncThunk<CarbonAccountModel[], void>(
   '/dashboard/getProjects',
   async (_, { rejectWithValue }) => {
     try {
-      const projects: CarbonAccountModel[] = await dashboardApi.getProjects();
-      return DashboardMappers.mapProjects(projects);
+      const projects: ProjectModel[] = projectsApi.getProjects();
+      const projectsEmissions: EmissionsModel[] =
+        await projectsApi.getProjectsEmissions();
+      return DashboardMappers.mapProjects(projects, projectsEmissions);
     } catch (err) {
       return rejectWithValue(null);
     }

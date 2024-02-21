@@ -5,7 +5,6 @@ export interface OperatorModel {
   name: string;
 }
 
-// TODO: change name?
 export interface CarbonAccountModel {
   id: string;
   operator: OperatorModel | null;
@@ -14,4 +13,16 @@ export interface CarbonAccountModel {
   status: NodeStatusType | null;
   confidence: number | null;
   location: string | null;
+}
+
+export function createEmptyCarbonAccountModel(): CarbonAccountModel {
+  return {
+    id: '',
+    weeklyEmissions: 0,
+    carbonDebit: 0,
+    status: null,
+    location: null,
+    confidence: null,
+    operator: null
+  };
 }
