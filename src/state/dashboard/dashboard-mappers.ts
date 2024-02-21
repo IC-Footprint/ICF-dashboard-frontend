@@ -3,11 +3,11 @@ import type {
   NodesCountersModel,
   NodesCounterViewModel
 } from '@/models/dashboard/nodes-counters-model';
+import type { ProjectModel } from '@/models/dashboard/project-model';
 import type { EmissionsModel } from '@/models/emissions-model';
 
 import i18n from '@/i18n';
 import categoryIcon from '@/theme/assets/category-icon.svg';
-import openChatIcon from '@/theme/assets/social-logos/open-chat-logo.png';
 
 export class DashboardMappers {
   static mapDashboardNodesCounters(
@@ -44,16 +44,26 @@ export class DashboardMappers {
     );
   }
 
-  static mapProjects(projects: CarbonAccountModel[]): CarbonAccountModel[] {
-    return projects.map((account: CarbonAccountModel) => ({
-      ...account,
-      operator: account.operator
-        ? {
-            ...account.operator,
-            // TODO: use real icon in the future
-            icon: account.operator.icon ?? openChatIcon
-          }
-        : null
-    }));
+  static mapProjects(
+    projects: ProjectModel[],
+    projectsEmissions: EmissionsModel[]
+  ): CarbonAccountModel[] {
+    return projects.map((project: ProjectModel): CarbonAccountModel => {
+      const emissions = projectsEmissions.find(
+        (emission: EmissionsModel) => emission.name === project.id
+      );
+      return {
+        id: project.id,
+        operator: {
+          name: project.name,
+          icon: project.icon
+        },
+        carbonDebit: emissions?.totalEmissions ?? 0,
+        status: null,
+        weeklyEmissions: emissions?.weeklyEmissions ?? 0,
+        confidence: null,
+        location: null
+      };
+    });
   }
 }

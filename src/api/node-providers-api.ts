@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { NodeProviderElectricityDrawModel } from '@/models/node-providers/node-provider-electricity-draw-model';
+import type { ElectricityDrawModel } from '@/models/electricity-draw-model';
 import type { EmissionsModel } from '@/models/emissions-model';
 import type { AxiosResponse } from 'axios';
 
@@ -12,11 +12,10 @@ export class NodeProvidersApi {
     return response.data;
   }
 
-  async getNodeProvidersElectricityDraw(): Promise<
-    NodeProviderElectricityDrawModel[]
-  > {
-    const response: AxiosResponse<NodeProviderElectricityDrawModel[]> =
-      await axios.get('/node-providers/getNodeProviderElectricityDraws');
+  async getNodeProvidersElectricityDraw(): Promise<ElectricityDrawModel[]> {
+    const response: AxiosResponse<ElectricityDrawModel[]> = await axios.get(
+      '/node-providers/getNodeProviderElectricityDraws'
+    );
     return response.data;
   }
 }
