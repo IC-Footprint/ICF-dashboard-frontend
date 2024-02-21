@@ -95,7 +95,7 @@ const CheckoutForm: FC = () => {
 
   useEffect(() => {
     debouncedCalculateAmount();
-  }, [payment, debouncedCalculateAmount]);
+  }, [payment]);
 
   const registerCarbonOffsetPayment: FormEventHandler = async (event) => {
     event.preventDefault();
