@@ -22,17 +22,14 @@ const Project: FC = () => {
     actions: {
       getProjectDetails,
       getProjectCanisterAttributions,
-      getProjectEmissions,
-      getProjectPowerConsumption
+      getProjectEmissions
     },
     project,
     projectStats,
     projectCanisterAttributions,
     isProjectCanisterAttributionsLoading,
     projectEmissions,
-    isProjectEmissionsLoading,
-    projectPowerConsumption,
-    isProjectPowerConsumptionLoading
+    isProjectEmissionsLoading
   } = useProjects();
 
   useEffect(() => {
@@ -87,22 +84,13 @@ const Project: FC = () => {
             isLoading={isProjectCanisterAttributionsLoading}
           />
         </div>
-        <div className="col-12 lg:col-6">
+        <div className="col-12">
           <ChartCard
             label={t('project.projectEmissions')}
             idFilter={projectId ?? ''}
             data={projectEmissions}
             getDataAction={getProjectEmissions}
             isLoading={isProjectEmissionsLoading}
-          />
-        </div>
-        <div className="col-12 lg:col-6">
-          <ChartCard
-            label={t('project.projectPowerConsumption')}
-            idFilter={projectId ?? ''}
-            data={projectPowerConsumption}
-            getDataAction={getProjectPowerConsumption}
-            isLoading={isProjectPowerConsumptionLoading}
           />
         </div>
       </div>
