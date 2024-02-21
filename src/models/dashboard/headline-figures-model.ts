@@ -35,6 +35,17 @@ export function createHeadlineFigureEntry(
   };
 }
 
+export function createEmptyHeadlineFiguresModel(): HeadlineFiguresModel {
+  return {
+    avoidedEmissions: 0,
+    cumulativeElectricityDraw: 0,
+    cumulativeNetworkEmissions: 0,
+    cumulativeNetworkEmissionsRate: 0,
+    offsetEmissions: 0,
+    weeklyEmissions: 0
+  };
+}
+
 export function createEmptyHeadlineFiguresViewModel(): HeadlineFiguresViewModel {
   return {
     avoidedEmissions: null,
