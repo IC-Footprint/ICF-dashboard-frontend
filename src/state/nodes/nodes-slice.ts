@@ -18,6 +18,7 @@ import {
   getNodeDetailsAction,
   getNodeCanisterAttributionsAction
 } from '@/state/nodes/nodes-actions';
+import { createEmptyHeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 export interface NodesState {
   nodesList: CarbonAccountModel[] | null;
@@ -187,7 +188,10 @@ const nodesSlice = createSlice({
       })
       .addCase(getNodeStatsAction.fulfilled, (state, { payload }) => {
         state.nodeStatsLoading = false;
-        state.nodeStats = payload;
+        state.nodeStats = {
+          ...payload,
+          offsetEmissions: state.nodeStats?.offsetEmissions ?? 0
+        };
       })
       .addCase(getNodeStatsAction.rejected, (state) => {
         state.nodeStatsLoading = false;
@@ -234,6 +238,14 @@ const nodesSlice = createSlice({
         (state, { payload }) => {
           state.canisterAttributionsLoading = false;
           state.canisterAttributions = payload;
+          state.nodeStats = {
+            ...(state.nodeStats ?? createEmptyHeadlineFiguresModel()),
+            offsetEmissions: payload.reduce(
+              (previousValue, currentValue) =>
+                previousValue + (currentValue.ticketCount ?? 0),
+              0
+            )
+          };
         }
       )
       .addCase(getNodeCanisterAttributionsAction.rejected, (state) => {
