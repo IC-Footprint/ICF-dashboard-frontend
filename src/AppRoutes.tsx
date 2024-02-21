@@ -4,13 +4,13 @@ import type { FC } from 'react';
 
 import Layout from '@/components/Layout';
 import About from '@/pages/About';
+import Dashboard from '@/pages/Dashboard';
 import Node from '@/pages/dashboard/details/Node';
 import NodeProvider from '@/pages/dashboard/details/NodeProvider';
 import Project from '@/pages/dashboard/details/Project';
 import NodeProviders from '@/pages/dashboard/NodeProviders';
 import Nodes from '@/pages/dashboard/Nodes';
 import Projects from '@/pages/dashboard/Projects';
-import Home from '@/pages/Home';
 import Network from '@/pages/Network';
 import WhitePaper from '@/pages/WhitePaper';
 import { appRoutes } from '@/router/app-routes';
@@ -19,7 +19,7 @@ const AppRoutes: FC = () => {
   return (
     <Layout>
       <Routes>
-        <Route path={appRoutes.home.root} element={<Home />}>
+        <Route path={appRoutes.dashboard.root} element={<Dashboard />}>
           <Route
             index
             element={<Navigate to={appRoutes.nodes.root} replace />}
@@ -45,7 +45,7 @@ const AppRoutes: FC = () => {
         ></Route>
         <Route
           path="/*"
-          element={<Navigate to={appRoutes.home.root} />}
+          element={<Navigate to={appRoutes.dashboard.root} />}
         ></Route>
       </Routes>
     </Layout>

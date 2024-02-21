@@ -10,7 +10,6 @@ import icFootprintTextLogo from '@/theme/assets/ic-footprint-text-logo.svg';
 import HomeIcon from '@/theme/assets/icons/home';
 import InfoCircleIcon from '@/theme/assets/icons/info-circle';
 import NetworkIcon from '@/theme/assets/icons/network';
-import pogLogo from '@/theme/assets/pog.png';
 import {
   FlexColumnWithRowGap,
   NavBar,
@@ -47,7 +46,11 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   );
   const menuItems: MenuItem[] = useMemo<MenuItem[]>(() => {
     return [
-      createMenuItem(t('page.home'), <HomeIcon />, `${appRoutes.home.root}`),
+      createMenuItem(
+        t('page.home'),
+        <HomeIcon />,
+        `${appRoutes.dashboard.root}`
+      ),
       createMenuItem(
         t('page.network'),
         <NetworkIcon />,
@@ -60,11 +63,10 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
   return (
     <NavBar>
       <FlexColumnWithRowGap>
-        <Link to={appRoutes.home.root}>
+        <Link to={appRoutes.dashboard.root}>
           <img src={icFootprintTextLogo} alt="Carbon Crowd Logo" />
         </Link>
         <StyledMenu model={menuItems} />
-        <img src={pogLogo} alt="PoG logo" width="120px" />
       </FlexColumnWithRowGap>
     </NavBar>
   );
