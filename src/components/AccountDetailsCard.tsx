@@ -18,6 +18,7 @@ import { NumberUtils } from '@/utils/number-utils';
 
 interface AccountDetailsProps {
   account: CarbonAccountModel | null;
+  nameLabel?: string;
 }
 
 const CardContentContainer = styled(FlexColumnContainer)`
@@ -55,14 +56,17 @@ const AccountDetailsContainer = styled(StyledCard)`
   }
 `;
 
-const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {
+const AccountDetailsCard: FC<AccountDetailsProps> = ({
+  account,
+  nameLabel
+}) => {
   const { t } = useTranslation();
 
   return (
     <AccountDetailsContainer>
       <CardContentContainer className="grid">
         <div className="col-12 text-center">
-          <img src={icLogo} alt="IC Logo" />
+          <img src={account?.operator?.icon ?? icLogo} alt="IC Logo" />
         </div>
         <div className="col-12 text-center">
           <h5 className="text-lg">
@@ -91,7 +95,7 @@ const AccountDetailsCard: FC<AccountDetailsProps> = ({ account }) => {
         </LightTag>
         <div className="col-12 flex justify-content-between">
           <div>
-            <h5>{t('dashboard.carbonAccounts.nodeProvider')}</h5>
+            <h5>{nameLabel ?? t('dashboard.carbonAccounts.nodeProvider')}</h5>
             <p>{account?.operator?.name ?? '-'}</p>
           </div>
           <div>

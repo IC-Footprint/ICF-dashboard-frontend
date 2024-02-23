@@ -90,7 +90,9 @@ export class ModelMocks {
       payer: '',
       ticketCount: Math.random() * 100,
       ticketPrice: Math.random() * 100,
-      total: Math.random() * 100 + 100
+      total: Math.random() * 100 + 100,
+      cawaUrl: 'http://localhost/cawa-url',
+      type: 'carbonCredit'
     };
   }
 

@@ -15,7 +15,7 @@ const NodeEmissionsByProvider: FC = () => {
   const { t } = useTranslation();
   const { isMobile } = useViewport();
   const { chartOptions } = useChart();
-  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const [range, setRange] = useState<RangeType>('SEVEN_DAYS');
   const {
     actions: { getNodeEmissionsByProvider },
     nodeEmissionsByProvider,

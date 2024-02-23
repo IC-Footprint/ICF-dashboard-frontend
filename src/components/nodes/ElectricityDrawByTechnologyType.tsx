@@ -13,7 +13,7 @@ import { FlexColumnCard, StyledChart } from '@/theme/styled-components';
 const ElectricityDrawByTechnologyType: FC = () => {
   const { t } = useTranslation();
   const { chartOptions } = useChart();
-  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const [range, setRange] = useState<RangeType>('SEVEN_DAYS');
   const {
     actions: { getElectricityDrawByTechnologyType },
     electricityDrawByTechnologyType,

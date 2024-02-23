@@ -10,9 +10,16 @@ interface NodeStatusProps {
 }
 
 const NodeStatus: FC<NodeStatusProps> = ({ status }) => {
+  const statusText = status
+    ? t(`common.nodeStatus.${status?.toLowerCase()}`)
+    : '-';
+
   return (
-    <p>
-      {status ? t(`common.nodeStatus.${status?.toLowerCase()}`) : '-'}
+    <p
+      className="overflow-hidden text-overflow-ellipsis"
+      title={status ? statusText : ''}
+    >
+      {statusText}
       <i className="ml-1">
         {status === 'UP' ? <Spinner1 width="1rem" /> : null}
       </i>

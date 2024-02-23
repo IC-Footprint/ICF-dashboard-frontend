@@ -27,7 +27,7 @@ const ChartCard: FC<ChartCardProps> = ({
 }) => {
   const { isMobile } = useViewport();
   const { chartOptions } = useChart();
-  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const [range, setRange] = useState<RangeType>('SEVEN_DAYS');
   const chartData = useMemo(() => {
     return data ? structuredClone(data) : null;
   }, [data]);

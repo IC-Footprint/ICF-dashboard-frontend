@@ -118,7 +118,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             </p>
           </InformationItemContainer>
           <FlexRowContainer>
-            <InformationItemContainer>
+            <InformationItemContainer className="min-w-min">
               <h4>
                 {t('common.unit.kgPerWeek', {
                   value: ''
@@ -140,6 +140,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
                   label={t('common.seeMore') ?? ''}
                   severity="secondary"
                   size="small"
+                  className="white-space-nowrap"
                 />
               </Link>
             </div>

@@ -8,12 +8,18 @@ import type { EmissionsModel } from '@/models/emissions-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { AxiosResponse } from 'axios';
 
+import icLogo from '@/theme/assets/ic-logo.png';
 import openChatIcon from '@/theme/assets/social-logos/open-chat-logo.png';
 
 export class ProjectsApi {
   // TODO: use real list
   getProjects(): ProjectModel[] {
     return [
+      {
+        id: 'tdb26-jop6k-aogll-7ltgs-eruif-6kk7m-qpktf-gdiqx-mxtrf-vb5e6-eqe',
+        name: 'NNS',
+        icon: icLogo
+      },
       {
         id: 'eq6en-6jqla-fbu5s-daskr-h6hx2-376n5-iqabl-qgrng-gfqmv-n3yjr-mqe',
         name: 'OpenChat',

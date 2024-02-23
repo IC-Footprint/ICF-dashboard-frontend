@@ -65,20 +65,20 @@ const CarbonAccounts: FC = () => {
   const menuItems = useMemo((): MenuItem[] => {
     return [
       {
-        label: t('dashboard.carbonAccounts.nodes.title') ?? '',
-        url: appRoutes.nodes.root
-      },
-      {
-        label: t('dashboard.carbonAccounts.nodeProviders.title') ?? '',
-        url: appRoutes.nodeProviders.root
-      },
-      {
         label: t('dashboard.carbonAccounts.projects.title') ?? '',
         url: appRoutes.projects.root,
         icon: (
           <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
         ),
         template: itemWithFeatureStatus
+      },
+      {
+        label: t('dashboard.carbonAccounts.nodeProviders.title') ?? '',
+        url: appRoutes.nodeProviders.root
+      },
+      {
+        label: t('dashboard.carbonAccounts.nodes.title') ?? '',
+        url: appRoutes.nodes.root
       },
       {
         label: t('dashboard.carbonAccounts.wallets.title') ?? '',

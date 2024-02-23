@@ -91,7 +91,7 @@ const networkSlice = createSlice({
       .addCase(getNetworkDetailsAction.fulfilled, (state, { payload }) => {
         state.networkDetailsLoading = false;
         state.networkStats = payload;
-        state.networkDetails = NetworkMappers.mapStatsToAccount(payload);
+        state.networkDetails = NetworkMappers.mapNetworkStatsToAccount(payload);
       })
       .addCase(getNetworkDetailsAction.rejected, (state) => {
         state.networkDetailsLoading = false;
