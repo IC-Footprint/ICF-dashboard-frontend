@@ -59,7 +59,7 @@ export class DashboardMappers {
           icon: project.icon
         },
         carbonDebit: emissions?.totalEmissions ?? 0,
-        status: null,
+        status: 'UP', // TODO: use real status
         weeklyEmissions: emissions?.weeklyEmissions ?? 0,
         confidence: null,
         location: null

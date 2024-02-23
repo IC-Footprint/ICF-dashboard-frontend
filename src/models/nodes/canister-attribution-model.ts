@@ -1,8 +1,4 @@
-export type AttributionStatusType =
-  | 'pending'
-  | 'validated'
-  | 'rejected'
-  | 'complete';
+export type AttributionType = 'carbonCredit';
 
 export interface CanisterAttributionModel {
   id: string;
@@ -10,4 +6,6 @@ export interface CanisterAttributionModel {
   ticketPrice: number;
   ticketCount: number;
   total: number;
+  type: AttributionType;
+  cawaUrl: string;
 }

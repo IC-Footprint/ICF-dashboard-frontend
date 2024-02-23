@@ -14,7 +14,7 @@ import { FlexColumnCard } from '@/theme/styled-components';
 const NetworkEmissions: FC = () => {
   const { t } = useTranslation();
   const { chartOptions } = useChart(false);
-  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const [range, setRange] = useState<RangeType>('SEVEN_DAYS');
   const {
     actions: { getNetworkEmissions },
     networkEmissions,

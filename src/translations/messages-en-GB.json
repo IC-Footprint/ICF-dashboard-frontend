@@ -116,6 +116,10 @@
       "rejected": "Rejected",
       "validated": "Validated"
     },
+    "canisterAttributionType": {
+      "carbonCredit": "Carbon Credit"
+    },
+    "cawa": "CAWA",
     "close": "Close",
     "costCurrency": {
       "icp": "ICP Internet Computer"
@@ -318,19 +322,20 @@
       "emissionsLast30minutes": "Emissions (1 hour)",
       "gridTechnology": "Grid Mix",
       "id": "ID",
+      "link": "Link",
       "location": "Location",
       "name": "Name",
       "nodeCount": "# Nodes",
       "nodeProvider": "Node Provider",
-      "payer": "Payer",
+      "price": "Price (ICP)",
       "registry": "Registry",
       "status": "Status",
       "ticketCount": "Ticket Count",
-      "ticketPrice": "Ticket Price",
       "timestamp": "Timestamp",
       "total": "Total",
       "transactionHash": "Transaction Hash",
-      "type": "Type"
+      "type": "Type",
+      "walletId": "WalletID"
     },
     "pageReport": "Showing {first} to {last} of {totalRecords} entries"
   },

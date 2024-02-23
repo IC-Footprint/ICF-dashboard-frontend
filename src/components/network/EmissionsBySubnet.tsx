@@ -14,7 +14,7 @@ import useViewport from '@/helpers/useViewport';
 const NetworkEmissions: FC = () => {
   const { t } = useTranslation();
   const { chartOptions } = useChart();
-  const [range, setRange] = useState<RangeType>('ONE_DAY');
+  const [range, setRange] = useState<RangeType>('SEVEN_DAYS');
   const { isMobile } = useViewport();
 
   const {

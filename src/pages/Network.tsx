@@ -71,7 +71,10 @@ const Network: FC = () => {
       <h3>{t('network.title')}</h3>
       <div className="grid">
         <div className="col-12 lg:col-5">
-          <AccountDetailsCard account={incrementalNetworkDetails} />
+          <AccountDetailsCard
+            account={incrementalNetworkDetails}
+            nameLabel={t('table.headers.name') as string}
+          />
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard isPaymentUnsupported />

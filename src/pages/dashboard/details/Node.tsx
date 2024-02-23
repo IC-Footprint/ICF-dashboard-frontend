@@ -90,7 +90,10 @@ const Node: FC = () => {
       </h3>
       <div className="grid">
         <div className="col-12 lg:col-5">
-          <AccountDetailsCard account={incrementingNodeDetails} />
+          <AccountDetailsCard
+            account={incrementingNodeDetails}
+            nameLabel={t('dashboard.carbonAccounts.nodeProvider') ?? ''}
+          />
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard nodeId={nodeId} />
