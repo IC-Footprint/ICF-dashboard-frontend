@@ -34,12 +34,14 @@ const Dashboard: FC = () => {
     headlineFigures?.cumulativeNetworkEmissionsRate
   );
 
+  const weeklyPercentageDifference = headlineFigures?.weeklyEmissions ?? 0 / (cumulativeNetworkEmissions ?? 1);
+
   return (
     <div className="grid m-5">
       <div className="col-12 lg:col-7">
         <DashboardOutstandingCarbonDebit
           carbonDebit={cumulativeNetworkEmissions}
-          weekDifferencePercentage={headlineFigures?.weeklyEmissions / cumulativeNetworkEmissions}
+          weekDifferencePercentage={weeklyPercentageDifference}
         />
       </div>
       <div className="col-12 lg:col-5">
