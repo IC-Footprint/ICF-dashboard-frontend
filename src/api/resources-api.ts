@@ -9,7 +9,7 @@ export class ResourcesApi {
         twitter: 'https://twitter.com/icfootprint',
         sustainabilityReport: 'https://assets.carboncrowd.io/reports/ICF.pdf',
         greenEnergyQuote: 'https://mwu3nbiuwdv.typeform.com/to/HIC3eGIj',
-        priorCommitmentForm: 'https://mwu3nbiuwdv.typeform.com/to/uBkJJl3y',
+        priorCommitmentForm: 'https://mwu3nbiuwdv.typeform.com/to/KH3RJJXS',
         scheduleCall: 'https://calendly.com/orlandoh/1-2-1',
         internetComputerDashboard: 'https://dashboard.internetcomputer.org'
       }
