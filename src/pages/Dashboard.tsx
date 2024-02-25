@@ -39,7 +39,7 @@ const Dashboard: FC = () => {
       <div className="col-12 lg:col-7">
         <DashboardOutstandingCarbonDebit
           carbonDebit={cumulativeNetworkEmissions}
-          weekDifferencePercentage={headlineFigures?.weeklyEmissions}
+          weekDifferencePercentage={headlineFigures?.weeklyEmissions / cumulativeNetworkEmissions}
         />
       </div>
       <div className="col-12 lg:col-5">
