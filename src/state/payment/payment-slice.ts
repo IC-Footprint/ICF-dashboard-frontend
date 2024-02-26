@@ -17,6 +17,7 @@ export interface PaymentState {
   paymentRegistrationLoading: boolean;
   paymentRegistrationError: boolean;
   paymentRegistered: boolean;
+  lastPaymentAmount: number;
 }
 
 const initialState: () => PaymentState = () => ({
@@ -26,7 +27,8 @@ const initialState: () => PaymentState = () => ({
   costCalculationError: false,
   paymentRegistrationLoading: false,
   paymentRegistered: false,
-  paymentRegistrationError: false
+  paymentRegistrationError: false,
+  lastPaymentAmount: 0
 });
 
 const paymentSlice = createSlice({
@@ -76,6 +78,7 @@ const paymentSlice = createSlice({
     builder.addCase(registerPaymentAction.fulfilled, (state, { payload }) => {
       state.paymentRegistrationLoading = false;
       state.paymentRegistered = payload;
+      state.lastPaymentAmount = state.payment?.carbonDebitAmount ?? 0;
       state.payment = {
         ...emptyPaymentModel(),
         nodeId: state.payment?.nodeId ?? ''

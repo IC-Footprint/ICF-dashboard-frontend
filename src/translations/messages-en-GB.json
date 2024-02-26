@@ -313,6 +313,7 @@
   },
   "table": {
     "headers": {
+      "amount": "Amount",
       "carbonDebits": "Carbon Debits",
       "carbonIntensity": "Carbon Intensity",
       "confidence": "Confidence",

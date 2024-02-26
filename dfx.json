@@ -12,11 +12,11 @@
     },
     "node_escrow": {
       "type": "pull",
-      "id": "jpkvk-uyaaa-aaaal-aduua-cai"
+      "id": "g4ndo-4qaaa-aaaal-advrq-cai"
     },
     "escrow_manager": {
       "type": "pull",
-      "id": "icere-3qaaa-aaaal-adutq-cai"
+      "id": "gajz7-lqaaa-aaaal-advtq-cai"
     }
   },
   "output_env_file": ".env",

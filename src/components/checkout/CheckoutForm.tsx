@@ -46,7 +46,8 @@ const CheckoutForm: FC = () => {
     isCostCalculationLoading,
     isPaymentRegistrationLoading,
     paymentRegistered,
-    hasPaymentRegistrationError
+    hasPaymentRegistrationError,
+    lastPaymentAmount
   } = usePayment();
   const [successDialogVisible, setSuccessDialogVisible] = useState(false);
   const toast = useRef<Toast>(null);
@@ -175,7 +176,7 @@ const CheckoutForm: FC = () => {
       >
         <CheckoutSuccess
           nodeId={payment?.nodeId ?? ''}
-          carbonDebit={payment?.carbonDebitAmount ?? 0}
+          carbonDebit={lastPaymentAmount}
         />
       </SuccessDialog>
     </Form>
