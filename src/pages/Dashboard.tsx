@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import type { FC } from 'react';
 
@@ -34,7 +34,12 @@ const Dashboard: FC = () => {
     headlineFigures?.cumulativeNetworkEmissionsRate
   );
 
-  const weeklyPercentageDifference = headlineFigures?.weeklyEmissions ?? 0 / (cumulativeNetworkEmissions ?? 1);
+  const weeklyPercentageDifference = useMemo(() => {
+    return (
+      (headlineFigures?.weeklyEmissions ?? 0) /
+      (headlineFigures?.cumulativeNetworkEmissions ?? 1)
+    );
+  }, [headlineFigures, cumulativeNetworkEmissions]);
 
   return (
     <div className="grid m-5">

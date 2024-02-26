@@ -51,6 +51,7 @@ const CanisterAttributionsTable: FC<CanisterAttributionsTableProps> = ({
           return t(`common.canisterAttributionType.${rowData.type}`);
         }}
       ></Column>
+      <Column field="ticketCount" header={t('table.headers.amount')}></Column>
       <Column
         field="total"
         header={t('table.headers.price')}

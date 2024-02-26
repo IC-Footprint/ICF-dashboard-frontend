@@ -63,6 +63,10 @@ const usePayment = () => {
     [dispatch]
   );
 
+  const lastPaymentAmount = useAppSelector(
+    (state) => state.payment.lastPaymentAmount
+  );
+
   return {
     actions: {
       setPayment,
@@ -77,7 +81,8 @@ const usePayment = () => {
     hasCostCalculationError,
     paymentRegistered,
     isPaymentRegistrationLoading,
-    hasPaymentRegistrationError
+    hasPaymentRegistrationError,
+    lastPaymentAmount
   };
 };
 
