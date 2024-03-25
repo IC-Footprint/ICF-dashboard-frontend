@@ -16,8 +16,8 @@ export const emptyPaymentModel = (): PaymentDataModel => {
 };
 
 export interface PurchaseModel {
-  ticket_price: bigint;
+  ticket_price: number;
   payer: string;
   block_height: bigint;
-  ticket_count: bigint;
+  ticket_count: number;
 }
