@@ -1,7 +1,7 @@
 {
   "canisters": {
     "frontend": {
-      "dependencies": ["escrow_manager", "node_escrow"],
+      "dependencies": ["node_manager", "esg_wallet"],
       "type": "assets",
       "source": ["dist/"]
     },
@@ -10,13 +10,13 @@
       "candid": "icrc1_ledger/icrc1_ledger.did",
       "wasm": "icrc1_ledger/icrc1_ledger.wasm.gz"
     },
-    "node_escrow": {
+    "esg_wallet": {
       "type": "pull",
-      "id": "g4ndo-4qaaa-aaaal-advrq-cai"
+      "id": "mjyeg-piaaa-aaaak-qddla-cai"
     },
-    "escrow_manager": {
+    "node_manager": {
       "type": "pull",
-      "id": "gajz7-lqaaa-aaaal-advtq-cai"
+      "id": "jhfj2-iqaaa-aaaak-qddxq-cai"
     }
   },
   "output_env_file": ".env",

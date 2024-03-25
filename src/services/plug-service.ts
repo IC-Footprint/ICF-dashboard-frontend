@@ -1,9 +1,9 @@
 import { Principal } from '@dfinity/principal';
 
-import type { Result } from '@/declarations/node_escrow/node_escrow.did';
+import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
 
 import { idlFactory as nnsLedgerIdlFactory } from '@/declarations/idls/nns_ledger.did';
-import { idlFactory as nodeEscrowIdlFactory } from '@/declarations/idls/node_escrow.did';
+import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
 import { CandidMapper } from '@/utils/candid-mapper';
 
 declare global {
@@ -86,7 +86,7 @@ export class PlugWalletService {
   ): Promise<void> {
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
-      interfaceFactory: nodeEscrowIdlFactory
+      interfaceFactory: esgWalletIdlFactory
     });
     const result: Result = await nodeEscrowActor.registerPayment(
       BigInt(amount)
