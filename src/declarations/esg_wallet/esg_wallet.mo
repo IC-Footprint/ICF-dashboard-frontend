@@ -18,7 +18,8 @@ module {
     ticket_count : Nat64;
     contribution_id : Text;
   };
-  public type Result = { #Ok : Payment; #Err : Text };
+  public type Result = { #Ok; #Err };
+  public type Result_1 = { #Ok : Principal; #Err };
   public type TransformArgs = { context : Blob; response : HttpResponse };
   public type Self = Conf -> async actor {
     authorize : shared Principal -> async ();

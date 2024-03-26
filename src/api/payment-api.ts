@@ -7,7 +7,7 @@ import { createActor as nodeManagerCreateActor } from '@/declarations/node_manag
 export class PaymentApi {
  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
     const esgWalletActor = esgWalletCreateActor(
-      import.meta.env.VITE_APP_ESG_WALLET_CANISTER_ID ?? '',
+      process.env.ESG_WALLET_CANISTER_ID ?? '',
       {
         agentOptions: {
           host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
@@ -27,7 +27,7 @@ export class PaymentApi {
     // Make the payment using the plugWallet service
     try {
       await plugWallet.makePayment(
-        import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '',
+        process.env.LEDGER_CANISTER_ID ?? '',
         paymentData.carbonDebitAmount,
         paymentData.totalCost,
       );
@@ -40,7 +40,7 @@ export class PaymentApi {
 
  async offsetEmissions(client: string, offset: number): Promise<string> {
     const nodeManagerActor = nodeManagerCreateActor(
-      import.meta.env.VITE_APP_NODE_MANAGER_CANISTER_ID ?? '',
+      process.env.NODE_MANAGER_CANISTER_ID ?? '',
       {
         agentOptions: {
           host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
@@ -58,7 +58,7 @@ export class PaymentApi {
 
 async getPurchases(nodeId: string): Promise<any[]> {
   const esgWalletActor = esgWalletCreateActor(
-      import.meta.env.VITE_APP_ESG_WALLET_CANISTER_ID ?? '',
+    process.env.ESG_WALLET_CANISTER_ID ?? '',
       {
           agentOptions: {
               host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
