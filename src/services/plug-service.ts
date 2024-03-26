@@ -38,6 +38,10 @@ export class PlugWalletService {
   private connectOptions: ConnectionOptionsModel = {};
 
   constructor() {
+    console.log('DFX_NETWORK: ', process.env.DFX_NETWORK);
+    console.log('VITE_APP_ICP_NETWORK_HOST: ', import.meta.env.VITE_APP_ICP_NETWORK_HOST);
+    console.log('LEDGER_CANISTER_ID: ', import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '');
+  
     if (window.ic?.plug) {
       this.plug = window.ic.plug;
 
@@ -46,12 +50,14 @@ export class PlugWalletService {
           ? 'http://localhost:8080/'
           : import.meta.env.VITE_APP_ICP_NETWORK_HOST;
       this.ledgerCanisterId =
-      process.env.LEDGER_CANISTER_ID ?? '';
+      import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
       this.connectOptions = {
         host,
         whitelist: [this.ledgerCanisterId],
         timeout: 50000
       };
+      console.log('Ledger Canister ID: ', this.ledgerCanisterId);
+    console.log('Connect Options: ', this.connectOptions);
     } else {
       // TODO: replace with a more user-friendly message
       alert('Plug extension not detected!');
@@ -63,6 +69,8 @@ export class PlugWalletService {
     canisterId: string,
     amount: number
   ): Promise<void> {
+    console.log('requestTransfer - canisterId: ', canisterId, ' amount: ', amount);
+    console.log('registerPayment - canisterId: ', canisterId, ' amount: ', amount);
     const nnsActor = await this.plug.createActor({
       canisterId: this.ledgerCanisterId,
       interfaceFactory: nnsLedgerIdlFactory
@@ -92,7 +100,7 @@ export class PlugWalletService {
 
   private async registerPayment(
     canisterId: string,
-    amount: number,
+    amount: number
   ): Promise<void> {
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
@@ -108,6 +116,7 @@ export class PlugWalletService {
   }
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {
+    console.log('requestConnect - whitelist: ', whitelist);
     const onConnectionUpdate = () => {
       console.log(this.plug.sessionManager.sessionData);
     };
