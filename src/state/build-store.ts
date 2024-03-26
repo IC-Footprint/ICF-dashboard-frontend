@@ -42,7 +42,7 @@ export const createStore = (preloadedState?: Partial<RootState>) =>
       projects: projectsReducer
     },
     preloadedState
-  });
+  } as any);
 
 export const store = createStore();
 export default store;

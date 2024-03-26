@@ -11,6 +11,7 @@ module {
     headers : [HttpHeader];
   };
   public type Payment = {
+    node_id : ?Text;
     ticket_price : Nat64;
     payer : Text;
     block_height : Nat;
@@ -24,13 +25,14 @@ module {
     deauthorize : shared Principal -> async ();
     getPrice : shared query Nat64 -> async Nat;
     getPurchases : shared query () -> async [Payment];
+    getPurchasesByNodeId : shared query Text -> async [Payment];
     getTicketPrice : shared query () -> async Nat64;
     get_contribution_by_entity : shared Text -> async Text;
     get_contribution_by_id : shared Text -> async Text;
     get_contributions : shared () -> async Text;
-    registerPayment : shared Nat64 -> async Text;
+    registerPayment : shared (Nat64, ?Text) -> async Text;
     send : shared (Text, Nat64) -> async Text;
-    setOffsetEmissions : shared () -> async Text;
+    setOffsetEmissions : shared ?Text -> async Text;
     set_api_key : shared Text -> async ();
   }
 }
