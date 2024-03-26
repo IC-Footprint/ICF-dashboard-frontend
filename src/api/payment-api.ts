@@ -24,18 +24,12 @@ export class PaymentApi {
     if (!paymentData.totalCost) {
       return false;
     }
-    // Make the payment using the plugWallet service
-    try {
       await plugWallet.makePayment(
         process.env.LEDGER_CANISTER_ID ?? '',
         paymentData.carbonDebitAmount,
         paymentData.totalCost,
       );
       return true; // Payment was successful
-    } catch (error) {
-      console.error('Payment failed:', error);
-      return false; // Payment failed
-    }
   }
 
  async offsetEmissions(client: string, offset: number): Promise<string> {
