@@ -10,6 +10,7 @@ export interface HttpResponse {
   'headers' : Array<HttpHeader>,
 }
 export interface Payment {
+  'node_id' : [] | [string],
   'ticket_price' : bigint,
   'payer' : string,
   'block_height' : bigint,
@@ -27,12 +28,13 @@ export interface _SERVICE {
   'deauthorize' : ActorMethod<[Principal], undefined>,
   'getPrice' : ActorMethod<[bigint], bigint>,
   'getPurchases' : ActorMethod<[], Array<Payment>>,
+  'getPurchasesByNodeId' : ActorMethod<[string], Array<Payment>>,
   'getTicketPrice' : ActorMethod<[], bigint>,
   'get_contribution_by_entity' : ActorMethod<[string], string>,
   'get_contribution_by_id' : ActorMethod<[string], string>,
   'get_contributions' : ActorMethod<[], string>,
-  'registerPayment' : ActorMethod<[bigint], string>,
+  'registerPayment' : ActorMethod<[bigint, [] | [string]], string>,
   'send' : ActorMethod<[string, bigint], string>,
-  'setOffsetEmissions' : ActorMethod<[], string>,
+  'setOffsetEmissions' : ActorMethod<[[] | [string]], string>,
   'set_api_key' : ActorMethod<[string], undefined>,
 }

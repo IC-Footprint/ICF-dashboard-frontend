@@ -3,8 +3,18 @@ import { Principal } from '@dfinity/principal';
 import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
 
 import { idlFactory as nnsLedgerIdlFactory } from '@/declarations/idls/nns_ledger.did';
-import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
+import { idlFactory as esgWalletIdlFactory, createActor as esgWalletCreateActor } from '@/declarations/esg_wallet';
+// import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet/';
 import { CandidMapper } from '@/utils/candid-mapper';
+
+const esgWallet = esgWalletCreateActor(
+  import.meta.env.CANISTER_ID_ESG_WALLET,
+  {
+    agentOptions: {
+      host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+    }
+  }
+);
 
 declare global {
   interface Window {
@@ -82,12 +92,28 @@ export class PlugWalletService {
 
   private async registerPayment(
     canisterId: string,
-    amount: number
+    amount: number,
+    nodeId?: string
   ): Promise<void> {
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
       interfaceFactory: esgWalletIdlFactory
     });
+
+    // check if nodeId is provided
+    if (nodeId) {
+      const result: String = await esgWallet.registerPayment(
+        BigInt(amount),
+        [nodeId]
+      );
+      console.log('registerPaymentWithNodeId: ', result);
+      if (!CandidMapper.handleResult(result)) {
+        throw new Error('Error registering payment');
+      }
+      return;
+    }
+
+    else {
     const result: Result = await nodeEscrowActor.registerPayment(
       BigInt(amount)
     );
@@ -95,6 +121,7 @@ export class PlugWalletService {
     if (!CandidMapper.handleResult(result)) {
       throw new Error('Error registering payment');
     }
+  }
   }
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {

@@ -16,7 +16,6 @@ export class PaymentApi {
     );
     const ticketPrice = await esgWalletActor.getTicketPrice();
     // Assuming the cost calculation involves ticket price
-    // This is a placeholder for the actual calculation logic
     const result = ticketPrice * BigInt(paymentData.carbonDebitAmount);
     return Number(result);
  }
@@ -32,8 +31,6 @@ export class PaymentApi {
         paymentData.carbonDebitAmount,
         paymentData.totalCost,
       );
-      // Assuming the payment was successful trigger the register_payment method
-      
       return true; // Payment was successful
     } catch (error) {
       console.error('Payment failed:', error);
@@ -57,6 +54,22 @@ export class PaymentApi {
     }, offset, []);
     return result;
  }
+
+
+async getPurchases(nodeId: string): Promise<any[]> {
+  const esgWalletActor = esgWalletCreateActor(
+      import.meta.env.VITE_APP_ESG_WALLET_CANISTER_ID ?? '',
+      {
+          agentOptions: {
+              host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+          }
+      }
+  );
+
+  const purchases = await esgWalletActor.getPurchasesByNodeId(nodeId);
+
+  return purchases;
+}
 }
 
 const paymentApi = new PaymentApi();
