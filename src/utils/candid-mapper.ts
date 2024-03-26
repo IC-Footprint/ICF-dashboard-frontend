@@ -1,7 +1,7 @@
 import type { Principal } from '@dfinity/principal';
 
-import type { Result_1 } from '@/declarations/esg_wallet/esg_wallet.did';
-import type { Result } from '@/declarations/node_manager/node_manager.did';
+import type { Result, Result_1 } from '@/declarations/esg_wallet/esg_wallet.did';
+// import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
 
 export class CandidMapper {
   static handleResult(result: Result): boolean {

@@ -17,8 +17,10 @@ export interface Payment {
   'ticket_count' : bigint,
   'contribution_id' : string,
 }
-export type Result = { 'Ok' : Payment } |
-  { 'Err' : string };
+export type Result = { 'Ok' : null } |
+  { 'Err' : null };
+export type Result_1 = { 'Ok' : Principal } |
+  { 'Err' : null };
 export interface TransformArgs {
   'context' : Uint8Array | number[],
   'response' : HttpResponse,
