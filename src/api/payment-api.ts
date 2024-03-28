@@ -6,8 +6,10 @@ import { createActor as nodeManagerCreateActor } from '@/declarations/node_manag
 
 export class PaymentApi {
  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
+  const esgWallet = process.env.ESG_WALLET_CANISTER_ID ?? '';
+  console.log('ESG Wallet: ', esgWallet);
     const esgWalletActor = esgWalletCreateActor(
-      process.env.ESG_WALLET_CANISTER_ID ?? '',
+      esgWallet,
       {
         agentOptions: {
           host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
@@ -21,15 +23,19 @@ export class PaymentApi {
  }
 
  async registerPayment(paymentData: PaymentDataModel): Promise<boolean> {
+  
+  paymentData.totalCost = await this.calculateCost(paymentData);
+  console.log('Total cost: ', paymentData.totalCost);
     if (!paymentData.totalCost) {
+      console.log('Total cost is required');
       return false;
     }
-      await plugWallet.makePayment(
-        process.env.LEDGER_CANISTER_ID ?? '',
-        paymentData.carbonDebitAmount,
-        paymentData.totalCost,
-      );
-      return true; // Payment was successful
+    await plugWallet.makePayment(
+      process.env.ESG_WALLET_CANISTER_ID ?? '',
+      paymentData.carbonDebitAmount,
+      paymentData.totalCost
+    );
+    return true;
   }
 
  async offsetEmissions(client: string, offset: number): Promise<string> {

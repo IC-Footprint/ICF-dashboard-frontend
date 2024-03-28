@@ -75,7 +75,7 @@ const Project: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard nodeId='' />
+          <CheckoutCard nodeId='eq6en-6jqla-fbu5s-daskr-h6hx2-376n5-iqabl-qgrng-gfqmv-n3yjr-mqe' />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingProjectStats} />
