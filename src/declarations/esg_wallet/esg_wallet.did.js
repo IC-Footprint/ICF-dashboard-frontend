@@ -3,10 +3,10 @@ export const idlFactory = ({ IDL }) => {
   const Payment = IDL.Record({
     'node_id' : IDL.Opt(IDL.Text),
     'ticket_price' : IDL.Float64,
+    'cawa_url' : IDL.Text,
     'payer' : IDL.Text,
     'block_height' : IDL.Nat,
     'ticket_count' : IDL.Float64,
-    'contribution_id' : IDL.Text,
   });
   return IDL.Service({
     'authorize' : IDL.Func([IDL.Principal], [], []),
@@ -22,6 +22,7 @@ export const idlFactory = ({ IDL }) => {
     'get_contribution_by_entity' : IDL.Func([IDL.Text], [IDL.Text], []),
     'get_contribution_by_id' : IDL.Func([IDL.Text], [IDL.Text], []),
     'get_contributions' : IDL.Func([], [IDL.Text], []),
+    'get_proof' : IDL.Func([IDL.Text], [IDL.Text], []),
     'registerPayment' : IDL.Func(
         [IDL.Nat64, IDL.Opt(IDL.Text)],
         [IDL.Text],

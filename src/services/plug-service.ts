@@ -90,7 +90,7 @@ export class PlugWalletService {
   private async registerPayment(
     canisterId: string,
     amount: number,
-    nodeId?: string
+    nodeId?: string[]
   ): Promise<void> {
     console.log('Registering payment');
     const nodeEscrowActor = await this.plug.createActor({
@@ -136,12 +136,13 @@ export class PlugWalletService {
 
   async makePayment(
     escrowPrincipalId: string,
+    node_id: string[],
     amount: number,
     totalCost: number
   ): Promise<void> {
     await this.requestConnect([escrowPrincipalId]);
     await this.requestTransfer(escrowPrincipalId, totalCost);
-    await this.registerPayment(escrowPrincipalId, amount);
+    await this.registerPayment(escrowPrincipalId, amount, node_id);
   }
 }
 

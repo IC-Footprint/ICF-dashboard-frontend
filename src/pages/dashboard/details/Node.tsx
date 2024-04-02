@@ -55,7 +55,7 @@ const Node: FC = () => {
   ]);
 
   useEffect(() => {
-    if (nodeId && payment?.nodeId === nodeId && paymentRegistered) {
+    if (nodeId && payment?.nodeId.includes(nodeId) && paymentRegistered) {
       getNodeCanisterAttributions(nodeId);
     }
   }, [payment, paymentRegistered, nodeId]);
