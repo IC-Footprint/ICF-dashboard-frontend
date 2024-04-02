@@ -7,15 +7,6 @@ import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
 // import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet/';
 import { CandidMapper } from '@/utils/candid-mapper';
 
-// const esgWallet = esgWalletCreateActor(
-//   import.meta.env.CANISTER_ID_ESG_WALLET,
-//   {
-//     agentOptions: {
-//       host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-//     }
-//   }
-// );
-
 declare global {
   interface Window {
     ic?: {
@@ -101,13 +92,14 @@ export class PlugWalletService {
     amount: number,
     nodeId?: string
   ): Promise<void> {
-    console.log('Registering payment')
+    console.log('Registering payment');
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
       interfaceFactory: esgWalletIdlFactory
     });
 
     const nodeIdValue = nodeId !== undefined ? nodeId : [];
+    // console.log('amount type: ', typeof amount);
     const result: Result = await nodeEscrowActor.registerPayment(
       BigInt(amount),
       nodeIdValue
@@ -119,7 +111,7 @@ export class PlugWalletService {
   }
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {
-    console.log('Requesting connection')
+    console.log('Requesting connection');
     const sessiondata = await this.plug.sessionManager.sessionData;
     console.log('session data:', sessiondata);
     const onConnectionUpdate = async() =>{

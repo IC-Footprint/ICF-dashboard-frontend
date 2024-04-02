@@ -12,10 +12,10 @@ module {
   };
   public type Payment = {
     node_id : ?Text;
-    ticket_price : Nat64;
+    ticket_price : Float;
     payer : Text;
     block_height : Nat;
-    ticket_count : Nat64;
+    ticket_count : Float;
     contribution_id : Text;
   };
   public type Result = { #Ok; #Err };
@@ -24,15 +24,15 @@ module {
   public type Self = Conf -> async actor {
     authorize : shared Principal -> async ();
     deauthorize : shared Principal -> async ();
-    getPrice : shared query Nat64 -> async Nat;
+    getPrice : shared query Float -> async Float;
     getPurchases : shared query () -> async [Payment];
     getPurchasesByNodeId : shared query Text -> async [Payment];
-    getTicketPrice : shared query () -> async Nat64;
+    getTicketPrice : shared query () -> async Float;
     get_contribution_by_entity : shared Text -> async Text;
     get_contribution_by_id : shared Text -> async Text;
     get_contributions : shared () -> async Text;
     registerPayment : shared (Nat64, ?Text) -> async Text;
-    send : shared (Text, Nat64) -> async Text;
+    send : shared (Text, Float) -> async Text;
     setOffsetEmissions : shared ?Text -> async Text;
     set_api_key : shared Text -> async ();
   }
