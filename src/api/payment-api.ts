@@ -37,8 +37,9 @@ export class PaymentApi {
     }
     await plugWallet.makePayment(
       process.env.ESG_WALLET_CANISTER_ID ?? '',
+      [paymentData.nodeId],
       paymentData.carbonDebitAmount,
-      paymentData.totalCost
+      paymentData.totalCost,
     );
     return true;
   }
@@ -58,7 +59,7 @@ export class PaymentApi {
 //   return purchases;
 // }
 
-async getPurchases(): Promise<CanisterAttributionModel[]> {
+async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
   const esgWalletActor = esgWalletCreateActor(
     process.env.ESG_WALLET_CANISTER_ID ?? '',
       {
@@ -67,7 +68,7 @@ async getPurchases(): Promise<CanisterAttributionModel[]> {
           }
       }
   );
-  const result = await esgWalletActor.getPurchases();
+  const result = await esgWalletActor.getPurchasesByNodeId(nodeId);
   return result.map(PaymentMappers.mapPurchase);
 }
 }

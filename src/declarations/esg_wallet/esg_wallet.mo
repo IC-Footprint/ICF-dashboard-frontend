@@ -13,10 +13,10 @@ module {
   public type Payment = {
     node_id : ?Text;
     ticket_price : Float;
+    cawa_url : Text;
     payer : Text;
     block_height : Nat;
     ticket_count : Float;
-    contribution_id : Text;
   };
   public type Result = { #Ok; #Err };
   public type Result_1 = { #Ok : Principal; #Err };
@@ -31,6 +31,7 @@ module {
     get_contribution_by_entity : shared Text -> async Text;
     get_contribution_by_id : shared Text -> async Text;
     get_contributions : shared () -> async Text;
+    get_proof : shared Text -> async Text;
     registerPayment : shared (Nat64, ?Text) -> async Text;
     send : shared (Text, Float) -> async Text;
     setOffsetEmissions : shared ?Text -> async Text;

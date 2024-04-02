@@ -20,4 +20,5 @@ export interface PurchaseModel {
   payer: string;
   block_height: bigint;
   ticket_count: number;
+  cawa_url: string;
 }

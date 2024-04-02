@@ -13,6 +13,7 @@ import { createEmptyCarbonAccountModel } from '@/models/dashboard/carbon-account
 import { DashboardMappers } from '@/state/dashboard/dashboard-mappers';
 import { ProjectMappers } from '@/state/projects/project-mappers';
 import { ChartMapper } from '@/utils/chart-mapper';
+import paymentApi from '@/api/payment-api';
 
 export const getProjectDetailsAction = createAsyncThunk<
   [HeadlineFiguresModel, CarbonAccountModel],
@@ -49,7 +50,7 @@ export const getProjectCanisterAttributionsAction = createAsyncThunk<
   'projects/getProjectCanisterAttributions',
   async (projectId, { rejectWithValue }) => {
     try {
-      return await projectsApi.getProjectCanisterAttributions(projectId);
+      return await paymentApi.getPurchases(projectId);
     } catch (error) {
       return rejectWithValue(error);
     }

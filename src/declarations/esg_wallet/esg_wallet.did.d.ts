@@ -12,10 +12,10 @@ export interface HttpResponse {
 export interface Payment {
   'node_id' : [] | [string],
   'ticket_price' : number,
+  'cawa_url' : string,
   'payer' : string,
   'block_height' : bigint,
   'ticket_count' : number,
-  'contribution_id' : string,
 }
 export type Result = { 'Ok' : null } |
   { 'Err' : null };
@@ -35,6 +35,7 @@ export interface _SERVICE {
   'get_contribution_by_entity' : ActorMethod<[string], string>,
   'get_contribution_by_id' : ActorMethod<[string], string>,
   'get_contributions' : ActorMethod<[], string>,
+  'get_proof' : ActorMethod<[string], string>,
   'registerPayment' : ActorMethod<[bigint, [] | [string]], string>,
   'send' : ActorMethod<[string, number], string>,
   'setOffsetEmissions' : ActorMethod<[[] | [string]], string>,
