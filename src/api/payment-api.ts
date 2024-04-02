@@ -1,8 +1,13 @@
 import type { PaymentDataModel } from '@/models/payment/payment-data-model';
 
+import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
+
 import { plugWallet } from '@/services/plug-service';
 import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet';
-import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
+// import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
+
+
+import { PaymentMappers } from '@/state/payment/payment-mappers';
 
 export class PaymentApi {
  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
@@ -18,7 +23,7 @@ export class PaymentApi {
     );
     const ticketPrice = await esgWalletActor.getTicketPrice();
     // Assuming the cost calculation involves ticket price
-    const result = ticketPrice * BigInt(paymentData.carbonDebitAmount);
+    const result = ticketPrice * paymentData.carbonDebitAmount;
     return Number(result);
  }
 
@@ -38,25 +43,22 @@ export class PaymentApi {
     return true;
   }
 
- async offsetEmissions(client: string, offset: number): Promise<string> {
-    const nodeManagerActor = nodeManagerCreateActor(
-      process.env.NODE_MANAGER_CANISTER_ID ?? '',
-      {
-        agentOptions: {
-          host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-        }
-      }
-    );
+// async getPurchases(): Promise<any[]> {
+//   const esgWalletActor = esgWalletCreateActor(
+//     process.env.ESG_WALLET_CANISTER_ID ?? '',
+//       {
+//           agentOptions: {
+//               host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+//           }
+//       }
+//   );
 
-    const result = await nodeManagerActor.offset_emissions({
-      client,
-      nodes: [], // Assuming nodes are not directly manipulated here
-    }, offset, []);
-    return result;
- }
+//   const purchases = await esgWalletActor.getPurchases();
 
+//   return purchases;
+// }
 
-async getPurchases(nodeId: string): Promise<any[]> {
+async getPurchases(): Promise<CanisterAttributionModel[]> {
   const esgWalletActor = esgWalletCreateActor(
     process.env.ESG_WALLET_CANISTER_ID ?? '',
       {
@@ -65,10 +67,8 @@ async getPurchases(nodeId: string): Promise<any[]> {
           }
       }
   );
-
-  const purchases = await esgWalletActor.getPurchasesByNodeId(nodeId);
-
-  return purchases;
+  const result = await esgWalletActor.getPurchases();
+  return result.map(PaymentMappers.mapPurchase);
 }
 }
 

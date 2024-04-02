@@ -2,23 +2,23 @@ export const idlFactory = ({ IDL }) => {
   const Conf = IDL.Record({ 'ledger_canister_id' : IDL.Principal });
   const Payment = IDL.Record({
     'node_id' : IDL.Opt(IDL.Text),
-    'ticket_price' : IDL.Nat64,
+    'ticket_price' : IDL.Float64,
     'payer' : IDL.Text,
     'block_height' : IDL.Nat,
-    'ticket_count' : IDL.Nat64,
+    'ticket_count' : IDL.Float64,
     'contribution_id' : IDL.Text,
   });
   return IDL.Service({
     'authorize' : IDL.Func([IDL.Principal], [], []),
     'deauthorize' : IDL.Func([IDL.Principal], [], []),
-    'getPrice' : IDL.Func([IDL.Nat64], [IDL.Nat], ['query']),
+    'getPrice' : IDL.Func([IDL.Float64], [IDL.Float64], ['query']),
     'getPurchases' : IDL.Func([], [IDL.Vec(Payment)], ['query']),
     'getPurchasesByNodeId' : IDL.Func(
         [IDL.Text],
         [IDL.Vec(Payment)],
         ['query'],
       ),
-    'getTicketPrice' : IDL.Func([], [IDL.Nat64], ['query']),
+    'getTicketPrice' : IDL.Func([], [IDL.Float64], ['query']),
     'get_contribution_by_entity' : IDL.Func([IDL.Text], [IDL.Text], []),
     'get_contribution_by_id' : IDL.Func([IDL.Text], [IDL.Text], []),
     'get_contributions' : IDL.Func([], [IDL.Text], []),
@@ -27,7 +27,7 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Text],
         [],
       ),
-    'send' : IDL.Func([IDL.Text, IDL.Nat64], [IDL.Text], []),
+    'send' : IDL.Func([IDL.Text, IDL.Float64], [IDL.Text], []),
     'setOffsetEmissions' : IDL.Func([IDL.Opt(IDL.Text)], [IDL.Text], []),
     'set_api_key' : IDL.Func([IDL.Text], [], []),
   });

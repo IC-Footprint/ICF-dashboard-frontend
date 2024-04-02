@@ -11,10 +11,10 @@ export interface HttpResponse {
 }
 export interface Payment {
   'node_id' : [] | [string],
-  'ticket_price' : bigint,
+  'ticket_price' : number,
   'payer' : string,
   'block_height' : bigint,
-  'ticket_count' : bigint,
+  'ticket_count' : number,
   'contribution_id' : string,
 }
 export type Result = { 'Ok' : null } |
@@ -28,15 +28,15 @@ export interface TransformArgs {
 export interface _SERVICE {
   'authorize' : ActorMethod<[Principal], undefined>,
   'deauthorize' : ActorMethod<[Principal], undefined>,
-  'getPrice' : ActorMethod<[bigint], bigint>,
+  'getPrice' : ActorMethod<[number], number>,
   'getPurchases' : ActorMethod<[], Array<Payment>>,
   'getPurchasesByNodeId' : ActorMethod<[string], Array<Payment>>,
-  'getTicketPrice' : ActorMethod<[], bigint>,
+  'getTicketPrice' : ActorMethod<[], number>,
   'get_contribution_by_entity' : ActorMethod<[string], string>,
   'get_contribution_by_id' : ActorMethod<[string], string>,
   'get_contributions' : ActorMethod<[], string>,
   'registerPayment' : ActorMethod<[bigint, [] | [string]], string>,
-  'send' : ActorMethod<[string, bigint], string>,
+  'send' : ActorMethod<[string, number], string>,
   'setOffsetEmissions' : ActorMethod<[[] | [string]], string>,
   'set_api_key' : ActorMethod<[string], undefined>,
 }
