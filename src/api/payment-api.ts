@@ -44,20 +44,6 @@ export class PaymentApi {
     return true;
   }
 
-// async getPurchases(): Promise<any[]> {
-//   const esgWalletActor = esgWalletCreateActor(
-//     process.env.ESG_WALLET_CANISTER_ID ?? '',
-//       {
-//           agentOptions: {
-//               host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-//           }
-//       }
-//   );
-
-//   const purchases = await esgWalletActor.getPurchases();
-
-//   return purchases;
-// }
 
 async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
   const esgWalletActor = esgWalletCreateActor(
