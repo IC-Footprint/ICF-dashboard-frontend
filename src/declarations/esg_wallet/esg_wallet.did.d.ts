@@ -40,4 +40,5 @@ export interface _SERVICE {
   'send' : ActorMethod<[string, number], string>,
   'setOffsetEmissions' : ActorMethod<[[] | [string]], string>,
   'set_api_key' : ActorMethod<[string], undefined>,
+  'withdraw' : ActorMethod<[Principal, bigint], string>,
 }

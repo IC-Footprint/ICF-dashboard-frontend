@@ -36,5 +36,6 @@ module {
     send : shared (Text, Float) -> async Text;
     setOffsetEmissions : shared ?Text -> async Text;
     set_api_key : shared Text -> async ();
+    withdraw : shared (Principal, Nat64) -> async Text;
   }
 }
