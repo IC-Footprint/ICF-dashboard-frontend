@@ -22,8 +22,9 @@ export class PaymentApi {
       }
     );
     const ticketPrice = await esgWalletActor.getTicketPrice();
-    // Assuming the cost calculation involves ticket price
-    const result = ticketPrice * paymentData.carbonDebitAmount;
+    // Adjust the figure to ICP unit
+    const adjustedFigure = paymentData.carbonDebitAmount / 100000000;
+    const result = ticketPrice * adjustedFigure;
     return Number(result);
  }
 
