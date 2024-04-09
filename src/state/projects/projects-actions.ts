@@ -26,10 +26,10 @@ export const getProjectDetailsAction = createAsyncThunk<
     const projectsElectricityDraw =
       await projectsApi.getProjectElectricityDraw();
     const projectDetails =
-      DashboardMappers.mapProjects(
-        projectsList.filter((p) => p.id === projectId),
+      (await DashboardMappers.mapProjects(
+        projectsList.filter((p) => p.id.includes(projectId)),
         projectsEmissions
-      ).at(0) ?? createEmptyCarbonAccountModel();
+      )).at(0) ?? createEmptyCarbonAccountModel();
     const projectElectricityDraw = projectsElectricityDraw.find(
       (d) => d.name === projectId
     );
