@@ -1,14 +1,13 @@
-import type { _SERVICE } from './escrow_manager.did';
-
 import type {
   ActorSubclass,
   HttpAgentOptions,
   ActorConfig,
   Agent,
-} from '@dfinity/agent';
-import type { Principal } from '@dfinity/principal';
-import type { IDL } from '@dfinity/candid';
+} from "@dfinity/agent";
+import type { Principal } from "@dfinity/principal";
+import type { IDL } from "@dfinity/candid";
 
+import { _SERVICE } from './node_manager.did';
 
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const canisterId: string;
@@ -48,4 +47,4 @@ export declare const createActor: (
  * Intialized Actor using default settings, ready to talk to a canister using its candid interface
  * @constructs {@link ActorSubClass}
  */
-export declare const escrow_manager: ActorSubclass<_SERVICE>;
+export declare const node_manager: ActorSubclass<_SERVICE>;

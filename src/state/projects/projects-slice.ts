@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
-import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { CanisterAttributionModel } from '@/models/nodes/canister-attribution-model';
 import type { ChartData } from 'chart.js';
 import type { Draft } from 'immer';
 
+import { createEmptyHeadlineFiguresModel, type HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import {
   getProjectDetailsAction,
   getProjectCanisterAttributionsAction,
   getProjectEmissionsAction,
-  getProjectPowerConsumptionAction
+  getProjectPowerConsumptionAction,
 } from '@/state/projects/projects-actions';
 
 export interface ProjectsState {
@@ -75,6 +75,14 @@ export const projectsSlice = createSlice({
         (state, action) => {
           state.projectCanisterAttributionsLoading = false;
           state.projectCanisterAttributions = action.payload;
+          state.projectStats = {
+            ...(state.projectStats ?? createEmptyHeadlineFiguresModel()),
+            offsetEmissions: action.payload.reduce(
+              (previousValue, currentValue) =>
+                previousValue + (currentValue.ticketCount ?? 0),
+              0
+            )
+          };
         }
       )
       .addCase(getProjectCanisterAttributionsAction.rejected, (state) => {

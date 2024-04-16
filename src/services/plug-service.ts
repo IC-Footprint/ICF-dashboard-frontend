@@ -1,9 +1,10 @@
 import { Principal } from '@dfinity/principal';
 
-import type { Result } from '@/declarations/node_escrow/node_escrow.did';
+import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
 
 import { idlFactory as nnsLedgerIdlFactory } from '@/declarations/idls/nns_ledger.did';
-import { idlFactory as nodeEscrowIdlFactory } from '@/declarations/idls/node_escrow.did';
+import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
+// import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet/';
 import { CandidMapper } from '@/utils/candid-mapper';
 
 declare global {
@@ -25,6 +26,8 @@ export class PlugWalletService {
 
   private ledgerCanisterId = '';
 
+  private esgWalletCanisterId = '';
+
   private connectOptions: ConnectionOptionsModel = {};
 
   constructor() {
@@ -32,16 +35,19 @@ export class PlugWalletService {
       this.plug = window.ic.plug;
 
       const host =
-        process.env.DFX_NETWORK === 'local'
-          ? 'http://localhost:8080/'
-          : import.meta.env.VITE_APP_ICP_NETWORK_HOST;
+        // process.env.DFX_NETWORK === 'local'
+        //   ? 'http://localhost:8080/'
+        import.meta.env.VITE_APP_ICP_NETWORK_HOST;
       this.ledgerCanisterId =
-        import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
+      import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
+      this.esgWalletCanisterId = process.env.ESG_WALLET_CANISTER_ID ?? '';
       this.connectOptions = {
         host,
-        whitelist: [this.ledgerCanisterId],
+        whitelist: [this.ledgerCanisterId, this.esgWalletCanisterId],
         timeout: 50000
       };
+      console.log('Ledger Canister ID: ', this.ledgerCanisterId);
+    console.log('Connect Options: ', this.connectOptions);
     } else {
       // TODO: replace with a more user-friendly message
       alert('Plug extension not detected!');
@@ -57,6 +63,7 @@ export class PlugWalletService {
       canisterId: this.ledgerCanisterId,
       interfaceFactory: nnsLedgerIdlFactory
     });
+    console.log('nnsActor: ', nnsActor);
     const transferFee: BigInt = await nnsActor.icrc1_fee();
     const icrc1Decimals = await nnsActor.icrc1_decimals();
     const totalAmount =
@@ -82,43 +89,63 @@ export class PlugWalletService {
 
   private async registerPayment(
     canisterId: string,
-    amount: number
+    amount: number,
+    nodeId?: string[]
   ): Promise<void> {
+    console.log('Registering payment');
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
-      interfaceFactory: nodeEscrowIdlFactory
+      interfaceFactory: esgWalletIdlFactory
     });
+
+    const nodeIdValue = nodeId !== undefined ? nodeId : [];
+    // console.log('amount type: ', typeof amount);
     const result: Result = await nodeEscrowActor.registerPayment(
-      BigInt(amount)
+      BigInt(amount),
+      nodeIdValue
     );
     console.log('registerPayment: ', result);
-    if (!CandidMapper.handleResult(result)) {
+    if (!result) {
       throw new Error('Error registering payment');
     }
   }
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {
-    const onConnectionUpdate = () => {
-      console.log(this.plug.sessionManager.sessionData);
+    console.log('Requesting connection');
+    const sessiondata = await this.plug.sessionManager.sessionData;
+    console.log('session data:', sessiondata);
+    const onConnectionUpdate = async() =>{
+      console.log('Connection updated');
+      const sessiondata = await this.plug.sessionManager.sessionData;
+      console.log('session data:', sessiondata);
     };
-
-    await this.plug.requestConnect({
-      onConnectionUpdate,
-      ...this.connectOptions,
-      whitelist: whitelist.concat(this.connectOptions.whitelist ?? [])
-    });
+  
+    console.log(this.connectOptions);
+    console.log(whitelist);
+    try {
+      await this.plug.requestConnect({
+        onConnectionUpdate,
+        ...this.connectOptions,
+        whitelist: whitelist.concat(this.connectOptions.whitelist ?? [])
+      });
+      console.log('Connected to Plug'); 
+    } catch (error) {
+      console.error('Failed to connect:', error);
+    }
   }
 
   async makePayment(
     escrowPrincipalId: string,
+    node_id: string[],
     amount: number,
     totalCost: number
   ): Promise<void> {
     await this.requestConnect([escrowPrincipalId]);
     await this.requestTransfer(escrowPrincipalId, totalCost);
-    await this.registerPayment(escrowPrincipalId, amount);
+    await this.registerPayment(escrowPrincipalId, amount, node_id);
   }
 }
+
 
 const plugWallet = new PlugWalletService();
 export { plugWallet };
