@@ -12,7 +12,7 @@ import CheckoutCard from '@/components/checkout/CheckoutCard';
 import ChartCard from '@/components/nodes/ChartCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useProjects from '@/helpers/state/useProjects';
-import useIncrementalValue from '@/helpers/useIntervalIncrement';
+import { useCalculatedCarbonDebit, useIntervalIncrement } from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Project: FC = () => {
@@ -34,24 +34,33 @@ const Project: FC = () => {
 
   useEffect(() => {
     if (projectId) {
-      getProjectDetails(projectId);
-      getProjectCanisterAttributions(projectId);
+      // split project id if there's a comma
+      const projectIds = projectId.split(',');
+      getProjectDetails(projectIds[0]);
+      getProjectCanisterAttributions(projectIds[0]);
     }
   }, [getProjectDetails, getProjectCanisterAttributions, projectId]);
 
-  const incrementingProjectEmissions = useIncrementalValue(
+  const incrementingProjectEmissions = useIntervalIncrement(
     project?.carbonDebit,
     projectStats?.cumulativeNetworkEmissionsRate
+  );
+
+  const incrementingProjectCarbonDebit = useCalculatedCarbonDebit(
+    project?.carbonDebit,
+    projectStats?.cumulativeNetworkEmissionsRate,
+    projectStats?.avoidedEmissions,
+    projectStats?.offsetEmissions
   );
 
   const incrementingProject = useMemo((): CarbonAccountModel | null => {
     return project
       ? {
           ...project,
-          carbonDebit: incrementingProjectEmissions ?? 0
+          carbonDebit: incrementingProjectCarbonDebit ?? 0
         }
       : null;
-  }, [project, incrementingProjectEmissions]);
+  }, [project, incrementingProjectCarbonDebit]);
 
   const incrementingProjectStats = useMemo((): HeadlineFiguresModel | null => {
     return projectStats

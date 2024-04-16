@@ -50,7 +50,11 @@ export const getProjectCanisterAttributionsAction = createAsyncThunk<
   'projects/getProjectCanisterAttributions',
   async (projectId, { rejectWithValue }) => {
     try {
-      return await paymentApi.getPurchases(projectId);
+      // console.log(projectId);
+      // split project id if there's a comma
+      const projectIds = projectId.split(',');
+      // pass first project id to get purchases for that project
+      return await paymentApi.getPurchases(projectIds[0]);
     } catch (error) {
       return rejectWithValue(error);
     }

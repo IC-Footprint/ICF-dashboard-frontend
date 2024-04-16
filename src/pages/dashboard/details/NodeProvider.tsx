@@ -11,7 +11,7 @@ import AttributionsCard from '@/components/AttributionsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodeProviders from '@/helpers/state/useNodeProviders';
-import useIncrementalValue from '@/helpers/useIntervalIncrement';
+import { useIntervalIncrement } from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const NodeProvider: FC = () => {
@@ -36,7 +36,7 @@ const NodeProvider: FC = () => {
     nodeProviderId
   ]);
 
-  const incrementingNodeProviderEmissions = useIncrementalValue(
+  const incrementingNodeProviderEmissions = useIntervalIncrement(
     nodeProvider?.carbonDebit,
     nodeProviderStats?.cumulativeNetworkEmissionsRate
   );

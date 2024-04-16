@@ -31,9 +31,9 @@ export class PaymentApi {
  async registerPayment(paymentData: PaymentDataModel): Promise<boolean> {
   
   paymentData.totalCost = await this.calculateCost(paymentData);
-  console.log('Total cost: ', paymentData.totalCost);
+  // console.log('Total cost: ', paymentData.totalCost);
     if (!paymentData.totalCost) {
-      console.log('Total cost is required');
+      // console.log('Total cost is required');
       return false;
     }
     await plugWallet.makePayment(

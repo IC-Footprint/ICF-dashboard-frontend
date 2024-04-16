@@ -9,7 +9,7 @@ import type { CanisterAttributionModel } from '@/models/nodes/canister-attributi
 import type { AxiosResponse } from 'axios';
 
 import icLogo from '@/theme/assets/ic-logo.png';
-import openChatIcon from '@/theme/assets/social-logos/open-chat-logo.png';
+import openChatIcon from '@/theme/assets/social-logos/openchat.png';
 
 export class ProjectsApi {
   // TODO: use real list
