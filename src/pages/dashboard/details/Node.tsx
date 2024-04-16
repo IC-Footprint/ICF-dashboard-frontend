@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodes from '@/helpers/state/useNodes';
 import usePayment from '@/helpers/state/usePayment';
-import useIncrementalValue from '@/helpers/useIntervalIncrement';
+import { useCalculatedCarbonDebit, useIntervalIncrement } from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Node: FC = () => {
@@ -36,6 +36,14 @@ const Node: FC = () => {
     nodeEmissionsLoading
   } = useNodes();
   const { paymentRegistered, payment } = usePayment();
+  const [offsetOccured, setOffsetOccured] = useState(false);
+
+  // state to track if offset has occured
+  useEffect(() => {
+    if (nodeStats?.offsetEmissions && nodeStats?.offsetEmissions > 0) {
+      setOffsetOccured(true);
+    }
+  }, [nodeStats?.offsetEmissions]);
 
   useEffect(() => {
     if (nodeId) {
@@ -58,21 +66,29 @@ const Node: FC = () => {
     if (nodeId && payment?.nodeId.includes(nodeId) && paymentRegistered) {
       getNodeCanisterAttributions(nodeId);
     }
-  }, [payment, paymentRegistered, nodeId]);
+  }, [payment, paymentRegistered, getNodeCanisterAttributions, nodeId]);
 
-  const incrementingNodeEmissions = useIncrementalValue(
+  const incrementingNodeEmissions = useIntervalIncrement(
     nodeDetails?.carbonDebit,
-    nodeStats?.cumulativeNetworkEmissionsRate
+    nodeStats?.cumulativeNetworkEmissionsRate,
+  );
+
+  const incrementingNodeDebit = useCalculatedCarbonDebit(
+    nodeDetails?.carbonDebit,
+    nodeStats?.cumulativeNetworkEmissionsRate,
+    nodeStats?.avoidedEmissions,
+    nodeStats?.offsetEmissions,
+    offsetOccured
   );
 
   const incrementingNodeDetails = useMemo((): CarbonAccountModel | null => {
     return nodeDetails
       ? {
           ...nodeDetails,
-          carbonDebit: incrementingNodeEmissions ?? 0
+          carbonDebit: incrementingNodeDebit ?? 0
         }
       : null;
-  }, [nodeDetails, incrementingNodeEmissions]);
+  }, [nodeDetails, incrementingNodeDebit]);
 
   const incrementingNodeStats = useMemo((): HeadlineFiguresModel | null => {
     return nodeStats
