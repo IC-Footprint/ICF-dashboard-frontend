@@ -1,13 +1,13 @@
-import type { _SERVICE } from './node_escrow.did';
-
 import type {
   ActorSubclass,
   HttpAgentOptions,
   ActorConfig,
-  Agent
-} from '@dfinity/agent';
-import type { Principal } from '@dfinity/principal';
-import type { IDL } from '@dfinity/candid';
+  Agent,
+} from "@dfinity/agent";
+import type { Principal } from "@dfinity/principal";
+import type { IDL } from "@dfinity/candid";
+
+import { _SERVICE } from './esg_wallet.did';
 
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const canisterId: string;
@@ -32,10 +32,10 @@ export declare interface CreateActorOptions {
  * @constructs {@link ActorSubClass}
  * @param {string | Principal} canisterId - ID of the canister the {@link Actor} will talk to
  * @param {CreateActorOptions} options - see {@link CreateActorOptions}
- * @param {CreateActorOptions['agent']} options.agent - a pre-configured agent you'd like to use. Supercedes agentOptions
- * @param {CreateActorOptions['agentOptions']} options.agentOptions - options to set up a new agent
+ * @param {CreateActorOptions["agent"]} options.agent - a pre-configured agent you'd like to use. Supercedes agentOptions
+ * @param {CreateActorOptions["agentOptions"]} options.agentOptions - options to set up a new agent
  * @see {@link HttpAgentOptions}
- * @param {CreateActorOptions['actorOptions']} options.actorOptions - options for the Actor
+ * @param {CreateActorOptions["actorOptions"]} options.actorOptions - options for the Actor
  * @see {@link ActorConfig}
  */
 export declare const createActor: (
@@ -47,4 +47,4 @@ export declare const createActor: (
  * Intialized Actor using default settings, ready to talk to a canister using its candid interface
  * @constructs {@link ActorSubClass}
  */
-export declare const node_escrow: ActorSubclass<_SERVICE>;
+export declare const esg_wallet: ActorSubclass<_SERVICE>;

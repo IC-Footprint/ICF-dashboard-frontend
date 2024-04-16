@@ -23,7 +23,9 @@ export const registerPaymentAction = createAsyncThunk<
   'payment/registerPayment',
   async (data: PaymentDataModel, { rejectWithValue }) => {
     try {
-      return paymentApi.registerPayment(data);
+      const payment = paymentApi.registerPayment(data);
+      console.log('Payment: ', payment);
+      return payment;
     } catch (err) {
       console.error('Error registering payment: ', err);
       return rejectWithValue(false);

@@ -44,26 +44,39 @@ export class DashboardMappers {
     );
   }
 
-  static mapProjects(
+  static async mapProjects(
     projects: ProjectModel[],
     projectsEmissions: EmissionsModel[]
-  ): CarbonAccountModel[] {
-    return projects.map((project: ProjectModel): CarbonAccountModel => {
-      const emissions = projectsEmissions.find(
-        (emission: EmissionsModel) => emission.name === project.id
-      );
-      return {
-        id: project.id,
+  ): Promise<CarbonAccountModel[]> {
+    const mappedProjects: CarbonAccountModel[] = [];
+
+    for (const project of projects) {
+      let totalEmissions = 0;
+      let weeklyEmissions = 0;
+
+      // Assuming you have a function to fetch emissions by ID
+      for (const id of project.id) {
+        const emissions = projectsEmissions.find(emission => emission.name === id);
+        if (emissions) {
+          totalEmissions += emissions.totalEmissions;
+          weeklyEmissions += emissions.weeklyEmissions;
+        }
+      }
+
+      mappedProjects.push({
+        id: project.id.join(','), // Join IDs into a single string or handle as needed
         operator: {
           name: project.name,
           icon: project.icon
         },
-        carbonDebit: emissions?.totalEmissions ?? 0,
+        carbonDebit: totalEmissions,
         status: 'UP', // TODO: use real status
-        weeklyEmissions: emissions?.weeklyEmissions ?? 0,
+        weeklyEmissions: weeklyEmissions,
         confidence: null,
         location: null
-      };
-    });
-  }
+      });
+    }
+
+    return mappedProjects;
+ }
 }
