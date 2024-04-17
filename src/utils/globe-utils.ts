@@ -4,7 +4,7 @@ export class GlobeUtils {
   static buildGlobeOptions(): GlobeOptionsModel {
     return {
       pointOfViewAltitude: 2,
-      pointSizeScale: 0.0125,
+      pointSizeScale: 0.0225,
       pointRadius: 0.3
     };
   }
