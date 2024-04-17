@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { InformationItemContainer } from '@/components/dashboard/carbon-accounts/AccountsDataView';
 import useResources from '@/helpers/state/useResources';
 import icFootprintLogo from '@/theme/assets/ic-footprint-logo.svg';
-import { FlexColumnContainer, StyledCard } from '@/theme/styled-components';
+import { FlexColumnContainer, StyledCard, SHARE } from '@/theme/styled-components';
 
 interface CheckoutSuccessProps {
   carbonDebit: number;
@@ -59,6 +59,15 @@ const CheckoutSuccess: FC<CheckoutSuccessProps> = ({ carbonDebit, nodeId }) => {
           </a>
         </FlexCenteredColumnContainer>
       </StyledCard>
+      <SHARE
+      onClick={() => {
+        const tweetText = `I've successfully offset my emissions for ${carbonDebit} CO2 kg! #CarbonCrowd #ICFootprint`;
+        const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+        window.open(tweetUrl, '_blank');
+      }}
+      >
+        SHARE
+      </SHARE>
       <InformationItemContainer>
         <h5>{t('checkout.offsetEmission.success.with')}</h5>
         <h2 className="text-primary font-light">{t('common.icFootprint')}</h2>

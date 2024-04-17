@@ -16,7 +16,7 @@ import NodeEmissionsByRegion from '@/components/network/NodeEmissionsByRegion';
 import WorldCard from '@/components/network/WorldCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNetwork from '@/helpers/state/useNetwork';
-import {useIntervalIncrement} from '@/helpers/useIntervalIncrement';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Network: FC = () => {

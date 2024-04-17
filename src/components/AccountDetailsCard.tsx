@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useTranslation } from 'react-i18next';
 
+// import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { FC } from 'react';
 
@@ -20,6 +21,12 @@ interface AccountDetailsProps {
   account: CarbonAccountModel | null;
   nameLabel?: string;
 }
+
+// interface Headline {
+//   account: HeadlineFiguresModel | null;
+//   nameLabel?: string;
+// }
+
 
 const CardContentContainer = styled(FlexColumnContainer)`
   height: 100%;
