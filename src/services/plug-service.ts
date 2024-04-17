@@ -1,6 +1,6 @@
 import { Principal } from '@dfinity/principal';
 
-import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
+// import type { Result } from '@/declarations/esg_wallet/esg_wallet.did';
 
 import { idlFactory as nnsLedgerIdlFactory } from '@/declarations/idls/nns_ledger.did';
 import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
@@ -34,10 +34,7 @@ export class PlugWalletService {
     if (window.ic?.plug) {
       this.plug = window.ic.plug;
 
-      const host =
-        // process.env.DFX_NETWORK === 'local'
-        //   ? 'http://localhost:8080/'
-        import.meta.env.VITE_APP_ICP_NETWORK_HOST;
+      const host = import.meta.env.VITE_APP_ICP_NETWORK_HOST;
       this.ledgerCanisterId =
       import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
       this.esgWalletCanisterId = process.env.ESG_WALLET_CANISTER_ID ?? '';
@@ -46,8 +43,8 @@ export class PlugWalletService {
         whitelist: [this.ledgerCanisterId, this.esgWalletCanisterId],
         timeout: 50000
       };
-      console.log('Ledger Canister ID: ', this.ledgerCanisterId);
-    console.log('Connect Options: ', this.connectOptions);
+      // console.log('Ledger Canister ID: ', this.ledgerCanisterId);
+    // console.log('Connect Options: ', this.connectOptions);
     } else {
       // TODO: replace with a more user-friendly message
       alert('Plug extension not detected!');
@@ -63,7 +60,7 @@ export class PlugWalletService {
       canisterId: this.ledgerCanisterId,
       interfaceFactory: nnsLedgerIdlFactory
     });
-    console.log('nnsActor: ', nnsActor);
+    // console.log('nnsActor: ', nnsActor);
     const transferFee: BigInt = await nnsActor.icrc1_fee();
     const icrc1Decimals = await nnsActor.icrc1_decimals();
     const totalAmount =
@@ -81,7 +78,7 @@ export class PlugWalletService {
       expected_allowance: [],
       expires_at: []
     });
-    console.log('icrc2_approve: ', result);
+    // console.log('icrc2_approve: ', result);
     if (!CandidMapper.handleResult(result)) {
       throw new Error('Error requesting transfer');
     }
@@ -92,7 +89,7 @@ export class PlugWalletService {
     amount: number,
     nodeId?: string[]
   ): Promise<void> {
-    console.log('Registering payment');
+    // console.log('Registering payment');
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
       interfaceFactory: esgWalletIdlFactory
@@ -100,37 +97,41 @@ export class PlugWalletService {
 
     const nodeIdValue = nodeId !== undefined ? nodeId : [];
     // console.log('amount type: ', typeof amount);
-    const result: Result = await nodeEscrowActor.registerPayment(
+    const resultStr: string = await nodeEscrowActor.registerPayment(
       BigInt(amount),
       nodeIdValue
     );
-    console.log('registerPayment: ', result);
-    if (!result) {
+    console.log('registerPayment: ', resultStr);
+
+    const result = JSON.parse(resultStr);
+    if (result.error) {
+
+      console.error('Error registering payment:', result.error);
       throw new Error('Error registering payment');
     }
   }
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {
-    console.log('Requesting connection');
+    // console.log('Requesting connection');
     const sessiondata = await this.plug.sessionManager.sessionData;
     console.log('session data:', sessiondata);
     const onConnectionUpdate = async() =>{
-      console.log('Connection updated');
+      // console.log('Connection updated');
       const sessiondata = await this.plug.sessionManager.sessionData;
       console.log('session data:', sessiondata);
     };
   
-    console.log(this.connectOptions);
-    console.log(whitelist);
+    // console.log(this.connectOptions);
+    // console.log(whitelist);
     try {
       await this.plug.requestConnect({
         onConnectionUpdate,
         ...this.connectOptions,
         whitelist: whitelist.concat(this.connectOptions.whitelist ?? [])
       });
-      console.log('Connected to Plug'); 
+      // console.log('Connected to Plug'); 
     } catch (error) {
-      console.error('Failed to connect:', error);
+      // console.error('Failed to connect:', error);
     }
   }
 
