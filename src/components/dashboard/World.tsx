@@ -1,4 +1,4 @@
-import { interpolateRdYlGn, scaleSequentialSqrt } from 'd3';
+import { scaleLinear } from 'd3';
 import { useEffect, useMemo, useRef } from 'react';
 import Globe from 'react-globe.gl';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +63,7 @@ const World: FC = () => {
     }
     return [maximum, minimum];
   }, [globePoints]);
-  const pointColor = scaleSequentialSqrt(interpolateRdYlGn).domain(colorDomain);
+  const pointColor = scaleLinear(['orange', 'green']).domain(colorDomain);
   const pointLabelTemplate = (d: unknown) => {
     const data = d as GlobePointViewModel;
     return `
@@ -73,7 +73,9 @@ const World: FC = () => {
         <span>
           ${t('world.carbonIntensity', { value: data.carbonIntensity })}
         </span>
-        <span>${t('world.carbonEmissions', {value: data.carbonEmissions})}</span>
+        <span>${t('world.carbonEmissions', {
+          value: data.carbonEmissions
+        })}</span>
       </div>
     `;
   };
