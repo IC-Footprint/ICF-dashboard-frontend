@@ -14,7 +14,7 @@ import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodes from '@/helpers/state/useNodes';
 import usePayment from '@/helpers/state/usePayment';
-import useIncrementalValue from '@/helpers/useIntervalIncrement';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Node: FC = () => {
@@ -36,6 +36,14 @@ const Node: FC = () => {
     nodeEmissionsLoading
   } = useNodes();
   const { paymentRegistered, payment } = usePayment();
+  // const [offsetOccured, setOffsetOccured] = useState(false);
+
+  // state to track if offset has occured
+  // useEffect(() => {
+  //   if (nodeStats?.offsetEmissions && nodeStats?.offsetEmissions > 0) {
+  //     setOffsetOccured(true);
+  //   }
+  // }, [nodeStats?.offsetEmissions]);
 
   useEffect(() => {
     if (nodeId) {
@@ -58,11 +66,11 @@ const Node: FC = () => {
     if (nodeId && payment?.nodeId.includes(nodeId) && paymentRegistered) {
       getNodeCanisterAttributions(nodeId);
     }
-  }, [payment, paymentRegistered, nodeId]);
+  }, [payment, paymentRegistered, getNodeCanisterAttributions, nodeId]);
 
-  const incrementingNodeEmissions = useIncrementalValue(
-    nodeDetails?.carbonDebit,
-    nodeStats?.cumulativeNetworkEmissionsRate
+  const incrementingNodeEmissions = useIntervalIncrement(
+    nodeStats?.cumulativeNetworkEmissions,
+    nodeStats?.cumulativeNetworkEmissionsRate,
   );
 
   const incrementingNodeDetails = useMemo((): CarbonAccountModel | null => {
