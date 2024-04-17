@@ -11,6 +11,7 @@ import { ProgressBar } from 'primereact/progressbar';
 import { SelectButton } from 'primereact/selectbutton';
 import { Sidebar } from 'primereact/sidebar';
 import { Tag } from 'primereact/tag';
+import { Button } from 'primereact/button';
 
 import type { ViewportOptionsProps } from '@/models/viewport-options-props';
 import type { ColoredChipProps } from '@/models/nodes/colored-chip-props';
@@ -461,4 +462,15 @@ export const LightTag = styled(Tag)`
   p {
     font-size: 0.875rem;
   }
+`;
+
+export const SHARE = styled(Button)`
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 30%;
+ color: white;
+ text-align: center;
+ background-color: black;
+ border: none;
 `;

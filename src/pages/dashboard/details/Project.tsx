@@ -12,7 +12,7 @@ import CheckoutCard from '@/components/checkout/CheckoutCard';
 import ChartCard from '@/components/nodes/ChartCard';
 import NodeStats from '@/components/nodes/NodeStats';
 import useProjects from '@/helpers/state/useProjects';
-import { useCalculatedCarbonDebit, useIntervalIncrement } from '@/helpers/useIntervalIncrement';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
 const Project: FC = () => {
@@ -42,25 +42,18 @@ const Project: FC = () => {
   }, [getProjectDetails, getProjectCanisterAttributions, projectId]);
 
   const incrementingProjectEmissions = useIntervalIncrement(
-    project?.carbonDebit,
+    projectStats?.cumulativeNetworkEmissions,
     projectStats?.cumulativeNetworkEmissionsRate
-  );
-
-  const incrementingProjectCarbonDebit = useCalculatedCarbonDebit(
-    project?.carbonDebit,
-    projectStats?.cumulativeNetworkEmissionsRate,
-    projectStats?.avoidedEmissions,
-    projectStats?.offsetEmissions
   );
 
   const incrementingProject = useMemo((): CarbonAccountModel | null => {
     return project
       ? {
           ...project,
-          carbonDebit: incrementingProjectCarbonDebit ?? 0
+          carbonDebit: incrementingProjectEmissions ?? 0
         }
       : null;
-  }, [project, incrementingProjectCarbonDebit]);
+  }, [project, incrementingProjectEmissions]);
 
   const incrementingProjectStats = useMemo((): HeadlineFiguresModel | null => {
     return projectStats

@@ -6,7 +6,7 @@ import CarbonAccounts from '@/components/dashboard/carbon-accounts/CarbonAccount
 import DashboardInformationCarousel from '@/components/dashboard/DashboardInformationCarousel';
 import DashboardOutstandingCarbonDebit from '@/components/dashboard/DashboardOutstandingCarbonDebit';
 import useDashboard from '@/helpers/state/useDashboard';
-import { useIntervalIncrement } from '@/helpers/useIntervalIncrement';
+import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 
 const Dashboard: FC = () => {
   const {
