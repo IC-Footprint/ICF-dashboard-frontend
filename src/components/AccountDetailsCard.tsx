@@ -22,11 +22,6 @@ interface AccountDetailsProps {
   nameLabel?: string;
 }
 
-// interface Headline {
-//   account: HeadlineFiguresModel | null;
-//   nameLabel?: string;
-// }
-
 
 const CardContentContainer = styled(FlexColumnContainer)`
   height: 100%;

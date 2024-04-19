@@ -33,7 +33,7 @@ const initialState: () => ProjectsState = () => ({
   projectLoading: false,
   projectError: false,
   project: null,
-  projectStats: null,
+  projectStats: createEmptyHeadlineFiguresModel(),
   projectCanisterAttributions: null,
   projectCanisterAttributionsLoading: false,
   projectCanisterAttributionsError: false,
@@ -83,6 +83,7 @@ export const projectsSlice = createSlice({
               0
             )
           };
+          console.log('after update:', state.projectStats);
         }
       )
       .addCase(getProjectCanisterAttributionsAction.rejected, (state) => {
