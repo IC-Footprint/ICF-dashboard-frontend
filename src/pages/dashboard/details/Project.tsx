@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import NodeStats from '@/components/nodes/NodeStats';
 import useProjects from '@/helpers/state/useProjects';
 import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
+
 
 const Project: FC = () => {
   const { t } = useTranslation();
@@ -33,6 +34,10 @@ const Project: FC = () => {
   } = useProjects();
 
   useEffect(() => {
+    console.log('Ofssset emissions are: ', projectStats?.offsetEmissions);
+  }, [projectStats?.offsetEmissions]);
+
+  useEffect(() => {
     if (projectId) {
       // split project id if there's a comma
       const projectIds = projectId.split(',');
@@ -42,7 +47,7 @@ const Project: FC = () => {
   }, [getProjectDetails, getProjectCanisterAttributions, projectId]);
 
   const incrementingProjectEmissions = useIntervalIncrement(
-    projectStats?.cumulativeNetworkEmissions,
+    project?.carbonDebit,
     projectStats?.cumulativeNetworkEmissionsRate
   );
 
@@ -56,6 +61,7 @@ const Project: FC = () => {
   }, [project, incrementingProjectEmissions]);
 
   const incrementingProjectStats = useMemo((): HeadlineFiguresModel | null => {
+    console.log('Offset emissions are: ', projectStats?.offsetEmissions);
     return projectStats
       ? {
           ...projectStats,
@@ -63,6 +69,8 @@ const Project: FC = () => {
         }
       : null;
   }, [projectStats, incrementingProjectEmissions]);
+
+  console.log('offset emissions are: ', projectStats?.offsetEmissions);
 
   return (
     <FlexColumnContainer>
@@ -103,4 +111,4 @@ const Project: FC = () => {
   );
 };
 
-export default Project;
+export default React.memo(Project);
