@@ -464,13 +464,16 @@ export const LightTag = styled(Tag)`
   }
 `;
 
-export const SHARE = styled(Button)`
- display: flex;
- align-items: center;
- justify-content: center;
- width: 30%;
- color: white;
- text-align: center;
- background-color: black;
- border: none;
+export const ShareButton = styled(Button)`
+  padding: 0.75rem 2rem;
+  color: white;
+  text-align: center;
+  column-gap: 0.75rem;
+  background-color: black;
+  border: none;
+
+  &.p-button:hover {
+    color: white;
+    background-color: var(--surface-ground);
+  }
 `;

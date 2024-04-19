@@ -3,6 +3,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { FC } from 'react';
 
 import Contacts from '@/components/checkout/tabs/Contacts';
@@ -36,11 +37,13 @@ const CheckoutCardContainer = styled(StyledCard)`
 interface CheckoutCardProps {
   nodeId?: string;
   isPaymentUnsupported?: boolean;
+  account?: CarbonAccountModel;
 }
 
 const CheckoutCard: FC<CheckoutCardProps> = ({
   nodeId,
-  isPaymentUnsupported
+  isPaymentUnsupported,
+  account
 }) => {
   const { t } = useTranslation();
   const {
@@ -48,8 +51,11 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
   } = usePayment();
 
   useEffect(() => {
-    resetPayment(nodeId ?? '');
-  }, [nodeId, resetPayment]);
+    resetPayment({
+      nodeId,
+      account
+    });
+  }, [nodeId, account, resetPayment]);
 
   return (
     <CheckoutCardContainer>
