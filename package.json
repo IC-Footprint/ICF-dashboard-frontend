@@ -35,6 +35,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage --watch=false",
     "eject": "react-scripts eject",
+    "type-check": "tsc --noEmit",
     "lint": "npm run lint:code && npm run lint:styles",
     "lint:code": "eslint . --ext .js,.jsx,.ts,.tsx --fix --ignore-path .gitignore",
     "lint:styles": "stylelint \"src/**/*.{js,ts,tsx}\"",

@@ -19,7 +19,8 @@ export class NodeProvidersMappers {
       carbonDebit:
         headlineFigures.cumulativeNetworkEmissions -
         (headlineFigures.avoidedEmissions + headlineFigures.offsetEmissions),
-      confidence: null
+      confidence: null,
+      type: 'nodeProviders'
     };
   }
 }

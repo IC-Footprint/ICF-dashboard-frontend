@@ -56,7 +56,8 @@ export class ModelMocks {
       weeklyEmissions: +Math.random().toFixed(2),
       status: status,
       confidence: +Math.random().toFixed(2),
-      location: 'USA'
+      location: 'USA',
+      type: 'nodes'
     };
   }
 
