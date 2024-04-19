@@ -42,10 +42,13 @@ const paymentSlice = createSlice({
       state.paymentRegistered = false;
       state.paymentRegistrationError = false;
     },
-    resetPaymentAction: (state, action: PayloadAction<string>) => {
+    resetPaymentAction: (
+      state,
+      action: PayloadAction<Partial<PaymentDataModel>>
+    ) => {
       state.payment = {
         ...emptyPaymentModel(),
-        nodeId: action.payload
+        ...action.payload
       };
       state.cost = 0;
     }

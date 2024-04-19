@@ -96,7 +96,7 @@ const Node: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard nodeId={nodeId} />
+          <CheckoutCard nodeId={nodeId} account={nodeDetails ?? undefined} />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingNodeStats} />

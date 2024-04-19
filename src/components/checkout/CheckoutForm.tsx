@@ -18,12 +18,13 @@ import { emptyPaymentModel } from '@/models/payment/payment-data-model';
 import { createToast } from '@/models/toast-model';
 import carouselBackground from '@/theme/assets/carousel-background.png';
 import plugWalletLogo from '@/theme/assets/plug-wallet-logo.png';
+import { cardBackgroundColor } from '@/theme/colors';
 import { Form } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
 const SuccessDialog = styled(Dialog)`
   width: 35vw;
-  background: #071426 url(${carouselBackground}) no-repeat center;
+  background: ${cardBackgroundColor} url(${carouselBackground}) no-repeat center;
   background-size: cover;
 
   .p-dialog-header,
@@ -177,6 +178,7 @@ const CheckoutForm: FC = () => {
         <CheckoutSuccess
           nodeId={payment?.nodeId ?? ''}
           carbonDebit={lastPaymentAmount}
+          account={payment?.account}
         />
       </SuccessDialog>
     </Form>

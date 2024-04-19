@@ -1,3 +1,5 @@
+import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
+
 export type TokenType = 'CAWATECH';
 
 export interface PaymentDataModel {
@@ -5,6 +7,7 @@ export interface PaymentDataModel {
   carbonDebitAmount: number;
   tokenType: TokenType;
   totalCost?: number;
+  account?: CarbonAccountModel;
 }
 
 export const emptyPaymentModel = (): PaymentDataModel => {
