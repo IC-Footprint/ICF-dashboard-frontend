@@ -51,7 +51,6 @@ const CheckoutCard: FC<CheckoutCardProps> = ({
   } = usePayment();
 
   useEffect(() => {
-    console.debug('Account: ', account); // TODO: remove
     resetPayment({
       nodeId,
       account
