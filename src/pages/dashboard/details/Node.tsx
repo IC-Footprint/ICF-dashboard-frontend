@@ -36,14 +36,6 @@ const Node: FC = () => {
     nodeEmissionsLoading
   } = useNodes();
   const { paymentRegistered, payment } = usePayment();
-  // const [offsetOccured, setOffsetOccured] = useState(false);
-
-  // state to track if offset has occured
-  // useEffect(() => {
-  //   if (nodeStats?.offsetEmissions && nodeStats?.offsetEmissions > 0) {
-  //     setOffsetOccured(true);
-  //   }
-  // }, [nodeStats?.offsetEmissions]);
 
   useEffect(() => {
     if (nodeId) {
@@ -69,8 +61,8 @@ const Node: FC = () => {
   }, [payment, paymentRegistered, getNodeCanisterAttributions, nodeId]);
 
   const incrementingNodeEmissions = useIntervalIncrement(
-    nodeStats?.cumulativeNetworkEmissions,
-    nodeStats?.cumulativeNetworkEmissionsRate
+    nodeDetails?.carbonDebit,
+    nodeStats?.cumulativeNetworkEmissionsRate,
   );
 
   const incrementingNodeDetails = useMemo((): CarbonAccountModel | null => {

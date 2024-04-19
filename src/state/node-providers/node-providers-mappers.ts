@@ -7,7 +7,7 @@ export class NodeProvidersMappers {
     nodeProviderName?: string
   ): CarbonAccountModel {
     return {
-      weeklyEmissions: headlineFigures.weeklyEmissions,
+      weeklyEmissions: (headlineFigures.weeklyEmissions) / 1000,
       operator: nodeProviderName
         ? {
             name: nodeProviderName
@@ -18,7 +18,7 @@ export class NodeProvidersMappers {
       id: nodeProviderName ?? '',
       carbonDebit:
         headlineFigures.cumulativeNetworkEmissions -
-        headlineFigures.avoidedEmissions,
+        (headlineFigures.avoidedEmissions + headlineFigures.offsetEmissions),
       confidence: null
     };
   }

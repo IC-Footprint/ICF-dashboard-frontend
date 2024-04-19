@@ -169,7 +169,7 @@
       "co2Kg": "{{value}} KGCO2e",
       "co2Tonnes": "{{value}} tCO2e",
       "kgPerDay": "{{value}} Kg/24hrs",
-      "kgPerWeek": "{{value}} Kg/Week",
+      "kgPerWeek": "{{value}} t/Week",
       "wattHour": "{{value}} Wh"
     }
   },
@@ -267,13 +267,13 @@
   },
   "nodeProvider": {
     "machineId": "Node Provider / {{nodeProviderId}}",
-    "nodeProviderAttributions": "Node Provider Attributions"
+    "nodeProviderAttributions": "Node Provider Ledger"
   },
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "machineId": "Node / {{nodeId}}",
     "networkEmissions": "Network Emissions (kgCo2e)",
-    "nodeCanisterAttributions": "Node Canister Attributions",
+    "nodeCanisterAttributions": "Node Ledger",
     "nodeElectricityDraw": "Node Electricity Draw",
     "nodeEmissions": "Node Emissions",
     "nodeEmissionsByProvider": "Node Emissions by Provider (kgCo2e)",
@@ -287,7 +287,7 @@
   },
   "project": {
     "machineId": "DAO / {{projectId}}",
-    "projectAttributions": "DAO Attributions",
+    "projectAttributions": "DAO Ledger",
     "projectEmissions": "DAO Emissions",
     "projectPowerConsumption": "DAO Electricity Draw"
   },
