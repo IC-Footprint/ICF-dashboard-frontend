@@ -69,6 +69,8 @@ const CheckoutSuccess: FC<CheckoutSuccessProps> = ({
     }
   }, [globalConfiguration, loadGlobalConfiguration]);
 
+  console.debug('Card Account: ', account); // TODO: remove
+
   const targetNodeTemplate = () => {
     if (account?.type !== 'nodes' && account?.operator) {
       return (
