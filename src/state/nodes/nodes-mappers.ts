@@ -24,9 +24,10 @@ export class NodesMappers {
         location: node?.location
           ? locationMapper.mapLocationName(node.location)
           : null,
-          // weekly emissions converted to tonnes
+        // weekly emissions converted to tonnes
         weeklyEmissions: (emissions?.weeklyEmissions ?? 0) / 1000,
-        confidence: 0.8 // TODO: integrate
+        confidence: 0.8, // TODO: integrate
+        type: 'nodes'
       };
     };
   }

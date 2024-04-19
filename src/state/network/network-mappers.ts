@@ -14,7 +14,8 @@ export class NetworkMappers {
       location: null,
       id: 'network',
       carbonDebit: headlineFigures.cumulativeNetworkEmissions,
-      confidence: null
+      confidence: null,
+      type: null
     };
   }
 }
