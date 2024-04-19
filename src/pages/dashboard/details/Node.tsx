@@ -70,7 +70,7 @@ const Node: FC = () => {
 
   const incrementingNodeEmissions = useIntervalIncrement(
     nodeStats?.cumulativeNetworkEmissions,
-    nodeStats?.cumulativeNetworkEmissionsRate,
+    nodeStats?.cumulativeNetworkEmissionsRate
   );
 
   const incrementingNodeDetails = useMemo((): CarbonAccountModel | null => {
@@ -104,7 +104,7 @@ const Node: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard nodeId={nodeId} />
+          <CheckoutCard nodeId={nodeId} account={nodeDetails ?? undefined} />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingNodeStats} />

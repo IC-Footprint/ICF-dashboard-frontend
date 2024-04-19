@@ -85,7 +85,11 @@
       "success": {
         "compensationTitle": "You just compensated",
         "for": "for",
-        "nodeMachine": "Node Machine",
+        "type": {
+          "nodeProviders": "Node Provider",
+          "nodes": "Node Machine",
+          "projects": "DAO"
+        },
         "with": "with"
       },
       "error": {

@@ -7,3 +7,4 @@ export const globeTooltipBackgroundColor = '#071426e5';
 export const primaryLight = '#86e7d40f';
 export const gridCardBackground = '#ffffff0d';
 export const disabledColor = '#50505019';
+export const cardBackgroundColor = '#071426';

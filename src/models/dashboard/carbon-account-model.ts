@@ -1,3 +1,4 @@
+import type { AccountDataType } from '@/components/dashboard/carbon-accounts/AccountsDataView';
 import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
 export interface OperatorModel {
@@ -13,6 +14,7 @@ export interface CarbonAccountModel {
   status: NodeStatusType | null;
   confidence: number | null;
   location: string | null;
+  type: AccountDataType | null;
 }
 
 export function createEmptyCarbonAccountModel(): CarbonAccountModel {
@@ -23,6 +25,7 @@ export function createEmptyCarbonAccountModel(): CarbonAccountModel {
     status: null,
     location: null,
     confidence: null,
-    operator: null
+    operator: null,
+    type: null
   };
 }

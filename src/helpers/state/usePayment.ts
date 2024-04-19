@@ -59,7 +59,8 @@ const usePayment = () => {
   );
 
   const resetPayment = useCallback(
-    (nodeId: string) => dispatch(resetPaymentAction(nodeId)),
+    (payment: Partial<PaymentDataModel>) =>
+      dispatch(resetPaymentAction(payment)),
     [dispatch]
   );
 
