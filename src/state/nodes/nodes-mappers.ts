@@ -25,7 +25,8 @@ export class NodesMappers {
           ? locationMapper.mapLocationName(node.location)
           : null,
         weeklyEmissions: emissions?.weeklyEmissions ?? 0,
-        confidence: 0.8 // TODO: integrate
+        confidence: 0.8, // TODO: integrate
+        type: 'nodes'
       };
     };
   }

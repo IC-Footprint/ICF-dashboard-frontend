@@ -70,7 +70,10 @@ const NodeProvider: FC = () => {
           <AccountDetailsCard account={incrementingNodeProvider} />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard isPaymentUnsupported />
+          <CheckoutCard
+            isPaymentUnsupported
+            account={nodeProvider ?? undefined}
+          />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingNodeProviderStats} />

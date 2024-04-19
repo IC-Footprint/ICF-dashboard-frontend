@@ -39,7 +39,8 @@ export class DashboardMappers {
         },
         location: null,
         confidence: null,
-        status: null
+        status: null,
+        type: 'nodeProviders'
       })
     );
   }
@@ -56,7 +57,9 @@ export class DashboardMappers {
 
       // Assuming you have a function to fetch emissions by ID
       for (const id of project.id) {
-        const emissions = projectsEmissions.find(emission => emission.name === id);
+        const emissions = projectsEmissions.find(
+          (emission) => emission.name === id
+        );
         if (emissions) {
           totalEmissions += emissions.totalEmissions;
           weeklyEmissions += emissions.weeklyEmissions;
@@ -73,10 +76,11 @@ export class DashboardMappers {
         status: 'UP', // TODO: use real status
         weeklyEmissions: weeklyEmissions,
         confidence: null,
-        location: null
+        location: null,
+        type: 'projects'
       });
     }
 
     return mappedProjects;
- }
+  }
 }
