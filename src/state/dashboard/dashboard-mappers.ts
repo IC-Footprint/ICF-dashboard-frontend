@@ -31,7 +31,7 @@ export class DashboardMappers {
       (nodeProvider: EmissionsModel): CarbonAccountModel => ({
         id: nodeProvider.name,
         carbonDebit: nodeProvider.totalEmissions,
-        weeklyEmissions: nodeProvider.weeklyEmissions,
+        weeklyEmissions: (nodeProvider.weeklyEmissions) / 1000,
         operator: {
           name: nodeProvider.name,
           // TODO: use real icon in the future
@@ -74,7 +74,7 @@ export class DashboardMappers {
         },
         carbonDebit: totalEmissions,
         status: 'UP', // TODO: use real status
-        weeklyEmissions: weeklyEmissions,
+        weeklyEmissions:  (weeklyEmissions)/1000,
         confidence: null,
         location: null,
         type: 'projects'

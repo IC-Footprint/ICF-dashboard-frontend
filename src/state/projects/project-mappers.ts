@@ -8,13 +8,13 @@ export class ProjectMappers {
     projectElectricityDraw?: ElectricityDrawModel
   ): HeadlineFiguresModel {
     return {
-      weeklyEmissions: project.weeklyEmissions,
+      weeklyEmissions: (project.weeklyEmissions)/1000,
       cumulativeNetworkEmissions: project.carbonDebit,
       cumulativeElectricityDraw:
         projectElectricityDraw?.totalElectricityDraw ?? 0,
       avoidedEmissions: 0,
       cumulativeNetworkEmissionsRate: 0,
-      offsetEmissions: 0
+      offsetEmissions: 0,
     };
   }
 }
