@@ -84,7 +84,8 @@ const paymentSlice = createSlice({
       state.lastPaymentAmount = state.payment?.carbonDebitAmount ?? 0;
       state.payment = {
         ...emptyPaymentModel(),
-        nodeId: state.payment?.nodeId ?? ''
+        nodeId: state.payment?.nodeId ?? '',
+        account: state.payment?.account
       };
     });
 
