@@ -16,6 +16,7 @@ import usePayment from '@/helpers/state/usePayment';
 import { useDebounce } from '@/helpers/useDebounce';
 import { emptyPaymentModel } from '@/models/payment/payment-data-model';
 import { createToast } from '@/models/toast-model';
+import { plugWallet } from '@/services/plug-service';
 import carouselBackground from '@/theme/assets/carousel-background.png';
 import plugWalletLogo from '@/theme/assets/plug-wallet-logo.png';
 import { cardBackgroundColor } from '@/theme/colors';
@@ -103,6 +104,18 @@ const CheckoutForm: FC = () => {
 
   const registerCarbonOffsetPayment: FormEventHandler = async (event) => {
     event.preventDefault();
+
+    if (!plugWallet.isPlugAvailable()) {
+      toast.current?.show(
+        createToast(
+          'warn',
+          t('common.warning'),
+          t('checkout.offsetEmission.error.plugWalletUnavailable')
+        )
+      );
+      return;
+    }
+
     if (payment) {
       registerPayment({
         ...payment,

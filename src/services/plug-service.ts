@@ -36,7 +36,7 @@ export class PlugWalletService {
 
       const host = import.meta.env.VITE_APP_ICP_NETWORK_HOST;
       this.ledgerCanisterId =
-      import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
+        import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
       this.esgWalletCanisterId = process.env.ESG_WALLET_CANISTER_ID ?? '';
       this.connectOptions = {
         host,
@@ -44,11 +44,7 @@ export class PlugWalletService {
         timeout: 50000
       };
       // console.log('Ledger Canister ID: ', this.ledgerCanisterId);
-    // console.log('Connect Options: ', this.connectOptions);
-    } else {
-      // TODO: replace with a more user-friendly message
-      alert('Plug extension not detected!');
-      return;
+      // console.log('Connect Options: ', this.connectOptions);
     }
   }
 
@@ -105,7 +101,6 @@ export class PlugWalletService {
 
     const result = JSON.parse(resultStr);
     if (result.error) {
-
       console.error('Error registering payment:', result.error);
       throw new Error('Error registering payment');
     }
@@ -115,12 +110,12 @@ export class PlugWalletService {
     // console.log('Requesting connection');
     const sessiondata = await this.plug.sessionManager.sessionData;
     console.log('session data:', sessiondata);
-    const onConnectionUpdate = async() =>{
+    const onConnectionUpdate = async () => {
       // console.log('Connection updated');
       const sessiondata = await this.plug.sessionManager.sessionData;
       console.log('session data:', sessiondata);
     };
-  
+
     // console.log(this.connectOptions);
     // console.log(whitelist);
     try {
@@ -129,7 +124,7 @@ export class PlugWalletService {
         ...this.connectOptions,
         whitelist: whitelist.concat(this.connectOptions.whitelist ?? [])
       });
-      // console.log('Connected to Plug'); 
+      // console.log('Connected to Plug');
     } catch (error) {
       // console.error('Failed to connect:', error);
     }
@@ -145,8 +140,11 @@ export class PlugWalletService {
     await this.requestTransfer(escrowPrincipalId, totalCost);
     await this.registerPayment(escrowPrincipalId, amount, node_id);
   }
-}
 
+  isPlugAvailable(): boolean {
+    return window.ic?.plug !== undefined;
+  }
+}
 
 const plugWallet = new PlugWalletService();
 export { plugWallet };
