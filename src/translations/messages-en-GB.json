@@ -93,6 +93,7 @@
         "with": "with"
       },
       "error": {
+        "plugWalletUnavailable": "Plug extension not detected! Please install the plug extension to continue.",
         "title": "An error occurred while making the transaction"
       },
       "title": "Offset Emissions"
@@ -172,7 +173,8 @@
       "kgPerDay": "{{value}} Kg/24hrs",
       "kgPerWeek": "{{value}} t/Week",
       "wattHour": "{{value}} Wh"
-    }
+    },
+    "warning": "Warning"
   },
   "dashboard": {
     "carbonAccounts": {
