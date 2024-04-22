@@ -131,7 +131,8 @@
     "error": "Error",
     "featureStatus": {
       "comingSoon": "Coming soon",
-      "new": "New"
+      "new": "New",
+      "wipMessage": "We're working hard to bring you something amazing. Stay tuned!"
     },
     "gridTechnologyType": {
       "hydro": "Hydro",
@@ -206,7 +207,7 @@
       "offsetEmissions": "Offset Carbon Emissions"
     },
     "informationCard": {
-      "icSns": "IC FOOTPRINT SNS\n‘Control Yourself’",
+      "icSns": "IC Footprint Whitepaper\nComing soon",
       "joinSocials": "Join our Socials",
       "sustainabilityReport": "SUSTAINABILITY REPORT\n{{year}}"
     },
@@ -283,7 +284,8 @@
     "about": "About",
     "home": "Home",
     "network": "Network",
-    "nodes": "Nodes"
+    "nodes": "Nodes",
+    "whitePaper": "White Paper"
   },
   "project": {
     "machineId": "DAO / {{projectId}}",

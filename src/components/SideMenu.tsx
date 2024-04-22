@@ -56,7 +56,11 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
         <NetworkIcon />,
         appRoutes.network.root
       ),
-      createMenuItem(t('page.about'), <InfoCircleIcon />, appRoutes.about.root)
+      createMenuItem(
+        t('page.whitePaper'),
+        <InfoCircleIcon />,
+        appRoutes.whitePaper.root
+      )
     ];
   }, [t, createMenuItem]);
 
