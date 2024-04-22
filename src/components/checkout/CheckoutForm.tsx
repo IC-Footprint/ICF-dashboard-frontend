@@ -118,6 +118,11 @@ const CheckoutForm: FC = () => {
         </label>
         <div className="p-inputgroup">
           <InputNumber
+            inputRef={(el) => {
+              if (el) {
+                el.focus();
+              }
+            }}
             inputId="carbonDebitAmount"
             value={payment?.carbonDebitAmount}
             allowEmpty
@@ -154,7 +159,7 @@ const CheckoutForm: FC = () => {
           className="w-full"
           type="submit"
           loading={isPaymentRegistrationLoading}
-          disabled={isFormDisabled}
+          disabled={isFormDisabled || !payment?.carbonDebitAmount}
           iconPos="right"
           outlined
         >
