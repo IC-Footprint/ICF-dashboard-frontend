@@ -126,7 +126,7 @@ const CheckoutSuccess: FC<CheckoutSuccessProps> = ({
       </EntityCard>
       <ShareButton
         onClick={() => {
-          const tweetText = `I've successfully offset my emissions for ${carbonDebit} CO2 kg! #CarbonCrowd #ICFootprint\n\n${window.location.href}`;
+          const tweetText = `I successfully compensated ${carbonDebit} KgCO2e of on-chain emissions using @icfootprint. #CleanCrypto #ICP #carboncrowd\n\n${window.location.href}`;
           const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
             tweetText
           )}`;
