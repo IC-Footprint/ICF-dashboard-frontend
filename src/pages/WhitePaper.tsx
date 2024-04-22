@@ -9,7 +9,7 @@ import { FlexColumnContainer } from '@/theme/styled-components';
 const ColumnContainer = styled(FlexColumnContainer)`
   background: url(${gradientBackground}) center;
   background-size: cover;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
 `;
 
 const WhitePaper: FC = () => {
@@ -18,7 +18,7 @@ const WhitePaper: FC = () => {
   return (
     <FlexColumnContainer>
       <h3>{t('whitePaper.title')}</h3>
-      <ColumnContainer className="justify-content-center align-items-center flex-grow-1 row-gap-3 mt shadow-5">
+      <ColumnContainer className="justify-content-center align-items-center flex-grow-1 row-gap-3 mt shadow-8">
         <h1 className="font-bold">{t('common.featureStatus.comingSoon')}</h1>
         <p>{t('common.featureStatus.wipMessage')}</p>
       </ColumnContainer>
