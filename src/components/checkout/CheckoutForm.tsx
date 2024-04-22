@@ -52,6 +52,7 @@ const CheckoutForm: FC = () => {
   } = usePayment();
   const [successDialogVisible, setSuccessDialogVisible] = useState(false);
   const toast = useRef<Toast>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const isFormDisabled = useMemo(() => {
     return !payment?.nodeId;
@@ -97,6 +98,7 @@ const CheckoutForm: FC = () => {
 
   useEffect(() => {
     debouncedCalculateAmount();
+    inputRef.current?.focus();
   }, [payment]);
 
   const registerCarbonOffsetPayment: FormEventHandler = async (event) => {
@@ -118,11 +120,7 @@ const CheckoutForm: FC = () => {
         </label>
         <div className="p-inputgroup">
           <InputNumber
-            inputRef={(el) => {
-              if (el) {
-                el.focus();
-              }
-            }}
+            inputRef={inputRef}
             inputId="carbonDebitAmount"
             value={payment?.carbonDebitAmount}
             allowEmpty
