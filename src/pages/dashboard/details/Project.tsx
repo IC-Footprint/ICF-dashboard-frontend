@@ -34,7 +34,7 @@ const Project: FC = () => {
   } = useProjects();
 
   useEffect(() => {
-    console.log('Ofssset emissions are: ', projectStats?.offsetEmissions);
+    // console.log('Ofssset emissions are: ', projectStats?.offsetEmissions);
   }, [projectStats?.offsetEmissions]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Project: FC = () => {
   }, [project, incrementingProjectEmissions]);
 
   const incrementingProjectStats = useMemo((): HeadlineFiguresModel | null => {
-    console.log('Offset emissions are: ', projectStats?.offsetEmissions);
+    // console.log('Offset emissions are: ', projectStats?.offsetEmissions);
     return projectStats
       ? {
           ...projectStats,
@@ -70,7 +70,7 @@ const Project: FC = () => {
       : null;
   }, [projectStats, incrementingProjectEmissions]);
 
-  console.log('offset emissions are: ', projectStats?.offsetEmissions);
+  // console.log('offset emissions are: ', projectStats?.offsetEmissions);
 
   return (
     <FlexColumnContainer>
@@ -86,7 +86,7 @@ const Project: FC = () => {
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard
-            nodeId="eq6en-6jqla-fbu5s-daskr-h6hx2-376n5-iqabl-qgrng-gfqmv-n3yjr-mqe"
+            nodeId={projectId ?? ''}
             account={project ?? undefined}
           />
         </div>

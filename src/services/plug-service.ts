@@ -97,7 +97,7 @@ export class PlugWalletService {
       BigInt(amount),
       nodeIdValue
     );
-    console.log('registerPayment: ', resultStr);
+    // console.log('registerPayment: ', resultStr);
 
     const result = JSON.parse(resultStr);
     if (result.error) {

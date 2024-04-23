@@ -83,7 +83,7 @@ export const projectsSlice = createSlice({
               0
             )
           };
-          console.log('after update:', state.projectStats);
+          // console.log('after update:', state.projectStats);
         }
       )
       .addCase(getProjectCanisterAttributionsAction.rejected, (state) => {

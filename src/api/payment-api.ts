@@ -12,7 +12,7 @@ import { PaymentMappers } from '@/state/payment/payment-mappers';
 export class PaymentApi {
  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
   const esgWallet = process.env.ESG_WALLET_CANISTER_ID ?? '';
-  console.log('ESG Wallet: ', esgWallet);
+  // console.log('ESG Wallet: ', esgWallet);
     const esgWalletActor = esgWalletCreateActor(
       esgWallet,
       {
@@ -33,7 +33,7 @@ export class PaymentApi {
   paymentData.totalCost = await this.calculateCost(paymentData);
   // console.log('Total cost: ', paymentData.totalCost);
     if (!paymentData.totalCost) {
-      // console.log('Total cost is required');
+      console.log('Total cost is required');
       return false;
     }
     await plugWallet.makePayment(
@@ -42,6 +42,7 @@ export class PaymentApi {
       paymentData.carbonDebitAmount,
       paymentData.totalCost,
     );
+    // console.log('Payment successful');
     return true;
   }
 
