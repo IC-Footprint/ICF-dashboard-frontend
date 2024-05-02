@@ -10,8 +10,7 @@ export { idlFactory } from "./esg_wallet.did.js";
  * beginning in dfx 0.15.0
  */
 export const canisterId =
-  process.env.CANISTER_ID_ESG_WALLET ||
-  process.env.ESG_WALLET_CANISTER_ID;
+  process.env.CANISTER_ID_ESG_WALLET;
 
 export const createActor = (canisterId, options = {}) => {
   const agent = options.agent || new HttpAgent({ ...options.agentOptions });

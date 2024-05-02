@@ -11,6 +11,7 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'authorize' : IDL.Func([IDL.Principal], [], []),
     'deauthorize' : IDL.Func([IDL.Principal], [], []),
+    'deletePaymentsWithNoProof' : IDL.Func([], [IDL.Text], []),
     'getPrice' : IDL.Func([IDL.Float64], [IDL.Float64], ['query']),
     'getPurchases' : IDL.Func([], [IDL.Vec(Payment)], ['query']),
     'getPurchasesByNodeId' : IDL.Func(
@@ -30,6 +31,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'send' : IDL.Func([IDL.Text, IDL.Float64], [IDL.Text], []),
     'setOffsetEmissions' : IDL.Func([IDL.Opt(IDL.Text)], [IDL.Text], []),
+    'setTicketPrice' : IDL.Func([IDL.Float64], [IDL.Text], []),
     'set_api_key' : IDL.Func([IDL.Text], [], []),
     'withdraw' : IDL.Func([IDL.Principal, IDL.Nat64], [IDL.Text], []),
   });

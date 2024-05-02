@@ -24,6 +24,7 @@ module {
   public type Self = Conf -> async actor {
     authorize : shared Principal -> async ();
     deauthorize : shared Principal -> async ();
+    deletePaymentsWithNoProof : shared () -> async Text;
     getPrice : shared query Float -> async Float;
     getPurchases : shared query () -> async [Payment];
     getPurchasesByNodeId : shared query Text -> async [Payment];
@@ -35,6 +36,7 @@ module {
     registerPayment : shared (Nat64, ?Text) -> async Text;
     send : shared (Text, Float) -> async Text;
     setOffsetEmissions : shared ?Text -> async Text;
+    setTicketPrice : shared Float -> async Text;
     set_api_key : shared Text -> async ();
     withdraw : shared (Principal, Nat64) -> async Text;
   }

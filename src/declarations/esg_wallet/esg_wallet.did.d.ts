@@ -1,5 +1,6 @@
 import type { Principal } from '@dfinity/principal';
 import type { ActorMethod } from '@dfinity/agent';
+import type { IDL } from '@dfinity/candid';
 
 export interface Client { 'name' : string, 'node_ids' : Array<string> }
 export interface Conf { 'ledger_canister_id' : Principal }
@@ -28,6 +29,7 @@ export interface TransformArgs {
 export interface _SERVICE {
   'authorize' : ActorMethod<[Principal], undefined>,
   'deauthorize' : ActorMethod<[Principal], undefined>,
+  'deletePaymentsWithNoProof' : ActorMethod<[], string>,
   'getPrice' : ActorMethod<[number], number>,
   'getPurchases' : ActorMethod<[], Array<Payment>>,
   'getPurchasesByNodeId' : ActorMethod<[string], Array<Payment>>,
@@ -39,6 +41,9 @@ export interface _SERVICE {
   'registerPayment' : ActorMethod<[bigint, [] | [string]], string>,
   'send' : ActorMethod<[string, number], string>,
   'setOffsetEmissions' : ActorMethod<[[] | [string]], string>,
+  'setTicketPrice' : ActorMethod<[number], string>,
   'set_api_key' : ActorMethod<[string], undefined>,
   'withdraw' : ActorMethod<[Principal, bigint], string>,
 }
+export declare const idlFactory: IDL.InterfaceFactory;
+export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

@@ -26,7 +26,9 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'authorize' : IDL.Func([IDL.Principal], [], []),
     'deauthorize' : IDL.Func([IDL.Principal], [], []),
+    'get_client_offset_emissions' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'get_emissions' : IDL.Func([], [GetEmissionsResponse], []),
+    'get_node_offset_emissions' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'get_offset_emissions' : IDL.Func([SimpleClient, Payment], [], []),
     'offset_emissions' : IDL.Func(
         [Client, IDL.Float64, IDL.Opt(IDL.Text)],

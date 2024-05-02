@@ -89,6 +89,7 @@ export const projectsSlice = createSlice({
       .addCase(getProjectCanisterAttributionsAction.rejected, (state) => {
         state.projectCanisterAttributionsLoading = false;
         state.projectCanisterAttributionsError = true;
+        console.log('error', Error);
       });
 
     builder

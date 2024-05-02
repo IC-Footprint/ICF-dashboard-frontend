@@ -19,7 +19,5 @@
       "id": "jhfj2-iqaaa-aaaak-qddxq-cai"
     }
   },
-  "output_env_file": ".env",
-  "dfx": "0.15.2",
-  "version": 1
+  "output_env_file": ".env"
 }
