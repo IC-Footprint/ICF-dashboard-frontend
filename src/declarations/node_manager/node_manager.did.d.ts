@@ -1,5 +1,6 @@
 import type { Principal } from '@dfinity/principal';
 import type { ActorMethod } from '@dfinity/agent';
+import type { IDL } from '@dfinity/candid';
 
 export interface Client { 'client' : string, 'nodes' : [] | [Array<string>] }
 export type GetEmissionsResponse = { 'Ok' : Array<Node> } |
@@ -30,8 +31,12 @@ export interface TransformArgs {
 export interface _SERVICE {
   'authorize' : ActorMethod<[Principal], undefined>,
   'deauthorize' : ActorMethod<[Principal], undefined>,
+  'get_client_offset_emissions' : ActorMethod<[string], string>,
   'get_emissions' : ActorMethod<[], GetEmissionsResponse>,
+  'get_node_offset_emissions' : ActorMethod<[string], string>,
   'get_offset_emissions' : ActorMethod<[SimpleClient, Payment], undefined>,
   'offset_emissions' : ActorMethod<[Client, number, [] | [string]], string>,
   'set_api_key' : ActorMethod<[string], undefined>,
 }
+export declare const idlFactory: IDL.InterfaceFactory;
+export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

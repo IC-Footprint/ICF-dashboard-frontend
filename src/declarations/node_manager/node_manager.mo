@@ -27,7 +27,9 @@ module {
   public type Self = actor {
     authorize : shared Principal -> async ();
     deauthorize : shared Principal -> async ();
+    get_client_offset_emissions : shared query Text -> async Text;
     get_emissions : shared () -> async GetEmissionsResponse;
+    get_node_offset_emissions : shared query Text -> async Text;
     get_offset_emissions : shared (SimpleClient, Payment) -> async ();
     offset_emissions : shared (Client, Float, ?Text) -> async Text;
     set_api_key : shared Text -> async ();

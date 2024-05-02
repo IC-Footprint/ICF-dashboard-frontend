@@ -72,6 +72,8 @@ const Project: FC = () => {
 
   // console.log('offset emissions are: ', projectStats?.offsetEmissions);
 
+  const nodeId = projectId ? projectId.split(',')[0] : '';
+
   return (
     <FlexColumnContainer>
       <h3 className="text-lg text-color-secondary">
@@ -86,7 +88,7 @@ const Project: FC = () => {
         </div>
         <div className="col-12 lg:col-7">
           <CheckoutCard
-            nodeId={projectId ?? ''}
+            nodeId={nodeId}
             account={project ?? undefined}
           />
         </div>

@@ -61,8 +61,9 @@ export class PlugWalletService {
     const icrc1Decimals = await nnsActor.icrc1_decimals();
     const totalAmount =
       Number(amount) * Math.pow(10, icrc1Decimals) + Number(transferFee);
+    const newamount = Math.round(totalAmount);
     const result = await nnsActor.icrc2_approve({
-      amount: BigInt(totalAmount),
+      amount: BigInt(newamount),
       spender: {
         owner: Principal.fromText(canisterId),
         subaccount: []
@@ -92,16 +93,17 @@ export class PlugWalletService {
     });
 
     const nodeIdValue = nodeId !== undefined ? nodeId : [];
-    // console.log('amount type: ', typeof amount);
+    console.log('amount type: ', typeof amount);
+    const integerAmount = Math.round(amount);
     const resultStr: string = await nodeEscrowActor.registerPayment(
-      BigInt(amount),
+      BigInt(integerAmount),
       nodeIdValue
     );
     // console.log('registerPayment: ', resultStr);
 
     const result = JSON.parse(resultStr);
     if (result.error) {
-      console.error('Error registering payment:', result.error);
+      // console.error('Error registering payment:', result.error);
       throw new Error('Error registering payment');
     }
   }
