@@ -54,7 +54,9 @@ export const getProjectCanisterAttributionsAction = createAsyncThunk<
       // split project id if there's a comma
       const projectIds = projectId.split(',');
       // pass first project id to get purchases for that project
-      return await paymentApi.getPurchases(projectIds[0]);
+      const payments = await paymentApi.getPurchases(projectIds[0]);
+      const reversedPayments = payments.reverse();
+      return reversedPayments;
     } catch (error) {
       return rejectWithValue(error);
     }
