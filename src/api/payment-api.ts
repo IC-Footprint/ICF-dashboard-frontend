@@ -93,6 +93,20 @@ async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
   const result = await esgWalletActor.getPurchasesByNodeId(nodeId);
   return result.map(PaymentMappers.mapPurchase);
 }
+
+async getAllPurchases(): Promise<CanisterAttributionModel[]> {
+  const esgWalletActor = esgWalletCreateActor(
+    process.env.ESG_WALLET_CANISTER_ID ?? '',
+      {
+          agentOptions: {
+              host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+          }
+      }
+  );
+  const result = await esgWalletActor.getPurchases();
+  console.log('All purchases: ', result);
+  return result.map(PaymentMappers.mapPurchase);
+}
 }
 
 const paymentApi = new PaymentApi();

@@ -57,7 +57,10 @@ export const projectsSlice = createSlice({
       })
       .addCase(getProjectDetailsAction.fulfilled, (state, action) => {
         state.projectLoading = false;
-        state.projectStats = action.payload[0];
+        state.projectStats = {
+          ...action.payload[0],
+          offsetEmissions: state.projectStats?.offsetEmissions ?? 0
+        };
         state.project = action.payload[1];
       })
       .addCase(getProjectDetailsAction.rejected, (state) => {

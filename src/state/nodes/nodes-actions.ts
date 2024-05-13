@@ -140,7 +140,9 @@ export const getNodeCanisterAttributionsAction = createAsyncThunk<
   string
 >('/node/nodeCanisterAttributions', async (nodeId, { rejectWithValue }) => {
   try {
-    return await paymentApi.getPurchases(nodeId);
+    const payments = await paymentApi.getPurchases(nodeId);
+    const reversedPurchases = payments.reverse();
+    return await reversedPurchases;
   } catch (err) {
     return rejectWithValue(null);
   }

@@ -9,6 +9,7 @@ import type { ChartData } from 'chart.js';
 import { ChartMapper } from '@/utils/chart-mapper';
 import networkApi from '@/api/network-api';
 import dashboardApi from '@/api/dashboard-api';
+import paymentApi from '@/api/payment-api';
 
 export const getSubnetEmissionsByTypeAction = createAsyncThunk<
   ChartData,
@@ -52,7 +53,9 @@ export const getNetworkAttributionsAction = createAsyncThunk<
   void
 >('/network/getNetworkAttributions', async (_, { rejectWithValue }) => {
   try {
-    return await networkApi.getNetworkAttributions();
+    const allPurchases: CanisterAttributionModel[] = await paymentApi.getAllPurchases();
+    const reversedPurchases = allPurchases.reverse();
+    return reversedPurchases;
   } catch (err) {
     return rejectWithValue(null);
   }

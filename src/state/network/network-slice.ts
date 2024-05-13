@@ -14,6 +14,7 @@ import {
   getNetworkDetailsAction,
   getNetworkAttributionsAction
 } from '@/state/network/network-actions';
+import { createEmptyHeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 
 export interface NetworkState {
   subnetEmissionsByType: ChartData | null;
@@ -39,7 +40,7 @@ const initialState: () => NetworkState = () => ({
   emissionsBySubnetLoading: false,
   emissionsBySubnetError: false,
   networkDetails: null,
-  networkStats: null,
+  networkStats: createEmptyHeadlineFiguresModel(),
   networkDetailsLoading: false,
   networkDetailsError: false,
   networkAttributions: null,
@@ -90,7 +91,10 @@ const networkSlice = createSlice({
       })
       .addCase(getNetworkDetailsAction.fulfilled, (state, { payload }) => {
         state.networkDetailsLoading = false;
-        state.networkStats = payload;
+        state.networkStats = {
+          ...payload,
+          offsetEmissions: state.networkStats?.offsetEmissions ?? 0
+        };
         state.networkDetails = NetworkMappers.mapNetworkStatsToAccount(payload);
       })
       .addCase(getNetworkDetailsAction.rejected, (state) => {
@@ -103,10 +107,22 @@ const networkSlice = createSlice({
         state.networkAttributionsLoading = true;
         state.networkAttributionsError = false;
       })
-      .addCase(getNetworkAttributionsAction.fulfilled, (state, { payload }) => {
-        state.networkAttributionsLoading = false;
-        state.networkAttributions = payload;
-      })
+      .addCase(
+        getNetworkAttributionsAction.fulfilled,
+        (state, action) => {
+          state.networkAttributionsLoading = false;
+          state.networkAttributions = action.payload;
+          state.networkStats = {
+            ...(state.networkStats ?? createEmptyHeadlineFiguresModel()),
+            offsetEmissions: action.payload.reduce(
+              (previousValue, currentValue) =>
+                previousValue + (currentValue.ticketCount ?? 0),
+              0
+            )
+          };
+          // console.log('after update:', state.projectStats);
+        }
+      )
       .addCase(getNetworkAttributionsAction.rejected, (state) => {
         state.networkAttributionsLoading = false;
         state.networkAttributionsError = true;

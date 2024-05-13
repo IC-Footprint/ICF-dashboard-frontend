@@ -97,6 +97,8 @@ export const getProjectsAction = createAsyncThunk<CarbonAccountModel[], void>(
       const projects: ProjectModel[] = projectsApi.getProjects();
       const projectsEmissions: EmissionsModel[] =
         await projectsApi.getProjectsEmissions();
+
+        // console.log(projectsEmissions);
       return DashboardMappers.mapProjects(projects, projectsEmissions);
     } catch (err) {
       return rejectWithValue(null);
