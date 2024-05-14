@@ -18,6 +18,7 @@ import NodeStats from '@/components/nodes/NodeStats';
 import useNetwork from '@/helpers/state/useNetwork';
 import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
+import usePayment from '@/helpers/state/usePayment';
 
 const Network: FC = () => {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ const Network: FC = () => {
     networkAttributions,
     isNetworkAttributionsLoading
   } = useNetwork();
+  const { paymentRegistered, payment } = usePayment();
 
   useEffect(() => {
     if (!networkDetails) {
@@ -43,6 +45,12 @@ const Network: FC = () => {
     networkDetails
   ]);
 
+  useEffect(() => {
+    if (payment?.nodeId.includes('network') && paymentRegistered) {
+      getNetworkAttributions();
+    }
+  });
+
   const incrementalNetworkEmissions = useIntervalIncrement(
     networkStats?.cumulativeNetworkEmissions,
     networkStats?.cumulativeNetworkEmissionsRate
@@ -57,7 +65,7 @@ const Network: FC = () => {
       : null;
   }, [incrementalNetworkEmissions, networkDetails]);
 
-  const incrementalNetworkStats = useMemo((): HeadlineFiguresModel | null => {
+  const incrementalNetworkStats: HeadlineFiguresModel | null = useMemo((): HeadlineFiguresModel | null => {
     return networkStats
       ? {
           ...networkStats,
@@ -77,7 +85,7 @@ const Network: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard isPaymentUnsupported />
+          <CheckoutCard nodeId='network' account={networkDetails ?? undefined}/>
         </div>
         <div className="col-12">
           <NodeStats stats={incrementalNetworkStats} />
