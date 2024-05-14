@@ -39,7 +39,7 @@ const Dashboard: FC = () => {
       (headlineFigures?.weeklyEmissions ?? 0) /
       (headlineFigures?.cumulativeNetworkEmissions ?? 1)
     );
-  }, [headlineFigures, cumulativeNetworkEmissions]);
+  }, [headlineFigures]);
 
   return (
     <div className="grid m-5">
