@@ -73,6 +73,15 @@ const CarbonAccounts: FC = () => {
         template: itemWithFeatureStatus
       },
       {
+        label: t('dashboard.carbonAccounts.dapps.title') ?? '',
+        disabled:true,
+        url: appRoutes.dapps.root,
+        icon: (
+          <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
+        ),
+        template: itemWithFeatureStatus
+      },
+      {
         label: t('dashboard.carbonAccounts.nodeProviders.title') ?? '',
         url: appRoutes.nodeProviders.root
       },
@@ -81,7 +90,7 @@ const CarbonAccounts: FC = () => {
         url: appRoutes.nodes.root
       },
       {
-        label: t('dashboard.carbonAccounts.wallets.title') ?? '',
+        label: t('dashboard.carbonAccounts.individuals.title') ?? '',
         disabled: true,
         icon: (
           <FeatureStatusTag severity="info">

@@ -17,6 +17,11 @@ import usePayment from '@/helpers/state/usePayment';
 import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
 
+/**
+ * Renders the Node component, which displays detailed information about a specific node.
+ * This component fetches and displays node details, stats, canister attributions, emissions, and power consumption.
+ * It also handles the incrementing of node emissions and updates the displayed values accordingly.
+ */
 const Node: FC = () => {
   const { t } = useTranslation();
   const { nodeId } = useParams();
@@ -62,7 +67,7 @@ const Node: FC = () => {
 
   const incrementingNodeEmissions = useIntervalIncrement(
     nodeDetails?.carbonDebit,
-    nodeStats?.cumulativeNetworkEmissionsRate,
+    nodeStats?.cumulativeNetworkEmissionsRate
   );
 
   const incrementingNodeDetails = useMemo((): CarbonAccountModel | null => {

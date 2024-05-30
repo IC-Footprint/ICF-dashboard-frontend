@@ -186,6 +186,7 @@
         "title": "Node Providers"
       },
       "nodes": {
+        "addNew": "Add new node",
         "error": "Error loading the nodes",
         "title": "Nodes"
       },
@@ -194,8 +195,11 @@
         "title": "DAOs"
       },
       "title": "Carbon Accounts",
-      "wallets": {
-        "title": "DApps & Wallets"
+      "dapps": {
+        "title": "DApps"
+      },
+      "individuals": {
+        "title": "Individuals"
       }
     },
     "carbonDebit": {

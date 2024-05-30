@@ -7,13 +7,7 @@ import AccountsDataView from '@/components/dashboard/carbon-accounts/AccountsDat
 import useDashboard from '@/helpers/state/useDashboard';
 import { appRoutes } from '@/router/app-routes';
 
-/**
- * Renders the NodeProviders component, which displays a list of node providers.
- * The component fetches the list of node providers from the backend and displays them in a table.
- * The table can be filtered by the operator name.
- * The component also automatically refreshes the list of node providers at a configurable interval.
- */
-const NodeProviders: FC = () => {
+const Dapps: FC = () => {
   const { t } = useTranslation();
   const {
     actions: { getNodeProviders },
@@ -25,13 +19,13 @@ const NodeProviders: FC = () => {
 
   useEffect(() => {
     if (!nodeProviders || nodeProviders.length === 0) {
-      getNodeProviders();
+      (getNodeProviders as () => void)();
     }
 
     const minutesInterval: number = +import.meta.env
       .VITE_APP_DASHBOARD_REFRESH_MINUTES_INTERVAL;
     const intervalId = setInterval(() => {
-      getNodeProviders();
+      (getNodeProviders as () => void)();
     }, 1000 * 60 * minutesInterval);
 
     return () => {
@@ -54,9 +48,9 @@ const NodeProviders: FC = () => {
     <AccountsDataView
       list={filteredNodeProviders}
       isLoading={isNodeProvidersLoading}
-      parentRoute={appRoutes.nodeProviders.root}
+      parentRoute={appRoutes.dapps.root}
     />
   );
 };
 
-export default NodeProviders;
+export default Dapps;
