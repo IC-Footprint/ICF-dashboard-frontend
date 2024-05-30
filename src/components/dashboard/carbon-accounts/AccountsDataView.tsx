@@ -8,8 +8,6 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
-import AddNewItemButton from './AddNew';
-
 import type { FC } from 'react';
 import type { DataTableSelectionSingleChangeEvent } from 'primereact/datatable';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
@@ -26,11 +24,16 @@ import { defaultPaginatorOptions } from '@/models/paginator-options-model';
 import useDashboard from '@/helpers/state/useDashboard';
 import NodeStatus from '@/components/nodes/NodeStatus';
 import TrendValue from '@/components/dashboard/TrendValue';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
+interface AddNewItem {
+  __typename: 'AddNewItem',
+  title: string;
+}
 
 export interface AccountsDataViewProps {
-  list: CarbonAccountModel[] | null;
+  list: [AddNewItem, ...CarbonAccountModel[]] | CarbonAccountModel[] | null;
   isLoading?: boolean;
   parentRoute?: string;
   dataType?: AccountDataType;
@@ -45,6 +48,36 @@ const AccountCard = styled(Card)`
     row-gap: 2rem;
     padding: 0.5rem;
   }
+`;
+
+const AddNewItemCard = styled(Card)`
+background-color: rgb(255 255 255 / 0.04);
+height: 100%;
+border: 2px dotted rgb(255 255 255 / 0.2);
+color: #86e7d4;
+font-weight: bold;
+
+.p-card-body {
+  height: 100%;
+}
+
+.p-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+}
+
+`;
+
+const AddNewItemIcon = styled.div`
+height: 32px;
+width: 32px;
+border-radius: 8px;
+border: 1px solid #86e7d4;
+
 `;
 
 export const InformationItemContainer = styled.div`
@@ -80,24 +113,14 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     return defaultPaginatorOptions();
   }, []);
 
-  const gridItem = (account: CarbonAccountModel, index: number) => {
+  const gridItem = (account: CarbonAccountModel) => {
     const header =
       dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
     const identificationField =
       dataType === 'nodes' ? account.id : account.operator?.name;
 
     return (
-      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={index}>
-      {index === 1 ? (
-        <AddNewItemButton
-          itemType={
-            dataType as 'dao' | 'dapp' | 'nodeProvider' | 'node' | 'individual'
-          }
-          onClick={() => {
-            // Handle the onClick event for adding a new item
-          }}
-        />
-      ) : (
+      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
         <AccountCard>
           <FlexRowContainer className="justify-content-between">
             <div className="flex-grow-1">
@@ -158,16 +181,29 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             </div>
           </FlexRowContainer>
         </AccountCard>
-      )}
       </div>
     );
   };
 
-  const itemTemplate = (account: CarbonAccountModel, _layout: 'list' | 'grid' | (string & Record<string, unknown>)) => {
+  const itemTemplate = (account: CarbonAccountModel | AddNewItem, _layout: 'list' | 'grid' | (string & Record<string, unknown>)) => {
     if (!account) {
       return;
     }
-    return gridItem(account, 0); // Pass a dummy index value
+    if ('__typename' in account) {
+      return (
+        <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.__typename}>
+          <AddNewItemCard>
+            <AddNewItemIcon>
+              <PlusIcon />
+            </AddNewItemIcon>
+            <p>{account.title}</p>
+          </AddNewItemCard>
+        </div>
+      );
+    } else {
+      return gridItem(account);
+    }
+
   };
 
   const identificationColumn = useMemo(() => {
@@ -263,3 +299,12 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
 };
 
 export default AccountsDataView;
+
+{/* <AddNewItemButton
+itemType={
+  dataType as 'dao' | 'dapp' | 'nodeProvider' | 'node' | 'individual'
+}
+onClick={() => {
+  // Handle the onClick event for adding a new item
+}}
+/> */}
