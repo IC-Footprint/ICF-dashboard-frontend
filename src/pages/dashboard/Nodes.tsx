@@ -45,7 +45,7 @@ const Nodes: FC = () => {
 
   return (
     <AccountsDataView
-      list={filteredNodesList}
+      list={[{ __typename: 'AddNewItem', title: 'Create New Node', organizationType: 'nodes' }, ...filteredNodesList]}
       isLoading={isNodesListLoading}
       parentRoute={appRoutes.nodes.root}
       dataType="nodes"

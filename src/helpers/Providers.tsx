@@ -1,6 +1,8 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { ModalProvider } from 'styled-react-modal';
+
 import type { FC, PropsWithChildren } from 'react';
 
 import { ViewportProvider } from '@/helpers/useViewport';
@@ -10,7 +12,11 @@ const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Provider store={store}>
       <Router>
-        <ViewportProvider>{children}</ViewportProvider>
+        <ViewportProvider>
+          <ModalProvider>
+            {children}
+          </ModalProvider>
+        </ViewportProvider>
       </Router>
     </Provider>
   );
