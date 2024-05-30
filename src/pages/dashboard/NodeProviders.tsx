@@ -52,7 +52,7 @@ const NodeProviders: FC = () => {
 
   return (
     <AccountsDataView
-      list={filteredNodeProviders}
+      list={[{ __typename: 'AddNewItem', title: 'Create New Node Provider' }, ...filteredNodeProviders]}
       isLoading={isNodeProvidersLoading}
       parentRoute={appRoutes.nodeProviders.root}
     />

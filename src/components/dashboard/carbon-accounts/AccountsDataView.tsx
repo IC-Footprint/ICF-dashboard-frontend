@@ -4,9 +4,13 @@ import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Column } from 'primereact/column';
 import { DataView } from 'primereact/dataview';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { PlusIcon } from '@heroicons/react/24/outline';
+
+import Modal from 'styled-react-modal';
 
 import type { FC } from 'react';
 import type { DataTableSelectionSingleChangeEvent } from 'primereact/datatable';
@@ -24,12 +28,13 @@ import { defaultPaginatorOptions } from '@/models/paginator-options-model';
 import useDashboard from '@/helpers/state/useDashboard';
 import NodeStatus from '@/components/nodes/NodeStatus';
 import TrendValue from '@/components/dashboard/TrendValue';
-import { PlusIcon } from '@heroicons/react/24/outline';
+
 
 export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
 interface AddNewItem {
   __typename: 'AddNewItem',
   title: string;
+  organizationType?: AccountDataType;
 }
 
 export interface AccountsDataViewProps {
@@ -185,21 +190,86 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     );
   };
 
+  interface ModalFormProps {
+    organizationType?: AccountDataType;
+  }
+
+  const ModalForm: React.FC<ModalFormProps> = () => {
+    const [step, setStep] = useState<number>(1);
+    const lastStep = 3;
+
+    return (
+      <div>
+        <ModalStep step={step}
+          increaseStep={() => setStep((prev) => prev < lastStep ? prev + 1 : prev)}
+          decreaseStep={() => setStep((prev) => prev == 0 ? prev : prev - 1)}
+        />
+      </div>
+    );
+  };
+
+
+  interface ModalStepProps {
+    step: number;
+    increaseStep: () => void;
+    decreaseStep: () => void;
+  }
+
+  const ModalStep: React.FC<ModalStepProps> = ({ step, increaseStep, decreaseStep }) => {
+    if (step === 2) {
+      return (
+        <div>
+          <button onClick={decreaseStep}>back</button>
+          step 2
+          <button onClick={increaseStep}>next</button>
+        </div>
+      );
+    }
+
+    if (step === 3) {
+      return (
+        <div>
+          <button onClick={decreaseStep}>back</button>
+          step 3
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        step 1
+        <button onClick={increaseStep}>next</button>
+      </div>
+    );
+  };
+
+  const AddNewItemComponent = ({ account }: { account: AddNewItem }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.__typename}>
+        <AddNewItemCard onClick={() => setIsOpen((prev) => !prev)}>
+          <AddNewItemIcon>
+            <PlusIcon />
+          </AddNewItemIcon>
+          <p>{account.title}</p>
+        </AddNewItemCard>
+        <Modal
+          isOpen={isOpen}
+          onBackgroundClick={() => setIsOpen((prev) => !prev)}
+          onEscapeKeydown={() => setIsOpen((prev) => !prev)}>
+          <ModalForm organizationType={account.organizationType} />
+        </Modal>
+      </div>
+    );
+  };
+
   const itemTemplate = (account: CarbonAccountModel | AddNewItem, _layout: 'list' | 'grid' | (string & Record<string, unknown>)) => {
     if (!account) {
       return;
     }
     if ('__typename' in account) {
-      return (
-        <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.__typename}>
-          <AddNewItemCard>
-            <AddNewItemIcon>
-              <PlusIcon />
-            </AddNewItemIcon>
-            <p>{account.title}</p>
-          </AddNewItemCard>
-        </div>
-      );
+      <AddNewItemComponent account={account} />;
     } else {
       return gridItem(account);
     }
@@ -299,12 +369,3 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
 };
 
 export default AccountsDataView;
-
-{/* <AddNewItemButton
-itemType={
-  dataType as 'dao' | 'dapp' | 'nodeProvider' | 'node' | 'individual'
-}
-onClick={() => {
-  // Handle the onClick event for adding a new item
-}}
-/> */}
