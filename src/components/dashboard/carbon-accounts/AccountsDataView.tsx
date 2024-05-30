@@ -8,6 +8,8 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
+import AddNewItemButton from './AddNew';
+
 import type { FC } from 'react';
 import type { DataTableSelectionSingleChangeEvent } from 'primereact/datatable';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
@@ -78,14 +80,24 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     return defaultPaginatorOptions();
   }, []);
 
-  const gridItem = (account: CarbonAccountModel) => {
+  const gridItem = (account: CarbonAccountModel, index: number) => {
     const header =
       dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
     const identificationField =
       dataType === 'nodes' ? account.id : account.operator?.name;
 
     return (
-      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
+      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={index}>
+      {index === 1 ? (
+        <AddNewItemButton
+          itemType={
+            dataType as 'dao' | 'dapp' | 'nodeProvider' | 'node' | 'individual'
+          }
+          onClick={() => {
+            // Handle the onClick event for adding a new item
+          }}
+        />
+      ) : (
         <AccountCard>
           <FlexRowContainer className="justify-content-between">
             <div className="flex-grow-1">
@@ -146,15 +158,16 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             </div>
           </FlexRowContainer>
         </AccountCard>
+      )}
       </div>
     );
   };
 
-  const itemTemplate = (account: CarbonAccountModel) => {
+  const itemTemplate = (account: CarbonAccountModel, _layout: 'list' | 'grid' | (string & Record<string, unknown>)) => {
     if (!account) {
       return;
     }
-    return gridItem(account);
+    return gridItem(account, 0); // Pass a dummy index value
   };
 
   const identificationColumn = useMemo(() => {
