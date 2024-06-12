@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { InformationItemContainer } from '../dashboard/carbon-accounts/StyledComponents';
+
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { FC } from 'react';
 
-import { InformationItemContainer } from '@/components/dashboard/carbon-accounts/AccountsDataView';
 import useResources from '@/helpers/state/useResources';
 import icFootprintLogo from '@/theme/assets/ic-footprint-logo.svg';
 import icLogo from '@/theme/assets/ic-logo.png';
@@ -18,6 +19,7 @@ import {
   ShareButton,
   FlexRowContainer
 } from '@/theme/styled-components';
+
 
 interface CheckoutSuccessProps {
   carbonDebit: number;
