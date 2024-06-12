@@ -20,7 +20,9 @@ import type React from 'react';
 
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 import type { DataTableSelectionSingleChangeEvent } from 'primereact/datatable';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
+
+import type { ProjectModel } from '@/models/dashboard/project-model';
 
 import TrendValue from '@/components/dashboard/TrendValue';
 import NodeStatus from '@/components/nodes/NodeStatus';
@@ -43,6 +45,9 @@ import GCP from '/images/GCP.png';
 import githubLogo from '/images/github-logo.png';
 
 import icBackground from '@/theme/assets/ic-background.png';
+
+import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
+
 
 export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
 interface AddNewItem {
@@ -210,10 +215,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
         <AccountCard>
           <FlexRowContainer className="justify-content-between">
             <div className="flex-grow-1">
-              <OperatorIcon
-                src={account.operator?.icon}
-                alt={identificationField}
-              />
+              <OperatorIcon src={account.icon} alt={identificationField} />
             </div>
             <InformationItemContainer className="flex-1">
               <h4>{header}</h4>
@@ -279,16 +281,72 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
   const ModalForm: React.FC<ModalFormProps> = ({ onClose }) => {
     const [step, setStep] = useState<number>(1);
     const lastStep = 4;
+    const [organizationName, setOrganizationName] = useState<string>('');
+    const [organizationLogo, setOrganizationLogo] = useState<string>('');
+    const [subnetIds, setSubnetIds] = useState<string[]>([]);
+
+   
+    const handleSubmit = async () => {
+      try {
+        const project: ProjectModel = {
+          id: subnetIds,
+          name: organizationName,
+          icon: organizationLogo || ''
+        };
+        const nodeManagerActor = nodeManagerCreateActor(
+          process.env.CANISTER_ID_NODE_MANAGER ?? '',
+          {
+            agentOptions: {
+              host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+            }
+          }
+        );
+
+        await nodeManagerActor.add_project({
+          ...project,
+          icon: [organizationLogo] || ['']
+        });
+        onClose();
+      } catch (error) {
+        console.error('Error adding project:', error);
+      }
+    };
+
+    const handleAddSubnetId = () => {
+      setSubnetIds([...subnetIds, '']);
+    };
+
+    const handleSubnetIdChange = (index: number, value: string) => {
+      const newSubnetId = [...subnetIds];
+      newSubnetId[index] = value;
+      setSubnetIds(newSubnetId);
+    };
+
+    const handleIncreaseStep = (subnetId?: string) => {
+      if (step === 2) {
+        handleSubmit();
+      }
+      if (subnetId) {
+        setSubnetIds((prev) => [...prev, subnetId]);
+      }
+      setStep((prev) => (prev < lastStep ? prev + 1 : prev));
+    };
 
     return (
       <div>
         <ModalStep
           step={step}
           onClose={onClose}
-          increaseStep={() =>
-            setStep((prev) => (prev < lastStep ? prev + 1 : prev))
-          }
+          increaseStep={handleIncreaseStep}
           decreaseStep={() => setStep((prev) => (prev == 0 ? prev : prev - 1))}
+          organizationName={organizationName}
+          setOrganizationName={setOrganizationName}
+          organizationLogo={organizationLogo}
+          setOrganizationLogo={setOrganizationLogo}
+          subnetId={subnetIds}
+          onAddSubnetId={handleAddSubnetId}
+          onSubnetIdChange={handleSubnetIdChange}
+          setSubnetIds={setSubnetIds}
         />
       </div>
     );
@@ -296,9 +354,17 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
 
   interface ModalStepProps {
     step: number;
-    increaseStep: () => void;
+    increaseStep: (subnetId?: string) => void;
     decreaseStep: () => void;
     onClose: () => void;
+    organizationName: string;
+    setOrganizationName: Dispatch<SetStateAction<string>>;
+    organizationLogo: string;
+    setOrganizationLogo: Dispatch<SetStateAction<string>>;
+    subnetId: string[];
+    onAddSubnetId: () => void;
+    onSubnetIdChange: (index: number, value: string) => void;
+    setSubnetIds: Dispatch<SetStateAction<string[]>>;
   }
 
   interface ModalContainerParagraph {
@@ -355,7 +421,12 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
   const ModalStep: React.FC<ModalStepProps> = ({
     step,
     increaseStep,
-    onClose
+    onClose,
+    subnetId,
+    setOrganizationName,
+    onAddSubnetId,
+    // onSubnetIdChange,
+    setSubnetIds,
   }) => {
     if (step === 2) {
       return (
@@ -378,12 +449,18 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               `}
               </ModalContainerParagraph>
               <br />
-              <InputText placeholder="Subnet ID" />
+                    <InputText
+                      placeholder="Subnet ID"
+                      value={subnetId[0]}
+                      onChange={(e) => setSubnetIds(() => [e.target.value])}
+                      // onChange={(e) => onSubnetIdChange(Number(e.target.value), '')} // Fix: Convert the string value to a number
+                    />
               <Button
-                link
-                label="Add another Subnet ID"
-                style={{ maxWidth: '240px', textAlign: 'start' }}
-              />
+            link
+            label="Add another Subnet ID"
+            onClick={onAddSubnetId}
+            style={{ maxWidth: '240px', textAlign: 'start' }}
+          />
             </div>
             <div className="flex flex-column gap-1 flex-grow-1">
               <ModalSectionTitle>Canister IDs</ModalSectionTitle>
@@ -416,7 +493,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               onClick={onClose}
               outlined
             />
-            <Button onClick={increaseStep} label="Proceed" />
+            <Button onClick={() => increaseStep(subnetId[0])} label="Proceed" />
           </div>
         </ModalContainer>
       );
@@ -430,11 +507,11 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             description="Hook up to our analytics"
           />
           <ModalContainerParagraph>
-            To enable cycles measurement we need to enable a blackhole canister
+            `To enable cycles measurement we need to enable a blackhole canister
             to connect with each of your canisters. The blackhole gives us no
             control or insight into your canister operations, it only enables us
             to read the canister burn rate. To connect, run this command on your
-            terminal, separating each Canister ID with a &apos; &apos;.
+            terminal, separating each Canister ID with a space character.`
           </ModalContainerParagraph>
 
           <div
@@ -464,21 +541,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             </div>
           </div>
 
-          <div
-            style={{
-              display: 'flex',
-              gap: '12px',
-              justifyContent: 'flex-end'
-            }}
-          >
-            <Button
-              severity="secondary"
-              label="Cancel"
-              onClick={onClose}
-              outlined
-            />
-            <Button onClick={increaseStep} label="Proceed" />
-          </div>
+          <Button onClick={() => increaseStep('')} label="Proceed" />
         </ModalContainer>
       );
     }
@@ -491,30 +554,30 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             description="Below is the amount of ICP you are to pay"
           />
           <CardContainerWithBackground>
-          <div
+            <div
+              style={{
+                display: 'flex',
+                gap: '12px',
+                flexDirection: 'column'
+              }}
+            >
+              <h4
                 style={{
-                  display: 'flex',
-                  gap: '12px',
-                  flexDirection: 'column'
+                  fontSize: '14px',
+                  fontWeight: 'normal'
                 }}
               >
-                <h4
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 'normal'
-                  }}
-                >
-                  ICP Amount
-                </h4>
-                <p
-                  style={{
-                    fontSize: '32px',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  10,000 ICP
-                </p>
-              </div>
+                ICP Amount
+              </h4>
+              <p
+                style={{
+                  fontSize: '32px',
+                  fontWeight: 'bold'
+                }}
+              >
+                10,000 ICP
+              </p>
+            </div>
           </CardContainerWithBackground>
 
           <div className="flex flex-column gap-2 flex-grow-1">
@@ -622,7 +685,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               onClick={onClose}
               outlined
             />
-            <Button onClick={increaseStep} label="Connect Wallet" />
+            <Button onClick={() => increaseStep('')} label="Connect Wallet" />
           </div>
         </ModalContainer>
       );
@@ -636,7 +699,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
         />
         <div className="flex flex-column gap-1 flex-grow-1">
           <ModalSectionTitle>Organisation Name</ModalSectionTitle>
-          <InputText />
+          <InputText onChange={(event) => setOrganizationName(event.target.value)} />
         </div>
         <div>
           <ModalSectionTitle>Logo</ModalSectionTitle>
@@ -688,7 +751,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
             onClick={onClose}
             outlined
           />
-          <Button onClick={increaseStep} label="Proceed" />
+          <Button onClick={() => increaseStep('')} label="Proceed" />
         </div>
       </ModalContainer>
     );

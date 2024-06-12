@@ -15,7 +15,8 @@ export class NetworkMappers {
       id: 'network',
       carbonDebit: headlineFigures.cumulativeNetworkEmissions,
       confidence: null,
-      type: null
+      type: null,
+      icon: ''
     };
   }
 }

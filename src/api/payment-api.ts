@@ -12,7 +12,7 @@ import { PaymentMappers } from '@/state/payment/payment-mappers';
 
 export class PaymentApi {
  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
-  const esgWallet = process.env.ESG_WALLET_CANISTER_ID ?? '';
+  const esgWallet = process.env.CANISTER_ID_ESG_WALLET ?? '';
   // console.log('ESG Wallet: ', esgWallet);
     const esgWalletActor = esgWalletCreateActor(
       esgWallet,
@@ -67,7 +67,7 @@ export class PaymentApi {
     }
     try {
       await plugWallet.makePayment(
-      process.env.ESG_WALLET_CANISTER_ID ?? '',
+      process.env.CANISTER_ID_ESG_WALLET ?? '',
       [paymentData.nodeId],
       paymentData.carbonDebitAmount,
       paymentData.totalCost,
@@ -83,7 +83,7 @@ export class PaymentApi {
 
 async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
   const esgWalletActor = esgWalletCreateActor(
-    process.env.ESG_WALLET_CANISTER_ID ?? '',
+    process.env.CANISTER_ID_ESG_WALLET ?? '',
       {
           agentOptions: {
               host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
@@ -96,7 +96,7 @@ async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
 
 async getAllPurchases(): Promise<CanisterAttributionModel[]> {
   const esgWalletActor = esgWalletCreateActor(
-    process.env.ESG_WALLET_CANISTER_ID ?? '',
+    process.env.CANISTER_ID_ESG_WALLET ?? '',
       {
           agentOptions: {
               host: import.meta.env.VITE_APP_ICP_NETWORK_HOST

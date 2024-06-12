@@ -20,7 +20,8 @@ export class NodeProvidersMappers {
         headlineFigures.cumulativeNetworkEmissions -
         (headlineFigures.avoidedEmissions + headlineFigures.offsetEmissions),
       confidence: null,
-      type: 'nodeProviders'
+      type: 'nodeProviders',
+      icon: ''
     };
   }
 }

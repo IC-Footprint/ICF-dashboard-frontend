@@ -27,7 +27,8 @@ export class NodesMappers {
         // weekly emissions converted to tonnes
         weeklyEmissions: (emissions?.weeklyEmissions ?? 0) / 1000,
         confidence: 0.8, // TODO: integrate
-        type: 'nodes'
+        type: 'nodes',
+        icon: activityIcon
       };
     };
   }
