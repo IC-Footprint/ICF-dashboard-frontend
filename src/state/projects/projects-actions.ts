@@ -20,25 +20,39 @@ export const getProjectDetailsAction = createAsyncThunk<
   string
 >('projects/getProjectDetails', async (projectId, { rejectWithValue }) => {
   try {
-    const projectsList = projectsApi.getProjects();
+    const projectsList = await projectsApi.getProjects();
+    console.log('projectsList:', projectsList);
     const projectsEmissions: EmissionsModel[] =
       await projectsApi.getProjectsEmissions();
+    console.log('projectsEmissions:', projectsEmissions);
     const projectsElectricityDraw =
       await projectsApi.getProjectElectricityDraw();
+    console.log('projectsElectricityDraw:', projectsElectricityDraw);
+    
+    // Split the projectId by comma to get an array of project IDs
+    const projectIds = projectId.split(',');
+    console.log('projectIds:', projectIds);
+    
     const projectDetails =
-      (await DashboardMappers.mapProjects(
-        projectsList.filter((p) => p.id.includes(projectId)),
-        projectsEmissions
-      )).at(0) ?? createEmptyCarbonAccountModel();
+      (
+        await DashboardMappers.mapProjects(
+          projectsList.filter((p) => projectIds.some((id) => p.id.includes(id))),
+          projectsEmissions
+        )
+      ).at(0) ?? createEmptyCarbonAccountModel();
+    console.log('projectDetails:', projectDetails);
     const projectElectricityDraw = projectsElectricityDraw.find(
       (d) => d.name === projectId
     );
+    console.log('projectElectricityDraw:', projectElectricityDraw);
     const projectStats = ProjectMappers.mapProjectStats(
       projectDetails,
       projectElectricityDraw
     );
+    console.log('projectStats:', projectStats);
     return [projectStats, projectDetails];
   } catch (error) {
+    console.error('Error in getProjectDetailsAction:', error);
     return rejectWithValue(error);
   }
 });
@@ -53,11 +67,15 @@ export const getProjectCanisterAttributionsAction = createAsyncThunk<
       // console.log(projectId);
       // split project id if there's a comma
       const projectIds = projectId.split(',');
+      console.log('projectIds:', projectIds);
       // pass first project id to get purchases for that project
       const payments = await paymentApi.getPurchases(projectIds[0]);
+      console.log('payments:', payments);
       const reversedPayments = payments.reverse();
+      console.log('reversedPayments:', reversedPayments);
       return reversedPayments;
     } catch (error) {
+      console.error('Error in getProjectCanisterAttributionsAction:', error);
       return rejectWithValue(error);
     }
   }
@@ -69,9 +87,12 @@ export const getProjectEmissionsAction = createAsyncThunk<
 >('projects/getProjectEmissions', async (filter, { rejectWithValue }) => {
   try {
     const datasets = await networkApi.getEmissionsBySubnet(filter.range);
+    console.log('datasets:', datasets);
     const projectDataset = datasets.filter((d) => d.dataSetName === filter.id);
+    console.log('projectDataset:', projectDataset);
     return ChartMapper.mapChartData(projectDataset, filter.range);
   } catch (error) {
+    console.error('Error in getProjectEmissionsAction:', error);
     return rejectWithValue(error);
   }
 });
@@ -84,8 +105,10 @@ export const getProjectPowerConsumptionAction = createAsyncThunk<
   async (filter, { rejectWithValue }) => {
     try {
       const datasets = await projectsApi.getProjectPowerConsumption(filter);
+      console.log('datasets:', datasets);
       return ChartMapper.mapChartData(datasets, filter.range);
     } catch (error) {
+      console.error('Error in getProjectPowerConsumptionAction:', error);
       return rejectWithValue(error);
     }
   }

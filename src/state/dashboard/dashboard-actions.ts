@@ -94,13 +94,23 @@ export const getProjectsAction = createAsyncThunk<CarbonAccountModel[], void>(
   '/dashboard/getProjects',
   async (_, { rejectWithValue }) => {
     try {
-      const projects: ProjectModel[] = projectsApi.getProjects();
+      console.log('Fetching projects...');
+      const projects: ProjectModel[] = await projectsApi.getProjects();
+      console.log('Projects:', projects);
+      console.log('Fetching project emissions...');
       const projectsEmissions: EmissionsModel[] =
         await projectsApi.getProjectsEmissions();
+      console.log('Project emissions:', projectsEmissions);
 
-        // console.log(projectsEmissions);
-      return DashboardMappers.mapProjects(projects, projectsEmissions);
+      console.log('Mapping projects...');
+      const mappedProjects = DashboardMappers.mapProjects(
+        projects,
+        projectsEmissions
+      );
+      console.log('Mapped projects:', mappedProjects);
+      return mappedProjects;
     } catch (err) {
+      console.error('Error fetching projects:', err);
       return rejectWithValue(null);
     }
   }

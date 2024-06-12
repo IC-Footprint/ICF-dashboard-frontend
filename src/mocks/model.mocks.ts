@@ -57,7 +57,8 @@ export class ModelMocks {
       status: status,
       confidence: +Math.random().toFixed(2),
       location: 'USA',
-      type: 'nodes'
+      type: 'nodes',
+      icon: '' // Added missing 'icon' property
     };
   }
 

@@ -37,7 +37,7 @@ export class PlugWalletService {
       const host = import.meta.env.VITE_APP_ICP_NETWORK_HOST;
       this.ledgerCanisterId =
         import.meta.env.VITE_APP_ICP_LEDGER_CANISTER_ID ?? '';
-      this.esgWalletCanisterId = process.env.ESG_WALLET_CANISTER_ID ?? '';
+      this.esgWalletCanisterId = process.env.CANISTER_ID_ESG_WALLET ?? '';
       this.connectOptions = {
         host,
         whitelist: [this.ledgerCanisterId, this.esgWalletCanisterId],

@@ -40,7 +40,8 @@ export class DashboardMappers {
         location: null,
         confidence: null,
         status: null,
-        type: 'nodeProviders'
+        type: 'nodeProviders',
+        icon: categoryIcon
       })
     );
   }
@@ -77,7 +78,8 @@ export class DashboardMappers {
         weeklyEmissions:  (weeklyEmissions)/1000,
         confidence: null,
         location: null,
-        type: 'projects'
+        type: 'projects',
+        icon: project.icon
       });
     }
 

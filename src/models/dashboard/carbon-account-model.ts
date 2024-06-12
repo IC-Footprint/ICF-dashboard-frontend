@@ -15,6 +15,7 @@ export interface CarbonAccountModel {
   confidence: number | null;
   location: string | null;
   type: AccountDataType | null;
+  icon?: string;
 }
 
 export function createEmptyCarbonAccountModel(): CarbonAccountModel {
@@ -26,6 +27,7 @@ export function createEmptyCarbonAccountModel(): CarbonAccountModel {
     location: null,
     confidence: null,
     operator: null,
-    type: null
+    type: null,
+    icon: '',
   };
 }
