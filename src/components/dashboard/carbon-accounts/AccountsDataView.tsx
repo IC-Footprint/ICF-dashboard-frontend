@@ -1,13 +1,11 @@
 import { css } from '@emotion/css';
-import styled from '@emotion/styled';
 import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
 import { Column } from 'primereact/column';
 import { DataView } from 'primereact/dataview';
 
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 
@@ -15,6 +13,19 @@ import Modal from 'styled-react-modal';
 
 import { InputText } from 'primereact/inputtext';
 import { FileUpload } from 'primereact/fileupload';
+
+import {
+  ModalContainer,
+  ModalSectionTitle,
+  CardContainerWithBackground,
+  CardContainer,
+  AccountsSectionButton,
+  Socials,
+  AddNewItemCard,
+  AddNewItemIcon
+} from './StyledComponents';
+
+import GridItem from './GridItem';
 
 import type React from 'react';
 
@@ -24,15 +35,9 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 
 import type { ProjectModel } from '@/models/dashboard/project-model';
 
-import TrendValue from '@/components/dashboard/TrendValue';
-import NodeStatus from '@/components/nodes/NodeStatus';
 import useDashboard from '@/helpers/state/useDashboard';
 import { defaultPaginatorOptions } from '@/models/paginator-options-model';
-import { gridCardBackground } from '@/theme/colors';
 import {
-  FlexRowCard,
-  FlexRowContainer,
-  LabelStyle,
   PaginatorStyle,
   StyledTable
 } from '@/theme/styled-components';
@@ -44,10 +49,7 @@ import AWS from '/images/AWS.png';
 import GCP from '/images/GCP.png';
 import githubLogo from '/images/github-logo.png';
 
-import icBackground from '@/theme/assets/ic-background.png';
-
 import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
-
 
 export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
 interface AddNewItem {
@@ -63,134 +65,6 @@ export interface AccountsDataViewProps {
   dataType?: AccountDataType;
 }
 
-const AccountCard = styled(Card)`
-  background-color: ${gridCardBackground};
-
-  .p-card-content {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2rem;
-    padding: 0.5rem;
-  }
-`;
-
-const AddNewItemCard = styled(Card)`
-  background-color: rgb(255 255 255 / 0.04);
-  height: 100%;
-  border: 2px dotted rgb(255 255 255 / 0.2);
-  color: #86e7d4;
-  font-weight: bold;
-
-  .p-card-body {
-    height: 100%;
-  }
-
-  .p-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    height: 100%;
-  }
-`;
-
-const AddNewItemIcon = styled.div`
-  height: 32px;
-  width: 32px;
-  border-radius: 8px;
-  border: 1px solid #86e7d4;
-`;
-
-export const InformationItemContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-
-  h4 {
-    ${LabelStyle};
-  }
-
-  p {
-    font-weight: bold;
-  }
-`;
-
-const OperatorIcon = styled.img`
-  flex-grow: 1;
-  max-height: 2rem;
-  max-width: 4rem;
-`;
-
-export const ModalContainer = styled.div`
-  width: 720px;
-  height: 96vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  background-color: #141f31;
-  border-radius: 16px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-  padding: 32px;
-  position: relative;
-`;
-
-export const ModalSectionTitle = styled.h3`
-  font-size: 18px;
-  font-weight: normal;
-`;
-
-export const Socials = styled.div`
-  display: flex;
-  justify-content: 'space-between';
-  align-items: center;
-  gap: 24px;
-`;
-
-export const AccountsSectionButton = styled.button`
-  padding: 8px;
-  display: flex;
-  border-radius: 8px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  background-color: #353e4d;
-  border: none;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
-const CardContainer = styled(FlexRowCard)`
-  height: 100%;
-  .p-card-body {
-    height: 100%;
-
-    .p-card-content {
-      height: 100%;
-      justify-content: space-between;
-    }
-  }
-`;
-const CardContainerWithBackground = styled(FlexRowCard)`
-  height: 100%;
-  background-image: url(${icBackground});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-  .p-card-body {
-    height: 100%;
-
-    .p-card-content {
-      height: 100%;
-    }
-  }
-`;
-
 const AccountsDataView: FC<AccountsDataViewProps> = ({
   list,
   isLoading,
@@ -204,75 +78,6 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     return defaultPaginatorOptions();
   }, []);
 
-  const gridItem = (account: CarbonAccountModel) => {
-    const header =
-      dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
-    const identificationField =
-      dataType === 'nodes' ? account.id : account.operator?.name;
-
-    return (
-      <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
-        <AccountCard>
-          <FlexRowContainer className="justify-content-between">
-            <div className="flex-grow-1">
-              <OperatorIcon src={account.icon} alt={identificationField} />
-            </div>
-            <InformationItemContainer className="flex-1">
-              <h4>{header}</h4>
-              <p
-                title={identificationField}
-                className="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
-              >
-                {identificationField}
-              </p>
-            </InformationItemContainer>
-          </FlexRowContainer>
-          <InformationItemContainer>
-            <h4>{t('dashboard.carbonAccounts.carbonDebits')}</h4>
-            <p>
-              <span className="text-xl font-bold">
-                {NumberUtils.formatNumber(account.carbonDebit)}
-              </span>
-              <span className="font-normal">
-                {t('common.unit.co2Kg', {
-                  value: ''
-                })}
-              </span>
-            </p>
-          </InformationItemContainer>
-          <FlexRowContainer>
-            <InformationItemContainer className="min-w-min">
-              <h4>
-                {t('common.unit.kgPerWeek', {
-                  value: ''
-                })}
-              </h4>
-              <TrendValue
-                differenceValue={account.weeklyEmissions}
-                size="small"
-                iconAlignment={'right'}
-              />
-            </InformationItemContainer>
-            <InformationItemContainer className="ml-2">
-              <h4>{t('common.status')}</h4>
-              <NodeStatus status={account.status} />
-            </InformationItemContainer>
-            <div className="flex flex-1 justify-content-end">
-              <Link to={`${parentRoute}/${account.id}`}>
-                <Button
-                  label={t('common.seeMore') ?? ''}
-                  severity="secondary"
-                  size="small"
-                  className="white-space-nowrap"
-                />
-              </Link>
-            </div>
-          </FlexRowContainer>
-        </AccountCard>
-      </div>
-    );
-  };
-
   interface ModalFormProps {
     organizationType?: AccountDataType;
     onClose: () => void;
@@ -285,7 +90,6 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     const [organizationLogo, setOrganizationLogo] = useState<string>('');
     const [subnetIds, setSubnetIds] = useState<string[]>([]);
 
-   
     const handleSubmit = async () => {
       try {
         const project: ProjectModel = {
@@ -426,7 +230,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     setOrganizationName,
     onAddSubnetId,
     // onSubnetIdChange,
-    setSubnetIds,
+    setSubnetIds
   }) => {
     if (step === 2) {
       return (
@@ -449,18 +253,18 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
               `}
               </ModalContainerParagraph>
               <br />
-                    <InputText
-                      placeholder="Subnet ID"
-                      value={subnetId[0]}
-                      onChange={(e) => setSubnetIds(() => [e.target.value])}
-                      // onChange={(e) => onSubnetIdChange(Number(e.target.value), '')} // Fix: Convert the string value to a number
-                    />
+              <InputText
+                placeholder="Subnet ID"
+                value={subnetId[0]}
+                onChange={(e) => setSubnetIds(() => [e.target.value])}
+                // onChange={(e) => onSubnetIdChange(Number(e.target.value), '')} // Fix: Convert the string value to a number
+              />
               <Button
-            link
-            label="Add another Subnet ID"
-            onClick={onAddSubnetId}
-            style={{ maxWidth: '240px', textAlign: 'start' }}
-          />
+                link
+                label="Add another Subnet ID"
+                onClick={onAddSubnetId}
+                style={{ maxWidth: '240px', textAlign: 'start' }}
+              />
             </div>
             <div className="flex flex-column gap-1 flex-grow-1">
               <ModalSectionTitle>Canister IDs</ModalSectionTitle>
@@ -699,7 +503,9 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
         />
         <div className="flex flex-column gap-1 flex-grow-1">
           <ModalSectionTitle>Organisation Name</ModalSectionTitle>
-          <InputText onChange={(event) => setOrganizationName(event.target.value)} />
+          <InputText
+            onChange={(event) => setOrganizationName(event.target.value)}
+          />
         </div>
         <div>
           <ModalSectionTitle>Logo</ModalSectionTitle>
@@ -795,7 +601,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
     if ('__typename' in account) {
       return <AddNewItemComponent account={account} />;
     } else {
-      return gridItem(account);
+     return <GridItem account={account} dataType={dataType} parentRoute={parentRoute} />;
     }
   };
 
