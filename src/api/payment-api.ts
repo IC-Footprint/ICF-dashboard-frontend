@@ -60,7 +60,7 @@ export class PaymentApi {
  async registerPayment(paymentData: PaymentDataModel): Promise<boolean> {
   
   paymentData.totalCost = await this.calculateCost(paymentData);
-  console.log('Total cost: ', paymentData.totalCost);
+  // console.log('Total cost: ', paymentData.totalCost);
     if (!paymentData.totalCost) {
       console.log('Total cost is required');
       return false;
@@ -104,7 +104,7 @@ async getAllPurchases(): Promise<CanisterAttributionModel[]> {
       }
   );
   const result = await esgWalletActor.getPurchases();
-  console.log('All purchases: ', result);
+  // console.log('All purchases: ', result);
   return result.map(PaymentMappers.mapPurchase);
 }
 }
