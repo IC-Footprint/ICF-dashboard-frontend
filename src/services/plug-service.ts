@@ -4,6 +4,7 @@ import { Principal } from '@dfinity/principal';
 
 import { idlFactory as nnsLedgerIdlFactory } from '@/declarations/idls/nns_ledger.did';
 import { idlFactory as esgWalletIdlFactory } from '@/declarations/esg_wallet';
+import { idlFactory as nodeManagerIdlFactory } from '@/declarations/node_manager';
 // import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet/';
 import { CandidMapper } from '@/utils/candid-mapper';
 
@@ -92,13 +93,20 @@ export class PlugWalletService {
       interfaceFactory: esgWalletIdlFactory
     });
 
+    const esgWallet = await this.plug.createActor({
+      canisterId: canisterId,
+      interfaceFactory: nodeManagerIdlFactory
+    });
+
     const nodeIdValue = nodeId !== undefined ? nodeId : [];
     console.log('amount type: ', typeof amount);
     const integerAmount = Math.round(amount);
-    const resultStr: string = await nodeEscrowActor.registerPayment(
-      BigInt(integerAmount),
-      nodeIdValue
-    );
+    const resultStr: string = nodeId
+      ? await nodeEscrowActor.registerPayment(
+          BigInt(integerAmount),
+          nodeIdValue
+        )
+      : await esgWallet.registerPayment(BigInt(integerAmount));
     // console.log('registerPayment: ', resultStr);
 
     const result = JSON.parse(resultStr);
@@ -134,9 +142,9 @@ export class PlugWalletService {
 
   async makePayment(
     escrowPrincipalId: string,
-    node_id: string[],
     amount: number,
-    totalCost: number
+    totalCost: number,
+    node_id?: string[],
   ): Promise<void> {
     await this.requestConnect([escrowPrincipalId]);
     await this.requestTransfer(escrowPrincipalId, totalCost);

@@ -48,6 +48,7 @@ export interface _SERVICE {
   'get_projects' : ActorMethod<[], Array<Project>>,
   'offset_emissions' : ActorMethod<[Client, number, [] | [string]], string>,
   'offset_from_nodes' : ActorMethod<[Array<Node>, number], undefined>,
+  'registerPayment' : ActorMethod<[bigint, [] | [string]], string>,
   'remove_project' : ActorMethod<[string], undefined>,
   'select_random_nodes' : ActorMethod<[], Array<Node>>,
   'set_api_key' : ActorMethod<[string], undefined>,

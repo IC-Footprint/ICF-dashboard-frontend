@@ -41,6 +41,7 @@ module {
     get_projects : shared query () -> async [Project];
     offset_emissions : shared (Client, Float, ?Text) -> async Text;
     offset_from_nodes : shared ([Node], Float) -> async ();
+    registerPayment : shared (Nat64, ?Text) -> async Text;
     remove_project : shared Text -> async ();
     select_random_nodes : shared () -> async [Node];
     set_api_key : shared Text -> async ();

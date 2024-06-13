@@ -30,6 +30,7 @@ import type { ProjectModel } from '@/models/dashboard/project-model';
 import type { AccountDataType } from './AccountsDataView';
 
 import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
+import { plugWallet } from '@/services/plug-service';
 
 interface ModalFormProps {
   organizationType?: AccountDataType;
@@ -39,16 +40,46 @@ export const ModalForm: React.FC<ModalFormProps> = ({ onClose }) => {
   const [step, setStep] = useState<number>(1);
   const lastStep = 4;
   const [organizationName, setOrganizationName] = useState<string>('');
-  const [organizationLogo, setOrganizationLogo] = useState<string>('');
+  const [organizationLogo, setOrganizationLogo] = useState<File>();
   const [subnetIds, setSubnetIds] = useState<string[]>([]);
 
   const handleSubmit = async () => {
+    function convertBase64(file: File): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+          resolve(fileReader.result as string);
+        };
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    }
+
     try {
+      // call plug service's makePayment method
+      const escrowPrincipalId = process.env.CANISTER_ID_NODE_MANAGER ?? '';
+            const amount = 1; 
+            const totalCost = 1;
+            
+            await plugWallet.makePayment(escrowPrincipalId, amount, totalCost);
+            
+      
+      let icon: string | undefined = undefined;
+
+      if (organizationLogo) {
+        icon = await convertBase64(organizationLogo);
+      }
+
       const project: ProjectModel = {
         id: subnetIds,
         name: organizationName,
-        icon: organizationLogo || ''
+        icon
       };
+
       const nodeManagerActor = nodeManagerCreateActor(
         process.env.CANISTER_ID_NODE_MANAGER ?? '',
         {
@@ -58,10 +89,13 @@ export const ModalForm: React.FC<ModalFormProps> = ({ onClose }) => {
         }
       );
 
+      console.log('project >>', project);
+
       await nodeManagerActor.add_project({
         ...project,
-        icon: [organizationLogo] || ['']
+        icon: [icon ?? '']
       });
+
       onClose();
     } catch (error) {
       console.error('Error adding project:', error);
@@ -79,7 +113,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ onClose }) => {
   };
 
   const handleIncreaseStep = (subnetId?: string) => {
-    if (step === 2) {
+    if (step === 4) {
       handleSubmit();
     }
     if (subnetId) {
@@ -146,8 +180,8 @@ interface ModalStepProps {
   onClose: () => void;
   organizationName: string;
   setOrganizationName: Dispatch<SetStateAction<string>>;
-  organizationLogo: string;
-  setOrganizationLogo: Dispatch<SetStateAction<string>>;
+  organizationLogo: File | undefined;
+  setOrganizationLogo: (file: File) => void;
   subnetId: string[];
   onAddSubnetId: () => void;
   onSubnetIdChange: (index: number, value: string) => void;
@@ -160,6 +194,7 @@ const ModalStep: React.FC<ModalStepProps> = ({
   onClose,
   subnetId,
   setOrganizationName,
+  setOrganizationLogo,
   onAddSubnetId,
   // onSubnetIdChange,
   setSubnetIds
@@ -440,7 +475,13 @@ const ModalStep: React.FC<ModalStepProps> = ({
       </div>
       <div>
         <ModalSectionTitle>Logo</ModalSectionTitle>
-        <FileUpload mode="basic" auto />
+        {/* <input type='file' onChange={(e)=> e.target.files && setOrganizationLogo(e.target.files[0])} /> */}
+        <FileUpload
+          onUpload={(e) => setOrganizationLogo(e.files[0])}
+          accept="image/*"
+          mode="basic"
+          auto
+        />
       </div>
       <div>
         <ModalSectionTitle>Select Organization Type</ModalSectionTitle>
