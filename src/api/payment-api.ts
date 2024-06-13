@@ -68,9 +68,9 @@ export class PaymentApi {
     try {
       await plugWallet.makePayment(
       process.env.CANISTER_ID_ESG_WALLET ?? '',
-      [paymentData.nodeId],
       paymentData.carbonDebitAmount,
       paymentData.totalCost,
+      [paymentData.nodeId],
     );
   } catch (error) {
     console.log('Error making payment:', error);
