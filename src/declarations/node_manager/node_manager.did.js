@@ -52,11 +52,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'offset_from_nodes' : IDL.Func([IDL.Vec(Node), IDL.Float64], [], []),
-    'registerPayment' : IDL.Func(
-        [IDL.Nat64, IDL.Opt(IDL.Text)],
-        [IDL.Text],
-        [],
-      ),
+    'registerPayment' : IDL.Func([IDL.Nat64], [IDL.Text], []),
     'remove_project' : IDL.Func([IDL.Text], [], []),
     'select_random_nodes' : IDL.Func([], [IDL.Vec(Node)], []),
     'set_api_key' : IDL.Func([IDL.Text], [], []),
