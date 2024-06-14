@@ -88,19 +88,26 @@ export class PlugWalletService {
     nodeId?: string[]
   ): Promise<void> {
     // console.log('Registering payment');
+    // console.log('canisterId:', canisterId);
+    // console.log('amount:', amount);
+    // console.log('nodeId:', nodeId);
     const nodeEscrowActor = await this.plug.createActor({
       canisterId: canisterId,
       interfaceFactory: esgWalletIdlFactory
     });
+    // console.log('nodeEscrowActor created');
 
     const esgWallet = await this.plug.createActor({
       canisterId: canisterId,
       interfaceFactory: nodeManagerIdlFactory
     });
+    // console.log('esgWallet created');
 
     const nodeIdValue = nodeId !== undefined ? nodeId : [];
-    console.log('amount type: ', typeof amount);
+    // console.log('nodeIdValue:', nodeIdValue);
+    // console.log('amount type: ', typeof amount);
     const integerAmount = Math.round(amount);
+    // console.log('integerAmount:', integerAmount);
     const resultStr: string = nodeId
       ? await nodeEscrowActor.registerPayment(
           BigInt(integerAmount),
@@ -110,11 +117,14 @@ export class PlugWalletService {
     // console.log('registerPayment: ', resultStr);
 
     const result = JSON.parse(resultStr);
+    // console.log('parsed result:', result);
     if (result.error) {
-      // console.error('Error registering payment:', result.error);
+      console.error('Error registering payment:', result.error);
       throw new Error('Error registering payment');
     }
+    // console.log('Payment registered successfully');
   }
+  
 
   private async requestConnect(whitelist: string[] = []): Promise<void> {
     // console.log('Requesting connection');

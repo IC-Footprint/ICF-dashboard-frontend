@@ -1,3 +1,15 @@
+/**
+ * The `ModalForm` component is a React functional component that renders a modal form for creating a new project. It handles the state and logic for the different steps of the form, including organization name, logo, subnet IDs, and payment.
+ *
+ * The component uses several sub-components to render the different steps of the form, such as `ModalContainerHeader`, `ModalStep`, and `ModalContainerParagraph`.
+ *
+ * The `ModalForm` component is exported as the default export of this module.
+ *
+ * @param {ModalFormProps} props - The props for the `ModalForm` component.
+ * @param {AccountDataType} [props.organizationType] - The organization type, if any.
+ * @param {() => void} props.onClose - A function to be called when the modal is closed.
+ * @returns {React.ReactElement} - The `ModalForm` component.
+ */
 import { useState } from 'react';
 
 import AWS from '/images/AWS.png';
@@ -62,12 +74,11 @@ export const ModalForm: React.FC<ModalFormProps> = ({ onClose }) => {
     try {
       // call plug service's makePayment method
       const escrowPrincipalId = process.env.CANISTER_ID_NODE_MANAGER ?? '';
-            const amount = 1; 
-            const totalCost = 1;
-            
-            await plugWallet.makePayment(escrowPrincipalId, amount, totalCost);
-            
-      
+      const amount = 1;
+      const totalCost = 1;
+
+      await plugWallet.makePayment(escrowPrincipalId, amount, totalCost);
+
       let icon: string | undefined = undefined;
 
       if (organizationLogo) {
@@ -492,15 +503,15 @@ const ModalStep: React.FC<ModalStepProps> = ({
               <span>ICP</span>
             </AccountsSectionButton>
             <AccountsSectionButton>
-              <img src={AWS} alt="ICP" width={26} height={26} />
+              <img src={AWS} alt="AWS" width={26} height={26} />
               <span>AWS</span>
             </AccountsSectionButton>
             <AccountsSectionButton>
-              <img src={AZURE} alt="ICP" width={26} height={26} />
+              <img src={AZURE} alt="Azure" width={26} height={26} />
               <span>Azure</span>
             </AccountsSectionButton>
             <AccountsSectionButton>
-              <img src={GCP} alt="ICP" width={26} height={26} />
+              <img src={GCP} alt="GCP" width={26} height={26} />
               <span>GCP</span>
             </AccountsSectionButton>
           </div>
