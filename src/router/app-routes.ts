@@ -14,9 +14,9 @@ export const appRoutes = {
     root: '/dashboard/node-providers',
     details: '/dashboard/node-providers/:nodeProviderId'
   },
-  dapps: {
-    root: '/dashboard/dapps',
-    details: '/dashboard/dapps/:dappId'
+  sns: {
+    root: '/dashboard/sns',
+    details: '/dashboard/sns/:snsId'
   },
   network: {
     root: '/network'

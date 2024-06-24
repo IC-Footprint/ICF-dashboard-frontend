@@ -25,8 +25,7 @@ import { defaultPaginatorOptions } from '@/models/paginator-options-model';
 import { PaginatorStyle, StyledTable } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
-
-export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects';
+export type AccountDataType = 'nodes' | 'nodeProviders' | 'projects' | 'sns';
 interface AddNewItem {
   __typename: 'AddNewItem';
   title: string;
@@ -39,7 +38,6 @@ export interface AccountsDataViewProps {
   parentRoute?: string;
   dataType?: AccountDataType;
 }
-
 
 const AddNewItemComponent = ({ account }: { account: AddNewItem }) => {
   const [isOpen, setIsOpen] = useState(false);
