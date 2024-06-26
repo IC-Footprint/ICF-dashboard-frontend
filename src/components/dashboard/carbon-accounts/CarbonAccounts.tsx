@@ -65,17 +65,18 @@ const CarbonAccounts: FC = () => {
   const menuItems = useMemo((): MenuItem[] => {
     return [
       {
-        label: t('dashboard.carbonAccounts.projects.title') ?? '',
-        url: appRoutes.projects.root,
+        label: t('dashboard.carbonAccounts.dapps.title') ?? '',
+        // disabled:true,
+        url: appRoutes.sns.root,
         icon: (
           <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
         ),
         template: itemWithFeatureStatus
       },
       {
-        label: t('dashboard.carbonAccounts.dapps.title') ?? '',
-        // disabled:true,
-        url: appRoutes.sns.root,
+        label: t('dashboard.carbonAccounts.projects.title') ?? '',
+        disabled: true,
+        url: appRoutes.projects.root,
         icon: (
           <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
         ),

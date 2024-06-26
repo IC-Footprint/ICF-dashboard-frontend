@@ -24,10 +24,7 @@ const AppRoutes: FC = () => {
     <Layout>
       <Routes>
         <Route path={appRoutes.dashboard.root} element={<Dashboard />}>
-          <Route
-            index
-            element={<Navigate to={appRoutes.projects.root} replace />}
-          />
+          <Route index element={<Navigate to={appRoutes.sns.root} replace />} />
           <Route path={appRoutes.projects.root} element={<Projects />} />
           <Route
             path={appRoutes.nodeProviders.root}

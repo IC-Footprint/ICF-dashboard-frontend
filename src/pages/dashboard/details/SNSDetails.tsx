@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ import useNodes from '@/helpers/state/useNodes';
 import usePayment from '@/helpers/state/usePayment';
 import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
-import { getSNSMetadata } from '@/api/sns-api';
+import { getSNSMetadata, createSNSEmissions } from '@/api/sns-api';
 
 /**
  * Renders the Node component, which displays detailed information about a specific node.
@@ -45,11 +45,35 @@ const SNSDetails: FC = () => {
   } = useNodes();
   const { paymentRegistered, payment } = usePayment();
 
+  const [snsName, setSnsName] = useState<string | undefined>(undefined);
+  const [snsIcon, setSnsIcon] = useState<string | undefined>(undefined);
+  const [snsEmissions, setSnsEmissions] = useState<number>();
+
   useEffect(() => {
     if (snsId) {
-      getSNSMetadata(Principal.fromText(snsId));
+      getSNSMetadata(Principal.fromText(snsId))
+        .then((value) => {
+          const icon =
+            Array.isArray(value.logo) && value.logo.length > 0
+              ? value.logo[0]
+              : undefined;
+          setSnsIcon(icon);
+
+          const name =
+            Array.isArray(value.name) && value.name.length > 0
+              ? value.name[0]
+              : undefined;
+          setSnsName(name);
+        })
+        .catch((error) => {
+          console.error('Error fetching SNS metadata:', error);
+        });
+
+      createSNSEmissions(Principal.fromText(snsId)).then((value) => {
+        setSnsEmissions(value);
+      });
     }
-  }, []);
+  }, [snsId]);
 
   useEffect(() => {
     if (snsId) {
@@ -83,19 +107,26 @@ const SNSDetails: FC = () => {
     return nodeDetails
       ? {
           ...nodeDetails,
-          carbonDebit: incrementingNodeEmissions ?? 0
+          carbonDebit: snsEmissions ?? incrementingNodeEmissions ?? 0,
+          operator: {
+            ...nodeDetails.operator,
+            name: snsName ?? nodeDetails.operator?.name ?? ''
+          },
+          icon: snsIcon ?? nodeDetails.icon,
+          status: 'BETA'
         }
       : null;
-  }, [nodeDetails, incrementingNodeEmissions]);
+  }, [nodeDetails, incrementingNodeEmissions, snsEmissions, snsName, snsIcon]);
 
   const incrementingNodeStats = useMemo((): HeadlineFiguresModel | null => {
     return nodeStats
       ? {
           ...nodeStats,
-          cumulativeNetworkEmissions: incrementingNodeEmissions ?? 0
+          cumulativeNetworkEmissions:
+            snsEmissions ?? incrementingNodeEmissions ?? 0
         }
       : null;
-  }, [nodeStats, incrementingNodeEmissions]);
+  }, [nodeStats, incrementingNodeEmissions, snsEmissions]);
 
   return (
     <FlexColumnContainer>

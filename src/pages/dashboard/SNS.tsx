@@ -52,14 +52,7 @@ const SNS: FC = () => {
 
   return (
     <AccountsDataView
-      list={[
-        {
-          __typename: 'AddNewItem',
-          title: 'Create New SNS',
-          organizationType: 'sns'
-        },
-        ...filteredNodesList
-      ]}
+      list={[...filteredNodesList]}
       isLoading={loading}
       parentRoute={appRoutes.sns.root}
       dataType="sns"

@@ -5,6 +5,10 @@ import type { CanisterAttributionModel } from '@/models/nodes/canister-attributi
 import type { RangeType } from '@/models/range-type';
 import type { AxiosResponse } from 'axios';
 
+interface DailyNetworkEmissionsResponse {
+  cumulativeNetworkEmissions: number;
+}
+
 export class NetworkApi {
   async getEmissionsByType(range: RangeType | null): Promise<DatasetModel[]> {
     const response: AxiosResponse<DatasetModel[]> = await axios.get(
@@ -27,6 +31,13 @@ export class NetworkApi {
         }
       }
     );
+    return response.data;
+  }
+
+  // geet daily Network emisssions
+  async getDailyNetworkEmissions(): Promise<DailyNetworkEmissionsResponse> {
+    const response: AxiosResponse<DailyNetworkEmissionsResponse> =
+      await axios.get('/dashboard/counters/dailyNetworkEmissions');
     return response.data;
   }
 

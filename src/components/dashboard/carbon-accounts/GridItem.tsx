@@ -19,11 +19,11 @@ import type { AccountDataType } from './AccountsDataView';
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
 import { FlexRowContainer } from '@/theme/styled-components';
-// import { NumberUtils } from '@/utils/number-utils';
+import { NumberUtils } from '@/utils/number-utils';
 
 import NodeStatus from '@/components/nodes/NodeStatus';
 
-import { getSNSEmissions, getSNSMetadata } from '@/api/sns-api';
+import { createSNSEmissions, getSNSMetadata } from '@/api/sns-api';
 
 interface GridItemProps {
   account: CarbonAccountModel;
@@ -35,23 +35,33 @@ const GridItem: React.FC<GridItemProps> = ({
   dataType,
   parentRoute
 }) => {
-  const [snsName, setSnsName] = useState<string>();
-  const [snsIcon, setSnsIcon] = useState<string>();
+  const [snsName, setSnsName] = useState<string | undefined>(undefined);
+  const [snsIcon, setSnsIcon] = useState<string | undefined>(undefined);
   const [snsEmissions, setsnsEmissions] = useState<number>();
 
   useEffect(() => {
     if (account.type === 'sns') {
-      getSNSMetadata(Principal.fromText(account.id)).then((value) => {
-        if ('Ok' in value) {
-          const icon = value.Ok.logo.length > 0 ? value.Ok.logo[0] : undefined;
-          const name = value.Ok.name.length > 0 ? value.Ok.name[0] : undefined;
+      getSNSMetadata(Principal.fromText(account.id))
+        .then((value) => {
+          // Handle logo
+          const icon =
+            Array.isArray(value.logo) && value.logo.length > 0
+              ? value.logo[0]
+              : undefined;
           setSnsIcon(icon);
-          setSnsName(name);
-        }
-      });
 
-      getSNSEmissions(Principal.fromText(account.id)).then((value) => {
-        console.log('value is', value);
+          // Handle name
+          const name =
+            Array.isArray(value.name) && value.name.length > 0
+              ? value.name[0]
+              : undefined;
+          setSnsName(name);
+        })
+        .catch((error) => {
+          console.error('Error fetching SNS metadata:', error);
+        });
+
+      createSNSEmissions(Principal.fromText(account.id)).then((value) => {
         setsnsEmissions(value);
       });
     }
@@ -86,8 +96,8 @@ const GridItem: React.FC<GridItemProps> = ({
           <h4>{t('dashboard.carbonAccounts.carbonDebits')}</h4>
           <p>
             <span className="text-xl font-bold">
-              {Number(snsEmissions) ?? account.carbonDebit}
-              {/* {NumberUtils.formatNumber(snsEmissions ?? account.carbonDebit)} */}
+              {/* {Number(snsEmissions) ?? account.carbonDebit} */}
+              {NumberUtils.formatNumber(snsEmissions ?? account.carbonDebit)}
             </span>
             <span className="font-normal">
               {t('common.unit.co2Kg', {

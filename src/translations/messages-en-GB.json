@@ -3,7 +3,7 @@
     "acknowledgements": "Special Thanks To:",
     "features": {
       "transparency": {
-        "description": "No matter what industry you are in, if your organisation consumes electricity, we can help you measure your impact.\n\nSign up for our beta to so we can work together to produce a sustainability dashboard for your organisation.",
+        "description": "No matter what industry you are in, if your organisation consumes electricity, we can help you measure your impact.\n\nSign up for our BETA to so we can work together to produce a sustainability dashboard for your organisation.",
         "title": "Create your own dashboard"
       },
       "costSavings": {
@@ -133,7 +133,8 @@
     "featureStatus": {
       "comingSoon": "Coming soon",
       "new": "New",
-      "wipMessage": "We're working hard to bring you something amazing. Stay tuned!"
+      "wipMessage": "We're working hard to bring you something amazing. Stay tuned!",
+      "BETA": "BETA"
     },
     "gridTechnologyType": {
       "hydro": "Hydro",
@@ -148,7 +149,8 @@
       "degraded": "Degraded",
       "down": "Down",
       "unassigned": "Unassigned",
-      "up": "Live"
+      "up": "Live",
+      "beta": "BETA"
     },
     "report": "Report",
     "search": "Search",
@@ -178,9 +180,11 @@
   },
   "dashboard": {
     "carbonAccounts": {
+      "title": "Carbon Accounts",
       "carbonDebit": "Carbon Debit",
       "carbonDebits": "Carbon Debits",
       "nodeProvider": "Node Provider",
+      "sns": "SNS",
       "nodeProviders": {
         "error": "Error loading the node providers",
         "title": "Node Providers"
@@ -192,14 +196,14 @@
       },
       "projects": {
         "error": "Error loading the DAOs",
-        "title": "DAOs"
+        "title": "DAOs/DApps"
       },
-      "title": "Carbon Accounts",
       "dapps": {
-        "title": "DApps"
+        "error": "Error loading SNS",
+        "title": "SNS"
       },
       "individuals": {
-        "title": "Individuals"
+        "title": "Utopia"
       }
     },
     "carbonDebit": {
@@ -315,10 +319,10 @@
     "consentMessage": "By clicking the button \"Submit\" I agree that the given information can be used by ICF to send me notifications",
     "description": "Be one of the first ever cloud networks or node operators to understand your global carbon emissions in real time.",
     "error": {
-      "title": "An error occurred while signing up for beta"
+      "title": "An error occurred while signing up for BETA"
     },
     "success": {
-      "description": "Thank you for joining our beta waiting list!\n We’ll be in touch soon.",
+      "description": "Thank you for joining our BETA waiting list!\n We’ll be in touch soon.",
       "title": "All done!"
     },
     "title": "Prove Prior Commitment"
