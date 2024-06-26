@@ -1,9 +1,10 @@
-export type NodeStatusType = 'UP' | 'UNASSIGNED' | 'DOWN' | 'DEGRADED';
-export type Severity = 'success' | 'info' | 'warning' | 'danger';
+export type NodeStatusType = 'UP' | 'UNASSIGNED' | 'DOWN' | 'DEGRADED' | 'BETA';
+export type Severity = 'success' | 'info' | 'warning' | 'danger' | 'Beta';
 
 export const nodeStatusSeverityMap: Record<NodeStatusType, Severity> = {
   DOWN: 'danger',
   UNASSIGNED: 'warning',
   UP: 'success',
-  DEGRADED: 'info'
+  DEGRADED: 'info',
+  BETA: 'Beta'
 };

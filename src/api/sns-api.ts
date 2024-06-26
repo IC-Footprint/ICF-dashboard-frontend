@@ -1,10 +1,16 @@
+import networkApi from './network-api';
+
 import type { Principal } from '@dfinity/principal';
 
 import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model';
 
-import type { Result_4 } from '@/declarations/cycles_assessment_manager/cycles_assessment_manager.did';
+import type { SnsMetadata } from '@/declarations/cycles_assessment_manager/cycles_assessment_manager.did';
 
 import { createActor as cyclesManagerActor } from '@/declarations/cycles_assessment_manager';
+
+import IcApi from '@/api/ic-api';
+
+// const MEASUREMENT_INTERVAL = 60 * 60 * 1000;
 
 const cycles_assessment_manager =
   process.env.CANISTER_ID_CYCLES_ASSESSMENT_MANAGER ?? '';
@@ -16,23 +22,34 @@ const cyclesAssessmentManager = cyclesManagerActor(cycles_assessment_manager, {
 
 export async function getSNS(): Promise<CarbonAccountModel[]> {
   try {
-    const rootCanisterResults =
-      await cyclesAssessmentManager.fetch_root_canisters();
+    const rootCanistersResult =
+      await cyclesAssessmentManager.get_root_canisters();
 
-    if ('Err' in rootCanisterResults) {
-      throw Error(
-        `[Error fetching root canisters]: ${rootCanisterResults.Err}`
-      );
+    let rootCanisters: Principal[];
+    if (rootCanistersResult.length === 0) {
+      const fetchRootCanistersResult =
+        await cyclesAssessmentManager.fetch_root_canisters();
+      if ('Err' in fetchRootCanistersResult) {
+        throw Error(
+          `[Error fetching root canisters]: ${fetchRootCanistersResult.Err}`
+        );
+      }
+      rootCanisters = fetchRootCanistersResult.Ok;
+    } else {
+      rootCanisters = rootCanistersResult;
     }
 
-    return rootCanisterResults.Ok.map((rootCanister) => ({
+    // Reverse the order of rootCanisters
+    rootCanisters = rootCanisters.reverse();
+
+    return rootCanisters.map((rootCanister) => ({
       id: rootCanister.toText(),
       operator: {
         name: rootCanister.toText()
       },
-      carbonDebit: -1,
-      status: null,
-      weeklyEmissions: -1,
+      carbonDebit: 0,
+      status: 'BETA',
+      weeklyEmissions: 0,
       confidence: null,
       location: null,
       type: 'sns'
@@ -45,133 +62,71 @@ export async function getSNS(): Promise<CarbonAccountModel[]> {
 
 export const getSNSMetadata = async (
   principal: Principal
-): Promise<Result_4> => {
-  return await cyclesAssessmentManager.get_sns_metadata(principal);
-};
+): Promise<SnsMetadata> => {
+  let metadata: SnsMetadata;
 
-export const getSNSEmissions = async (
-  principal: Principal
-): Promise<number> => {
-  const networkEmissionsValue = 1_340_721.27;
-  const networkBurnRateValue = 15_710_317_192;
+  const getMetadataResponse = await cyclesAssessmentManager.get_metadata(
+    principal
+  );
 
-  const burnRateResult =
-    await cyclesAssessmentManager.get_root_canister_cycles_burn_rate(principal);
-
-  if ('Err' in burnRateResult) {
-    console.error('Error fetching burn rate:', burnRateResult.Err);
-    return 0;
-  }
-
-  const snsEmissionsValue =
-    await cyclesAssessmentManager.calculate_canister_emission_rate(
-      Number(burnRateResult.Ok),
-      networkBurnRateValue,
-      networkEmissionsValue
+  if (getMetadataResponse.length === 0) {
+    const getSnsMetadata = await cyclesAssessmentManager.get_sns_metadata(
+      principal
     );
 
-  return snsEmissionsValue;
+    if ('Ok' in getSnsMetadata) {
+      metadata = getSnsMetadata.Ok;
+    } else {
+      throw Error(`[Error fetching SNS metadata]: ${getSnsMetadata.Err}`);
+    }
+  } else {
+    metadata = getMetadataResponse[0];
+  }
+
+  return metadata;
 };
 
-export async function fetchSNSData(): Promise<CarbonAccountModel[]> {
+export const createSNSEmissions = async (
+  principal: Principal
+): Promise<number> => {
+  const icClient = new IcApi();
+
   try {
-    // Hard-coded values
-    const networkEmissionsValue = 1000; // Example value
-    const networkBurnRateValue = 500; // Example value
+    const [dailyNetworkEmissionsData, burnRateResult] = await Promise.all([
+      networkApi.getDailyNetworkEmissions(),
+      cyclesAssessmentManager.get_root_canister_cycles_burn_rate(principal)
+    ]);
 
-    // Fetch root canisters
-    const rootCanistersResult =
-      await cyclesAssessmentManager.fetch_root_canisters();
-    console.log('Root Canisters:', rootCanistersResult);
+    const dailyNetworkEmissions =
+      dailyNetworkEmissionsData.cumulativeNetworkEmissions;
 
-    if ('Err' in rootCanistersResult) {
-      console.error('Error fetching root canisters:', rootCanistersResult.Err);
-      return [];
+    const { cycle_burn_rate } = await icClient.getCycleBurnRate();
+    const dailyCyclesBurnedData = cycle_burn_rate[0][1];
+
+    // Calculate the per day rate
+    const dailyCyclesBurnedPerDay = +dailyCyclesBurnedData * 24 * 60 * 60;
+
+    if ('Err' in burnRateResult) {
+      console.error('Error fetching burn rate:', burnRateResult.Err);
+      return 0;
     }
 
-    interface SNSBurnRate {
-      canisterId: Principal;
-      burnRate?: number;
+    const snsEmissionsValue =
+      await cyclesAssessmentManager.get_cumulative_sns_emissions(
+        principal,
+        dailyCyclesBurnedPerDay,
+        dailyNetworkEmissions,
+        Number(burnRateResult.Ok)
+      );
+
+    if ('Err' in snsEmissionsValue) {
+      console.error('Error fetching emissions:', snsEmissionsValue.Err);
+      return 0;
     }
 
-    const snsBurnRates: SNSBurnRate[] = [];
-
-    for (const rootCanister of rootCanistersResult.Ok) {
-      const burnRateResult =
-        await cyclesAssessmentManager.get_root_canister_cycles_burn_rate(
-          rootCanister
-        );
-
-      if ('Err' in burnRateResult) {
-        console.error('Error fetching burn rate:', burnRateResult.Err);
-
-        snsBurnRates.push({
-          canisterId: rootCanister
-        });
-
-        continue;
-      }
-
-      snsBurnRates.push({
-        canisterId: rootCanister,
-        burnRate: Number(burnRateResult.Ok)
-      });
-    }
-
-    interface SNSEmmission {
-      canisterId: Principal;
-      burnRate: number;
-      snsEmissionsValue: number;
-      networkBurnRateValue: number;
-      networkEmissionsValue: number;
-    }
-
-    const snsEmissions: SNSEmmission[] = [];
-
-    // Fetch sns emmissions
-    for (const sns of snsBurnRates) {
-      if (sns.burnRate === undefined) {
-        snsEmissions.push({
-          canisterId: sns.canisterId,
-          burnRate: 0,
-          snsEmissionsValue: 0,
-          networkBurnRateValue,
-          networkEmissionsValue
-        });
-      } else {
-        const snsEmissionsValue =
-          await cyclesAssessmentManager.calculate_canister_emission_rate(
-            sns.burnRate,
-            networkBurnRateValue,
-            networkEmissionsValue
-          );
-
-        snsEmissions.push({
-          canisterId: sns.canisterId,
-          burnRate: sns.burnRate,
-          networkBurnRateValue,
-          networkEmissionsValue,
-          snsEmissionsValue
-        });
-      }
-    }
-
-    return snsEmissions.map((sns) => {
-      return {
-        id: sns.canisterId.toText(),
-        operator: {
-          name: sns.canisterId.toText()
-        },
-        carbonDebit: sns.snsEmissionsValue,
-        status: null,
-        weeklyEmissions: 0,
-        confidence: null,
-        location: null,
-        type: 'sns'
-      };
-    });
+    return snsEmissionsValue.Ok;
   } catch (error) {
-    console.error('Error fetching SNS data:', error);
-    return [];
+    console.error('Error in createSNSEmissions:', error);
+    throw error;
   }
-}
+};
