@@ -34,7 +34,11 @@ const SuccessDialog = styled(Dialog)`
   }
 `;
 
-const CheckoutForm: FC = () => {
+interface CheckOutFormProps {
+  disable?: boolean;
+}
+
+const CheckoutForm: FC<CheckOutFormProps> = ({ disable }) => {
   const { t } = useTranslation();
   const {
     actions: {
@@ -56,8 +60,8 @@ const CheckoutForm: FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const isFormDisabled = useMemo(() => {
-    return !payment?.nodeId;
-  }, [payment]);
+    return !payment?.nodeId || disable;
+  }, [disable, payment]);
 
   useEffect(() => {
     if (!payment) {

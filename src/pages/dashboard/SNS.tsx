@@ -56,6 +56,7 @@ const SNS: FC = () => {
       isLoading={loading}
       parentRoute={appRoutes.sns.root}
       dataType="sns"
+      setSNSList={setSnsList}
     />
   );
 };

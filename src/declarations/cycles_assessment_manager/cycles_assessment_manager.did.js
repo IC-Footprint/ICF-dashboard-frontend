@@ -49,7 +49,7 @@ export const idlFactory = ({ IDL }) => {
   const Result_5 = IDL.Variant({ 'Ok' : SnsMetadata, 'Err' : IDL.Text });
   return IDL.Service({
     'calculate_canister_emission_rate' : IDL.Func(
-        [IDL.Principal, IDL.Float64, IDL.Float64, IDL.Float64],
+        [IDL.Float64, IDL.Float64, IDL.Float64],
         [IDL.Float64],
         [],
       ),
@@ -94,6 +94,11 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'get_sns_metadata' : IDL.Func([IDL.Principal], [Result_5], []),
+    'get_stored_sns_emissions' : IDL.Func(
+        [IDL.Principal],
+        [Result_4],
+        ['query'],
+      ),
   });
 };
 export const init = ({ IDL }) => { return []; };

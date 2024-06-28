@@ -50,7 +50,7 @@ export interface SnsMetadata {
 }
 export interface _SERVICE {
   'calculate_canister_emission_rate' : ActorMethod<
-    [Principal, number, number, number],
+    [number, number, number],
     number
   >,
   'fetch_root_canisters' : ActorMethod<[], Result>,
@@ -72,6 +72,7 @@ export interface _SERVICE {
   'get_sns_canisters' : ActorMethod<[Principal], [] | [SnsCanisters]>,
   'get_sns_emissions' : ActorMethod<[Principal], [] | [number]>,
   'get_sns_metadata' : ActorMethod<[Principal], Result_5>,
+  'get_stored_sns_emissions' : ActorMethod<[Principal], Result_4>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

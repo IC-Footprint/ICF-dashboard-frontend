@@ -37,6 +37,7 @@ export interface AccountsDataViewProps {
   isLoading?: boolean;
   parentRoute?: string;
   dataType?: AccountDataType;
+  setSNSList?: React.Dispatch<React.SetStateAction<CarbonAccountModel[]>>;
 }
 
 const AddNewItemComponent = ({ account }: { account: AddNewItem }) => {
@@ -71,7 +72,8 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
   list,
   isLoading,
   parentRoute,
-  dataType
+  dataType,
+  setSNSList,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -95,6 +97,7 @@ const AccountsDataView: FC<AccountsDataViewProps> = ({
           account={account}
           dataType={dataType}
           parentRoute={parentRoute}
+          setSNSList={setSNSList}
         />
       );
     }

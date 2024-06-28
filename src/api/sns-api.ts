@@ -20,6 +20,12 @@ const cyclesAssessmentManager = cyclesManagerActor(cycles_assessment_manager, {
   }
 });
 
+const icClient = new IcApi();
+
+const emissionsCache: { [key: string]: { value: number; timestamp: number } } =
+  {};
+const CACHE_EXPIRATION_TIME = 60 * 60 * 1000;
+
 export async function getSNS(): Promise<CarbonAccountModel[]> {
   try {
     const rootCanistersResult =
@@ -89,8 +95,29 @@ export const getSNSMetadata = async (
 export const createSNSEmissions = async (
   principal: Principal
 ): Promise<number> => {
-  const icClient = new IcApi();
+  const cacheKey = principal.toText();
+  const cachedValue = emissionsCache[cacheKey];
 
+  // If there's a cached value and it's not expired, return it
+  if (
+    cachedValue &&
+    Date.now() - cachedValue.timestamp < CACHE_EXPIRATION_TIME
+  ) {
+    // Trigger background update
+    updateEmissionsInBackground(principal);
+    return cachedValue.value;
+  }
+
+  // If there's no cached value or it's expired, calculate a new one
+  const newValue = await calculateSNSEmissions(principal);
+
+  // Update the cache
+  emissionsCache[cacheKey] = { value: newValue, timestamp: Date.now() };
+
+  return newValue;
+};
+
+const updateEmissionsInBackground = async (principal: Principal) => {
   try {
     const [dailyNetworkEmissionsData, burnRateResult] = await Promise.all([
       networkApi.getDailyNetworkEmissions(),
@@ -102,31 +129,81 @@ export const createSNSEmissions = async (
 
     const { cycle_burn_rate } = await icClient.getCycleBurnRate();
     const dailyCyclesBurnedData = cycle_burn_rate[0][1];
-
-    // Calculate the per day rate
     const dailyCyclesBurnedPerDay = +dailyCyclesBurnedData * 24 * 60 * 60;
 
     if ('Err' in burnRateResult) {
       console.error('Error fetching burn rate:', burnRateResult.Err);
-      return 0;
+      return;
     }
 
-    const snsEmissionsValue =
-      await cyclesAssessmentManager.get_cumulative_sns_emissions(
+    cyclesAssessmentManager
+      .get_cumulative_sns_emissions(
         principal,
         dailyCyclesBurnedPerDay,
         dailyNetworkEmissions,
         Number(burnRateResult.Ok)
-      );
+      )
+      .catch((error) => {
+        console.error(
+          'Error updating cumulative emissions in background:',
+          error
+        );
+      });
+  } catch (error) {
+    console.error('Error in updateEmissionsInBackground:', error);
+  }
+};
 
+const calculateSNSEmissions = async (principal: Principal): Promise<number> => {
+  try {
+    const snsEmissionsValue =
+      await cyclesAssessmentManager.get_stored_sns_emissions(principal);
     if ('Err' in snsEmissionsValue) {
       console.error('Error fetching emissions:', snsEmissionsValue.Err);
+      if (
+        snsEmissionsValue.Err ===
+        `No emissions data found for SNS with root ID: ${principal.toText()}`
+      ) {
+        const [dailyNetworkEmissionsData, burnRateResult] = await Promise.all([
+          networkApi.getDailyNetworkEmissions(),
+          cyclesAssessmentManager.get_root_canister_cycles_burn_rate(principal)
+        ]);
+
+        const dailyNetworkEmissions =
+          dailyNetworkEmissionsData.cumulativeNetworkEmissions;
+
+        const { cycle_burn_rate } = await icClient.getCycleBurnRate();
+        const dailyCyclesBurnedData = cycle_burn_rate[0][1];
+
+        // Calculate the per day rate
+        const dailyCyclesBurnedPerDay = +dailyCyclesBurnedData * 24 * 60 * 60;
+
+        if ('Err' in burnRateResult) {
+          console.error('Error fetching burn rate:', burnRateResult.Err);
+          return 0;
+        }
+        cyclesAssessmentManager
+          .get_cumulative_sns_emissions(
+            principal,
+            dailyCyclesBurnedPerDay,
+            dailyNetworkEmissions,
+            Number(burnRateResult.Ok)
+          )
+          .catch((error) => {
+            console.error(
+              'Error updating cumulative emissions in background:',
+              error
+            );
+          });
+      }
       return 0;
     }
 
+    updateEmissionsInBackground(principal);
+
     return snsEmissionsValue.Ok;
   } catch (error) {
-    console.error('Error in createSNSEmissions:', error);
+    console.error('Error in calculateSNSEmissions:', error);
     throw error;
   }
 };

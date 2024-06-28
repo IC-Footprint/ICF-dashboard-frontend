@@ -44,9 +44,7 @@ type SnsMetadata = record {
   description : opt text;
 };
 service : {
-  calculate_canister_emission_rate : (principal, float64, float64, float64) -> (
-      float64,
-    );
+  calculate_canister_emission_rate : (float64, float64, float64) -> (float64);
   fetch_root_canisters : () -> (Result);
   fetch_sns_canisters_for_root : (principal) -> (Result_1);
   get_all_sns_data : () -> (SnsData) query;
@@ -62,4 +60,5 @@ service : {
   get_sns_canisters : (principal) -> (opt SnsCanisters) query;
   get_sns_emissions : (principal) -> (opt float64) query;
   get_sns_metadata : (principal) -> (Result_5);
+  get_stored_sns_emissions : (principal) -> (Result_4) query;
 }
