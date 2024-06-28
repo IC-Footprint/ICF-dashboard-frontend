@@ -44,7 +44,7 @@ const OffsetEmission: FC<OffsetEmissionProps> = ({ isPaymentUnsupported }) => {
           </div>
         </FeaturesInformationCard>
         <div className="col-12 lg:col-6 lg:col-offset-1 relative">
-          <CheckoutForm />
+          <CheckoutForm disable={isPaymentUnsupported} />
           {isPaymentUnsupported ? (
             <MessageOverlayContainer>
               <h2 className="text-primary">

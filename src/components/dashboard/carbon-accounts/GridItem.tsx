@@ -29,11 +29,13 @@ interface GridItemProps {
   account: CarbonAccountModel;
   dataType?: AccountDataType;
   parentRoute?: string;
+  setSNSList?: React.Dispatch<React.SetStateAction<CarbonAccountModel[]>>;
 }
 const GridItem: React.FC<GridItemProps> = ({
   account,
   dataType,
-  parentRoute
+  parentRoute,
+  setSNSList
 }) => {
   const [snsName, setSnsName] = useState<string | undefined>(undefined);
   const [snsIcon, setSnsIcon] = useState<string | undefined>(undefined);
@@ -63,9 +65,21 @@ const GridItem: React.FC<GridItemProps> = ({
 
       createSNSEmissions(Principal.fromText(account.id)).then((value) => {
         setsnsEmissions(value);
+
+        if (value === 0) {
+          setSNSList &&
+            setSNSList((prev) =>
+              prev.map((item) => {
+                if (item.id === account.id) {
+                  return { ...item, emissions: value, status: 'DOWN' };
+                }
+                return item;
+              })
+            );
+        }
       });
     }
-  }, [account]);
+  }, [account, setSNSList]);
 
   const header =
     dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');

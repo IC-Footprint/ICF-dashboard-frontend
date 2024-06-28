@@ -46,7 +46,6 @@ module {
   };
   public type Self = actor {
     calculate_canister_emission_rate : shared (
-        Principal,
         Float,
         Float,
         Float,
@@ -72,5 +71,6 @@ module {
     get_sns_canisters : shared query Principal -> async ?SnsCanisters;
     get_sns_emissions : shared query Principal -> async ?Float;
     get_sns_metadata : shared Principal -> async Result_5;
+    get_stored_sns_emissions : shared query Principal -> async Result_4;
   }
 }

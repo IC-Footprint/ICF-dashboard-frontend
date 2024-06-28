@@ -8,6 +8,8 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import type { HeadlineFiguresModel } from '@/models/dashboard/headline-figures-model';
 import type { FC } from 'react';
 
+import type { NodeStatusType } from '@/models/nodes/node-status-type';
+
 import AccountDetailsCard from '@/components/AccountDetailsCard';
 import AttributionsCard from '@/components/AttributionsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
@@ -48,6 +50,7 @@ const SNSDetails: FC = () => {
   const [snsName, setSnsName] = useState<string | undefined>(undefined);
   const [snsIcon, setSnsIcon] = useState<string | undefined>(undefined);
   const [snsEmissions, setSnsEmissions] = useState<number>();
+  const [snsStatus, setSnsStatus] = useState<NodeStatusType>('BETA');
 
   useEffect(() => {
     if (snsId) {
@@ -71,6 +74,9 @@ const SNSDetails: FC = () => {
 
       createSNSEmissions(Principal.fromText(snsId)).then((value) => {
         setSnsEmissions(value);
+        if (value === 0) {
+          setSnsStatus('DOWN');
+        }
       });
     }
   }, [snsId]);
@@ -110,13 +116,20 @@ const SNSDetails: FC = () => {
           carbonDebit: snsEmissions ?? incrementingNodeEmissions ?? 0,
           operator: {
             ...nodeDetails.operator,
-            name: snsName ?? nodeDetails.operator?.name ?? ''
+            name: snsName ?? nodeDetails.operator?.name ?? '',
+            icon: snsIcon ?? nodeDetails.icon
           },
-          icon: snsIcon ?? nodeDetails.icon,
-          status: 'BETA'
+          status: snsStatus ?? nodeDetails.status
         }
       : null;
-  }, [nodeDetails, incrementingNodeEmissions, snsEmissions, snsName, snsIcon]);
+  }, [
+    nodeDetails,
+    incrementingNodeEmissions,
+    snsEmissions,
+    snsName,
+    snsIcon,
+    snsStatus
+  ]);
 
   const incrementingNodeStats = useMemo((): HeadlineFiguresModel | null => {
     return nodeStats
@@ -141,7 +154,11 @@ const SNSDetails: FC = () => {
           />
         </div>
         <div className="col-12 lg:col-7">
-          <CheckoutCard nodeId={snsId} account={nodeDetails ?? undefined} />
+          <CheckoutCard
+            nodeId={snsId}
+            account={nodeDetails ?? undefined}
+            isPaymentUnsupported={incrementingNodeDetails?.status === 'DOWN'}
+          />
         </div>
         <div className="col-12">
           <NodeStats stats={incrementingNodeStats} />
