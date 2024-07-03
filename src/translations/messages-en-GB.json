@@ -147,7 +147,7 @@
     "leaderboard": "Leaderboard",
     "nodeStatus": {
       "degraded": "Degraded",
-      "down": "Down",
+      "down": "N/A",
       "unassigned": "Unassigned",
       "up": "Live",
       "beta": "BETA"
@@ -214,7 +214,8 @@
       "avoidedEmissions": "Avoided Carbon Emissions",
       "cumulativeElectricityDraw": "Cumulative Electricity Draw",
       "cumulativeNetworkEmissions": "Cumulative Carbon Emissions",
-      "offsetEmissions": "Offset Carbon Emissions"
+      "offsetEmissions": "Offset Carbon Emissions",
+      "startDate": "Start Date"
     },
     "informationCard": {
       "icSns": "IC Footprint Whitepaper\nComing soon",
@@ -295,7 +296,8 @@
     "home": "Home",
     "network": "Network",
     "nodes": "Nodes",
-    "whitePaper": "White Paper"
+    "whitePaper": "White Paper",
+    "LegalDesclaimer": "Legal Disclaimer"
   },
   "project": {
     "machineId": "DAO / {{projectId}}",

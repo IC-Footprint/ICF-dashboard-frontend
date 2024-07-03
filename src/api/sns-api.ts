@@ -10,8 +10,6 @@ import { createActor as cyclesManagerActor } from '@/declarations/cycles_assessm
 
 import IcApi from '@/api/ic-api';
 
-// const MEASUREMENT_INTERVAL = 60 * 60 * 1000;
-
 const cycles_assessment_manager =
   process.env.CANISTER_ID_CYCLES_ASSESSMENT_MANAGER ?? '';
 const cyclesAssessmentManager = cyclesManagerActor(cycles_assessment_manager, {
@@ -21,10 +19,6 @@ const cyclesAssessmentManager = cyclesManagerActor(cycles_assessment_manager, {
 });
 
 const icClient = new IcApi();
-
-const emissionsCache: { [key: string]: { value: number; timestamp: number } } =
-  {};
-const CACHE_EXPIRATION_TIME = 60 * 60 * 1000;
 
 export async function getSNS(): Promise<CarbonAccountModel[]> {
   try {
@@ -95,29 +89,12 @@ export const getSNSMetadata = async (
 export const createSNSEmissions = async (
   principal: Principal
 ): Promise<number> => {
-  const cacheKey = principal.toText();
-  const cachedValue = emissionsCache[cacheKey];
-
-  // If there's a cached value and it's not expired, return it
-  if (
-    cachedValue &&
-    Date.now() - cachedValue.timestamp < CACHE_EXPIRATION_TIME
-  ) {
-    // Trigger background update
-    updateEmissionsInBackground(principal);
-    return cachedValue.value;
-  }
-
-  // If there's no cached value or it's expired, calculate a new one
   const newValue = await calculateSNSEmissions(principal);
-
-  // Update the cache
-  emissionsCache[cacheKey] = { value: newValue, timestamp: Date.now() };
 
   return newValue;
 };
 
-const updateEmissionsInBackground = async (principal: Principal) => {
+export const updateEmissionsInBackground = async (principal: Principal) => {
   try {
     const [dailyNetworkEmissionsData, burnRateResult] = await Promise.all([
       networkApi.getDailyNetworkEmissions(),
@@ -198,9 +175,6 @@ const calculateSNSEmissions = async (principal: Principal): Promise<number> => {
       }
       return 0;
     }
-
-    updateEmissionsInBackground(principal);
-
     return snsEmissionsValue.Ok;
   } catch (error) {
     console.error('Error in calculateSNSEmissions:', error);

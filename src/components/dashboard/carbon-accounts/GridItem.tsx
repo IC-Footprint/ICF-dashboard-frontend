@@ -22,8 +22,19 @@ import { FlexRowContainer } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
 import NodeStatus from '@/components/nodes/NodeStatus';
+// import IcLogo from '@/theme/assets/ic-logo.png';
 
-import { createSNSEmissions, getSNSMetadata } from '@/api/sns-api';
+// const icLogo = IcLogo;
+
+import {
+  createSNSEmissions,
+  getSNSMetadata,
+  updateEmissionsInBackground
+} from '@/api/sns-api';
+
+const Loading: React.FC = () => (
+  <div className="animate-pulse bg-gray-200 h-4 w-20 rounded"></div>
+);
 
 interface GridItemProps {
   account: CarbonAccountModel;
@@ -40,9 +51,17 @@ const GridItem: React.FC<GridItemProps> = ({
   const [snsName, setSnsName] = useState<string | undefined>(undefined);
   const [snsIcon, setSnsIcon] = useState<string | undefined>(undefined);
   const [snsEmissions, setsnsEmissions] = useState<number>();
+  const [iconLoading, setIconLoading] = useState(false);
+  const [nameLoading, setNameLoading] = useState(false);
+  const [isEmissionsLoading, setisEmissionsLoading] = useState(false);
+  const [initialEmissionSet, setInitialEmissionSet] = useState(false);
 
   useEffect(() => {
     if (account.type === 'sns') {
+      setIconLoading(true);
+      setNameLoading(true);
+      setisEmissionsLoading(true);
+
       getSNSMetadata(Principal.fromText(account.id))
         .then((value) => {
           // Handle logo
@@ -51,6 +70,8 @@ const GridItem: React.FC<GridItemProps> = ({
               ? value.logo[0]
               : undefined;
           setSnsIcon(icon);
+          setIconLoading(false);
+          console.log('Logo loaded:', icon); // Added console.log
 
           // Handle name
           const name =
@@ -58,67 +79,101 @@ const GridItem: React.FC<GridItemProps> = ({
               ? value.name[0]
               : undefined;
           setSnsName(name);
+          setNameLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching SNS metadata:', error);
+          setIconLoading(false);
+          setNameLoading(false);
         });
 
       createSNSEmissions(Principal.fromText(account.id)).then((value) => {
         setsnsEmissions(value);
+        console.log('Emissions loaded:', value); // Added console.log
 
         if (value === 0) {
           setSNSList &&
             setSNSList((prev) =>
               prev.map((item) => {
                 if (item.id === account.id) {
-                  return { ...item, emissions: value, status: 'DOWN' };
+                  return {
+                    ...item,
+                    emissions: value,
+                    status: 'DOWN'
+                  };
                 }
                 return item;
               })
             );
         }
+        setisEmissionsLoading(false);
+        setInitialEmissionSet(true);
       });
+    } else {
+      setIconLoading(false);
+      setNameLoading(false);
+      setisEmissionsLoading(false);
     }
   }, [account, setSNSList]);
+
+  // update emissions in the background
+  useEffect(() => {
+    if (account.type === 'sns' && initialEmissionSet) {
+      updateEmissionsInBackground(Principal.fromText(account.id));
+    }
+  }, [account, initialEmissionSet]);
+
+  const isLoading = iconLoading || nameLoading || isEmissionsLoading;
+  // const isDown = account.status === 'DOWN';
 
   const header =
     dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
   const identificationField =
     dataType === 'nodes' ? account.id : account.operator?.name;
 
+
   return (
     <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>
       <AccountCard>
         <FlexRowContainer className="justify-content-between">
           <div className="flex-grow-1">
-            <OperatorIcon
-              src={snsIcon ?? account.icon}
-              alt={identificationField}
-            />
+            {iconLoading ? (
+              <div className="w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
+            ) : (
+              <OperatorIcon
+                src={snsIcon ?? account.icon}
+                alt={identificationField}
+              />
+            )}
           </div>
           <InformationItemContainer className="flex-1">
             <h4>{header}</h4>
-            <p
-              title={snsName ?? identificationField}
-              className="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
-            >
-              {snsName ?? identificationField}
-            </p>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <p
+                title={snsName ?? identificationField}
+                className="font-bold white-space-nowrap overflow-hidden text-overflow-ellipsis"
+              >
+                {snsName ?? identificationField}
+              </p>
+            )}
           </InformationItemContainer>
         </FlexRowContainer>
         <InformationItemContainer>
           <h4>{t('dashboard.carbonAccounts.carbonDebits')}</h4>
-          <p>
-            <span className="text-xl font-bold">
-              {/* {Number(snsEmissions) ?? account.carbonDebit} */}
-              {NumberUtils.formatNumber(snsEmissions ?? account.carbonDebit)}
-            </span>
-            <span className="font-normal">
-              {t('common.unit.co2Kg', {
-                value: ''
-              })}
-            </span>
-          </p>
+          {isEmissionsLoading ? (
+            <Loading />
+          ) : (
+            <p>
+              <span className="text-xl font-bold">
+                {NumberUtils.formatNumber(snsEmissions ?? account.carbonDebit)}
+              </span>
+              <span className="font-normal">
+                {t('common.unit.co2Kg', { value: '' })}
+              </span>
+            </p>
+          )}
         </InformationItemContainer>
         <FlexRowContainer>
           <InformationItemContainer className="min-w-min">
@@ -127,15 +182,23 @@ const GridItem: React.FC<GridItemProps> = ({
                 value: ''
               })}
             </h4>
-            <TrendValue
-              differenceValue={account.weeklyEmissions}
-              size="small"
-              iconAlignment={'right'}
-            />
+            {isEmissionsLoading ? (
+              <Loading />
+            ) : (
+              <TrendValue
+                differenceValue={account.weeklyEmissions}
+                size="small"
+                iconAlignment={'right'}
+              />
+            )}
           </InformationItemContainer>
           <InformationItemContainer className="ml-2">
             <h4>{t('common.status')}</h4>
-            <NodeStatus status={account.status} />
+            {isEmissionsLoading ? (
+              <Loading />
+            ) : (
+              <NodeStatus status={account.status} />
+            )}
           </InformationItemContainer>
           <div className="flex flex-1 justify-content-end">
             <Link to={`${parentRoute}/${account.id}`}>

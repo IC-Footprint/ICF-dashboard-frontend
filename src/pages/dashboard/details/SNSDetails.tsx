@@ -20,7 +20,11 @@ import useNodes from '@/helpers/state/useNodes';
 import usePayment from '@/helpers/state/usePayment';
 import useIntervalIncrement from '@/helpers/useIntervalIncrement';
 import { FlexColumnContainer } from '@/theme/styled-components';
-import { getSNSMetadata, createSNSEmissions } from '@/api/sns-api';
+import {
+  getSNSMetadata,
+  createSNSEmissions,
+  updateEmissionsInBackground
+} from '@/api/sns-api';
 
 /**
  * Renders the Node component, which displays detailed information about a specific node.
@@ -45,6 +49,9 @@ const SNSDetails: FC = () => {
     nodeEmissions,
     nodeEmissionsLoading
   } = useNodes();
+
+  const date = '2024-06-29';
+  const dateError = 'Not Tracking Emissions Yet';
   const { paymentRegistered, payment } = usePayment();
 
   const [snsName, setSnsName] = useState<string | undefined>(undefined);
@@ -77,6 +84,7 @@ const SNSDetails: FC = () => {
         if (value === 0) {
           setSnsStatus('DOWN');
         }
+        updateEmissionsInBackground(Principal.fromText(snsId));
       });
     }
   }, [snsId]);
@@ -161,7 +169,17 @@ const SNSDetails: FC = () => {
           />
         </div>
         <div className="col-12">
-          <NodeStats stats={incrementingNodeStats} />
+          <NodeStats
+            stats={incrementingNodeStats}
+            startDate={
+              snsStatus === 'BETA'
+                ? date
+                : snsStatus === 'DOWN'
+                ? dateError
+                : undefined
+            }
+            isSNS={true}
+          />
         </div>
         <div className="col-12">
           <AttributionsCard

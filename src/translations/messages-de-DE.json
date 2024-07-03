@@ -68,7 +68,8 @@
       "avoidedEmissions": "Vermeidung von CO2-Emissionen",
       "cumulativeElectricityDraw": "Kumulierter Stromverbrauch",
       "cumulativeNetworkEmissions": "Kumulierte CO2-Emissionen",
-      "offsetEmissions": "Kompensation von CO2-Emissionen"
+      "offsetEmissions": "Kompensation von CO2-Emissionen",
+      "startDate": "Startdatum"
     },
     "nodesCounters": {
       "boundaryNodes": "Grenzknoten",

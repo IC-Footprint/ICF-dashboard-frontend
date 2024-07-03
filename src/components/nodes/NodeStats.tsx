@@ -12,12 +12,15 @@ import CircleDashedIcon from '@/theme/assets/icons/circle-dashed';
 import LeafIcon from '@/theme/assets/icons/leaf-alt-3';
 import ThunderboltIcon from '@/theme/assets/icons/thunderbolt';
 import WorldIcon from '@/theme/assets/icons/world-2';
+import TimeIcon from '@/theme/assets/icons/timeIcon';
 
 interface NodeStatsProps {
   stats: HeadlineFiguresModel | null;
+  startDate?: string;
+  isSNS?: boolean;
 }
 
-const NodeStats: FC<NodeStatsProps> = ({ stats }) => {
+const NodeStats: FC<NodeStatsProps> = ({ stats, startDate, isSNS }) => {
   const { t } = useTranslation();
 
   const headlineFigures = {
@@ -26,11 +29,17 @@ const NodeStats: FC<NodeStatsProps> = ({ stats }) => {
       <WorldIcon />,
       stats?.cumulativeNetworkEmissions
     ),
-    cumulativeElectricityDraw: createHeadlineFigureEntry(
-      'wattHour',
-      <ThunderboltIcon />,
-      stats?.cumulativeElectricityDraw
-    ),
+    ...(isSNS && startDate
+      ? {
+          startDate: createHeadlineFigureEntry('date', <TimeIcon />, startDate)
+        }
+      : {
+          cumulativeElectricityDraw: createHeadlineFigureEntry(
+            'wattHour',
+            <ThunderboltIcon />,
+            stats?.cumulativeElectricityDraw
+          )
+        }),
     avoidedEmissions: createHeadlineFigureEntry(
       'co2Kg',
       <CircleDashedIcon />,

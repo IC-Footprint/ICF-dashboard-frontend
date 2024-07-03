@@ -11,8 +11,8 @@ export interface HeadlineFiguresModel {
 }
 
 export interface HeadlineFigureEntryModel {
+  value: number | string;
   icon: ReactNode;
-  value?: number;
   unit: UnitType;
 }
 
@@ -26,12 +26,15 @@ export interface HeadlineFiguresViewModel {
 export function createHeadlineFigureEntry(
   unit: UnitType,
   icon: ReactNode,
-  value?: number
-): HeadlineFigureEntryModel {
+  value?: number | string
+): HeadlineFigureEntryModel | null {
+  if (value === undefined || value === null) {
+    return null;
+  }
   return {
+    value,
     icon,
-    unit,
-    value
+    unit
   };
 }
 

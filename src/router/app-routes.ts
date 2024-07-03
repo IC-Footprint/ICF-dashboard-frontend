@@ -26,5 +26,8 @@ export const appRoutes = {
   },
   about: {
     root: '/about'
+  },
+  legalDisclaimer: {
+    root: '/legal-disclaimer'
   }
 };

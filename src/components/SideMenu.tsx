@@ -60,6 +60,11 @@ const SideMenu: FC<SideMenuProps> = ({ onItemClick }) => {
         t('page.whitePaper'),
         <InfoCircleIcon />,
         appRoutes.whitePaper.root
+      ),
+      createMenuItem(
+        t('page.LegalDesclaimer'),
+        <InfoCircleIcon />,
+        appRoutes.legalDisclaimer.root
       )
     ];
   }, [t, createMenuItem]);

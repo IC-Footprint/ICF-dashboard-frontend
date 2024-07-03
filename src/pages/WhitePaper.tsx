@@ -1,29 +1,30 @@
-import styled from '@emotion/styled';
-import { useTranslation } from 'react-i18next';
+// import styled from '@emotion/styled';
+// import { useTranslation } from 'react-i18next';
 
-import type { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import gradientBackground from '@/theme/assets/gradient-background.png';
-import { FlexColumnContainer } from '@/theme/styled-components';
+import { useEffect, type FC } from 'react';
 
-const ColumnContainer = styled(FlexColumnContainer)`
-  background: url(${gradientBackground}) center;
-  background-size: cover;
-  border-radius: 1rem;
-`;
+import whitepaper from '@/theme/assets/whitepaper.pdf';
+
+// import gradientBackground from '@/theme/assets/gradient-background.png';
+// import { FlexColumnContainer } from '@/theme/styled-components';
+
+// const ColumnContainer = styled(FlexColumnContainer)`
+//   background: url(${gradientBackground}) center;
+//   background-size: cover;
+//   border-radius: 1rem;
+// `;
 
 const WhitePaper: FC = () => {
-  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  return (
-    <FlexColumnContainer>
-      <h3>{t('whitePaper.title')}</h3>
-      <ColumnContainer className="justify-content-center align-items-center flex-grow-1 row-gap-3 mt shadow-8">
-        <h1 className="font-bold">{t('common.featureStatus.comingSoon')}</h1>
-        <p>{t('common.featureStatus.wipMessage')}</p>
-      </ColumnContainer>
-    </FlexColumnContainer>
-  );
+  useEffect(() => {
+    window.open(whitepaper, '_blank');
+    navigate(-1);
+  }, [navigate]);
+
+  return null;
 };
 
 export default WhitePaper;
