@@ -22,7 +22,7 @@ import { FlexRowContainer } from '@/theme/styled-components';
 import { NumberUtils } from '@/utils/number-utils';
 
 import NodeStatus from '@/components/nodes/NodeStatus';
-// import IcLogo from '@/theme/assets/ic-logo.png';
+import icLogo from '@/theme/assets/ic-logo.png';
 
 // const icLogo = IcLogo;
 
@@ -57,7 +57,7 @@ const GridItem: React.FC<GridItemProps> = ({
   const [initialEmissionSet, setInitialEmissionSet] = useState(false);
 
   useEffect(() => {
-    if (account.type === 'sns') {
+    if (account.type === 'sns' && account.status !== 'DOWN') {
       setIconLoading(true);
       setNameLoading(true);
       setisEmissionsLoading(true);
@@ -68,7 +68,7 @@ const GridItem: React.FC<GridItemProps> = ({
           const icon =
             Array.isArray(value.logo) && value.logo.length > 0
               ? value.logo[0]
-              : undefined;
+              : icLogo;
           setSnsIcon(icon);
           setIconLoading(false);
           console.log('Logo loaded:', icon); // Added console.log
@@ -113,6 +113,7 @@ const GridItem: React.FC<GridItemProps> = ({
       setIconLoading(false);
       setNameLoading(false);
       setisEmissionsLoading(false);
+      setSnsIcon(icLogo);
     }
   }, [account, setSNSList]);
 
@@ -130,7 +131,6 @@ const GridItem: React.FC<GridItemProps> = ({
     dataType === 'nodes' ? t('table.headers.id') : t('table.headers.name');
   const identificationField =
     dataType === 'nodes' ? account.id : account.operator?.name;
-
 
   return (
     <div className="col-12 md:col-6 lg:col-4 xl:col-3 p-2" key={account.id}>

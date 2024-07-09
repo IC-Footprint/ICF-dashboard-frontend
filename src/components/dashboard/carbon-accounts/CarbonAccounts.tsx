@@ -75,7 +75,7 @@ const CarbonAccounts: FC = () => {
       },
       {
         label: t('dashboard.carbonAccounts.projects.title') ?? '',
-        disabled: true,
+        // disabled: true,
         url: appRoutes.projects.root,
         icon: (
           <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>

@@ -26,6 +26,9 @@ import {
   updateEmissionsInBackground
 } from '@/api/sns-api';
 
+import SNSWarning from '@/components/nodes/SNSWarning';
+import defaultICPIcon from '@/theme/assets/ic-logo.png';
+
 /**
  * Renders the Node component, which displays detailed information about a specific node.
  * This component fetches and displays node details, stats, canister attributions, emissions, and power consumption.
@@ -61,12 +64,13 @@ const SNSDetails: FC = () => {
 
   useEffect(() => {
     if (snsId) {
-      getSNSMetadata(Principal.fromText(snsId))
+      const principal = Principal.fromText(snsId);
+      getSNSMetadata(principal)
         .then((value) => {
           const icon =
             Array.isArray(value.logo) && value.logo.length > 0
               ? value.logo[0]
-              : undefined;
+              : defaultICPIcon;
           setSnsIcon(icon);
 
           const name =
@@ -77,14 +81,17 @@ const SNSDetails: FC = () => {
         })
         .catch((error) => {
           console.error('Error fetching SNS metadata:', error);
+          setSnsIcon(defaultICPIcon);
         });
 
-      createSNSEmissions(Principal.fromText(snsId)).then((value) => {
+      createSNSEmissions(principal).then((value) => {
         setSnsEmissions(value);
         if (value === 0) {
           setSnsStatus('DOWN');
         }
-        updateEmissionsInBackground(Principal.fromText(snsId));
+        if (value !== 0) {
+          updateEmissionsInBackground(principal);
+        }
       });
     }
   }, [snsId]);
@@ -151,8 +158,9 @@ const SNSDetails: FC = () => {
 
   return (
     <FlexColumnContainer>
+      <SNSWarning />
       <h3 className="text-lg text-color-secondary">
-        {t('nodes.machineId', { nodeId: snsId })}
+        {t('nodes.sns', { nodeId: snsId })}
       </h3>
       <div className="grid">
         <div className="col-12 lg:col-5">

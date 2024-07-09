@@ -4,7 +4,7 @@ import { useEffect, useState, type FC } from 'react';
 
 import { Button } from 'primereact/button';
 
-import { FlexRowCard } from '@/theme/styled-components';
+import { cardBackgroundColor } from '@/theme/colors';
 
 const SNSWarning: FC = () => {
   const { t } = useTranslation();
@@ -29,35 +29,41 @@ const SNSWarning: FC = () => {
   }
 
   return (
-    <FlexRowCard>
-      <div
-        style={{
-          position: 'sticky',
-          top: '1rem'
-        }}
-        className="flex align-items-center justify-content-between"
-      >
-        <div className="flex align-items-center">
-          <i
-            className="pi pi-exclamation-triangle mr-2 p-highlight"
-            style={{ fontSize: '1.5rem' }}
-          />
-          <p className="mx-2">
-            {t('dashboard.carbonAccounts.warning.message')}
-          </p>
-        </div>
-
-        <Button
-          onClick={handleShow}
-          icon="pi pi-times"
-          rounded
-          text
-          severity="info"
-          aria-label="Cancel"
-          size="small"
+    <div
+      style={{
+        position: 'sticky',
+        top: '1rem',
+        backgroundColor: `${cardBackgroundColor}80`,
+        borderRadius: '1rem',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '1.5rem',
+        backdropFilter: 'blur(4px)',
+        boxShadow:
+          '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        zIndex: '20'
+      }}
+    >
+      <div className="flex align-items-center">
+        <i
+          className="pi pi-exclamation-triangle mr-2 p-highlight"
+          style={{ fontSize: '1.5rem' }}
         />
+        <p className="mx-2">{t('dashboard.carbonAccounts.warning.message')}</p>
       </div>
-    </FlexRowCard>
+
+      <Button
+        onClick={handleShow}
+        icon="pi pi-times"
+        rounded
+        text
+        severity="info"
+        aria-label="Cancel"
+        size="small"
+      />
+    </div>
   );
 };
 

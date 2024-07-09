@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import legalDisclaimer from '@/theme/assets/legal_disclaimer.pdf';
+import type { FC } from 'react';
 
-const LegalDisclaimer: React.FC = () => {
+import { config } from '@/config';
+
+const LegalDisclaimer: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.open(legalDisclaimer, '_blank');
+    window.open(config.legalDisclaimerUrl, '_blank');
     navigate(-1);
   }, [navigate]);
 

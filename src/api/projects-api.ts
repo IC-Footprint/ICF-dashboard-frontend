@@ -10,8 +10,8 @@ import type { AxiosResponse } from 'axios';
 
 import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
 
-// import icLogo from '@/theme/assets/ic-logo.png';
-// import openChatIcon from '@/theme/assets/social-logos/openchat.png';
+import icLogo from '@/theme/assets/ic-logo.png';
+import openChatIcon from '@/theme/assets/social-logos/openchat.png';
 
 export class ProjectsApi {
   // TODO: use real list
@@ -25,19 +25,39 @@ export class ProjectsApi {
         }
       }
     );
-    console.log('Node Manager actor created:', nodeManagerActor);
+    // console.log('Node Manager actor created:', nodeManagerActor);
 
-    console.log('Calling get_projects() on Node Manager actor...');
+    // console.log('Calling get_projects() on Node Manager actor...');
     const result = await nodeManagerActor.get_projects();
-    console.log('Projects fetched from Node Manager:', result);
-    return result.map((project: { id: any; name: any; icon: any }) => {
-      console.log('Mapping project:', project);
-      return {
+    // console.log('Projects fetched from Node Manager:', result);
+
+    // Hardcoded projects
+    const hardcodedProjects: ProjectModel[] = [
+      {
+        id: ['tdb26-jop6k-aogll-7ltgs-eruif-6kk7m-qpktf-gdiqx-mxtrf-vb5e6-eqe'],
+        name: 'NNS',
+        icon: icLogo
+      },
+      {
+        id: [
+          'eq6en-6jqla-fbu5s-daskr-h6hx2-376n5-iqabl-qgrng-gfqmv-n3yjr-mqe',
+          '2fq7c-slacv-26cgz-vzbx2-2jrcs-5edph-i5s2j-tck77-c3rlz-iobzx-mqe'
+        ],
+        name: 'OpenChat',
+        icon: openChatIcon
+      }
+    ];
+
+    // Combine hardcoded projects with fetched projects
+    const fetchedProjects = result.map(
+      (project: { id: any; name: any; icon: any }) => ({
         id: project.id,
         name: project.name,
-        icon: project.icon
-      };
-    });
+        icon: project.icon || icLogo // Use icLogo as fallback if no icon is provided
+      })
+    );
+
+    return [...hardcodedProjects, ...fetchedProjects];
   }
 
   async getProjectsEmissions(): Promise<EmissionsModel[]> {

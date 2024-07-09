@@ -185,6 +185,10 @@
       "carbonDebits": "Carbon Debits",
       "nodeProvider": "Node Provider",
       "sns": "SNS",
+      "warning": {
+        "title": "Note",
+        "message": "SNS canister emissions tracking is a beta feature. Figures represented here have a lower confidence than network, node and subnet emissions."
+      },
       "nodeProviders": {
         "error": "Error loading the node providers",
         "title": "Node Providers"
@@ -284,6 +288,7 @@
   "nodes": {
     "electricityDrawByTechnologyType": "Electricity draw by technology type (Wh)",
     "machineId": "Node / {{nodeId}}",
+    "sns": "SNS / {{nodeId}}",
     "networkEmissions": "Network Emissions (kgCo2e)",
     "nodeCanisterAttributions": "Node Ledger",
     "nodeElectricityDraw": "Node Electricity Draw",

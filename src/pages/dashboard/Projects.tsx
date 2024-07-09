@@ -46,7 +46,7 @@ const Projects: FC = () => {
 
   return (
     <AccountsDataView
-      list={[{__typename: 'AddNewItem', title: 'Create New DAO'}, ...filteredProjects]}
+      list={[...filteredProjects]}
       isLoading={isProjectsLoading}
       parentRoute={appRoutes.projects.root}
       dataType="projects"
