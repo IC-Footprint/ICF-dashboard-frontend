@@ -69,7 +69,7 @@ const CarbonAccounts: FC = () => {
         // disabled:true,
         url: appRoutes.sns.root,
         icon: (
-          <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
+          <FeatureStatusTag>{t('common.featureStatus.BETA')}</FeatureStatusTag>
         ),
         template: itemWithFeatureStatus
       },
@@ -77,9 +77,9 @@ const CarbonAccounts: FC = () => {
         label: t('dashboard.carbonAccounts.projects.title') ?? '',
         // disabled: true,
         url: appRoutes.projects.root,
-        icon: (
-          <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
-        ),
+        // icon: (
+        //   <FeatureStatusTag>{t('common.featureStatus.new')}</FeatureStatusTag>
+        // ),
         template: itemWithFeatureStatus
       },
       {

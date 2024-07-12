@@ -42,18 +42,23 @@ export async function getSNS(): Promise<CarbonAccountModel[]> {
     // Reverse the order of rootCanisters
     rootCanisters = rootCanisters.reverse();
 
-    return rootCanisters.map((rootCanister) => ({
-      id: rootCanister.toText(),
-      operator: {
-        name: rootCanister.toText()
-      },
-      carbonDebit: 0,
-      status: 'BETA',
-      weeklyEmissions: 0,
-      confidence: null,
-      location: null,
-      type: 'sns'
-    }));
+    return rootCanisters
+      .filter(
+        (rootCanister) =>
+          rootCanister.toText() !== '3e3x2-xyaaa-aaaaq-aaalq-cai'
+      )
+      .map((rootCanister) => ({
+        id: rootCanister.toText(),
+        operator: {
+          name: rootCanister.toText()
+        },
+        carbonDebit: 0,
+        status: 'BETA',
+        weeklyEmissions: 0,
+        confidence: null,
+        location: null,
+        type: 'sns'
+      }));
   } catch (error) {
     console.error(error);
     return [];

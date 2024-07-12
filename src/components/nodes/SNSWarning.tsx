@@ -1,22 +1,25 @@
+// SNSWarning.tsx
 import { useTranslation } from 'react-i18next';
-
 import { useEffect, useState, type FC } from 'react';
-
 import { Button } from 'primereact/button';
+
+import type { NodeStatusType } from '@/models/nodes/node-status-type';
 
 import { cardBackgroundColor } from '@/theme/colors';
 
-const SNSWarning: FC = () => {
+interface SNSWarningProps {
+  status: NodeStatusType;
+}
+
+const SNSWarning: FC<SNSWarningProps> = ({ status }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(true);
 
   useEffect(() => {
     const storedShow = localStorage.getItem('snsWarningShow');
-
     if (storedShow === 'false') {
       setShow(false);
     }
-
     return () => {
       localStorage.setItem('snsWarningShow', show.toString());
     };
@@ -27,6 +30,11 @@ const SNSWarning: FC = () => {
   if (!show) {
     return null;
   }
+
+  const warningMessage =
+    status === 'DOWN'
+      ? t('dashboard.carbonAccounts.warning.downMessage')
+      : t('dashboard.carbonAccounts.warning.message');
 
   return (
     <div
@@ -51,7 +59,7 @@ const SNSWarning: FC = () => {
           className="pi pi-exclamation-triangle mr-2 p-highlight"
           style={{ fontSize: '1.5rem' }}
         />
-        <p className="mx-2">{t('dashboard.carbonAccounts.warning.message')}</p>
+        <p className="mx-2">{warningMessage}</p>
       </div>
 
       <Button

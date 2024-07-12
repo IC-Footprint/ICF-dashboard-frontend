@@ -13,8 +13,8 @@ import type { NodeStatusType } from '@/models/nodes/node-status-type';
 import AccountDetailsCard from '@/components/AccountDetailsCard';
 import AttributionsCard from '@/components/AttributionsCard';
 import CheckoutCard from '@/components/checkout/CheckoutCard';
-import ChartCard from '@/components/nodes/ChartCard';
-import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
+// import ChartCard from '@/components/nodes/ChartCard';
+// import NodePowerConsumption from '@/components/nodes/NodePowerConsumtion';
 import NodeStats from '@/components/nodes/NodeStats';
 import useNodes from '@/helpers/state/useNodes';
 import usePayment from '@/helpers/state/usePayment';
@@ -42,15 +42,15 @@ const SNSDetails: FC = () => {
       getNodeDetails,
       getNodeStats,
       getNodeCanisterAttributions,
-      getNodeEmissions,
+      // getNodeEmissions,
       resetNodeDetails
     },
     nodeDetails,
     nodeStats,
     canisterAttributions,
-    isCanisterAttributionsLoading,
-    nodeEmissions,
-    nodeEmissionsLoading
+    isCanisterAttributionsLoading
+    // nodeEmissions,
+    // nodeEmissionsLoading
   } = useNodes();
 
   const date = '2024-06-29';
@@ -158,7 +158,7 @@ const SNSDetails: FC = () => {
 
   return (
     <FlexColumnContainer>
-      <SNSWarning />
+      <SNSWarning status={snsStatus} />
       <h3 className="text-lg text-color-secondary">
         {t('nodes.sns', { nodeId: snsId })}
       </h3>
@@ -196,7 +196,7 @@ const SNSDetails: FC = () => {
             isLoading={isCanisterAttributionsLoading}
           />
         </div>
-        <div className="col-12 lg:col-6">
+        {/* <div className="col-12 lg:col-6">
           <ChartCard
             label={t('nodes.nodeEmissions')}
             idFilter={snsId ?? ''}
@@ -204,10 +204,10 @@ const SNSDetails: FC = () => {
             getDataAction={getNodeEmissions}
             isLoading={nodeEmissionsLoading}
           />
-        </div>
-        <div className="col-12 lg:col-6">
+        </div> */}
+        {/* <div className="col-12 lg:col-6">
           <NodePowerConsumption nodeId={snsId ?? ''} />
-        </div>
+        </div> */}
       </div>
     </FlexColumnContainer>
   );

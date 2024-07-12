@@ -187,7 +187,8 @@
       "sns": "SNS",
       "warning": {
         "title": "Note",
-        "message": "SNS canister emissions tracking is a beta feature. Figures represented here have a lower confidence than network, node and subnet emissions."
+        "message": "SNS canister emissions tracking is a beta feature. Figures represented here have a lower confidence than network, node and subnet emissions.",
+        "downMessage": "This SNS canister is out of cycles or has no idlecycle method. Emissions data may not be available."
       },
       "nodeProviders": {
         "error": "Error loading the node providers",
