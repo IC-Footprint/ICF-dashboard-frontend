@@ -14,7 +14,7 @@ import type { FC } from 'react';
 import { ResourcesMappers } from '@/state/resources/resources-mappers';
 import IconLink from '@/components/IconLink';
 import useResources from '@/helpers/state/useResources';
-import { appRoutes } from '@/router/app-routes';
+// import { appRoutes } from '@/router/app-routes';
 import carouselBackground from '@/theme/assets/carousel-background.png';
 import {
   FlexColumnContainer,
@@ -37,7 +37,6 @@ const CarouselCard = styled(StyledCard)`
     padding-bottom: 0;
   }
 `;
-
 const CarouselItemContainer = styled(FlexColumnContainer)`
   align-items: center;
   justify-content: center;
@@ -63,9 +62,9 @@ const DashboardInformationCarousel: FC = () => {
   >((): DashboardCarouselItemModel[] => {
     return [
       {
-        title: t('dashboard.informationCard.icSns'),
-        buttonLabel: t('whitePaper.title') ?? '',
-        redirectRoute: appRoutes.whitePaper.root
+        title: t('dashboard.informationCard.icFootprintSns'),
+        buttonLabel: t('common.learnMore') ?? '',
+        href: 'https://nns.ic0.app/proposal/?u=qoctq-giaaa-aaaaa-aaaea-cai&proposal=131075'
       },
       {
         title: t('dashboard.informationCard.sustainabilityReport', {

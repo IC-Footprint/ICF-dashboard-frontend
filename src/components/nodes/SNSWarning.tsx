@@ -9,25 +9,24 @@ import { cardBackgroundColor } from '@/theme/colors';
 
 interface SNSWarningProps {
   status: NodeStatusType;
+  id: string;
 }
 
-const SNSWarning: FC<SNSWarningProps> = ({ status }) => {
+const SNSWarning: FC<SNSWarningProps> = ({ status, id }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const storedShow = localStorage.getItem('snsWarningShow');
-    if (storedShow === 'false') {
-      setShow(false);
-    }
-    return () => {
-      localStorage.setItem('snsWarningShow', show.toString());
-    };
-  }, [show]);
+    const storedShow = sessionStorage.getItem(`snsWarning_${id}`);
+    setShow(storedShow !== 'false');
+  }, [id]);
 
-  const handleShow = () => setShow(false);
-
-  if (!show) {
+  const handleShow = () => {
+    setShow(false);
+    sessionStorage.setItem(`snsWarningShow_${id}`, 'false');
+  };
+  
+  if (!show && status !== 'DOWN') {
     return null;
   }
 
@@ -62,15 +61,17 @@ const SNSWarning: FC<SNSWarningProps> = ({ status }) => {
         <p className="mx-2">{warningMessage}</p>
       </div>
 
-      <Button
-        onClick={handleShow}
-        icon="pi pi-times"
-        rounded
-        text
-        severity="info"
-        aria-label="Cancel"
-        size="small"
-      />
+      {status !== 'DOWN' && (
+        <Button
+          onClick={handleShow}
+          icon="pi pi-times"
+          rounded
+          text
+          severity="info"
+          aria-label="Cancel"
+          size="small"
+        />
+      )}
     </div>
   );
 };

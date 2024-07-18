@@ -2,7 +2,7 @@ import type { CarbonAccountModel } from '@/models/dashboard/carbon-account-model
 import type { EmissionsModel } from '@/models/emissions-model';
 import type { NodeModel } from '@/models/nodes/node-model';
 
-import activityIcon from '@/theme/assets/activity-icon.svg';
+import activityIcon from '@/theme/assets/ic-logo.png';
 import locationMapper from '@/utils/location-mapper';
 
 export class NodesMappers {

@@ -7,21 +7,17 @@ import { createActor as esgWalletCreateActor } from '@/declarations/esg_wallet';
 // import { createActor as nodeManagerCreateActor } from '@/declarations/node_manager';
 import getICPtoUSDRate from '@/services/neutriniteInteraction';
 
-
 import { PaymentMappers } from '@/state/payment/payment-mappers';
 
 export class PaymentApi {
- async calculateCost(paymentData: PaymentDataModel): Promise<number> {
-  const esgWallet = process.env.CANISTER_ID_ESG_WALLET ?? '';
-  // console.log('ESG Wallet: ', esgWallet);
-    const esgWalletActor = esgWalletCreateActor(
-      esgWallet,
-      {
-        agentOptions: {
-          host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-        }
+  async calculateCost(paymentData: PaymentDataModel): Promise<number> {
+    const esgWallet = process.env.CANISTER_ID_ESG_WALLET ?? '';
+    // console.log('ESG Wallet: ', esgWallet);
+    const esgWalletActor = esgWalletCreateActor(esgWallet, {
+      agentOptions: {
+        host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
       }
-    );
+    });
 
     // Step 1: Obtain the ICP to USD rate
     const icpToUSDRate = await getICPtoUSDRate();
@@ -39,74 +35,71 @@ export class PaymentApi {
     const adjustedTicketPriceInICP = ticketPriceInICP * figureValueInICP;
 
     // Step 3: Call the setTicketPrice method with the adjusted ticket price in ICP
-    const ticket = await esgWalletActor.setTicketPrice(adjustedTicketPriceInICP);
+    await esgWalletActor.setTicketPrice(adjustedTicketPriceInICP);
 
-    try {
-        // Handle the response as needed
-        console.log('Ticket price set successfully:', ticket);
-    } catch (error) {
-        console.error('Error setting ticket price:', error);
-        throw error; // Rethrow the error or handle it as needed
-    }
-
+    // try {
+    //     // Handle the response as needed
+    //     console.log('Ticket price set successfully:', ticket);
+    // } catch (error) {
+    //     // console.error('Error setting ticket price:', error);
+    //     throw error; // Rethrow the error or handle it as needed
+    // }
 
     const ticketPrice = await esgWalletActor.getTicketPrice();
     // Adjust the figure to ICP unit
     const adjustedFigure = paymentData.carbonDebitAmount / 100000000;
     const result = ticketPrice * adjustedFigure;
     return Number(result);
- }
+  }
 
- async registerPayment(paymentData: PaymentDataModel): Promise<boolean> {
-  
-  paymentData.totalCost = await this.calculateCost(paymentData);
-  // console.log('Total cost: ', paymentData.totalCost);
+  async registerPayment(paymentData: PaymentDataModel): Promise<boolean> {
+    paymentData.totalCost = await this.calculateCost(paymentData);
+    // console.log('Total cost: ', paymentData.totalCost);
     if (!paymentData.totalCost) {
       console.log('Total cost is required');
       return false;
     }
     try {
       await plugWallet.makePayment(
-      process.env.CANISTER_ID_ESG_WALLET ?? '',
-      paymentData.carbonDebitAmount,
-      paymentData.totalCost,
-      [paymentData.nodeId],
-    );
-  } catch (error) {
-    console.log('Error making payment:', error);
-    return false;
-  }
+        process.env.CANISTER_ID_ESG_WALLET ?? '',
+        paymentData.carbonDebitAmount,
+        paymentData.totalCost,
+        [paymentData.nodeId]
+      );
+    } catch (error) {
+      console.log('Error making payment:', error);
+      return false;
+    }
     console.log('Payment successful');
     return true;
   }
 
-
-async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
-  const esgWalletActor = esgWalletCreateActor(
-    process.env.CANISTER_ID_ESG_WALLET ?? '',
+  async getPurchases(nodeId: string): Promise<CanisterAttributionModel[]> {
+    const esgWalletActor = esgWalletCreateActor(
+      process.env.CANISTER_ID_ESG_WALLET ?? '',
       {
-          agentOptions: {
-              host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-          }
+        agentOptions: {
+          host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+        }
       }
-  );
-  const result = await esgWalletActor.getPurchasesByNodeId(nodeId);
-  return result.map(PaymentMappers.mapPurchase);
-}
+    );
+    const result = await esgWalletActor.getPurchasesByNodeId(nodeId);
+    return result.map(PaymentMappers.mapPurchase);
+  }
 
-async getAllPurchases(): Promise<CanisterAttributionModel[]> {
-  const esgWalletActor = esgWalletCreateActor(
-    process.env.CANISTER_ID_ESG_WALLET ?? '',
+  async getAllPurchases(): Promise<CanisterAttributionModel[]> {
+    const esgWalletActor = esgWalletCreateActor(
+      process.env.CANISTER_ID_ESG_WALLET ?? '',
       {
-          agentOptions: {
-              host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
-          }
+        agentOptions: {
+          host: import.meta.env.VITE_APP_ICP_NETWORK_HOST
+        }
       }
-  );
-  const result = await esgWalletActor.getPurchases();
-  // console.log('All purchases: ', result);
-  return result.map(PaymentMappers.mapPurchase);
-}
+    );
+    const result = await esgWalletActor.getPurchases();
+    // console.log('All purchases: ', result);
+    return result.map(PaymentMappers.mapPurchase);
+  }
 }
 
 const paymentApi = new PaymentApi();

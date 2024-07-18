@@ -121,6 +121,7 @@
       "rejected": "Rejected",
       "validated": "Validated"
     },
+    "learnMore": "Learn more",
     "canisterAttributionType": {
       "carbonCredit": "Carbon Credit"
     },
@@ -188,7 +189,7 @@
       "warning": {
         "title": "Note",
         "message": "SNS canister emissions tracking is a beta feature. Figures represented here have a lower confidence than network, node and subnet emissions.",
-        "downMessage": "This SNS canister is out of cycles or has no idlecycle method. Emissions data may not be available."
+        "downMessage": "This SNS canister is out of cycles or does not return the idle cycle burn item in canister status method. Emissions data is currently not be available."
       },
       "nodeProviders": {
         "error": "Error loading the node providers",
@@ -225,7 +226,8 @@
     "informationCard": {
       "icSns": "IC Footprint Whitepaper\nComing soon",
       "joinSocials": "Join our Socials",
-      "sustainabilityReport": "SUSTAINABILITY REPORT\n{{year}}"
+      "sustainabilityReport": "SUSTAINABILITY REPORT\n{{year}}",
+      "icFootprintSns": "IC Footprint SNS"
     },
     "nodesCounters": {
       "boundaryNodes": "Boundary Nodes",

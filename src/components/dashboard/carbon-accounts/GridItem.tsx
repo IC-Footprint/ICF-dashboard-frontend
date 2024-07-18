@@ -56,23 +56,32 @@ const GridItem: React.FC<GridItemProps> = ({
   const [isEmissionsLoading, setisEmissionsLoading] = useState(false);
   const [initialEmissionSet, setInitialEmissionSet] = useState(false);
 
+  const iconSrc =
+    account.type === 'nodeProviders' ? icLogo : snsIcon ?? account.icon;
   useEffect(() => {
     if (account.type === 'sns' && account.status !== 'DOWN') {
-      setIconLoading(true);
+      // setIconLoading(true);
       setNameLoading(true);
       setisEmissionsLoading(true);
 
+      // handle icon
+      if (account.icon) {
+        setSnsIcon(account.icon);
+      } else {
+        setIconLoading(true);
+      }
+
       getSNSMetadata(Principal.fromText(account.id))
         .then((value) => {
-          // Handle logo
-          const icon =
-            Array.isArray(value.logo) && value.logo.length > 0
-              ? value.logo[0]
-              : icLogo;
-          setSnsIcon(icon);
-          setIconLoading(false);
-          console.log('Logo loaded:', icon); // Added console.log
-
+          // Handle logo if not already set
+          if (!account.icon) {
+            const icon =
+              Array.isArray(value.logo) && value.logo.length > 0
+                ? value.logo[0]
+                : icLogo;
+            setSnsIcon(icon);
+            setIconLoading(false);
+          }
           // Handle name
           const name =
             Array.isArray(value.name) && value.name.length > 0
@@ -83,13 +92,15 @@ const GridItem: React.FC<GridItemProps> = ({
         })
         .catch((error) => {
           console.error('Error fetching SNS metadata:', error);
-          setIconLoading(false);
+          if (!account.icon) {
+            setSnsIcon(icLogo);
+            setIconLoading(false);
+          }
           setNameLoading(false);
         });
 
       createSNSEmissions(Principal.fromText(account.id)).then((value) => {
         setsnsEmissions(value);
-        console.log('Emissions loaded:', value); // Added console.log
 
         if (value === 0) {
           setSNSList &&
@@ -113,7 +124,7 @@ const GridItem: React.FC<GridItemProps> = ({
       setIconLoading(false);
       setNameLoading(false);
       setisEmissionsLoading(false);
-      setSnsIcon(icLogo);
+      setSnsIcon(account.icon || icLogo);
     }
   }, [account, setSNSList]);
 
@@ -140,10 +151,7 @@ const GridItem: React.FC<GridItemProps> = ({
             {iconLoading ? (
               <div className="w-12 h-12 bg-gray-200 rounded-full animate-pulse"></div>
             ) : (
-              <OperatorIcon
-                src={snsIcon ?? account.icon}
-                alt={identificationField}
-              />
+              <OperatorIcon src={iconSrc} alt={identificationField} />
             )}
           </div>
           <InformationItemContainer className="flex-1">

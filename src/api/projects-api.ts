@@ -16,7 +16,7 @@ import openChatIcon from '@/theme/assets/social-logos/openchat.png';
 export class ProjectsApi {
   // TODO: use real list
   async getProjects(): Promise<ProjectModel[]> {
-    console.log('Fetching projects from Node Manager canister...');
+    // console.log('Fetching projects from Node Manager canister...');
     const nodeManagerActor = nodeManagerCreateActor(
       process.env.CANISTER_ID_NODE_MANAGER ?? '',
       {

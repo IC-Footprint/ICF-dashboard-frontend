@@ -158,7 +158,7 @@ const SNSDetails: FC = () => {
 
   return (
     <FlexColumnContainer>
-      <SNSWarning status={snsStatus} />
+      <SNSWarning status={snsStatus} id={snsId ?? ''} />
       <h3 className="text-lg text-color-secondary">
         {t('nodes.sns', { nodeId: snsId })}
       </h3>

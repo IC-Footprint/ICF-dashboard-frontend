@@ -7,7 +7,7 @@ export class NodeProvidersMappers {
     nodeProviderName?: string
   ): CarbonAccountModel {
     return {
-      weeklyEmissions: (headlineFigures.weeklyEmissions) / 1000,
+      weeklyEmissions: headlineFigures.weeklyEmissions / 1000,
       operator: nodeProviderName
         ? {
             name: nodeProviderName
