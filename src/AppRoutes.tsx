@@ -2,8 +2,11 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import SNSDetails from './pages/dashboard/details/SNSDetails';
 
+<<<<<<< HEAD
 import LegalDisclaimer from './pages/legalDesclaimer';
 
+=======
+>>>>>>> 493dcb473e8e6bb87e99bb178a5d8056ef9baefe
 import type { FC } from 'react';
 
 import Layout from '@/components/Layout';
@@ -49,11 +52,14 @@ const AppRoutes: FC = () => {
           element={<WhitePaper />}
         ></Route>
         <Route
+<<<<<<< HEAD
           path={appRoutes.legalDisclaimer.root}
           element={<LegalDisclaimer />}
         ></Route>
 
         <Route
+=======
+>>>>>>> 493dcb473e8e6bb87e99bb178a5d8056ef9baefe
           path="/*"
           element={<Navigate to={appRoutes.dashboard.root} />}
         ></Route>

@@ -30,8 +30,8 @@ import SNSWarning from '@/components/nodes/SNSWarning';
 import defaultICPIcon from '@/theme/assets/ic-logo.png';
 
 /**
- * Renders the Node component, which displays detailed information about a specific node.
- * This component fetches and displays node details, stats, canister attributions, emissions, and power consumption.
+ * Renders the SNS component, which displays detailed information about a specific sns.
+ * This component fetches and displays sns details, stats, canister attributions, emissions, and power consumption.
  * It also handles the incrementing of node emissions and updates the displayed values accordingly.
  */
 const SNSDetails: FC = () => {
